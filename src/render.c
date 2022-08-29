@@ -26,6 +26,26 @@ void renderImageRenderTexture(SDL_Texture *texture, int x, int y, int w, int h)
   SDL_RenderCopy(rend, texture, NULL, &srcrect);
 }
 
+void renderImageRenderTextureFlip(SDL_Texture *texture, int x, int y, int w, int h, double angle, SDL_RendererFlip flag)
+{
+  // use -1 for autism
+  /* flags may be these:
+    SDL_FLIP_NONE
+    SDL_FLIP_HORIZONTAL
+    SDL_FLIP_VERTICAL
+  */
+
+  if(flag == (SDL_RendererFlip)-1)
+  {
+    flag = SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL;
+  }
+  srcrect.x = x;
+  srcrect.y = y;
+  srcrect.w = w;
+  srcrect.h = h;
+  SDL_RenderCopyEx(rend, texture, NULL, &srcrect, angle, NULL, flag);
+}
+
 void renderClear()
 {
   SDL_RenderClear(rend);

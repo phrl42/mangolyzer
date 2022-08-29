@@ -7,6 +7,8 @@ SDL_Texture* renderImageLoadTexture(const char* file);
 
 void renderImageRenderTexture(SDL_Texture *texture, int x, int y, int w, int h);
 
+void renderImageRenderTextureFlip(SDL_Texture *texture, int x, int y, int w, int h, double angle, SDL_RendererFlip flag);
+
 void renderClear();
 void renderPresent();
 
