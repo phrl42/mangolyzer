@@ -17,7 +17,7 @@ SDL_Texture* renderImageLoadTexture(const char* file)
   return IMG_LoadTexture(rend, file);
 }
 
-void renderImageRenderTexture(SDL_Texture *texture, int x, int y, int w, int h)
+void renderDisplayTexture(SDL_Texture *texture, int x, int y, int w, int h)
 {
   srcrect.x = x;
   srcrect.y = y;
@@ -26,7 +26,7 @@ void renderImageRenderTexture(SDL_Texture *texture, int x, int y, int w, int h)
   SDL_RenderCopy(rend, texture, NULL, &srcrect);
 }
 
-void renderImageRenderTextureFlip(SDL_Texture *texture, int x, int y, int w, int h, double angle, SDL_RendererFlip flag)
+void renderDisplayTextureFlip(SDL_Texture *texture, int x, int y, int w, int h, double angle, SDL_RendererFlip flag)
 {
   // use -1 for autism
   /* flags may be these:
