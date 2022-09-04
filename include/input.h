@@ -3,6 +3,6 @@
 
 #include "incs.h"
 
-SDL_KeyCode inputHandleKeyboard();
+bool inputCheckKey(SDL_Scancode key);
 
 #endif

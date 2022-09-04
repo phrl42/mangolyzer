@@ -2,6 +2,8 @@
 #include "render.h"
 #include "input.h"
 #include "font.h"
+#include "mixer.h"
+
 int main()
 {
   bool gameLoop = true; 
@@ -16,13 +18,21 @@ int main()
   initEngine(0);
   initWindow(WIDTH, HEIGHT, 0, 0, SDL_WINDOW_FULLSCREEN);
   initRenderer(0);
+  
   initIMG(IMG_INIT_PNG);
   initTTF();
 
   SDL_Texture *consenbren;
-  TTF_Font *font;
   SDL_Texture *fontTexture;
   SDL_Texture *banana;
+
+  TTF_Font *font;
+
+  Mix_Chunk *keySound;
+
+  mixerOpenAudio(22050, 2);
+
+  keySound = mixerLoadAudio("src/bum.wav");
 
   consenbren = renderImageLoadTexture("src/img/con.png");
   banana = renderImageLoadTexture("src/img/banana.png");
@@ -30,12 +40,23 @@ int main()
   font = fontLoad("src/ttf/mononoki.ttf", 16);
 
   fontTexture = fontRenderLoadFont(font, "test", 255, 255, 255, 255);
-  
+ 
   while(gameLoop)
   {
     // quit when q is pressed
-    if(inputHandleKeyboard() == SDLK_q) gameLoop = false;
-  
+    if(inputCheckKey(SDL_SCANCODE_Q)) 
+    {
+      gameLoop = false;
+    }
+
+    // play sound when key is pressed
+    if(inputCheckKey(SDL_SCANCODE_C))
+    {
+      mixerPlayAudio(-1, keySound, 0);
+    }
+
+    //------RENDER LOOP-----------
+
     // clear screen
     renderClear();
    
@@ -52,6 +73,12 @@ int main()
     // switch back- with frontbuffer
     renderPresent();
   }
+  
+  fontClose(font);
+
+  mixerFreeChunk(keySound);
+
+  initDestroyTexture(fontTexture);
   initDestroyTexture(consenbren);
   initDestroyTexture(banana);
   initQuit();

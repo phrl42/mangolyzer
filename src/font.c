@@ -45,3 +45,9 @@ SDL_Texture* fontRenderLoadFont(TTF_Font *font, const char* text, Uint8 r, Uint8
 
   return textureTest;
 }
+
+void fontClose(TTF_Font *font)
+{
+  SDL_DestroyTexture(textureTest);
+  TTF_CloseFont(font);
+}

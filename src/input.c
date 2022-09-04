@@ -1,27 +1,21 @@
 #include "input.h"
 
-SDL_KeyCode inputHandleKeyboard()
-{
-  SDL_Event ev;
+const Uint8 *keys;
 
+bool inputCheckKey(SDL_Scancode key)
+{
+  // an sdl event is mandatory because the SDL_GetKeyboardState function only returns after processing all events
+  SDL_Event ev;
+  keys = SDL_GetKeyboardState(NULL);
+  
   while(SDL_PollEvent(&ev))
   {
-    switch(ev.type)
+    if(keys[key])
     {
-      case SDL_KEYDOWN:
-        
-        switch(ev.key.keysym.sym)
-        {
-          default:
-            return ev.key.keysym.sym;
-            break;
-        }
-        
-        break;
-
-      default:
-        break;
+      return true;
     }
+    break;
   }
-  return 0;
+  return false;
 }
+
