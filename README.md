@@ -9,11 +9,11 @@ a work in progress game engine made in c for fun
 <p>The Documentation will be coming soon.</p>
 <p>As of now this Engine supports simple things such as:</p>
 
-- [x] Initializations of libraries
-- [x] Auto-Uninitializations of libraries
-- [x] rendering images
+- [x] initializations and co
+- [x] implement sdl_image
 - [x] implement sdl_mixer
 - [x] implement sdl_ttf
+- [x] implement input
 - [ ] physics
 - [ ] documentation
 - [ ] make the code more beautiful
