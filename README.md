@@ -11,10 +11,11 @@ a work in progress game engine made in c for fun
 
 - [x] Initializations of libraries
 - [x] Auto-Uninitializations of libraries
-- [x] Rendering Images to Textures
-- [x] Handles Keyboard Input
-- [ ] Logic and useful Tools
-- [ ] Documentation
+- [x] rendering images
+- [x] implement sdl_mixer
+- [x] implement sdl_ttf
+- [ ] physics
+- [ ] documentation
 - [ ] make the code more beautiful
 
 # Contributing
