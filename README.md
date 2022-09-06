@@ -14,9 +14,11 @@ a work in progress game engine made in c for fun
 - [x] implement sdl_mixer
 - [x] implement sdl_ttf
 - [x] implement input
+- [ ] fix input function
 - [ ] physics
 - [ ] documentation
 - [ ] make the code more beautiful
 
+For now it is advised to not use the built-in input functions, as they do not work, and yet I don't have a clue why. You should use the normal sdl2 functions. See src/main.c for an example
 # Contributing
 Feel free to contribute anytime.

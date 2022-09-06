@@ -1,6 +1,6 @@
 #include "init.h"
 #include "render.h"
-#include "input.h"
+// #include "input.h" discarded for now
 #include "font.h"
 #include "mixer.h"
 
@@ -26,6 +26,8 @@ int main()
   SDL_Texture *fontTexture;
   SDL_Texture *banana;
 
+  SDL_Event ev;
+
   TTF_Font *font;
 
   Mix_Chunk *keySound;
@@ -43,18 +45,13 @@ int main()
  
   while(gameLoop)
   {
-    // quit when q is pressed
-    if(inputCheckKey(SDL_SCANCODE_Q)) 
-    {
-      gameLoop = false;
-    }
-
-    // play sound when key is pressed
+    /* bug: as soon as one places 3 if statements, the function can only be triggered by pressing the desired key and a random key, maybe the user has to put the while(SDL_PollEvent...) loop
+     into the main function, this method doesn't make sense, because it wouldn't be an engine anymore, I am probably doing something wrong
+     play sound when key is pressed
     if(inputCheckKey(SDL_SCANCODE_C))
     {
       mixerPlayAudio(-1, keySound, 0);
-    }
-
+    } */
     //------RENDER LOOP-----------
 
     // clear screen
@@ -72,6 +69,31 @@ int main()
 
     // switch back- with frontbuffer
     renderPresent();
+
+    // please use this method, as it is way more customizable
+    // if input without delay is desired, make use of `` Uint8 *keys = SDL_GetKeyboardState(int numchar); ``
+    while(SDL_PollEvent(&ev))
+    {
+      switch(ev.type)
+      {
+        case SDL_QUIT:
+          gameLoop = false;
+          break;
+
+        case SDL_KEYDOWN:
+          switch(ev.key.keysym.sym)
+          {
+            case SDLK_q:
+              gameLoop = false;
+              break;
+
+            case SDLK_c:
+              mixerPlayAudio(-1, keySound, 0);
+            break;
+          }
+          break;
+      }
+    }
   }
   
   fontClose(font);
