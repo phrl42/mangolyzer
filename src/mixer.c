@@ -1,5 +1,5 @@
-#include "mixer.h"
-
+#include "../include/mixer.h"
+// maybe use miniaudio...
 Mix_Chunk *testWAV;
 
 int mixerOpenAudio(int frequency, int channels)

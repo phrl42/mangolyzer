@@ -1,9 +1,9 @@
-#include "init.h"
-
-SDL_Window *win;
-SDL_Renderer *rend;
-
-// -1 means failed and 0 means success
+#include "../include/init.h"
+//TODO: expand the limit with realloc..(if wanted)
+// a maximum of 2 windows are allowed... more are just not needed for now (see above)..
+SDL_Window *windowCollection[2];
+SDL_GLContext *contextCollection[2];
+int8_t posW = 0;// -1 means failed and 0 means success
 
 int initEngine(Uint32 flags)
 {
@@ -30,11 +30,19 @@ int initEngine(Uint32 flags)
     return -1;
   }
   return 0;
+
+  // set opengl version..
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+ 
+  // disallow older gl functions
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 }
 
-int initWindow(int WIDTH, int HEIGHT, int posX, int posY, Uint32 flags)
+int initWindow(BananaWindow window)
 {
-  // use 0 for nothing (recommended)
+  // use 0 for an OpenGL Context (recommended)
+  // the standard sdl renderer is not supported anymore..
   /* flags:
   --------------------------------------------------------------------------------
   SDL_WINDOW_FULLSCREEN: fullscreen window
@@ -51,28 +59,47 @@ int initWindow(int WIDTH, int HEIGHT, int posX, int posY, Uint32 flags)
   SDL_WINDOW_ALLOW_HIGHDPI: window should be created in high-DPI mode if supported
   --------------------------------------------------------------------------------
 */
+  if(window.flags == (Uint32)0)
+  {
+    window.flags = SDL_WINDOW_OPENGL;
+  }
+
   // create window
-  win = SDL_CreateWindow("", posX, posY, WIDTH, HEIGHT, flags);
+  window.win = SDL_CreateWindow(window.title, 0, 0, window.w, window.h, window.flags);
 
   // error handling
-  if(!win)
+  if(!window.win)
   {
     errorHandling("Failed to initialize the Window: ", 0);
     return -1;
   }
+
+  // create an opengl context on window creation...
+  window.con = SDL_GL_CreateContext(window.win);
+  if(!window.con)
+  {
+    errorHandling("Failed to create an OpenGL context: ", 0);
+  }
+  
+  // add the created window to the collection
+  windowCollection[posW] = window.win;
+  
+  // also add the opengl context
+  contextCollection[posW] = window.con;
+  posW++;
   return 0;
 }
-
+/*
 int initRenderer(Uint32 flags)
 {
   // use 0 for fallback (recommended)
-  /* flags:
-  -------------------------------------------
-  SDL_RENDER_PRESENTVSYNC:  present is synchronized with the refresh rate (fallback)
-  SDL_RENDER_SOFTWARE:      the renderer is a software fallback
-  SDL_RENDER_ACCELERATED:   the renderer uses hardware acceleration
-  SDL_RENDER_TARGETTEXTURE: the renderer supports rendering to texture
-  */
+  // flags:
+  //-------------------------------------------
+  //SDL_RENDER_PRESENTVSYNC:  present is synchronized with the refresh rate (fallback)
+  //SDL_RENDER_SOFTWARE:      the renderer is a software fallback
+  //SDL_RENDER_ACCELERATED:   the renderer uses hardware acceleration
+  //SDL_RENDER_TARGETTEXTURE: the renderer supports rendering to texture
+  
   
   // 0 == SDL_RENDERER_PRESENTVSYNC
   if(flags == 0) flags = SDL_RENDERER_PRESENTVSYNC;
@@ -88,8 +115,8 @@ int initRenderer(Uint32 flags)
   }
   return 0;
 }
-
-bool usingTTF = false;
+*/
+/*bool usingTTF = false;
 
 int initTTF()
 {
@@ -101,7 +128,7 @@ int initTTF()
   }
   usingTTF = true;
   return 0;
-}
+}*/
 
 bool usingIMG = false;
 
@@ -150,21 +177,33 @@ int initMixer(Uint32 flags)
 void initQuit()
 {
   //don't forget to free memory with SDL_Destroy...
-  SDL_DestroyRenderer(rend);
-  SDL_DestroyWindow(win);
+  //SDL_DestroyRenderer(rend);
+  
+  // delete every instance of sdl_window*
+  while(posW < 0)
+  {
+    SDL_GL_DeleteContext(contextCollection[posW]);
+    SDL_DestroyWindow(windowCollection[posW]);
+    posW = posW - 1;
+  }
+  
   // check initialized libraries
-  if(usingTTF) TTF_Quit();
+  //if(usingTTF) TTF_Quit();
   if(usingIMG) IMG_Quit();
   if(usingMixer) Mix_Quit();
 
+  // escape..
   SDL_Quit();
 }
 
+/*
 void initDestroyTexture(SDL_Texture *texture)
 {
   SDL_DestroyTexture(texture);
 }
+*/
 
+// TODO: use enum
 void errorHandling(char *msg, int type)
 {
   switch(type)
@@ -178,9 +217,9 @@ void errorHandling(char *msg, int type)
     case 2:
       SDL_Log("%s%s\n", msg, Mix_GetError());
       break;
-    case 3:
+    /*case 3:
       SDL_Log("%s%s\n", msg, TTF_GetError());
-      break;
+      break;*/
     default:
       break;
   }

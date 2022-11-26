@@ -1,4 +1,4 @@
-#include "misc.h"
+#include "../include/misc.h"
 
 int miscRand(int min, int max)
 {

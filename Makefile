@@ -3,13 +3,12 @@ OBJ_DIR = bin/
 INC_DIR = include/
 
 NAME = game
-
-SRCS := $(shell cd $(SRC_DIR) && find . -name '*.c' && cd ..)
+SRCS := $(shell find $(SRC_DIR) -name '*.c' | sed s/src[/]/''/g)
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 
-CC = cc
+CC = clang 
 CFLAGS = -Wall -Wextra -Wpedantic -g -I$(INC_DIR)
-LFLAGS = -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
+LFLAGS = -lSDL2 -lSDL2_image -lSDL2_mixer -lGL
 
 all: $(NAME)
 
@@ -23,12 +22,10 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
 clean:
-	rm -rf $(OBJ_DIR)
+	rm $(OBJ_DIR)*
 	rm -f $(NAME)
 
-re: clean all
-
-run:
+run: $(NAME)
 	./$(NAME)
 
-.PHONY: all clean re run
+.PHONY: all clean run

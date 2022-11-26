@@ -1,6 +1,6 @@
-#include "font.h"
-#include "init.h"
-
+#include "../include/font.h"
+#include "../include/init.h"
+/*
 TTF_Font *fontTest;
 SDL_Surface *surface;
 SDL_Color color;
@@ -50,4 +50,4 @@ void fontClose(TTF_Font *font)
 {
   SDL_DestroyTexture(textureTest);
   TTF_CloseFont(font);
-}
+}*/

@@ -1,22 +1,51 @@
-#include "init.h"
-#include "render.h"
+#include "../include/init.h"
+//#include "../include/render.h"
 // #include "input.h" discarded for now
-#include "font.h"
-#include "mixer.h"
+//#include "../include/font.h"
+//#include "../include/mixer.h"
+#define WIDTH 1920
+#define HEIGHT 1080
 
-int main()
+int main(int argc, char* argv[])
 {
-  bool gameLoop = true; 
+  // this depends on the user
+  //bool gameLoop = true; 
+  //int angle = 360;
 
-  int h = 500;
-  int w = 500;
-  int angle = 360;
-  
-  int WIDTH = 1920;
-  int HEIGHT = 1080;
+  // create a BananaWindow instance
+  BananaWindow window;
 
-  initEngine(0);
-  initWindow(WIDTH, HEIGHT, 0, 0, SDL_WINDOW_FULLSCREEN);
+  // initialize the struct..
+  window.w = 500;
+  window.h = 500;
+  window.title = "trollge";
+  window.flags = SDL_WINDOW_OPENGL;
+  // initialize our engine
+  if(initEngine(0) == -1) return -1;
+
+  // this is where window.win gets initialized...
+  initWindow(window);
+  bool troll = true;
+  SDL_Event ev;
+  while(troll)
+  {
+    // clear buffer
+    glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+   while(SDL_PollEvent(&ev))
+   {
+     if(ev.type == SDL_QUIT)
+     {
+      troll = false;
+     }
+   }
+
+    // switch buffers
+    SDL_GL_SwapWindow(window.win);
+  }
+
+/*
   initRenderer(0);
   
   initIMG(IMG_INIT_PNG);
@@ -45,13 +74,13 @@ int main()
  
   while(gameLoop)
   {
-    /* bug: as soon as one places 3 if statements, the function can only be triggered by pressing the desired key and a random key, maybe the user has to put the while(SDL_PollEvent...) loop
+    // bug: as soon as one places 3 if statements, the function can only be triggered by pressing the desired key and a random key, maybe the user has to put the while(SDL_PollEvent...) loop
      into the main function, this method doesn't make sense, because it wouldn't be an engine anymore, I am probably doing something wrong
      play sound when key is pressed
     if(inputCheckKey(SDL_SCANCODE_C))
     {
       mixerPlayAudio(-1, keySound, 0);
-    } */
+    } 
     //------RENDER LOOP-----------
 
     // clear screen
@@ -103,6 +132,7 @@ int main()
   initDestroyTexture(fontTexture);
   initDestroyTexture(consenbren);
   initDestroyTexture(banana);
+  */
   initQuit();
   return 0;
 }

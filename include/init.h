@@ -1,20 +1,28 @@
 #ifndef __INIT_H_
 #define __INIT_H_
 
-#include "incs.h"
+#include "../include/incs.h"
 
-extern SDL_Window *win;
-extern SDL_Renderer *rend;
+// the user can create as many windows as he wants
+typedef struct BananaWindow
+{
+  int w;
+  int h;
+  SDL_Window *win;
+  SDL_GLContext *con;
+  Uint32 flags;
+  char *title;
+}BananaWindow;
 
 int initEngine(Uint32 flags);
-int initWindow(int WIDTH, int HEIGHT, int posX, int posY, Uint32 flags);
-int initRenderer(Uint32 flags);
+int initWindow(BananaWindow window);
+//int initRenderer(Uint32 flags);
 
-int initTTF();
+//int initTTF();
 int initIMG(Uint32 flags);
 int initMixer(Uint32 flags);
 
-void initDestroyTexture(SDL_Texture *texture);
+//void initDestroyTexture(SDL_Texture *texture);
 
 void initQuit();
 

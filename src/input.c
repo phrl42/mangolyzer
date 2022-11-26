@@ -1,4 +1,4 @@
-#include "input.h"
+#include "../include/input.h"
 
 const Uint8 *keys;
 

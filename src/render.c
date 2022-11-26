@@ -1,5 +1,5 @@
-#include "render.h"
-
+#include "../include/render.h"
+/*
 SDL_Texture *testTexture;
 
 SDL_Rect srcrect;
@@ -29,11 +29,11 @@ void renderDisplayTexture(SDL_Texture *texture, int x, int y, int w, int h)
 void renderDisplayTextureFlip(SDL_Texture *texture, int x, int y, int w, int h, double angle, SDL_RendererFlip flag)
 {
   // use -1 for autism
-  /* flags may be these:
-    SDL_FLIP_NONE
-    SDL_FLIP_HORIZONTAL
-    SDL_FLIP_VERTICAL
-  */
+  // flags may be these:
+  //  SDL_FLIP_NONE
+  //  SDL_FLIP_HORIZONTAL
+  //  SDL_FLIP_VERTICAL
+  
 
   if(flag == (SDL_RendererFlip)-1)
   {
@@ -54,4 +54,4 @@ void renderClear()
 void renderPresent()
 {
   SDL_RenderPresent(rend);
-}
+}*/ 
