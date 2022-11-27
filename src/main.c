@@ -15,34 +15,63 @@ int main(int argc, char* argv[])
   // create a BananaWindow instance
   BananaWindow window;
 
-  // initialize the struct..
-  window.w = 500;
-  window.h = 500;
-  window.title = "trollge";
-  window.flags = SDL_WINDOW_OPENGL;
   // initialize our engine
   if(initEngine(0) == -1) return -1;
 
+  // initialize the struct..
+  window.w = 500;
+  window.h = 500;
+  window.title = "...";
+  window.flags = SDL_WINDOW_OPENGL;
+  
   // this is where window.win gets initialized...
   initWindow(window);
   bool troll = true;
   SDL_Event ev;
+  int maximumFPS = 60;
+  Uint64 ticks = 0;
+  Uint64 frameTime = maximumFPS;
+  char buffer[10];
+  memset(buffer, '\0', sizeof(buffer) / sizeof(char));
+  
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   while(troll)
   {
+    // update elpased time 
+    ticks = SDL_GetTicks64();
+    
     // clear buffer
-    glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
-
-   while(SDL_PollEvent(&ev))
-   {
-     if(ev.type == SDL_QUIT)
-     {
-      troll = false;
-     }
-   }
-
+    while(SDL_PollEvent(&ev))
+    {
+      if(ev.type == SDL_QUIT)
+      {
+        troll = false;
+      }
+    }
     // switch buffers
     SDL_GL_SwapWindow(window.win);
+    // calculate the time of one frame
+    // basically, we set v-sync to true, so let's say our frameTime gets capped to
+    // 60 fps, we count the time of one frame 
+    // the result will always be 0, if it does not use much resources
+    // but 0 is 60fps in our case, because it displays 60 frames per second, without waiting
+    // if we were to process something, one frame will take longer, which then results in lower
+    // frames per second, so we subtract the value of frameTime and divide it with 60 because
+    // we calculate on frame time for 60 seconds..
+    frameTime = frameTime - ((SDL_GetTicks64() - ticks) / 60);
+    if(frameTime == 60)
+    {
+      sprintf(buffer, "%lu", frameTime);
+      //printf("%s\n", buffer);
+      SDL_SetWindowTitle(window.win, (const char*)buffer);
+    }
+      //printf("FPS: %lu\n", frameTime);
+    printf("OpenGL Version: %s\n", glGetString(GL_VERSION));
+    // wait for all opengl queues to be finished
+    glFinish();
   }
 
 /*

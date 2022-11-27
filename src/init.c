@@ -26,14 +26,14 @@ int initEngine(Uint32 flags)
   // error handling
   if(SDL_Init(flags) != 0)
   {
-    SDL_Log("Failed to initialize SDL: %s\n", SDL_GetError());
+    errorHandling("Failed to initialize SDL: ", 0);
     return -1;
   }
   return 0;
 
   // set opengl version..
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
  
   // disallow older gl functions
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
@@ -76,17 +76,37 @@ int initWindow(BananaWindow window)
 
   // create an opengl context on window creation...
   window.con = SDL_GL_CreateContext(window.win);
+  
   if(!window.con)
   {
     errorHandling("Failed to create an OpenGL context: ", 0);
+    return -1;
   }
-  
+
+  // initialize glew
+  glewExperimental = GL_TRUE; 
+  GLenum err = glewInit();
+  if(err != GLEW_OK)
+  {
+    //TODO: advance errorHandling function
+    printf("Failed to initialize glew: %s", glewGetErrorString(err));
+    return -1;
+  }
+
+  // enable v-sync 
+  if(SDL_GL_SetSwapInterval(1) == -1) 
+  {
+    errorHandling("Failed to enable v-sync: ", 0);
+    return -1;
+  }
+
   // add the created window to the collection
   windowCollection[posW] = window.win;
   
   // also add the opengl context
   contextCollection[posW] = window.con;
   posW++;
+  
   return 0;
 }
 /*
@@ -217,9 +237,6 @@ void errorHandling(char *msg, int type)
     case 2:
       SDL_Log("%s%s\n", msg, Mix_GetError());
       break;
-    /*case 3:
-      SDL_Log("%s%s\n", msg, TTF_GetError());
-      break;*/
     default:
       break;
   }
