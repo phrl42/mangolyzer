@@ -1,6 +1,6 @@
 #include "../include/init.h"
 //#include "../include/render.h"
-// #include "input.h" discarded for now
+//#include "input.h" discarded for now
 //#include "../include/font.h"
 //#include "../include/mixer.h"
 #define WIDTH 1920
@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
   BananaWindow window;
 
   // initialize our engine
-  if(initEngine(0) == -1) return -1;
+  if(initEngine(SDL_INIT_VIDEO) == -1) return -1;
 
   // initialize the struct..
   window.w = 500;
@@ -25,7 +25,8 @@ int main(int argc, char* argv[])
   window.flags = SDL_WINDOW_OPENGL;
   
   // this is where window.win gets initialized...
-  initWindow(window);
+  // pass the address of window, otherwise it would copy our instance, which does not do anything
+  initWindow(&window);
   bool troll = true;
   SDL_Event ev;
   int maximumFPS = 60;
@@ -34,15 +35,14 @@ int main(int argc, char* argv[])
   char buffer[10];
   memset(buffer, '\0', sizeof(buffer) / sizeof(char));
   
-  glEnable(GL_BLEND);
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  // set background color
+  glClearColor(0.0, 0.0, 0.0, 0.0);
   while(troll)
   {
     // update elpased time 
-    ticks = SDL_GetTicks64();
+    ticks = SDL_GetTicks64(); 
     
     // clear buffer
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
     while(SDL_PollEvent(&ev))
     {
@@ -51,7 +51,14 @@ int main(int argc, char* argv[])
         troll = false;
       }
     }
-    // switch buffers
+    // draw triangle
+    glBegin(GL_TRIANGLES);
+    glVertex2f(-0.5f, 0.0f);
+    glVertex2f(0.0f, 1.0f);
+    glVertex2f(0.5f, 0.0f);
+    glEnd();
+
+    // reload the screen
     SDL_GL_SwapWindow(window.win);
     // calculate the time of one frame
     // basically, we set v-sync to true, so let's say our frameTime gets capped to
@@ -68,10 +75,6 @@ int main(int argc, char* argv[])
       //printf("%s\n", buffer);
       SDL_SetWindowTitle(window.win, (const char*)buffer);
     }
-      //printf("FPS: %lu\n", frameTime);
-    printf("OpenGL Version: %s\n", glGetString(GL_VERSION));
-    // wait for all opengl queues to be finished
-    glFinish();
   }
 
 /*

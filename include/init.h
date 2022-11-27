@@ -15,7 +15,7 @@ typedef struct BananaWindow
 }BananaWindow;
 
 int initEngine(Uint32 flags);
-int initWindow(BananaWindow window);
+int initWindow(BananaWindow *window);
 //int initRenderer(Uint32 flags);
 
 //int initTTF();
@@ -24,7 +24,7 @@ int initMixer(Uint32 flags);
 
 //void initDestroyTexture(SDL_Texture *texture);
 
-void initQuit();
+void initQuit(void);
 
 void errorHandling(char *msg, int type);
 #endif

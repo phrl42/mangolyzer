@@ -7,8 +7,8 @@ SRCS := $(shell find $(SRC_DIR) -name '*.c' | sed s/src[/]/''/g)
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 
 CC = clang 
-CFLAGS = -Wall -Wextra -Wpedantic -g -I$(INC_DIR)
-LFLAGS = -lSDL2 -lSDL2_image -lSDL2_mixer -lGL -lGLEW
+CFLAGS = -Wall -Wextra -pedantic -g -I$(INC_DIR)
+LFLAGS = -lSDL2 -lSDL2_image -lSDL2_mixer -lGL
 
 all: $(NAME)
 

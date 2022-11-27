@@ -34,12 +34,12 @@ int initEngine(Uint32 flags)
   // set opengl version..
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
- 
+  
   // disallow older gl functions
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 }
 
-int initWindow(BananaWindow window)
+int initWindow(BananaWindow *window)
 {
   // use 0 for an OpenGL Context (recommended)
   // the standard sdl renderer is not supported anymore..
@@ -59,37 +59,30 @@ int initWindow(BananaWindow window)
   SDL_WINDOW_ALLOW_HIGHDPI: window should be created in high-DPI mode if supported
   --------------------------------------------------------------------------------
 */
-  if(window.flags == (Uint32)0)
+  if(window->flags == (Uint32)0)
   {
-    window.flags = SDL_WINDOW_OPENGL;
+    window->flags = SDL_WINDOW_OPENGL;
   }
 
   // create window
-  window.win = SDL_CreateWindow(window.title, 0, 0, window.w, window.h, window.flags);
+  // pass values
+  // our window struct is a pointer, so go to the destination of our window struct, then take the value
+  // for example width, which is not a pointer (just a value), take the value and return the address
+  // where the window has been created, window.win is already a pointer, so just pass it
+  window->win = SDL_CreateWindow(window->title, 0, 0, window->w, window->h, window->flags);
 
   // error handling
-  if(!window.win)
+  if(!window->win)
   {
     errorHandling("Failed to initialize the Window: ", 0);
     return -1;
   }
-
   // create an opengl context on window creation...
-  window.con = SDL_GL_CreateContext(window.win);
+  window->con = SDL_GL_CreateContext(window->win);
   
-  if(!window.con)
+  if(!window->con)
   {
     errorHandling("Failed to create an OpenGL context: ", 0);
-    return -1;
-  }
-
-  // initialize glew
-  glewExperimental = GL_TRUE; 
-  GLenum err = glewInit();
-  if(err != GLEW_OK)
-  {
-    //TODO: advance errorHandling function
-    printf("Failed to initialize glew: %s", glewGetErrorString(err));
     return -1;
   }
 
@@ -101,10 +94,10 @@ int initWindow(BananaWindow window)
   }
 
   // add the created window to the collection
-  windowCollection[posW] = window.win;
+  windowCollection[posW] = window->win;
   
   // also add the opengl context
-  contextCollection[posW] = window.con;
+  contextCollection[posW] = window->con;
   posW++;
   
   return 0;
@@ -194,7 +187,7 @@ int initMixer(Uint32 flags)
   return 0;
 }
 
-void initQuit()
+void initQuit(void)
 {
   //don't forget to free memory with SDL_Destroy...
   //SDL_DestroyRenderer(rend);
