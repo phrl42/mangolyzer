@@ -1,5 +1,5 @@
-#ifndef __INIT_H_
-#define __INIT_H_
+#ifndef __INIT_H__
+#define __INIT_H__
 
 #include "../include/incs.h"
 
@@ -15,7 +15,11 @@ typedef struct BananaWindow
 }BananaWindow;
 
 int initEngine(Uint32 flags);
-int initWindow(BananaWindow *window);
+int initBWindow(BananaWindow *window);
+
+SDL_Window* getActiveWindow(void);
+void setActiveWindow(int8_t wantpos);
+
 //int initRenderer(Uint32 flags);
 
 //int initTTF();

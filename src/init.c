@@ -2,9 +2,13 @@
 //TODO: expand the limit with realloc..(if wanted)
 // a maximum of 2 windows are allowed... more are just not needed for now (see above)..
 SDL_Window *windowCollection[2];
-SDL_GLContext *contextCollection[2];
-int8_t posW = 0;// -1 means failed and 0 means success
+SDL_GLContext *context;
+int8_t posW = -1;
 
+// use the latest window by default
+int8_t wantedPosW = 0;
+
+// -1 means failed and 0 means success
 int initEngine(Uint32 flags)
 {
   // use 0 for fallback
@@ -39,8 +43,9 @@ int initEngine(Uint32 flags)
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 }
 
-int initWindow(BananaWindow *window)
+int initBWindow(BananaWindow *window)
 {
+  ++posW;
   // use 0 for an OpenGL Context (recommended)
   // the standard sdl renderer is not supported anymore..
   /* flags:
@@ -77,14 +82,28 @@ int initWindow(BananaWindow *window)
     errorHandling("Failed to initialize the Window: ", 0);
     return -1;
   }
-  // create an opengl context on window creation...
-  window->con = SDL_GL_CreateContext(window->win);
-  
-  if(!window->con)
+
+  // create only one opengl context !!
+  if(posW == 0)
   {
-    errorHandling("Failed to create an OpenGL context: ", 0);
-    return -1;
+    // create an opengl context on the first window creation...
+    context = SDL_GL_CreateContext(window->win);
+    // check if it could create a context
+    if(!context)
+    {
+      errorHandling("Failed to create an OpenGL context: ", 0);
+      return -1;
+    }
   }
+  else // using an else is more efficient.. ):
+  {
+    //otherwise, activate the context for the next window created
+    if(SDL_GL_MakeCurrent(window->win, context) < 0)
+    {
+      errorHandling("Failed to make the OpenGL context active", 0);
+    }
+  }
+  
 
   // enable v-sync 
   if(SDL_GL_SetSwapInterval(1) == -1) 
@@ -96,11 +115,29 @@ int initWindow(BananaWindow *window)
   // add the created window to the collection
   windowCollection[posW] = window->win;
   
-  // also add the opengl context
-  contextCollection[posW] = window->con;
-  posW++;
-  
   return 0;
+}
+
+SDL_Window* getActiveWindow(void)
+{
+  // if 0 is used, take the latest window
+  if(wantedPosW == 0)
+  {
+    // no need to make the context current
+    return windowCollection[posW];
+  }
+  // if a different window is desired, make the context current, to render it
+  if(SDL_GL_MakeCurrent(windowCollection[wantedPosW], context) < 0)
+  {
+    errorHandling("Failed to switch the desired window: ", 0);
+  }
+  // otherwise, just return the desired window
+  return windowCollection[wantedPosW];
+}
+
+void setActiveWindow(int8_t wantpos)
+{
+  wantedPosW = wantpos;
 }
 /*
 int initRenderer(Uint32 flags)
@@ -195,7 +232,7 @@ void initQuit(void)
   // delete every instance of sdl_window*
   while(posW < 0)
   {
-    SDL_GL_DeleteContext(contextCollection[posW]);
+    SDL_GL_DeleteContext(context);
     SDL_DestroyWindow(windowCollection[posW]);
     posW = posW - 1;
   }

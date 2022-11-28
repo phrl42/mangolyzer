@@ -4,14 +4,12 @@ a work in progress OpenGL SDL2 engine made in c for fun
 # Usage
 <p>Required libraries: SDL2, SDL2_mixer and you should have opengl installed (if not already...)</p>
 
-<p>put your files in src</p>
-<p>It should be self-explanatory till now, as it is simple.</p>
-<p>The documentation will be coming soon.</p>
+<p>View the source code for a half broken documentation</p>
+<p>Edit src/game.c and include/game.h as you wish..</p>
 
 # Todo:
-- [ ] implement graphics
+- [ ] fix fps counter
 - [ ] implement input
-- [ ] documentation
+- [x] documentation
 - [ ] clean code 
 
-view the source code for a half broken documentation

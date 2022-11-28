@@ -1,35 +1,16 @@
 #include "../include/init.h"
-//#include "../include/render.h"
-//#include "input.h" discarded for now
-//#include "../include/font.h"
-//#include "../include/mixer.h"
-#define WIDTH 1920
-#define HEIGHT 1080
-
+#include "../include/game.h" 
+#define maximumFPS 60
 int main(int argc, char* argv[])
 {
-  // this depends on the user
-  //bool gameLoop = true; 
-  //int angle = 360;
+  // call the game initialization
+  if(init() == -1) return -1;
 
-  // create a BananaWindow instance
-  BananaWindow window;
-
-  // initialize our engine
-  if(initEngine(SDL_INIT_VIDEO) == -1) return -1;
-
-  // initialize the struct..
-  window.w = 500;
-  window.h = 500;
-  window.title = "...";
-  window.flags = SDL_WINDOW_OPENGL;
+  bool engine = true;
   
-  // this is where window.win gets initialized...
-  // pass the address of window, otherwise it would copy our instance, which does not do anything
-  initWindow(&window);
-  bool troll = true;
   SDL_Event ev;
-  int maximumFPS = 60;
+
+  // fps calculation variables
   Uint64 ticks = 0;
   Uint64 frameTime = maximumFPS;
   char buffer[10];
@@ -37,7 +18,7 @@ int main(int argc, char* argv[])
   
   // set background color
   glClearColor(0.0, 0.0, 0.0, 0.0);
-  while(troll)
+  while(engine)
   {
     // update elpased time 
     ticks = SDL_GetTicks64(); 
@@ -48,18 +29,15 @@ int main(int argc, char* argv[])
     {
       if(ev.type == SDL_QUIT)
       {
-        troll = false;
+        engine = false;
       }
     }
-    // draw triangle
-    glBegin(GL_TRIANGLES);
-    glVertex2f(-0.5f, 0.0f);
-    glVertex2f(0.0f, 1.0f);
-    glVertex2f(0.5f, 0.0f);
-    glEnd();
+    // do game specific stuff here
+    loop();
+    
+    // reload the screen with the latest window
+    SDL_GL_SwapWindow(getActiveWindow());
 
-    // reload the screen
-    SDL_GL_SwapWindow(window.win);
     // calculate the time of one frame
     // basically, we set v-sync to true, so let's say our frameTime gets capped to
     // 60 fps, we count the time of one frame 
@@ -68,12 +46,12 @@ int main(int argc, char* argv[])
     // if we were to process something, one frame will take longer, which then results in lower
     // frames per second, so we subtract the value of frameTime and divide it with 60 because
     // we calculate on frame time for 60 seconds..
-    frameTime = frameTime - ((SDL_GetTicks64() - ticks) / 60);
-    if(frameTime == 60)
+    frameTime = frameTime - ((SDL_GetTicks64() - ticks) / maximumFPS);
+    if(frameTime == maximumFPS)
     {
       sprintf(buffer, "%lu", frameTime);
       //printf("%s\n", buffer);
-      SDL_SetWindowTitle(window.win, (const char*)buffer);
+      SDL_SetWindowTitle(getActiveWindow(), (const char*)buffer);
     }
   }
 
