@@ -2,6 +2,7 @@
 // it just makes it easier to read
 #include "../include/game.h"
 #include "../include/init.h"
+#include "../include/misc.h"
 
 int init(void)
 {
@@ -28,6 +29,7 @@ int init(void)
 
 void loop(void)
 {
+  Log("Drawing a Triangle", Info);
   glBegin(GL_TRIANGLES);
   glVertex2f(1.0f, 0.0f);
   glVertex2f(-1.0f, 0.0f);

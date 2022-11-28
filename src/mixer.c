@@ -1,5 +1,6 @@
 #include "../include/mixer.h"
 // maybe use miniaudio...
+/*
 Mix_Chunk *testWAV;
 
 int mixerOpenAudio(int frequency, int channels)
@@ -57,4 +58,4 @@ int mixerPlayAudio(int channel, Mix_Chunk *sound, int loop)
 void mixerFreeChunk(Mix_Chunk* chunk)
 {
   Mix_FreeChunk(chunk);
-}
+}*/

@@ -2,6 +2,7 @@
 //TODO: expand the limit with realloc..(if wanted)
 // a maximum of 2 windows are allowed... more are just not needed for now (see above)..
 SDL_Window *windowCollection[2];
+// only use one context, because this is a simple engine
 SDL_GLContext *context;
 int8_t posW = -1;
 
@@ -179,19 +180,19 @@ int initTTF()
   usingTTF = true;
   return 0;
 }*/
-
+/*
 bool usingIMG = false;
 
 int initIMG(Uint32 flags)
 {
-  /* flags:
-    _INIT_JPG 
-    _INIT_PNG 
-    _INIT_TIF 
-    _INIT_WEBP
-    _INIT_JXL 
-    _INIT_AVIF 
-  */
+  // flags:
+  //  _INIT_JPG 
+  //  _INIT_PNG 
+  //  _INIT_TIF 
+  //  _INIT_WEBP
+  //  _INIT_JXL 
+  //  _INIT_AVIF 
+  
 
   if(IMG_Init(flags) == 0)
   {
@@ -200,20 +201,21 @@ int initIMG(Uint32 flags)
   }
   usingIMG = true;
   return 0;
-}
+}*/
 
+/*
 bool usingMixer = false;
 
 int initMixer(Uint32 flags)
 {
-  /* flags:
-    MIX_INIT_FLAC 
-    MIX_INIT_MOD
-    MIX_INIT_MP3 
-    MIX_INIT_OGG 
-    MIX_INIT_MID 
-    MIX_INIT_OPUS 
-  */
+  // flags:
+  //  MIX_INIT_FLAC 
+  //  MIX_INIT_MOD
+  //  MIX_INIT_MP3 
+  //  MIX_INIT_OGG 
+  //  MIX_INIT_MID 
+  //  MIX_INIT_OPUS 
+  
 
   if(Mix_Init(flags) == 0) 
   {
@@ -222,7 +224,7 @@ int initMixer(Uint32 flags)
   }
   usingMixer = true;
   return 0;
-}
+}*/
 
 void initQuit(void)
 {
@@ -239,8 +241,8 @@ void initQuit(void)
   
   // check initialized libraries
   //if(usingTTF) TTF_Quit();
-  if(usingIMG) IMG_Quit();
-  if(usingMixer) Mix_Quit();
+  //if(usingIMG) IMG_Quit();
+  //if(usingMixer) Mix_Quit();
 
   // escape..
   SDL_Quit();
@@ -253,19 +255,12 @@ void initDestroyTexture(SDL_Texture *texture)
 }
 */
 
-// TODO: use enum
 void errorHandling(char *msg, int type)
 {
   switch(type)
   {
     case 0:
       SDL_Log("%s%s\n", msg, SDL_GetError());
-      break;
-    case 1:
-      SDL_Log("%s%s\n", msg, IMG_GetError());
-      break;
-    case 2:
-      SDL_Log("%s%s\n", msg, Mix_GetError());
       break;
     default:
       break;

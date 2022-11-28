@@ -6,9 +6,9 @@ NAME = game
 SRCS := $(shell find $(SRC_DIR) -name '*.c' | sed s/src[/]/''/g)
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 
-CC = clang 
+CC = clang
 CFLAGS = -Wall -Wextra -pedantic -g -I$(INC_DIR)
-LFLAGS = -lSDL2 -lSDL2_image -lSDL2_mixer -lm -lGL
+LFLAGS = -lSDL2 -lGL
 
 all: $(NAME)
 

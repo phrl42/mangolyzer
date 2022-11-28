@@ -23,8 +23,8 @@ void setActiveWindow(int8_t wantpos);
 //int initRenderer(Uint32 flags);
 
 //int initTTF();
-int initIMG(Uint32 flags);
-int initMixer(Uint32 flags);
+//int initIMG(Uint32 flags);
+//int initMixer(Uint32 flags);
 
 //void initDestroyTexture(SDL_Texture *texture);
 
