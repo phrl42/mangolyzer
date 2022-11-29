@@ -1,4 +1,4 @@
-#include "../include/mixer.h"
+#include "mixer.h"
 // maybe use miniaudio...
 /*
 Mix_Chunk *testWAV;

@@ -1,8 +1,10 @@
 // including twice does not matter, as we are using ifndef's
 // it just makes it easier to read
-#include "../include/game.h"
-#include "../include/init.h"
-#include "../include/misc.h"
+#include "game.h"
+#include "init.h"
+#include "misc.h"
+
+#include <math.h>
 
 int init(void)
 {
@@ -27,12 +29,15 @@ int init(void)
   return 0;
 }
 
-void loop(void)
+void loop(Uint64 frameTime)
 {
-  Log("Drawing a Triangle", Info);
+  //float troll = sin((float)miscRand(0, 99) / 10000) * frameTime;
+  //float trolldeux = sin((float)miscRand(0, 88) / 10000) * frameTime;
+
+  //printf("%f\n", troll); 
   glBegin(GL_TRIANGLES);
   glVertex2f(1.0f, 0.0f);
-  glVertex2f(-1.0f, 0.0f);
-  glVertex2f(1.0f, 1.0f);
+  glVertex2f(-1.0f, -1.0f);
+  glVertex2f(0.0f, 1.0f);
   glEnd();
 }

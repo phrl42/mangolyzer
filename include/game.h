@@ -6,6 +6,6 @@
 
 int init(void);
 
-void loop(void);
+void loop(Uint64 frameTime);
 
 #endif

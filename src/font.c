@@ -1,5 +1,5 @@
-#include "../include/font.h"
-#include "../include/init.h"
+#include "font.h"
+#include "init.h"
 /*
 TTF_Font *fontTest;
 SDL_Surface *surface;

@@ -1,4 +1,4 @@
-#include "../include/init.h"
+#include "init.h"
 //TODO: expand the limit with realloc..(if wanted)
 // a maximum of 2 windows are allowed... more are just not needed for now (see above)..
 SDL_Window *windowCollection[2];

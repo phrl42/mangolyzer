@@ -1,6 +1,6 @@
 #include "../include/init.h"
 #include "../include/game.h" 
-#define maximumFPS 60
+
 int main(int argc, char* argv[])
 {
   // call the game initialization
@@ -11,8 +11,9 @@ int main(int argc, char* argv[])
   SDL_Event ev;
 
   // fps calculation variables
-  Uint64 ticks = 0;
-  Uint64 frameTime = maximumFPS;
+  Uint64 lastTime = 0;
+  float frameTime = lastTime;
+  Uint64 beginTime = SDL_GetTicks64();
   char buffer[10];
   memset(buffer, '\0', sizeof(buffer) / sizeof(char));
   
@@ -20,8 +21,8 @@ int main(int argc, char* argv[])
   glClearColor(0.0, 0.0, 0.0, 0.0);
   while(engine)
   {
-    // update elpased time 
-    ticks = SDL_GetTicks64(); 
+    // get starting time
+    beginTime = SDL_GetTicks64();
     
     // clear buffer
     glClear(GL_COLOR_BUFFER_BIT);
@@ -33,23 +34,20 @@ int main(int argc, char* argv[])
       }
     }
     // do game specific stuff here
-    loop();
+    loop(frameTime);
     
     // reload the screen with the latest window
     SDL_GL_SwapWindow(getActiveWindow());
 
+    // get elapsed time for frame
+    lastTime = SDL_GetTicks64();
+    printf("%f\n", frameTime); 
+
     // calculate the time of one frame
-    // basically, we set v-sync to true, so let's say our frameTime gets capped to
-    // 60 fps, we count the time of one frame 
-    // the result will always be 0, if it does not use much resources
-    // but 0 is 60fps in our case, because it displays 60 frames per second, without waiting
-    // if we were to process something, one frame will take longer, which then results in lower
-    // frames per second, so we subtract the value of frameTime and divide it with 60 because
-    // we calculate on frame time for 60 seconds..
-    frameTime = frameTime - ((SDL_GetTicks64() - ticks) / maximumFPS);
-    if(frameTime == maximumFPS)
+    frameTime = (lastTime - beginTime) / 60;
+    if(frameTime <= 60)
     {
-      sprintf(buffer, "%lu", frameTime);
+      sprintf(buffer, "%f", frameTime);
       //printf("%s\n", buffer);
       SDL_SetWindowTitle(getActiveWindow(), (const char*)buffer);
     }

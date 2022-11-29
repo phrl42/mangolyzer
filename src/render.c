@@ -1,4 +1,4 @@
-#include "../include/render.h"
+#include "render.h"
 /*
 SDL_Texture *testTexture;
 

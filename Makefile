@@ -3,12 +3,12 @@ OBJ_DIR = bin/
 INC_DIR = include/
 
 NAME = game
-SRCS := $(shell find $(SRC_DIR) -name '*.c' | sed s/src[/]/''/g)
+SRCS := $(shell find $(SRC_DIR) -name '*.c' | sed s/src[/]/''/g) 
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 
 CC = clang
 CFLAGS = -Wall -Wextra -pedantic -g -I$(INC_DIR)
-LFLAGS = -lSDL2 -lGL
+LFLAGS = -lSDL2 -lm -lGL
 
 all: $(NAME)
 
