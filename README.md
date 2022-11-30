@@ -10,7 +10,6 @@ a work in progress OpenGL SDL2 engine made in c for fun
 # Todo:
 - [ ] update mixer functions, maybe switch to miniaudio
 - [ ] implement image loading over shaders
-- [ ] fix fps counter
 - [ ] implement input
 - [x] documentation
 - [ ] clean code 
