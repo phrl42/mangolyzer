@@ -16,14 +16,14 @@ int main(int argc, char* argv[])
   Uint64 beginTime = SDL_GetTicks64();
   char buffer[10];
   memset(buffer, '\0', sizeof(buffer) / sizeof(char));
-  
+  float fps = 0; 
   // set background color
   glClearColor(0.0, 0.0, 0.0, 0.0);
   while(engine)
   {
     // get starting time
     beginTime = SDL_GetTicks64();
-    
+
     // clear buffer
     glClear(GL_COLOR_BUFFER_BIT);
     while(SDL_PollEvent(&ev))
@@ -41,13 +41,12 @@ int main(int argc, char* argv[])
 
     // get elapsed time for frame
     lastTime = SDL_GetTicks64();
-    printf("%f\n", frameTime); 
-
     // calculate the time of one frame
-    frameTime = (lastTime - beginTime) / 60;
-    if(frameTime <= 60)
+    frameTime = lastTime - beginTime;
+    fps = 1000 / frameTime; // divide through 1000 because we have milliseconds...
+    if(fps <= 60)
     {
-      sprintf(buffer, "%f", frameTime);
+      sprintf(buffer, "%f", fps);
       //printf("%s\n", buffer);
       SDL_SetWindowTitle(getActiveWindow(), (const char*)buffer);
     }

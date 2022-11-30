@@ -31,13 +31,13 @@ int init(void)
 
 void loop(Uint64 frameTime)
 {
-  //float troll = sin((float)miscRand(0, 99) / 10000) * frameTime;
-  //float trolldeux = sin((float)miscRand(0, 88) / 10000) * frameTime;
+  float troll = sin((float)miscRand(0, 99) / 10000) * frameTime;
+  float trolldeux = sin((float)miscRand(0, 88) / 10000) * frameTime;
 
   //printf("%f\n", troll); 
   glBegin(GL_TRIANGLES);
-  glVertex2f(1.0f, 0.0f);
+  glVertex2f(troll, trolldeux);
   glVertex2f(-1.0f, -1.0f);
-  glVertex2f(0.0f, 1.0f);
+  glVertex2f(trolldeux, troll);
   glEnd();
 }
