@@ -1,7 +1,7 @@
 #include "../include/init.h"
 #include "../include/game.h" 
 
-int main(int argc, char* argv[])
+int main(void)
 {
   // call the game initialization
   if(init() == -1) return -1;
@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
   memset(buffer, '\0', sizeof(buffer) / sizeof(char));
   float fps = 0; 
   // set background color
-  glClearColor(0.0, 0.0, 0.0, 0.0);
+  glClearColor(0.23423, 0.11220, 0.32320, 0.0);
   while(engine)
   {
     // get starting time
