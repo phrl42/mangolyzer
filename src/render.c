@@ -8,38 +8,43 @@
 const char* vertexShaderCon = 
                      "#version 330 core\n"
                      "layout (location = 0) in vec3 aPos;\n"
-                     "layout (location = 1) in vec4 aColor;\n"
+                     "//layout (location = 1) in vec4 aColor;\n"
                      "out vec4 vertexColor;\n"
                      "void main()\n"
                      "{\n"
-                     "  gl_Position = vec4(aPos, 1.0);\n"
-                     "  vertexColor = aColor;\n"
+                     "  gl_Position = vec4(aPos, 1.0f);\n"
+                     "  //vertexColor = aColor;\n"
                      "}\0";
 
 const char* fragmentShaderCon =
                      "#version 330 core\n"
                      "out vec4 FragColor;\n"
-                     "in vec4 vertexColor; // we get the color from the vertex pipeline\n"
+                     "//in vec4 vertexColor; // we get the color from the vertex pipeline\n"
                      "void main()\n"
                      "{\n"
-                     "  FragColor = vec4(1.0, 0.5, 0.34, 1.0);\n"
+                     "  FragColor = vec4(1.0f, 0.5f, 0.3f, 1.0f);\n"
                      "}\0";
 
 // vertices array (points) normalized after NDC, can be changed with glViewport
 // vertex = point ; vertices = points
-float vertices[] =
+/*float vertices[] =
 {
  //   X      Y      Z 
     0.5f,  -0.5f,  0.0f, // bottom left
    -0.5f,  -0.5f,  0.0f, // bottom right
    -0.5f,   0.5f,  0.0f, // top left
     0.5f,   0.5f,  0.0f  // top right
+};*/
+float vertices[] = {
+     0.5f,  0.5f, 0.0f,  // top right
+     0.5f, -0.5f, 0.0f,  // bottom right
+    -0.5f, -0.5f, 0.0f,  // bottom left
+    -0.5f,  0.5f, 0.0f   // top left 
 };
-
 // the indices array is used by the ebo and can simplify the drawing of a rectangle
 // as it specifies the vertices of triangles that can be created
 // 3 points = 1 triangle
-float indices[] = 
+unsigned int indices[] = 
 {
   0, 1, 3, // first triangle
   1, 2, 3 // second triangle
@@ -143,7 +148,7 @@ void initBuffer(void)
   // telling opengl how our vertices array is built and how it should interpret the information
   // index | size | type (normalization is not needed) | offset between vertex attributes (one point)
   // | offset of the first vertex
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, (void*)0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float),(void*)0);
   // enable vertex attribute (searching for vertices in the array, starting from 0)
   // make the connection between the vertices array and the vbo
   glEnableVertexAttribArray(0);
@@ -156,7 +161,6 @@ void initBuffer(void)
   // unbind the vao
 
   glBindVertexArray(0);
-
   // use the vao preset
   //glBindVertexArray(VAO);
   // use the shader, from now on everything gets rendered with this shader (state machine)
@@ -167,7 +171,6 @@ void useBuffer(void)
 {
   // use the shader, from now on everything gets rendered with this shader (state machine)
   glUseProgram(shaderProgram);
-  printf("%d\n", glGetError());
   // use the vao preset
   glBindVertexArray(VAO);
   // draw the rectangle
