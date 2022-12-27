@@ -12,7 +12,7 @@ const char* vertexShaderCon =
                      "out vec4 vertexColor;\n"
                      "void main()\n"
                      "{\n"
-                     "  gl_Position = vec4(aPos, 1.0f);\n"
+                     "  gl_Position = vec4(aPos, 1.0);\n"
                      "  //vertexColor = aColor;\n"
                      "}\0";
 
@@ -27,19 +27,13 @@ const char* fragmentShaderCon =
 
 // vertices array (points) normalized after NDC, can be changed with glViewport
 // vertex = point ; vertices = points
-/*float vertices[] =
+float vertices[] =
 {
  //   X      Y      Z 
     0.5f,  -0.5f,  0.0f, // bottom left
    -0.5f,  -0.5f,  0.0f, // bottom right
    -0.5f,   0.5f,  0.0f, // top left
     0.5f,   0.5f,  0.0f  // top right
-};*/
-float vertices[] = {
-     0.5f,  0.5f, 0.0f,  // top right
-     0.5f, -0.5f, 0.0f,  // bottom right
-    -0.5f, -0.5f, 0.0f,  // bottom left
-    -0.5f,  0.5f, 0.0f   // top left 
 };
 // the indices array is used by the ebo and can simplify the drawing of a rectangle
 // as it specifies the vertices of triangles that can be created
@@ -82,7 +76,7 @@ int generateShader(void)
   glShaderSource(fragmentShader, 1, &fragmentShaderCon, NULL);
   glCompileShader(fragmentShader);
   
-  glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+  glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
   if(!success)
   {
    glGetShaderInfoLog(vertexShader, 512, NULL, log);
@@ -96,8 +90,8 @@ int generateShader(void)
   // create a shader program, which can be referenced later
   shaderProgram = glCreateProgram();
   
-  glAttachShader(vertexShader);
-  glAttachShader(fragmentShader);
+  glAttachShader(shaderProgram, vertexShader);
+  glAttachShader(shaderProgram, fragmentShader);
   glLinkProgram(shaderProgram);
   // error handling
   glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
