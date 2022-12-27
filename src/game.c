@@ -5,8 +5,6 @@
 #include "misc.h"
 #include "render.h"
 
-#include <math.h>
-
 int init(void)
 {
   // create an instance of our window
@@ -27,21 +25,20 @@ int init(void)
   // one does not have to call setActiveWindow when only using one window
   // if you want to use a different window, call setActiveWindow and pass your window number
   // (starting from 0)
-  generateObject();
+  
+  BananaObject objectOne;
+  
+  objectOne.x = 0.5f;
+  objectOne.y = 0.0f;
+  objectOne.w = 0.5f;
+  objectOne.h = 0.5f;
+
+  useObject(&objectOne);
 
   return 0;
 }
 
 void loop(Uint64 frameTime)
 {
-  float troll = sin((float)miscRand(0, 99) / 10000) * frameTime;
-  float trolldeux = sin((float)miscRand(0, 88) / 10000) * frameTime;
 
-  /*//printf("%f\n", troll); 
-  glBegin(GL_TRIANGLES);
-  glVertex2f(troll, trolldeux);
-  glVertex2f(-1.0f, -1.0f);
-  glVertex2f(trolldeux, troll);
-  glEnd();*/
-  useBuffer();
 }

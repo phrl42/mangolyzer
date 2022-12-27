@@ -1,5 +1,6 @@
-#include "../include/init.h"
-#include "../include/game.h" 
+#include "init.h"
+#include "game.h" 
+#include "render.h"
 
 int main(void)
 {
@@ -35,7 +36,8 @@ int main(void)
     }
     // do game specific stuff here
     loop(frameTime);
-    
+    // render opengl objects
+    useBuffer();
     // reload the screen with the latest window
     SDL_GL_SwapWindow(getActiveWindow());
 

@@ -3,12 +3,23 @@
 
 #include "init.h"
 
+typedef struct BananaObject 
+{
+  float x;
+  float y;
+
+  float w;
+  float h;
+}BananaObject;
+
+void adjustVertices(BananaObject *obj);
+
 int generateShader(void);
 
 void initBuffer(void);
 
 void useBuffer(void);
 
-int generateObject(void);
+void useObject(BananaObject *obj);
 
 #endif

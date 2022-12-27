@@ -2,24 +2,26 @@
 #include "init.h"
 #include "misc.h"
 
+#include "cglm/cglm.h"
+
 // opengl is a state machine
 
 // this is the shader generating unit
 const char* vertexShaderCon = 
                      "#version 330 core\n"
                      "layout (location = 0) in vec3 aPos;\n"
-                     "//layout (location = 1) in vec4 aColor;\n"
+                     "layout (location = 1) in vec4 aColor;\n"
                      "out vec4 vertexColor;\n"
                      "void main()\n"
                      "{\n"
                      "  gl_Position = vec4(aPos, 1.0);\n"
-                     "  //vertexColor = aColor;\n"
+                     "  vertexColor = aColor;\n"
                      "}\0";
 
 const char* fragmentShaderCon =
                      "#version 330 core\n"
                      "out vec4 FragColor;\n"
-                     "//in vec4 vertexColor; // we get the color from the vertex pipeline\n"
+                     "in vec4 vertexColor; // we get the color from the vertex pipeline\n"
                      "void main()\n"
                      "{\n"
                      "  FragColor = vec4(1.0f, 0.5f, 0.3f, 1.0f);\n"
@@ -27,22 +29,48 @@ const char* fragmentShaderCon =
 
 // vertices array (points) normalized after NDC, can be changed with glViewport
 // vertex = point ; vertices = points
-float vertices[] =
+/*float vertices[] =
 {
  //   X      Y      Z 
     0.5f,  -0.5f,  0.0f, // bottom left
    -0.5f,  -0.5f,  0.0f, // bottom right
    -0.5f,   0.5f,  0.0f, // top left
     0.5f,   0.5f,  0.0f  // top right
-};
+};*/
+float vertices[12];
 // the indices array is used by the ebo and can simplify the drawing of a rectangle
 // as it specifies the vertices of triangles that can be created
 // 3 points = 1 triangle
 unsigned int indices[] = 
 {
-  0, 1, 3, // first triangle
+  0, 1, 2, // first triangle
   1, 2, 3 // second triangle
 };
+
+void adjustVertices(BananaObject *obj)
+{
+  // bottom left
+  vertices[0] = obj->x; // X 
+  vertices[1] = obj->y - obj->h; // Y
+  vertices[2] = 0.0f; // Z
+
+  // bottom right
+  vertices[3] = obj->x + obj->w;
+  vertices[4] = obj->y - obj->h;
+  vertices[5] = 0.0f;
+
+  // top left (the actual placement)
+  vertices[6] = obj->x;
+  vertices[7] = obj->y;
+  vertices[8] = 0.0f;
+
+  // top right
+  vertices[9]  = obj->x + obj->w;
+  vertices[10] = obj->y;
+  vertices[11] = 0.0f;
+
+}
+
 
 unsigned int shaderProgram;
 int generateShader(void)
@@ -173,8 +201,9 @@ void useBuffer(void)
   //glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 
-int generateObject(void)
+void useObject(BananaObject *obj)
 {
+  adjustVertices(obj);
   generateShader();
 
   initBuffer();
