@@ -28,13 +28,16 @@ int init(void)
   
   BananaObject objectOne;
   
-  objectOne.x = 0.5f;
+  objectOne.x = 0.0f;
   objectOne.y = 0.0f;
-  objectOne.w = 0.5f;
-  objectOne.h = 0.5f;
+  objectOne.w = 1.0f;
+  objectOne.h = 1.0f;
 
-  useObject(&objectOne);
+  objectOne.r = 1.0f;
+  objectOne.g = -0.5f;
+  objectOne.b = -1.0f;
 
+  addObject(&objectOne);
   return 0;
 }
 

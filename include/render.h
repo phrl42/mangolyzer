@@ -10,16 +10,24 @@ typedef struct BananaObject
 
   float w;
   float h;
+
+  float r;
+  float g;
+  float b;
+
+  unsigned int shader;
 }BananaObject;
 
-void adjustVertices(BananaObject *obj);
+void allocateInformation(void);
 
-int generateShader(void);
+void addToVertices(BananaObject *obj);
 
-void initBuffer(void);
+unsigned int generateShader(void);
+
+void fillBuffer(void);
 
 void useBuffer(void);
 
-void useObject(BananaObject *obj);
+void addObject(BananaObject *obj);
 
 #endif

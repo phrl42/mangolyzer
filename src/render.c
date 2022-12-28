@@ -1,8 +1,7 @@
 #include "render.h"
 #include "init.h"
 #include "misc.h"
-
-#include "cglm/cglm.h"
+#define VSIZE 24
 
 // opengl is a state machine
 
@@ -10,12 +9,12 @@
 const char* vertexShaderCon = 
                      "#version 330 core\n"
                      "layout (location = 0) in vec3 aPos;\n"
-                     "layout (location = 1) in vec4 aColor;\n"
+                     "layout (location = 1) in vec3 aColor;\n"
                      "out vec4 vertexColor;\n"
                      "void main()\n"
                      "{\n"
                      "  gl_Position = vec4(aPos, 1.0);\n"
-                     "  vertexColor = aColor;\n"
+                     "  vertexColor = vec4(aColor, 1.0);\n"
                      "}\0";
 
 const char* fragmentShaderCon =
@@ -24,9 +23,21 @@ const char* fragmentShaderCon =
                      "in vec4 vertexColor; // we get the color from the vertex pipeline\n"
                      "void main()\n"
                      "{\n"
-                     "  FragColor = vec4(1.0f, 0.5f, 0.3f, 1.0f);\n"
+                     "  FragColor = vertexColor;\n"
                      "}\0";
 
+struct renderInfo
+{
+  float *vertices;
+  unsigned int offset;
+}renderInfo;
+
+struct renderInfo info;
+
+void allocateInformation(void)
+{
+  info.offset = 0;
+}
 // vertices array (points) normalized after NDC, can be changed with glViewport
 // vertex = point ; vertices = points
 /*float vertices[] =
@@ -37,43 +48,62 @@ const char* fragmentShaderCon =
    -0.5f,   0.5f,  0.0f, // top left
     0.5f,   0.5f,  0.0f  // top right
 };*/
-float vertices[12];
+//float *vertices = malloc(sizeof(float) * 12);
 // the indices array is used by the ebo and can simplify the drawing of a rectangle
 // as it specifies the vertices of triangles that can be created
 // 3 points = 1 triangle
 unsigned int indices[] = 
 {
   0, 1, 2, // first triangle
-  1, 2, 3 // second triangle
+  1, 2, 3, // second triangle
 };
-
-void adjustVertices(BananaObject *obj)
+void addToVertices(BananaObject *obj)
 {
-  // bottom left
-  vertices[0] = obj->x; // X 
-  vertices[1] = obj->y - obj->h; // Y
-  vertices[2] = 0.0f; // Z
+  info.vertices = realloc(info.vertices, sizeof(float) * info.offset + sizeof(float) * VSIZE);
 
+  // bottom left
+  
+  // COORDS
+  info.vertices[info.offset + 0] = obj->x; // X 
+  info.vertices[info.offset + 1] = obj->y - obj->h; // Y
+  info.vertices[info.offset + 2] = 0.0f; // Z
+  // COLORS
+  info.vertices[info.offset + 3] = obj->r; // R
+  info.vertices[info.offset + 4] = obj->g; // G
+  info.vertices[info.offset + 5] = obj->b; // B
+  
   // bottom right
-  vertices[3] = obj->x + obj->w;
-  vertices[4] = obj->y - obj->h;
-  vertices[5] = 0.0f;
+  info.vertices[info.offset + 6] = obj->x + obj->w;
+  info.vertices[info.offset + 7] = obj->y - obj->h;
+  info.vertices[info.offset + 8] = 0.0f;
+  
+  info.vertices[info.offset + 9]  = obj->r;
+  info.vertices[info.offset + 10] = obj->g;
+  info.vertices[info.offset + 11] = obj->b;
 
   // top left (the actual placement)
-  vertices[6] = obj->x;
-  vertices[7] = obj->y;
-  vertices[8] = 0.0f;
+  info.vertices[info.offset + 12] = obj->x;
+  info.vertices[info.offset + 13] = obj->y;
+  info.vertices[info.offset + 14] = 0.0f;
+  
+  info.vertices[info.offset + 15] = obj->r;
+  info.vertices[info.offset + 16] = obj->g;
+  info.vertices[info.offset + 17] = obj->b;
 
   // top right
-  vertices[9]  = obj->x + obj->w;
-  vertices[10] = obj->y;
-  vertices[11] = 0.0f;
+  info.vertices[info.offset + 18] = obj->x + obj->w;
+  info.vertices[info.offset + 19] = obj->y;
+  info.vertices[info.offset + 20] = 0.0f;
 
+  info.vertices[info.offset + 21] = obj->r;
+  info.vertices[info.offset + 22] = obj->g;
+  info.vertices[info.offset + 23] = obj->b;
+
+  info.offset += VSIZE;
 }
 
-
-unsigned int shaderProgram;
-int generateShader(void)
+unsigned int shaderProgram = 0;
+unsigned int generateShader(void)
 {
   unsigned int vertexShader; // identifier for the vertexShader (there is only one)
   unsigned int fragmentShader; // identifier for the fragmentShader (there is only one)
@@ -133,14 +163,14 @@ int generateShader(void)
   glDeleteShader(vertexShader);
   glDeleteShader(fragmentShader);
   
-  return 0;
+  return shaderProgram;
 }
 
 // vbo = a configuration of a vertex attribute structure ; the vbo itself is only the array
 // vao = saves the whole vao configuration in a buffer, it also saves the ebo
-unsigned int VAO; // vbo "configuration saver" identifier
+unsigned int VAO; // "configuration saver" identifier
 // one vao has to be used, because opengl requires it
-void initBuffer(void)
+void fillBuffer(void)
 {
   unsigned int VBO; // vertex array identifier
   unsigned int EBO; // element buffer object identifier  
@@ -159,7 +189,7 @@ void initBuffer(void)
   // use the newly generated uffer
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
   // give the gpu our vertices array
-  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(float) * info.offset, info.vertices, GL_STATIC_DRAW);
   
   // also use the ebo
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
@@ -168,12 +198,15 @@ void initBuffer(void)
 
   // linking the vertices array
   // telling opengl how our vertices array is built and how it should interpret the information
-  // index | size | type (normalization is not needed) | offset between vertex attributes (one point)
-  // | offset of the first vertex
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float),(void*)0);
+  // index location| size | type | normalization (not needed) | offset between attributes (one point)
+  // | offset of the first attribute
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float),(void*)0);
   // enable vertex attribute (searching for vertices in the array, starting from 0)
   // make the connection between the vertices array and the vbo
   glEnableVertexAttribArray(0);
+
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(sizeof(float) * 3));
+  glEnableVertexAttribArray(1);
 
   // unbind the vbo
   glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -201,10 +234,19 @@ void useBuffer(void)
   //glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 
-void useObject(BananaObject *obj)
+void addObject(BananaObject *obj)
 {
-  adjustVertices(obj);
-  generateShader();
-
-  initBuffer();
+  allocateInformation();
+  addToVertices(obj);
+  
+  // we make use of render batching (merging draw calls -> only use one vertices array -> one shader)
+  if(!shaderProgram)
+  {
+    obj->shader = generateShader();
+  }
+  else
+  {
+    obj->shader = shaderProgram;
+  }
+  fillBuffer();
 }
