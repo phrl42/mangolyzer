@@ -8,9 +8,8 @@ a work in progress OpenGL SDL2 engine made in c for fun
 <p>Edit src/game.c and include/game.h as you wish..</p>
 
 # Todo:
-- [ ] update mixer functions, maybe switch to miniaudio
-- [ ] implement image loading over shaders
+- [ ] implement audio
+- [x] implement textures
+- [ ] implement transformations
 - [ ] implement input
 - [x] documentation
-- [ ] clean code 
-
