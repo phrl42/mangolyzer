@@ -1,7 +1,10 @@
 #include "render.h"
 #include "init.h"
 #include "misc.h"
-#define VSIZE 24
+#define VSIZE 34
+
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 // opengl is a state machine
 
@@ -10,26 +13,47 @@ const char* vertexShaderCon =
                      "#version 330 core\n"
                      "layout (location = 0) in vec3 aPos;\n"
                      "layout (location = 1) in vec3 aColor;\n"
+                     "layout (location = 2) in vec2 aTexCoords;\n"
                      "out vec4 vertexColor;\n"
+                     "out vec2 vertexTexCoords;\n"
                      "void main()\n"
                      "{\n"
                      "  gl_Position = vec4(aPos, 1.0);\n"
                      "  vertexColor = vec4(aColor, 1.0);\n"
+                     "  vertexTexCoords = aTexCoords;\n"
                      "}\0";
 
 const char* fragmentShaderCon =
                      "#version 330 core\n"
                      "out vec4 FragColor;\n"
                      "in vec4 vertexColor; // we get the color from the vertex pipeline\n"
+                     "in vec2 vertexTexCoords;\n"
+                     "uniform int vertexTexID;\n"
+                     "uniform sampler2D endTexture;\n"
                      "void main()\n"
                      "{\n"
-                     "  FragColor = vertexColor;\n"
+                     "  if(vertexTexID == 0)\n"
+                     "  {\n"
+                     "    FragColor = vertexColor;\n"
+                     "  }\n"
+                     "  else\n"
+                     "  {\n"
+                     "    FragColor = texture(endTexture, vertexTexCoords); // display texture\n"
+                     "  }\n"
                      "}\0";
 
 struct renderInfo
 {
+  unsigned int *shaderPrograms;
+  unsigned int countShader;
+  unsigned int latestShader;
+  
   float *vertices;
   unsigned int offset;
+  
+  unsigned int *textures;
+  unsigned int countTexture;
+  unsigned int latestTexture;
 }renderInfo;
 
 struct renderInfo info;
@@ -37,7 +61,16 @@ struct renderInfo info;
 void allocateInformation(void)
 {
   info.offset = 0;
+  info.countShader = 0;
+  info.countTexture = 0;
 }
+void freeInformation(void)
+{
+  free(info.vertices);
+  free(info.shaderPrograms);
+  free(info.textures);
+}
+
 // vertices array (points) normalized after NDC, can be changed with glViewport
 // vertex = point ; vertices = points
 /*float vertices[] =
@@ -57,54 +90,71 @@ unsigned int indices[] =
   0, 1, 2, // first triangle
   1, 2, 3, // second triangle
 };
-void addToVertices(BananaObject *obj)
+void addToVertices(float x, float y, float w, float h, float r, float g, float b, unsigned int textureID)
 {
   info.vertices = realloc(info.vertices, sizeof(float) * info.offset + sizeof(float) * VSIZE);
 
   // bottom left
   
   // COORDS
-  info.vertices[info.offset + 0] = obj->x; // X 
-  info.vertices[info.offset + 1] = obj->y - obj->h; // Y
+  info.vertices[info.offset + 0] = x; // X 
+  info.vertices[info.offset + 1] = y - h; // Y
   info.vertices[info.offset + 2] = 0.0f; // Z
   // COLORS
-  info.vertices[info.offset + 3] = obj->r; // R
-  info.vertices[info.offset + 4] = obj->g; // G
-  info.vertices[info.offset + 5] = obj->b; // B
+  info.vertices[info.offset + 3] = r; // R
+  info.vertices[info.offset + 4] = g; // G
+  info.vertices[info.offset + 5] = b; // B
   
+  // TEXCOORDS
+  info.vertices[info.offset + 6] = 0; // TX
+  info.vertices[info.offset + 7] = 0; // TY
+
   // bottom right
-  info.vertices[info.offset + 6] = obj->x + obj->w;
-  info.vertices[info.offset + 7] = obj->y - obj->h;
-  info.vertices[info.offset + 8] = 0.0f;
+  info.vertices[info.offset + 8] = x + w;
+  info.vertices[info.offset + 9] = y - h;
+  info.vertices[info.offset + 10] = 0.0f;
   
-  info.vertices[info.offset + 9]  = obj->r;
-  info.vertices[info.offset + 10] = obj->g;
-  info.vertices[info.offset + 11] = obj->b;
+  info.vertices[info.offset + 11] = r;
+  info.vertices[info.offset + 12] = g;
+  info.vertices[info.offset + 13] = b;
+
+  info.vertices[info.offset + 14] = 1;
+  info.vertices[info.offset + 15] = 0;
 
   // top left (the actual placement)
-  info.vertices[info.offset + 12] = obj->x;
-  info.vertices[info.offset + 13] = obj->y;
-  info.vertices[info.offset + 14] = 0.0f;
+  info.vertices[info.offset + 16] = x;
+  info.vertices[info.offset + 17] = y;
+  info.vertices[info.offset + 18] = 0.0f;
   
-  info.vertices[info.offset + 15] = obj->r;
-  info.vertices[info.offset + 16] = obj->g;
-  info.vertices[info.offset + 17] = obj->b;
+  info.vertices[info.offset + 19] = r;
+  info.vertices[info.offset + 20] = g;
+  info.vertices[info.offset + 21] = b;
+
+  info.vertices[info.offset + 22] = 0;
+  info.vertices[info.offset + 23] = 1;
 
   // top right
-  info.vertices[info.offset + 18] = obj->x + obj->w;
-  info.vertices[info.offset + 19] = obj->y;
-  info.vertices[info.offset + 20] = 0.0f;
+  info.vertices[info.offset + 24] = x + w;
+  info.vertices[info.offset + 25] = y;
+  info.vertices[info.offset + 26] = 0.0f;
 
-  info.vertices[info.offset + 21] = obj->r;
-  info.vertices[info.offset + 22] = obj->g;
-  info.vertices[info.offset + 23] = obj->b;
+  info.vertices[info.offset + 27] = r;
+  info.vertices[info.offset + 28] = g;
+  info.vertices[info.offset + 29] = b;
+
+  info.vertices[info.offset + 30] = 1;
+  info.vertices[info.offset + 31] = 1;
 
   info.offset += VSIZE;
+
+  // add texture id to uniform
+  glUseProgram(info.latestShader);
+  glUniform1i(glGetUniformLocation(info.latestShader, "vertexTexID"), (int)textureID);
 }
 
-unsigned int shaderProgram = 0;
-unsigned int generateShader(void)
+int generateShader(void)
 {
+  unsigned int shaderProgram;
   unsigned int vertexShader; // identifier for the vertexShader (there is only one)
   unsigned int fragmentShader; // identifier for the fragmentShader (there is only one)
   
@@ -137,7 +187,7 @@ unsigned int generateShader(void)
   glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
   if(!success)
   {
-   glGetShaderInfoLog(vertexShader, 512, NULL, log);
+   glGetShaderInfoLog(fragmentShader, 512, NULL, log);
    Log(log, Error);
    return -1;
   }
@@ -157,17 +207,27 @@ unsigned int generateShader(void)
   {
     glGetProgramInfoLog(shaderProgram, 512, NULL, log);
     Log(log, Error);
+    return -1;
   }
 
   // the old shaders are not needed anymore 
   glDeleteShader(vertexShader);
   glDeleteShader(fragmentShader);
+ 
+  // allocate space for a new shader
+  info.shaderPrograms = realloc(info.shaderPrograms, sizeof(unsigned int) * info.countShader + sizeof(unsigned int)); 
   
-  return shaderProgram;
+  // save shader ids in array
+  info.shaderPrograms[info.countShader] = shaderProgram;
+  info.latestShader = shaderProgram;
+
+  info.countShader += 1;
+  return 0;
 }
 
 // vbo = a configuration of a vertex attribute structure ; the vbo itself is only the array
 // vao = saves the whole vao configuration in a buffer, it also saves the ebo
+// we only use one vao (there is only one norm)
 unsigned int VAO; // "configuration saver" identifier
 // one vao has to be used, because opengl requires it
 void fillBuffer(void)
@@ -189,24 +249,27 @@ void fillBuffer(void)
   // use the newly generated uffer
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
   // give the gpu our vertices array
-  glBufferData(GL_ARRAY_BUFFER, sizeof(float) * info.offset, info.vertices, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(float) * info.offset, info.vertices, GL_DYNAMIC_DRAW);
   
   // also use the ebo
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
   // upload the indices array
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_DYNAMIC_DRAW);
 
   // linking the vertices array
   // telling opengl how our vertices array is built and how it should interpret the information
-  // index location| size | type | normalization (not needed) | offset between attributes (one point)
+  // index location | size (how many attributes) | type | normalization (not needed) | offset between attributes (one point)
   // | offset of the first attribute
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float),(void*)0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float),(void*)0);
   // enable vertex attribute (searching for vertices in the array, starting from 0)
   // make the connection between the vertices array and the vbo
   glEnableVertexAttribArray(0);
 
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(sizeof(float) * 3));
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(sizeof(float) * 3));
   glEnableVertexAttribArray(1);
+
+  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(sizeof(float) * 6));
+  glEnableVertexAttribArray(2);
 
   // unbind the vbo
   glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -222,10 +285,64 @@ void fillBuffer(void)
   //glUseProgram(shaderProgram);
 }
 
+int loadTexture(BananaTexture *obj)
+{
+  // opengl enables the use of 16 textures simultaneously 
+  // you can have more textures though
+  // generate 1 texture
+  unsigned int texture;
+  glGenTextures(1, &texture);
+  // use the newly generated texture
+  glBindTexture(GL_TEXTURE_2D, texture);
+  // adjust settings of the texture
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+ 
+  // load and save texture
+  // flip the picture on the y-axis
+  stbi_set_flip_vertically_on_load(true);
+
+  obj->data = stbi_load(obj->path, &obj->w, &obj->h, &obj->channels, 0);
+  if(!obj->data)
+  {
+    Log("Could not load texture", Error);
+    texture = 0;
+    return -1;
+  }
+  // load image into gpu
+  
+  if(obj->channels == 4)
+  {
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, obj->w, obj->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, obj->data);
+  }
+  else
+  {
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, obj->w, obj->h, 0, GL_RGB, GL_UNSIGNED_BYTE, obj->data);
+  }
+  glGenerateMipmap(GL_TEXTURE_2D);
+  
+  info.textures = realloc(info.textures, sizeof(unsigned int) * info.countTexture + sizeof(unsigned int));
+  info.textures[info.countTexture] = texture;
+  info.latestTexture = texture;
+
+  obj->textureID = texture;
+  info.countTexture += 1;
+  
+  stbi_image_free(obj->data);
+ 
+  // unbind the texture
+  glBindTexture(GL_TEXTURE_2D, 0);
+  return 0; 
+}
+
 void useBuffer(void)
 {
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_2D, info.latestTexture);
   // use the shader, from now on everything gets rendered with this shader (state machine)
-  glUseProgram(shaderProgram);
+  glUseProgram(info.latestShader);
   // use the vao preset
   glBindVertexArray(VAO);
   // draw the rectangle
@@ -234,19 +351,16 @@ void useBuffer(void)
   //glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 
-void addObject(BananaObject *obj)
+void addRectangle(BananaRectangle *obj)
 {
-  allocateInformation();
-  addToVertices(obj);
-  
+  addToVertices(obj->x, obj->y, obj->w, obj->h, obj->r, obj->g, obj->b, 0);
   // we make use of render batching (merging draw calls -> only use one vertices array -> one shader)
-  if(!shaderProgram)
-  {
-    obj->shader = generateShader();
-  }
-  else
-  {
-    obj->shader = shaderProgram;
-  }
+  fillBuffer();
+}
+
+void addTexture(BananaTexture *obj)
+{
+  loadTexture(obj);
+  addToVertices(obj->x, obj->y, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, obj->textureID);
   fillBuffer();
 }

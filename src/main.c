@@ -4,9 +4,6 @@
 
 int main(void)
 {
-  // call the game initialization
-  if(init() == -1) return -1;
-
   bool engine = true;
   
   SDL_Event ev;
@@ -18,8 +15,19 @@ int main(void)
   char buffer[10];
   memset(buffer, '\0', sizeof(buffer) / sizeof(char));
   float fps = 0; 
+   
+  // call the game initialization
+  if(init() == -1) return -1;
+ 
+  // setup renderer
+  allocateInformation();
+  generateShader();
+  
   // set background color
   glClearColor(0.23423, 0.11220, 0.32320, 0.0);
+
+  // initialize objects from game
+  initObjects();
   while(engine)
   {
     // get starting time
@@ -49,11 +57,11 @@ int main(void)
     if(fps <= 60)
     {
       sprintf(buffer, "%f", fps);
-      //printf("%s\n", buffer);
       SDL_SetWindowTitle(getActiveWindow(), (const char*)buffer);
     }
   }
-
+  // free renderInfo
+  freeInformation();
 /*
   initRenderer(0);
   
