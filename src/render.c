@@ -1,7 +1,9 @@
 #include "render.h"
 #include "init.h"
 #include "misc.h"
-#define VSIZE 34
+
+#include "cglm/cglm.h"
+#define VSIZE 32
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -16,9 +18,10 @@ const char* vertexShaderCon =
                      "layout (location = 2) in vec2 aTexCoords;\n"
                      "out vec4 vertexColor;\n"
                      "out vec2 vertexTexCoords;\n"
+                     "uniform mat4 transform;\n"
                      "void main()\n"
                      "{\n"
-                     "  gl_Position = vec4(aPos, 1.0);\n"
+                     "  gl_Position = transform * vec4(aPos, 1.0);\n"
                      "  vertexColor = vec4(aColor, 1.0);\n"
                      "  vertexTexCoords = aTexCoords;\n"
                      "}\0";
@@ -360,7 +363,9 @@ void addRectangle(BananaRectangle *obj)
 
 void addTexture(BananaTexture *obj)
 {
+  int w = obj->w;
+  int h = obj->h;
   loadTexture(obj);
-  addToVertices(obj->x, obj->y, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, obj->textureID);
+  addToVertices(obj->x, obj->y, w, h, 0.0f, 0.0f, 0.0f, obj->textureID);
   fillBuffer();
 }

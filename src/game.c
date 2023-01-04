@@ -27,7 +27,8 @@ int init(void)
   // (starting from 0)
   return 0;
 } 
-int initObjects(void)
+
+void initObjects(void)
 {
 /* 
   BananaRectangle objectOne;
@@ -47,14 +48,22 @@ int initObjects(void)
   
   texOne.x = -1.0f;
   texOne.y = 1.0f;
-  texOne.w = 0.5f;
-  texOne.h = 0.5f;
+  texOne.w = 1;
+  texOne.h = 1;
 
   texOne.path = "src/img/banana.png";
   addTexture(&texOne);
-  return 0;
 }
-void loop(Uint64 frameTime)
+float time = 0;
+void loop(float frameTime)
 {
+  mat4 trans = GLM_MAT4_IDENTITY_INIT;
+  if(time >= 1.0f)
+  {
+    time = 0.0f;
+  }
+  glm_rotate(trans, time * glm_rad(360), (vec3){0.0f, 0.0f, 1.0f});
 
+  glUniformMatrix4fv(glGetUniformLocation(3, "transform"), 1, GL_FALSE, (float*)trans);
+  time += frameTime;
 }

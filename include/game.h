@@ -6,8 +6,8 @@
 
 int init(void);
 
-int initObjects(void);
+void initObjects(void);
 
-void loop(Uint64 frameTime);
+void loop(float frameTime);
 
 #endif

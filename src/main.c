@@ -43,7 +43,7 @@ int main(void)
       }
     }
     // do game specific stuff here
-    loop(frameTime);
+    loop((float)(frameTime / 1000));
     // render opengl objects
     useBuffer();
     // reload the screen with the latest window
@@ -53,10 +53,10 @@ int main(void)
     lastTime = SDL_GetTicks64();
     // calculate the time of one frame
     frameTime = lastTime - beginTime;
-    fps = 1000 / frameTime; // divide through 1000 because we have milliseconds...
+    fps = 1 / (frameTime / 1000); // divide through 1000 because we have milliseconds...
     if(fps <= 60)
     {
-      sprintf(buffer, "%f", fps);
+      sprintf(buffer, "%d", (int)fps);
       SDL_SetWindowTitle(getActiveWindow(), (const char*)buffer);
     }
   }

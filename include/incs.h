@@ -10,4 +10,6 @@
 #include <stdbool.h>
 #include <string.h>
 
+#include "cglm/cglm.h"
+
 #endif
