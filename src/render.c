@@ -18,10 +18,20 @@ const char* vertexShaderCon =
                      "layout (location = 2) in vec2 aTexCoords;\n"
                      "out vec4 vertexColor;\n"
                      "out vec2 vertexTexCoords;\n"
-                     "uniform mat4 transform;\n"
+                     "uniform int useProj;\n"
+                     "uniform mat4 model;\n"
+                     "uniform mat4 view;\n"
+                     "uniform mat4 projection;\n"
                      "void main()\n"
                      "{\n"
-                     "  gl_Position = transform * vec4(aPos, 1.0);\n"
+                     "  if(useProj == 1)\n"
+                     "  {\n"
+                     "    gl_Position = projection * view * model * vec4(aPos, 1.0);\n"
+                     "  }\n"
+                     "  else\n"
+                     "  {\n"
+                     "    gl_Position = vec4(aPos, 1.0);\n"
+                     "  }\n"
                      "  vertexColor = vec4(aColor, 1.0);\n"
                      "  vertexTexCoords = aTexCoords;\n"
                      "}\0";
@@ -57,12 +67,14 @@ struct renderInfo
   unsigned int *textures;
   unsigned int countTexture;
   unsigned int latestTexture;
+  mat4 projection;
 }renderInfo;
 
 struct renderInfo info;
 
 void allocateInformation(void)
 {
+  projection = GLM_MAT4_IDENTITY_INIT;
   info.offset = 0;
   info.countShader = 0;
   info.countTexture = 0;
@@ -93,7 +105,7 @@ unsigned int indices[] =
   0, 1, 2, // first triangle
   1, 2, 3, // second triangle
 };
-void addToVertices(float x, float y, float w, float h, float r, float g, float b, unsigned int textureID)
+void addToShader(float x, float y, float w, float h, float r, float g, float b, unsigned int textureID, enum Projection proj)
 {
   info.vertices = realloc(info.vertices, sizeof(float) * info.offset + sizeof(float) * VSIZE);
 
@@ -153,6 +165,38 @@ void addToVertices(float x, float y, float w, float h, float r, float g, float b
   // add texture id to uniform
   glUseProgram(info.latestShader);
   glUniform1i(glGetUniformLocation(info.latestShader, "vertexTexID"), (int)textureID);
+
+  // add mvp to shader and upload it
+  // coordinate system (projection -> far objects become small and vice versa)
+  
+  // PERSPECTIVE
+
+  // upload perspective
+  // if projection is desired, enable the mvp logic
+  if(proj == PERSPECTIVE)
+  {
+    glm_perspective(glm_rad(100.0f), (float)w / (float)h, 0.1f, 100.0f, projection);
+    glUniformMatrix1i(glGetUniformLocation(info.latestShader, "useProj"), 1);
+    glUniformMatrix4fv(glGetUniformLocation(info.latestShader, "projection"), 1, GL_FALSE, (float*)projection);
+  }
+  else 
+  {
+    glUniformMatrix4fv(glGetUniformLocation(info.latestShader, "useProj"), 0);
+  }
+  // MODEL
+  
+  // model matrix (will be useful for having multiple textures and scaling them)
+  mat4 model = GLM_MAT4_IDENTITY_INIT;
+  // world coordinates
+  glm_translate(model, (vec3){1.0f, 0.0f, 0.0f});
+  glUniformMatrix4fv(glGetUniformLocation(info.latestShader, "model"), 1, GL_FALSE, (float*)model);
+  
+  // VIEW
+
+  // these are the camera coordinates
+  mat4 view = GLM_MAT4_IDENTITY_INIT;
+  glm_translate(view, (vec3){1.0f, 0.0f, -3.0f});
+  glUniformMatrix4fv(glGetUniformLocation(info.latestShader, "view"), 1, GL_FALSE, (float*)view);
 }
 
 int generateShader(void)
@@ -356,7 +400,7 @@ void useBuffer(void)
 
 void addRectangle(BananaRectangle *obj)
 {
-  addToVertices(obj->x, obj->y, obj->w, obj->h, obj->r, obj->g, obj->b, 0);
+  addToShader(obj->x, obj->y, obj->w, obj->h, obj->r, obj->g, obj->b, 0, obj->proj);
   // we make use of render batching (merging draw calls -> only use one vertices array -> one shader)
   fillBuffer();
 }
@@ -366,6 +410,6 @@ void addTexture(BananaTexture *obj)
   int w = obj->w;
   int h = obj->h;
   loadTexture(obj);
-  addToVertices(obj->x, obj->y, w, h, 0.0f, 0.0f, 0.0f, obj->textureID);
+  addToShader(obj->x, obj->y, w, h, 0.0f, 0.0f, 0.0f, obj->textureID, obj->proj);
   fillBuffer();
 }

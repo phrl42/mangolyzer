@@ -50,14 +50,14 @@ void initObjects(void)
   texOne.y = 1.0f;
   texOne.w = 1;
   texOne.h = 1;
-
+  texOne.proj = PERSPECTIVE;
   texOne.path = "src/img/banana.png";
   addTexture(&texOne);
 }
 float time = 0;
 void loop(float frameTime)
 {
-  mat4 trans = GLM_MAT4_IDENTITY_INIT;
+  /*mat4 trans = GLM_MAT4_IDENTITY_INIT;
   if(time >= 1.0f)
   {
     time = 0.0f;
@@ -66,4 +66,7 @@ void loop(float frameTime)
 
   glUniformMatrix4fv(glGetUniformLocation(3, "transform"), 1, GL_FALSE, (float*)trans);
   time += frameTime;
+*/
+
+
 }

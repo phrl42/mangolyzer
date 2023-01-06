@@ -3,6 +3,8 @@
 
 #include "init.h"
 
+enum Projection = {NONE, PERSPECTIVE};
+
 typedef struct BananaRectangle 
 {
   float x;
@@ -24,6 +26,7 @@ typedef struct BananaTexture
   int w;
   int h;
 
+  enum Projection proj;
   const char* path;
   unsigned char* data;
 
@@ -34,7 +37,7 @@ typedef struct BananaTexture
 void allocateInformation(void);
 void freeInformation(void);
 
-void addToVertices(float x, float y, float w, float h, float r, float g, float b, unsigned int textureID);
+void addToShader(float x, float y, float w, float h, float r, float g, float b, unsigned int textureID, enum Projection proj);
 
 int generateShader(void);
 
