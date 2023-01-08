@@ -68,13 +68,16 @@ struct renderInfo
   unsigned int countTexture;
   unsigned int latestTexture;
   mat4 projection;
+  mat4 view;
 }renderInfo;
 
 struct renderInfo info;
 
 void allocateInformation(void)
 {
-  projection = GLM_MAT4_IDENTITY_INIT;
+  info.projection = GLM_MAT4_IDENTITY_INIT;
+  info.view = GLM_MAT4_IDENTITY_INIT;
+
   info.offset = 0;
   info.countShader = 0;
   info.countTexture = 0;
@@ -175,28 +178,40 @@ void addToShader(float x, float y, float w, float h, float r, float g, float b, 
   // if projection is desired, enable the mvp logic
   if(proj == PERSPECTIVE)
   {
-    glm_perspective(glm_rad(100.0f), (float)w / (float)h, 0.1f, 100.0f, projection);
-    glUniformMatrix1i(glGetUniformLocation(info.latestShader, "useProj"), 1);
-    glUniformMatrix4fv(glGetUniformLocation(info.latestShader, "projection"), 1, GL_FALSE, (float*)projection);
+    glm_perspective(glm_rad(100.0f), (float)w / (float)h, 0.1f, 100.0f, info.projection);
+    glUniform1i(glGetUniformLocation(info.latestShader, "useProj"), 1);
+    glUniformMatrix4fv(glGetUniformLocation(info.latestShader, "projection"), 1, GL_FALSE, (float*)info.projection);
   }
   else 
   {
-    glUniformMatrix4fv(glGetUniformLocation(info.latestShader, "useProj"), 0);
+    glUniform1i(glGetUniformLocation(info.latestShader, "useProj"), 0);
   }
   // MODEL
   
   // model matrix (will be useful for having multiple textures and scaling them)
   mat4 model = GLM_MAT4_IDENTITY_INIT;
   // world coordinates
-  glm_translate(model, (vec3){1.0f, 0.0f, 0.0f});
+  glm_translate(model, (vec3){obj->x, obj->y, 0.0f});
   glUniformMatrix4fv(glGetUniformLocation(info.latestShader, "model"), 1, GL_FALSE, (float*)model);
   
   // VIEW
 
   // these are the camera coordinates
-  mat4 view = GLM_MAT4_IDENTITY_INIT;
-  glm_translate(view, (vec3){1.0f, 0.0f, -3.0f});
-  glUniformMatrix4fv(glGetUniformLocation(info.latestShader, "view"), 1, GL_FALSE, (float*)view);
+  glm_translate(info.view, (vec3){0.0f, 0.0f, -3.0f});
+  glUniformMatrix4fv(glGetUniformLocation(info.latestShader, "view"), 1, GL_FALSE, (float*)info.view);
+}
+
+void adjustModelMatrix(mat4 model, vec3 coords)
+{
+  glm_translate(model, coords);
+  glUniformMatrix4fv(glGetUniformLocation(info.latestShader, "model"), 1, GL_FALSE, (float*)model);
+}
+
+void adjustViewMatrix(mat4 view, vec3 coords)
+{
+  glm_translate(view, coords);
+  info.view = view;
+  glUniformMatrix4fv(glGetUniformLocation(info.latestShader, "view"), 1, GL_FALSE, (float*)info.view);
 }
 
 int generateShader(void)
@@ -407,6 +422,9 @@ void addRectangle(BananaRectangle *obj)
 
 void addTexture(BananaTexture *obj)
 {
+  // initialize struct model
+  obj->model = GLM_MAT4_IDENTITY_INIT;
+
   int w = obj->w;
   int h = obj->h;
   loadTexture(obj);
