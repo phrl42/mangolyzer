@@ -75,9 +75,8 @@ struct renderInfo info;
 
 void allocateInformation(void)
 {
-  info.projection = GLM_MAT4_IDENTITY_INIT;
-  info.view = GLM_MAT4_IDENTITY_INIT;
-
+  glm_mat4_identity(info.projection);
+  glm_mat4_identity(info.view);
   info.offset = 0;
   info.countShader = 0;
   info.countTexture = 0;
