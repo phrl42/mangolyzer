@@ -8,7 +8,7 @@ OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 
 CC = clang
 CFLAGS = -Wall -Wextra -pedantic -g -I$(INC_DIR)
-LFLAGS = -lSDL2 -lm -lGL
+LFLAGS = -lSDL2 -lm -lGL 
 
 all: $(NAME)
 

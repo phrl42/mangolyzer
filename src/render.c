@@ -3,7 +3,8 @@
 #include "misc.h"
 
 #include "cglm/cglm.h"
-#define VSIZE 32
+#define VSIZE 36
+#define ESIZE 6
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -16,24 +17,19 @@ const char* vertexShaderCon =
                      "layout (location = 0) in vec3 aPos;\n"
                      "layout (location = 1) in vec3 aColor;\n"
                      "layout (location = 2) in vec2 aTexCoords;\n"
+		     "layout (location = 3) in int aTextureID;\n"
                      "out vec4 vertexColor;\n"
                      "out vec2 vertexTexCoords;\n"
-                     "uniform int useProj;\n"
+		     "flat out int textureID;\n"
                      "uniform mat4 model;\n"
                      "uniform mat4 view;\n"
                      "uniform mat4 projection;\n"
                      "void main()\n"
                      "{\n"
-                     "  if(useProj == 1)\n"
-                     "  {\n"
-                     "    gl_Position = projection * view * model * vec4(aPos, 1.0);\n"
-                     "  }\n"
-                     "  else\n"
-                     "  {\n"
-                     "    gl_Position = vec4(aPos, 1.0);\n"
-                     "  }\n"
+                     "  gl_Position = vec4(aPos, 1.0);\n"
                      "  vertexColor = vec4(aColor, 1.0);\n"
                      "  vertexTexCoords = aTexCoords;\n"
+		     "  textureID = aTextureID;\n"
                      "}\0";
 
 const char* fragmentShaderCon =
@@ -41,11 +37,11 @@ const char* fragmentShaderCon =
                      "out vec4 FragColor;\n"
                      "in vec4 vertexColor; // we get the color from the vertex pipeline\n"
                      "in vec2 vertexTexCoords;\n"
-                     "uniform int vertexTexID;\n"
-                     "uniform sampler2D endTexture;\n"
+                     "flat in int textureID;\n"
+		     "uniform sampler2D endTexture;\n"
                      "void main()\n"
                      "{\n"
-                     "  if(vertexTexID == 0)\n"
+                     "  if(textureID == -1)\n"
                      "  {\n"
                      "    FragColor = vertexColor;\n"
                      "  }\n"
@@ -61,9 +57,15 @@ struct renderInfo
   unsigned int countShader;
   unsigned int latestShader;
   
+  unsigned int latestEBO;
+  unsigned int latestVBO;
+
   float *vertices;
   unsigned int offset;
-  
+ 
+  unsigned int *elements;
+  unsigned int elementOffset;
+
   unsigned int *textures;
   unsigned int countTexture;
   unsigned int latestTexture;
@@ -77,13 +79,18 @@ void allocateInformation(void)
 {
   glm_mat4_identity(info.projection);
   glm_mat4_identity(info.view);
+  
   info.offset = 0;
   info.countShader = 0;
   info.countTexture = 0;
+  info.elementOffset = 0;
+  info.latestEBO = 0;
+  info.latestVBO = 0;
 }
 void freeInformation(void)
 {
   free(info.vertices);
+  free(info.elements);
   free(info.shaderPrograms);
   free(info.textures);
 }
@@ -102,15 +109,16 @@ void freeInformation(void)
 // the indices array is used by the ebo and can simplify the drawing of a rectangle
 // as it specifies the vertices of triangles that can be created
 // 3 points = 1 triangle
-unsigned int indices[] = 
+/*unsigned int indices[] = 
 {
   0, 1, 2, // first triangle
   1, 2, 3, // second triangle
-};
-void addToShader(float x, float y, float w, float h, float r, float g, float b, unsigned int textureID, enum Projection proj)
+};*/
+
+void addToShader(float x, float y, float w, float h, float r, float g, float b, int textureID, enum Projection proj)
 {
   info.vertices = realloc(info.vertices, sizeof(float) * info.offset + sizeof(float) * VSIZE);
-
+  info.elements = realloc(info.elements, sizeof(float) * info.elementOffset + sizeof(float) * ESIZE);
   // bottom left
   
   // COORDS
@@ -125,52 +133,66 @@ void addToShader(float x, float y, float w, float h, float r, float g, float b, 
   // TEXCOORDS
   info.vertices[info.offset + 6] = 0; // TX
   info.vertices[info.offset + 7] = 0; // TY
+  // TEXID
+  info.vertices[info.offset + 8] = textureID;
 
   // bottom right
-  info.vertices[info.offset + 8] = x + w;
-  info.vertices[info.offset + 9] = y - h;
-  info.vertices[info.offset + 10] = 0.0f;
+  info.vertices[info.offset + 9] = x + w;
+  info.vertices[info.offset + 10] = y - h;
+  info.vertices[info.offset + 11] = 0.0f;
   
-  info.vertices[info.offset + 11] = r;
-  info.vertices[info.offset + 12] = g;
-  info.vertices[info.offset + 13] = b;
+  info.vertices[info.offset + 12] = r;
+  info.vertices[info.offset + 13] = g;
+  info.vertices[info.offset + 14] = b;
 
-  info.vertices[info.offset + 14] = 1;
-  info.vertices[info.offset + 15] = 0;
+  info.vertices[info.offset + 15] = 1;
+  info.vertices[info.offset + 16] = 0;
+
+  info.vertices[info.offset + 17] = textureID;
 
   // top left (the actual placement)
-  info.vertices[info.offset + 16] = x;
-  info.vertices[info.offset + 17] = y;
-  info.vertices[info.offset + 18] = 0.0f;
+  info.vertices[info.offset + 18] = x;
+  info.vertices[info.offset + 19] = y;
+  info.vertices[info.offset + 20] = 0.0f;
   
-  info.vertices[info.offset + 19] = r;
-  info.vertices[info.offset + 20] = g;
-  info.vertices[info.offset + 21] = b;
+  info.vertices[info.offset + 21] = r;
+  info.vertices[info.offset + 22] = g;
+  info.vertices[info.offset + 23] = b;
 
-  info.vertices[info.offset + 22] = 0;
-  info.vertices[info.offset + 23] = 1;
+  info.vertices[info.offset + 24] = 0;
+  info.vertices[info.offset + 25] = 1;
+
+  info.vertices[info.offset + 26] = textureID;
 
   // top right
-  info.vertices[info.offset + 24] = x + w;
-  info.vertices[info.offset + 25] = y;
-  info.vertices[info.offset + 26] = 0.0f;
+  info.vertices[info.offset + 27] = x + w;
+  info.vertices[info.offset + 28] = y;
+  info.vertices[info.offset + 29] = 0.0f;
 
-  info.vertices[info.offset + 27] = r;
-  info.vertices[info.offset + 28] = g;
-  info.vertices[info.offset + 29] = b;
+  info.vertices[info.offset + 30] = r;
+  info.vertices[info.offset + 31] = g;
+  info.vertices[info.offset + 32] = b;
 
-  info.vertices[info.offset + 30] = 1;
-  info.vertices[info.offset + 31] = 1;
+  info.vertices[info.offset + 33] = 1;
+  info.vertices[info.offset + 34] = 1;
+
+  info.vertices[info.offset + 35] = textureID;
 
   info.offset += VSIZE;
 
-  // add texture id to uniform
-  glUseProgram(info.latestShader);
-  glUniform1i(glGetUniformLocation(info.latestShader, "vertexTexID"), (int)textureID);
+  static int value = 0;
+  info.elements[info.elementOffset + 0] = value + 0;
+  info.elements[info.elementOffset + 1] = value + 1;
+  info.elements[info.elementOffset + 2] = value + 2;
 
+  info.elements[info.elementOffset + 3] = value + 1;
+  info.elements[info.elementOffset + 4] = value + 2;
+  info.elements[info.elementOffset + 5] = value + 3;
+  info.elementOffset += ESIZE;
+  value += 4;
   // add mvp to shader and upload it
   // coordinate system (projection -> far objects become small and vice versa)
-  
+  // TODO: use a different shader..  
   // PERSPECTIVE
 
   // upload perspective
@@ -178,12 +200,7 @@ void addToShader(float x, float y, float w, float h, float r, float g, float b, 
   if(proj == PERSPECTIVE)
   {
     glm_perspective(glm_rad(100.0f), (float)w / (float)h, 0.1f, 100.0f, info.projection);
-    glUniform1i(glGetUniformLocation(info.latestShader, "useProj"), 1);
     glUniformMatrix4fv(glGetUniformLocation(info.latestShader, "projection"), 1, GL_FALSE, (float*)info.projection);
-  }
-  else 
-  {
-    glUniform1i(glGetUniformLocation(info.latestShader, "useProj"), 0);
   }
   // MODEL
   
@@ -311,27 +328,29 @@ void fillBuffer(void)
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
   // give the gpu our vertices array
   glBufferData(GL_ARRAY_BUFFER, sizeof(float) * info.offset, info.vertices, GL_DYNAMIC_DRAW);
-  
+  //glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float) * info.offset, info.vertices); 
   // also use the ebo
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-  // upload the indices array
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_DYNAMIC_DRAW);
-
+  // upload the elements array
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * info.elementOffset, info.elements, GL_DYNAMIC_DRAW);
+  //glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(unsigned int) * info.elementOffset, info.elements);
   // linking the vertices array
   // telling opengl how our vertices array is built and how it should interpret the information
   // index location | size (how many attributes) | type | normalization (not needed) | offset between attributes (one point)
   // | offset of the first attribute
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float),(void*)0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float) + sizeof(int),(void*)0);
   // enable vertex attribute (searching for vertices in the array, starting from 0)
   // make the connection between the vertices array and the vbo
   glEnableVertexAttribArray(0);
 
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(sizeof(float) * 3));
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float) + sizeof(int), (void*)(sizeof(float) * 3));
   glEnableVertexAttribArray(1);
 
-  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(sizeof(float) * 6));
+  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float) + sizeof(int), (void*)(sizeof(float) * 6));
   glEnableVertexAttribArray(2);
-
+  
+  glVertexAttribPointer(3, 1, GL_INT, GL_FALSE, 8 * sizeof(float) + sizeof(int), (void*)(sizeof(float) * 8));
+  glEnableVertexAttribArray(3);
   // unbind the vbo
   glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -344,6 +363,9 @@ void fillBuffer(void)
   //glBindVertexArray(VAO);
   // use the shader, from now on everything gets rendered with this shader (state machine)
   //glUseProgram(shaderProgram);
+
+  info.latestVBO = VBO;
+  info.latestEBO = EBO;
 }
 
 int loadTexture(BananaTexture *obj)
@@ -398,6 +420,18 @@ int loadTexture(BananaTexture *obj)
   return 0; 
 }
 
+void updateBuffer(void)
+{
+  glBindBuffer(GL_ARRAY_BUFFER, info.latestVBO);
+  glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float) * info.offset, info.vertices);
+  
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, info.latestEBO);
+  glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, sizeof(float) * info.elementOffset, info.elements);
+
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}	
 void useBuffer(void)
 {
   glActiveTexture(GL_TEXTURE0);
@@ -407,6 +441,7 @@ void useBuffer(void)
   // use the vao preset
   glBindVertexArray(VAO);
   // draw the rectangle
+  //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   // one element = one index (from the indices)
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
   //glDrawArrays(GL_TRIANGLES, 0, 3);
@@ -414,9 +449,10 @@ void useBuffer(void)
 
 void addRectangle(BananaRectangle *obj)
 {
-  addToShader(obj->x, obj->y, obj->w, obj->h, obj->r, obj->g, obj->b, 0, obj->proj);
+  addToShader(obj->x, obj->y, obj->w, obj->h, obj->r, obj->g, obj->b, -1, obj->proj);
   // we make use of render batching (merging draw calls -> only use one vertices array -> one shader)
   fillBuffer();
+  updateBuffer();
 }
 
 void addTexture(BananaTexture *obj)
@@ -428,4 +464,6 @@ void addTexture(BananaTexture *obj)
   loadTexture(obj);
   addToShader(obj->x, obj->y, w, h, 0.0f, 0.0f, 0.0f, obj->textureID, obj->proj);
   fillBuffer();
+  // needed to display changes
+  updateBuffer();
 }

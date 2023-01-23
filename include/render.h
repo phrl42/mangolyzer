@@ -44,7 +44,7 @@ void freeInformation(void);
 void adjustModelMatrix(mat4 model, vec3 coords);
 void adjustViewMatrix(mat4 view, vec3 coords);
 
-void addToShader(float x, float y, float w, float h, float r, float g, float b, unsigned int textureID, enum Projection proj);
+void addToShader(float x, float y, float w, float h, float r, float g, float b, int textureID, enum Projection proj);
 
 int generateShader(void);
 

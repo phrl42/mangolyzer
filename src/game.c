@@ -30,7 +30,7 @@ int init(void)
 
 void initObjects(void)
 {
-/* 
+ 
   BananaRectangle objectOne;
   
   objectOne.x = 0.0f;
@@ -41,9 +41,9 @@ void initObjects(void)
   objectOne.r = 1.0f;
   objectOne.g = 0.5f;
   objectOne.b = -1.0f;
-
+  objectOne.proj = PERSPECTIVE;
   addRectangle(&objectOne);
- */
+
   BananaTexture texOne;
   
   texOne.x = -1.0f;
