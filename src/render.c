@@ -17,10 +17,10 @@ const char* vertexShaderCon =
                      "layout (location = 0) in vec3 aPos;\n"
                      "layout (location = 1) in vec3 aColor;\n"
                      "layout (location = 2) in vec2 aTexCoords;\n"
-                     "layout (location = 3) in float aTextureID;\n"
+                     "layout (location = 3) in int aTextureID;\n"
                      "out vec4 vertexColor;\n"
                      "out vec2 vertexTexCoords;\n"
-                     "out float textureID;\n"
+                     "flat out int textureID;\n"
                      "uniform mat4 model;\n"
                      "uniform mat4 view;\n"
                      "uniform mat4 projection;\n"
@@ -37,17 +37,17 @@ const char* fragmentShaderCon =
                      "out vec4 FragColor;\n"
                      "in vec4 vertexColor; // we get the color from the vertex pipeline\n"
                      "in vec2 vertexTexCoords;\n"
-                     "in float textureID;\n"
-                     "uniform sampler2D endTexture;\n"
+                     "flat in int textureID;\n"
+                     "uniform sampler2D endTexture[8];\n"
                      "void main()\n"
                      "{\n"
-                     "  if(textureID < 0)\n"
+                     "  if(textureID <= -1.0f)\n"
                      "  {\n"
                      "    FragColor = vertexColor;\n"
                      "  }\n"
                      "  else\n"
                      "  {\n"
-                     "    FragColor = texture(endTexture, vertexTexCoords); // display texture\n"
+                     "    FragColor = texture(endTexture[0], vertexTexCoords); // display texture\n"
                      "  }\n"
                      "}\0";
 
@@ -322,6 +322,15 @@ void fillBuffer(void)
     glGenBuffers(1, &info.latestVBO);
     // also generate the ebo
     glGenBuffers(1, &info.latestEBO);
+
+    // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)  
+    glUseProgram(info.latestShader);
+    int units[8];
+    for(int i = 0; i < 8; i++)
+    {
+      units[i] = i;
+    }
+    glUniform1iv(glGetUniformLocation(info.latestShader, "endTexture"), 8, units);
   }
   // use the vao and save the following into it
   glBindVertexArray(info.latestVAO);
@@ -343,18 +352,18 @@ void fillBuffer(void)
   // telling opengl how our vertices array is built and how it should interpret the information
   // index location | size (how many attributes) | type | normalization (not needed) | offset between attributes (one point)
   // | offset of the first attribute
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float),(void*)0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float) + sizeof(int),(void*)0);
   // enable vertex attribute (searching for vertices in the array, starting from 0)
   // make the connection between the vertices array and the vbo
   glEnableVertexAttribArray(0);
 
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)(sizeof(float) * 3));
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float) + sizeof(int), (void*)(sizeof(float) * 3));
   glEnableVertexAttribArray(1);
 
-  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)(sizeof(float) * 6));
+  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float) + sizeof(int), (void*)(sizeof(float) * 6));
   glEnableVertexAttribArray(2);
   
-  glVertexAttribPointer(3, 1, GL_INT, GL_FALSE, 9 * sizeof(float), (void*)(sizeof(float) * 8));
+  glVertexAttribPointer(3, 1, GL_INT, GL_FALSE, 8 * sizeof(float) + sizeof(int), (void*)(sizeof(float) * 8));
   glEnableVertexAttribArray(3);
   // unbind the vbo
   glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -397,7 +406,13 @@ int loadTexture(BananaTexture *obj)
     return -1;
   }
   // load image into gpu
-  
+  // this engine makes use of 8 simultaneous slots
+  // how it basically works:
+  // once a texture gets uploaded, their slot location just gets incremented
+  // we only make use of 8 simultaneous textures, so we send a list of integers from 0 to 7 to the uniform sampler
+  // which then takes a look at the texture slot
+  // the textureID in the vertex buffer, references the wanted texture which has already been uploaded
+  // to these textures slots. 
   if(obj->channels == 4)
   {
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, obj->w, obj->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, obj->data);
@@ -437,8 +452,21 @@ void updateBuffer(void)
 }	
 void useBuffer(void)
 {
-  glActiveTexture(GL_TEXTURE0);
-  glBindTexture(GL_TEXTURE_2D, info.latestTexture);
+  // we can bind X textures simultaneously
+  // if we have more textures than allowed
+  // split the drawcall up
+  // for instance: X = 8
+  // and we have 17 textures (0 - 16):
+  // textures 0 - 7 will be displayed on a first drawcall
+  // textures 8 - 15 will be displayed on a second drawcall 
+  // texture 16 will be displayed on a third drawcall
+  // bind the used textures
+  for(int i = 0; i < (int)info.countTexture; i++)
+  {
+    glActiveTexture(GL_TEXTURE0 + i);
+    glBindTexture(GL_TEXTURE_2D, info.textures[i]);
+  }
+  
   // use the shader, from now on everything gets rendered with this shader (state machine)
   glUseProgram(info.latestShader);
   // use the vao preset
