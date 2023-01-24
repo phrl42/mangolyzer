@@ -17,10 +17,10 @@ const char* vertexShaderCon =
                      "layout (location = 0) in vec3 aPos;\n"
                      "layout (location = 1) in vec3 aColor;\n"
                      "layout (location = 2) in vec2 aTexCoords;\n"
-		     "layout (location = 3) in int aTextureID;\n"
+                     "layout (location = 3) in float aTextureID;\n"
                      "out vec4 vertexColor;\n"
                      "out vec2 vertexTexCoords;\n"
-		     "flat out int textureID;\n"
+                     "out float textureID;\n"
                      "uniform mat4 model;\n"
                      "uniform mat4 view;\n"
                      "uniform mat4 projection;\n"
@@ -29,7 +29,7 @@ const char* vertexShaderCon =
                      "  gl_Position = vec4(aPos, 1.0);\n"
                      "  vertexColor = vec4(aColor, 1.0);\n"
                      "  vertexTexCoords = aTexCoords;\n"
-		     "  textureID = aTextureID;\n"
+                     "  textureID = aTextureID;\n"
                      "}\0";
 
 const char* fragmentShaderCon =
@@ -37,11 +37,11 @@ const char* fragmentShaderCon =
                      "out vec4 FragColor;\n"
                      "in vec4 vertexColor; // we get the color from the vertex pipeline\n"
                      "in vec2 vertexTexCoords;\n"
-                     "flat in int textureID;\n"
-		     "uniform sampler2D endTexture;\n"
+                     "in float textureID;\n"
+                     "uniform sampler2D endTexture;\n"
                      "void main()\n"
                      "{\n"
-                     "  if(textureID == -1)\n"
+                     "  if(textureID < 0)\n"
                      "  {\n"
                      "    FragColor = vertexColor;\n"
                      "  }\n"
@@ -57,8 +57,9 @@ struct renderInfo
   unsigned int countShader;
   unsigned int latestShader;
   
-  unsigned int latestEBO;
+  unsigned int latestVAO;
   unsigned int latestVBO;
+  unsigned int latestEBO;
 
   float *vertices;
   unsigned int offset;
@@ -84,8 +85,9 @@ void allocateInformation(void)
   info.countShader = 0;
   info.countTexture = 0;
   info.elementOffset = 0;
-  info.latestEBO = 0;
+  info.latestVAO = 0;
   info.latestVBO = 0;
+  info.latestEBO = 0;
 }
 void freeInformation(void)
 {
@@ -135,7 +137,6 @@ void addToShader(float x, float y, float w, float h, float r, float g, float b, 
   info.vertices[info.offset + 7] = 0; // TY
   // TEXID
   info.vertices[info.offset + 8] = textureID;
-
   // bottom right
   info.vertices[info.offset + 9] = x + w;
   info.vertices[info.offset + 10] = y - h;
@@ -306,50 +307,54 @@ int generateShader(void)
 // vbo = a configuration of a vertex attribute structure ; the vbo itself is only the array
 // vao = saves the whole vao configuration in a buffer, it also saves the ebo
 // we only use one vao (there is only one norm)
-unsigned int VAO; // "configuration saver" identifier
 // one vao has to be used, because opengl requires it
 void fillBuffer(void)
 {
-  unsigned int VBO; // vertex array identifier
-  unsigned int EBO; // element buffer object identifier  
+  //unsigned int VAO; // "configuration saver" identifier 
+  //unsigned int VBO; // vertex array identifier
+  //unsigned int EBO; // element buffer object identifier  
   
-  // generate space for the vertex array object
-  glGenVertexArrays(1, &VAO);
-  // generate space for one vertex array
-  glGenBuffers(1, &VBO);
-  // also generate the ebo
-  glGenBuffers(1, &EBO);
-
+  if(info.latestVAO == 0)
+  {
+    // generate space for the vertex array object
+    glGenVertexArrays(1, &info.latestVAO);
+    // generate space for one vertex array
+    glGenBuffers(1, &info.latestVBO);
+    // also generate the ebo
+    glGenBuffers(1, &info.latestEBO);
+  }
   // use the vao and save the following into it
-  glBindVertexArray(VAO);
-
+  glBindVertexArray(info.latestVAO);
   
+  printf("VAO: %d\n", info.latestVAO);
   // use the newly generated uffer
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
+  glBindBuffer(GL_ARRAY_BUFFER, info.latestVBO);
   // give the gpu our vertices array
   glBufferData(GL_ARRAY_BUFFER, sizeof(float) * info.offset, info.vertices, GL_DYNAMIC_DRAW);
+  printf("vertices: %d\n", info.offset);
   //glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float) * info.offset, info.vertices); 
   // also use the ebo
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, info.latestEBO);
   // upload the elements array
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * info.elementOffset, info.elements, GL_DYNAMIC_DRAW);
+  printf("elements: %d\n", info.elementOffset);
   //glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(unsigned int) * info.elementOffset, info.elements);
   // linking the vertices array
   // telling opengl how our vertices array is built and how it should interpret the information
   // index location | size (how many attributes) | type | normalization (not needed) | offset between attributes (one point)
   // | offset of the first attribute
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float) + sizeof(int),(void*)0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float),(void*)0);
   // enable vertex attribute (searching for vertices in the array, starting from 0)
   // make the connection between the vertices array and the vbo
   glEnableVertexAttribArray(0);
 
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float) + sizeof(int), (void*)(sizeof(float) * 3));
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)(sizeof(float) * 3));
   glEnableVertexAttribArray(1);
 
-  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float) + sizeof(int), (void*)(sizeof(float) * 6));
+  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)(sizeof(float) * 6));
   glEnableVertexAttribArray(2);
   
-  glVertexAttribPointer(3, 1, GL_INT, GL_FALSE, 8 * sizeof(float) + sizeof(int), (void*)(sizeof(float) * 8));
+  glVertexAttribPointer(3, 1, GL_INT, GL_FALSE, 9 * sizeof(float), (void*)(sizeof(float) * 8));
   glEnableVertexAttribArray(3);
   // unbind the vbo
   glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -363,9 +368,6 @@ void fillBuffer(void)
   //glBindVertexArray(VAO);
   // use the shader, from now on everything gets rendered with this shader (state machine)
   //glUseProgram(shaderProgram);
-
-  info.latestVBO = VBO;
-  info.latestEBO = EBO;
 }
 
 int loadTexture(BananaTexture *obj)
@@ -422,7 +424,7 @@ int loadTexture(BananaTexture *obj)
 
 void updateBuffer(void)
 {
-  glBindBuffer(GL_ARRAY_BUFFER, info.latestVBO);
+  /*glBindBuffer(GL_ARRAY_BUFFER, info.latestVBO);
   glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float) * info.offset, info.vertices);
   
   glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -431,6 +433,7 @@ void updateBuffer(void)
   glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, sizeof(float) * info.elementOffset, info.elements);
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+*/
 }	
 void useBuffer(void)
 {
@@ -439,11 +442,11 @@ void useBuffer(void)
   // use the shader, from now on everything gets rendered with this shader (state machine)
   glUseProgram(info.latestShader);
   // use the vao preset
-  glBindVertexArray(VAO);
+  glBindVertexArray(info.latestVAO);
   // draw the rectangle
   //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   // one element = one index (from the indices)
-  glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+  glDrawElements(GL_TRIANGLES, info.elementOffset, GL_UNSIGNED_INT, 0);
   //glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 
@@ -452,7 +455,6 @@ void addRectangle(BananaRectangle *obj)
   addToShader(obj->x, obj->y, obj->w, obj->h, obj->r, obj->g, obj->b, -1, obj->proj);
   // we make use of render batching (merging draw calls -> only use one vertices array -> one shader)
   fillBuffer();
-  updateBuffer();
 }
 
 void addTexture(BananaTexture *obj)
@@ -464,6 +466,4 @@ void addTexture(BananaTexture *obj)
   loadTexture(obj);
   addToShader(obj->x, obj->y, w, h, 0.0f, 0.0f, 0.0f, obj->textureID, obj->proj);
   fillBuffer();
-  // needed to display changes
-  updateBuffer();
 }

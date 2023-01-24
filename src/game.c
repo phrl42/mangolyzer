@@ -38,7 +38,7 @@ void initObjects(void)
   objectOne.w = 0.3f;
   objectOne.h = 0.3f;
 
-  objectOne.r = 1.0f;
+  objectOne.r = 0.234230f;
   objectOne.g = 0.5f;
   objectOne.b = -1.0f;
   objectOne.proj = PERSPECTIVE;
@@ -53,6 +53,19 @@ void initObjects(void)
   texOne.proj = PERSPECTIVE;
   texOne.path = "src/img/banana.png";
   addTexture(&texOne);
+
+  BananaRectangle objectTwo;
+  objectTwo.x = 0.5;
+  objectTwo.y = -0.6;
+  objectTwo.w = 0.4;
+  objectTwo.h = 0.3;
+  
+  objectTwo.r = 0.4234234f;
+  objectTwo.g = -0.32423f;
+  objectTwo.b = 0.234234f;
+
+  objectTwo.proj = PERSPECTIVE;
+  addRectangle(&objectTwo);
 }
 float time = 0;
 void loop(float frameTime)
