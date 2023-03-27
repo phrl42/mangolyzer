@@ -57,7 +57,6 @@ namespace banana
     
   }
 
-
   void* SDLWindow::GetWindow()
   {
     return win;

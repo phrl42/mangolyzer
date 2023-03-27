@@ -69,6 +69,15 @@ void SDLFramework::SetColor(glm::vec4 color)
   }
 }
 
+Uint64 SDLFramework::GetTicks()
+{
+  return SDL_GetTicks64();
+}
+
+void SDLFramework::SetWindowTitle(void* window, std::string title)
+{
+  SDL_SetWindowTitle((SDL_Window*)window, title.c_str());
+}
 
 void SDLFramework::Update(void* window)
 {

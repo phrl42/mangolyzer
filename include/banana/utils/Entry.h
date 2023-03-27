@@ -11,8 +11,6 @@ namespace banana
   public:
     Entry(WindowingSystem ws, GraphicsLibrary gl);
     ~Entry();
-
-    void SetColor(glm::vec4 color);
     
     void Run();
 

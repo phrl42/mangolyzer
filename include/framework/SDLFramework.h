@@ -17,6 +17,11 @@ namespace banana
     void Init(Uint32 flags) override;
 
     void SetColor(glm::vec4 color) override;
+
+    Uint64 GetTicks() override;
+
+    void SetWindowTitle(void* window, std::string title) override;
+
     void Clear() override;
 
     void Update(void* window) override;

@@ -26,12 +26,30 @@ namespace banana
 
   void Entry::Run()
   {
+    Uint64 lastTime = 0;
+    float frameTime = 0;
+    Uint64 beginTime = 0;
+
     framework->SetColor(Window::GetMostRecentWindow()->BackgroundColor);
-    while(1)
-    {
+    int x = 0;
+    while(x < 10)
+    {      
+      beginTime = framework->GetTicks();
+
       framework->Clear();
-      game::Game::Loop(4.2f);
+
+      // we have milliseconds
+      game::Game::Loop((float)(frameTime / 1000));
+
       framework->Update(Window::GetMostRecentWindow()->GetWindow());
+
+      lastTime = framework->GetTicks();
+
+      frameTime = lastTime - beginTime;
+      
+      // useful for debugging
+      framework->SetWindowTitle(Window::GetMostRecentWindow()->GetWindow(), std::to_string(1 / (frameTime / 1000)));
+      x++;
     }
   }
 };

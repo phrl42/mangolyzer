@@ -15,6 +15,6 @@ namespace game
 
   void Game::Loop(float dt)
   {
-    LOG_GAME("bunker carlos " + std::to_string(dt));
+    
   }
 };
