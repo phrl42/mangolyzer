@@ -1,7 +1,7 @@
 [
   {
     "arguments": [
-      "/bin/clang++",
+      "/usr/bin/clang++",
       "-Wall",
       "-Wextra",
       "-pedantic",
@@ -11,87 +11,11 @@
       "-Iinclude",
       "-c",
       "-o",
-      "bin/Entry.o",
-      "src/Entry.cpp"
+      "bin/Input.o",
+      "src/Input.cpp"
     ],
-    "directory": "/home/pherel/Tools/Projects/rewrite",
-    "file": "/home/pherel/Tools/Projects/rewrite/src/Entry.cpp",
-    "output": "/home/pherel/Tools/Projects/rewrite/bin/Entry.o"
-  },
-  {
-    "arguments": [
-      "/bin/clang++",
-      "-Wall",
-      "-Wextra",
-      "-pedantic",
-      "-g",
-      "-Iinclude/banana",
-      "-Iinclude/game",
-      "-Iinclude",
-      "-c",
-      "-o",
-      "bin/SDLFramework.o",
-      "src/SDLFramework.cpp"
-    ],
-    "directory": "/home/pherel/Tools/Projects/rewrite",
-    "file": "/home/pherel/Tools/Projects/rewrite/src/SDLFramework.cpp",
-    "output": "/home/pherel/Tools/Projects/rewrite/bin/SDLFramework.o"
-  },
-  {
-    "arguments": [
-      "/bin/clang++",
-      "-Wall",
-      "-Wextra",
-      "-pedantic",
-      "-g",
-      "-Iinclude/banana",
-      "-Iinclude/game",
-      "-Iinclude",
-      "-c",
-      "-o",
-      "bin/SDLWindow.o",
-      "src/SDLWindow.cpp"
-    ],
-    "directory": "/home/pherel/Tools/Projects/rewrite",
-    "file": "/home/pherel/Tools/Projects/rewrite/src/SDLWindow.cpp",
-    "output": "/home/pherel/Tools/Projects/rewrite/bin/SDLWindow.o"
-  },
-  {
-    "arguments": [
-      "/bin/clang++",
-      "-Wall",
-      "-Wextra",
-      "-pedantic",
-      "-g",
-      "-Iinclude/banana",
-      "-Iinclude/game",
-      "-Iinclude",
-      "-c",
-      "-o",
-      "bin/game.o",
-      "src/game.cpp"
-    ],
-    "directory": "/home/pherel/Tools/Projects/rewrite",
-    "file": "/home/pherel/Tools/Projects/rewrite/src/game.cpp",
-    "output": "/home/pherel/Tools/Projects/rewrite/bin/game.o"
-  },
-  {
-    "arguments": [
-      "/bin/clang++",
-      "-Wall",
-      "-Wextra",
-      "-pedantic",
-      "-g",
-      "-Iinclude/banana",
-      "-Iinclude/game",
-      "-Iinclude",
-      "-c",
-      "-o",
-      "bin/main.o",
-      "src/main.cpp"
-    ],
-    "directory": "/home/pherel/Tools/Projects/rewrite",
-    "file": "/home/pherel/Tools/Projects/rewrite/src/main.cpp",
-    "output": "/home/pherel/Tools/Projects/rewrite/bin/main.o"
+    "directory": "/home/pherel/Tools/Projects/banana",
+    "file": "/home/pherel/Tools/Projects/banana/src/Input.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/Input.o"
   }
 ]

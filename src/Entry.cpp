@@ -1,6 +1,8 @@
 #include "utils/Entry.h"
 #include "game/Game.h"
 
+#include "events/Input.h"
+
 namespace banana
 {
   Entry::Entry(WindowingSystem ws, GraphicsLibrary gl)
@@ -32,7 +34,7 @@ namespace banana
 
     framework->SetColor(Window::GetMostRecentWindow()->BackgroundColor);
     int x = 0;
-    while(x < 10)
+    while(!Input::IsKeyDown(SDL_SCANCODE_ESCAPE))
     {      
       beginTime = framework->GetTicks();
 

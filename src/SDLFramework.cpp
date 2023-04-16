@@ -91,5 +91,4 @@ void SDLFramework::Update(void* window)
   }
 }
 
-
 }; // namespace banana
