@@ -26,7 +26,6 @@ namespace banana
 
     void Update(void* window) override;
 
-  private:
     std::shared_ptr<RenderCommand> renderCommand;
   };
 };

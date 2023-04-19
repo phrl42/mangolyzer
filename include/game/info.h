@@ -55,6 +55,8 @@ class Banana {
 public:
   static int InitBananaWindow(BananaWindow* BWindow);
 
+  static int AddRectangle(BananaRectangle& obj);
+
 };
 
 }; // namespace banana

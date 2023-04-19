@@ -10,7 +10,9 @@ namespace banana
   public:
     OpenGLRenderCommand();
     ~OpenGLRenderCommand() override;
+
     void Clear() override;
+    void InitRenderer() override;
     void SetColor(glm::vec4 color) override;
     void Update(void* window) override;
   };

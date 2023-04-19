@@ -31,4 +31,9 @@ namespace banana
       Window::Windows.push_back(BWindow->win);
       return 0;
     };
+    
+    int Banana::AddRectangle(BananaRectangle& obj)
+    {
+      Renderer::AddRectangle(obj->x, obj->y, obj->w, obj->h, obj->r, obj->g, obj->b, -1, obj->proj);
+    }
 };

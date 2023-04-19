@@ -3,6 +3,8 @@
 
 #include "events/Input.h"
 
+#include "renderer/Renderer.h"
+
 namespace banana
 {
   Entry::Entry(WindowingSystem ws, GraphicsLibrary gl)
@@ -11,6 +13,8 @@ namespace banana
     banana::Management::UsedGL = gl;
 
     framework = Framework::GetFramework();
+
+    renderCommand = RenderCommand::GetRenderCommand();
   }
 
   Entry::~Entry()
@@ -33,7 +37,9 @@ namespace banana
     Uint64 beginTime = 0;
 
     framework->SetColor(Window::GetMostRecentWindow()->BackgroundColor);
-    int x = 0;
+
+    Renderer::Init();
+
     while(!Input::IsKeyDown(SDL_SCANCODE_ESCAPE))
     {      
       beginTime = framework->GetTicks();
@@ -51,7 +57,6 @@ namespace banana
       
       // useful for debugging
       framework->SetWindowTitle(Window::GetMostRecentWindow()->GetWindow(), std::to_string(1 / (frameTime / 1000)));
-      x++;
     }
   }
 };

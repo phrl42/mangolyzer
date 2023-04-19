@@ -2,6 +2,7 @@
 
 #include "incs.h"
 #include "framework/Framework.h"
+#include "renderer/RenderCommand.h"
 
 namespace banana 
 {
@@ -18,6 +19,7 @@ namespace banana
 
   private:
     std::shared_ptr<Framework> framework;
+    std::shared_ptr<RenderCommand> renderCommand;
   };
 
 } // namespace banana

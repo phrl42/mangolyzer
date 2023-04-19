@@ -8,6 +8,8 @@ namespace banana
   {
   public:
     virtual ~RenderCommand() = default;
+    
+    virtual void InitRenderer() = 0;
     virtual void Clear() = 0;
     virtual void SetColor(glm::vec4 color) = 0;
     virtual void Update(void* window) = 0;
