@@ -1,5 +1,7 @@
 #pragma once
 #include "utils/incs.h"
+#include <SDL2/SDL_stdinc.h>
+
 
 namespace banana
 {

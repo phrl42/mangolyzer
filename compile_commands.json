@@ -2,6 +2,71 @@
   {
     "arguments": [
       "/usr/bin/clang++",
+      "-DMACRO_SDL2",
+      "-DMACRO_OPENGL",
+      "-Wall",
+      "-Wextra",
+      "-pedantic",
+      "-g",
+      "-Iinclude/banana",
+      "-Iinclude/game",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "bin/Banana.o",
+      "src/Banana.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana",
+    "file": "/home/pherel/Tools/Projects/banana/src/Banana.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/Banana.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-DMACRO_SDL2",
+      "-DMACRO_OPENGL",
+      "-Wall",
+      "-Wextra",
+      "-pedantic",
+      "-g",
+      "-Iinclude/banana",
+      "-Iinclude/game",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "bin/Entry.o",
+      "src/Entry.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana",
+    "file": "/home/pherel/Tools/Projects/banana/src/Entry.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/Entry.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-DMACRO_SDL2",
+      "-DMACRO_OPENGL",
+      "-Wall",
+      "-Wextra",
+      "-pedantic",
+      "-g",
+      "-Iinclude/banana",
+      "-Iinclude/game",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "bin/Framework.o",
+      "src/Framework.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana",
+    "file": "/home/pherel/Tools/Projects/banana/src/Framework.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/Framework.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-DMACRO_SDL2",
+      "-DMACRO_OPENGL",
       "-Wall",
       "-Wextra",
       "-pedantic",
@@ -17,5 +82,236 @@
     "directory": "/home/pherel/Tools/Projects/banana",
     "file": "/home/pherel/Tools/Projects/banana/src/Input.cpp",
     "output": "/home/pherel/Tools/Projects/banana/bin/Input.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-DMACRO_SDL2",
+      "-DMACRO_OPENGL",
+      "-Wall",
+      "-Wextra",
+      "-pedantic",
+      "-g",
+      "-Iinclude/banana",
+      "-Iinclude/game",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "bin/Management.o",
+      "src/Management.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana",
+    "file": "/home/pherel/Tools/Projects/banana/src/Management.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/Management.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-DMACRO_SDL2",
+      "-DMACRO_OPENGL",
+      "-Wall",
+      "-Wextra",
+      "-pedantic",
+      "-g",
+      "-Iinclude/banana",
+      "-Iinclude/game",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "bin/OpenGLRenderCommand.o",
+      "src/OpenGLRenderCommand.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana",
+    "file": "/home/pherel/Tools/Projects/banana/src/OpenGLRenderCommand.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/OpenGLRenderCommand.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-DMACRO_SDL2",
+      "-DMACRO_OPENGL",
+      "-Wall",
+      "-Wextra",
+      "-pedantic",
+      "-g",
+      "-Iinclude/banana",
+      "-Iinclude/game",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "bin/OpenGLShader.o",
+      "src/OpenGLShader.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana",
+    "file": "/home/pherel/Tools/Projects/banana/src/OpenGLShader.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/OpenGLShader.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-DMACRO_SDL2",
+      "-DMACRO_OPENGL",
+      "-Wall",
+      "-Wextra",
+      "-pedantic",
+      "-g",
+      "-Iinclude/banana",
+      "-Iinclude/game",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "bin/RenderCommand.o",
+      "src/RenderCommand.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana",
+    "file": "/home/pherel/Tools/Projects/banana/src/RenderCommand.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/RenderCommand.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-DMACRO_SDL2",
+      "-DMACRO_OPENGL",
+      "-Wall",
+      "-Wextra",
+      "-pedantic",
+      "-g",
+      "-Iinclude/banana",
+      "-Iinclude/game",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "bin/Renderer.o",
+      "src/Renderer.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana",
+    "file": "/home/pherel/Tools/Projects/banana/src/Renderer.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/Renderer.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-DMACRO_SDL2",
+      "-DMACRO_OPENGL",
+      "-Wall",
+      "-Wextra",
+      "-pedantic",
+      "-g",
+      "-Iinclude/banana",
+      "-Iinclude/game",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "bin/SDLFramework.o",
+      "src/SDLFramework.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana",
+    "file": "/home/pherel/Tools/Projects/banana/src/SDLFramework.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/SDLFramework.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-DMACRO_SDL2",
+      "-DMACRO_OPENGL",
+      "-Wall",
+      "-Wextra",
+      "-pedantic",
+      "-g",
+      "-Iinclude/banana",
+      "-Iinclude/game",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "bin/SDLWindow.o",
+      "src/SDLWindow.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana",
+    "file": "/home/pherel/Tools/Projects/banana/src/SDLWindow.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/SDLWindow.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-DMACRO_SDL2",
+      "-DMACRO_OPENGL",
+      "-Wall",
+      "-Wextra",
+      "-pedantic",
+      "-g",
+      "-Iinclude/banana",
+      "-Iinclude/game",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "bin/Shader.o",
+      "src/Shader.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana",
+    "file": "/home/pherel/Tools/Projects/banana/src/Shader.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/Shader.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-DMACRO_SDL2",
+      "-DMACRO_OPENGL",
+      "-Wall",
+      "-Wextra",
+      "-pedantic",
+      "-g",
+      "-Iinclude/banana",
+      "-Iinclude/game",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "bin/Window.o",
+      "src/Window.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana",
+    "file": "/home/pherel/Tools/Projects/banana/src/Window.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/Window.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-DMACRO_SDL2",
+      "-DMACRO_OPENGL",
+      "-Wall",
+      "-Wextra",
+      "-pedantic",
+      "-g",
+      "-Iinclude/banana",
+      "-Iinclude/game",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "bin/game.o",
+      "src/game.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana",
+    "file": "/home/pherel/Tools/Projects/banana/src/game.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/game.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-DMACRO_SDL2",
+      "-DMACRO_OPENGL",
+      "-Wall",
+      "-Wextra",
+      "-pedantic",
+      "-g",
+      "-Iinclude/banana",
+      "-Iinclude/game",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "bin/main.o",
+      "src/main.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana",
+    "file": "/home/pherel/Tools/Projects/banana/src/main.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/main.o"
   }
 ]

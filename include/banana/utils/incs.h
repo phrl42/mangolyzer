@@ -7,7 +7,6 @@
 
 #include <cctype>
 #include <cstring>
-#include <SDL2/SDL_stdinc.h>
 
 #include "utils/Log.h"
 

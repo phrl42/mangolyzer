@@ -35,10 +35,10 @@ void main()
 {
     if(textureID <= -1.0f)
     {
-        FragColor = vertexColor;
+      FragColor = vertexColor;
     }
     else
     {
-        FragColor = texture(endTexture[0], vertexTexCoords);
+      FragColor = texture(endTexture[0], vertexTexCoords);
     }
 }

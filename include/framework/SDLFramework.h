@@ -1,11 +1,11 @@
 #pragma once
+#include <SDL2/SDL_stdinc.h>
 
 #include "utils/incs.h"
 
 #include "framework/Framework.h"
 #include "renderer/RenderCommand.h"
 
-#include <SDL2/SDL.h>
 
 namespace banana
 {

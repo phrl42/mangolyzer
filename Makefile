@@ -9,14 +9,15 @@ OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.cpp=.o))
 CC = clang++
 CFLAGS = -Wall -Wextra -pedantic -g -Iinclude/banana -Iinclude/game -Iinclude
 LFLAGS = -lSDL2 -lm -lGL 
+CPPFLAGS = -DMACRO_SDL2 -DMACRO_OPENGL
 
 all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) -o $(NAME)
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(OBJS) $(LFLAGS) -o $(NAME)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)/%.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)

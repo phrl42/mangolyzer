@@ -4,8 +4,6 @@
 #include "window/Window.h"
 #include "utils/Management.h"
 
-#include <SDL2/SDL.h>
-
 namespace banana {
 
 enum class Projection { NONE = 0, ORTHOGRAPHIC, PERSPECTIVE };

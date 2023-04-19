@@ -1,5 +1,7 @@
 #include "framework/SDLFramework.h"
 
+#include <SDL2/SDL.h>
+
 namespace banana {
 
 SDLFramework::SDLFramework()

@@ -1,3 +1,5 @@
+#pragma once
+
 #include "utils/incs.h"
 
 namespace banana

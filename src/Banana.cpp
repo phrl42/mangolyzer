@@ -34,6 +34,6 @@ namespace banana
     
     int Banana::AddRectangle(BananaRectangle& obj)
     {
-      Renderer::AddRectangle(obj->x, obj->y, obj->w, obj->h, obj->r, obj->g, obj->b, -1, obj->proj);
+      //Renderer::AddRectangle(obj->x, obj->y, obj->w, obj->h, obj->r, obj->g, obj->b, -1, obj->proj);
     }
 };
