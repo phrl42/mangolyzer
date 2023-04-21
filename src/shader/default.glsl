@@ -7,18 +7,13 @@ layout (location = 3) in int aTextureID;
 
 out vec4 vertexColor;
 out vec2 vertexTexCoords;
-flat out in textureID;
 
-uniform mat4 model;
-uniform mat4 view;
-uniform mat4 projection;
 
 void main()
 {
-    gl_Position = vec4(aPos, 1.0);
-    vertexColor = vec4(aColor, 1.0);
-    vertexTexCoords = aTexCoords;
-    textureID = aTextureID;
+  gl_Position = vec4(aPos, 1.0);
+  vertexColor = vec4(aColor, 1.0);
+  vertexTexCoords = aTexCoords;
 }
 
 #version 330 core
@@ -27,18 +22,10 @@ out vec4 FragColor;
 
 in vec4 vertexColor;
 in vec2 vertexTexCoords;
-flat in int textureID;
 
 uniform sampler2D endTexture[8];
 
 void main()
 {
-    if(textureID <= -1.0f)
-    {
-      FragColor = vertexColor;
-    }
-    else
-    {
-      FragColor = texture(endTexture[0], vertexTexCoords);
-    }
+  FragColor = vertexColor;
 }

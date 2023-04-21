@@ -12,11 +12,14 @@ namespace banana
     void LoadShader(std::string filepath) override;
     ~OpenGLShader() override;
     void Compile() override;
-    void Use() override;
+    void Bind() override;
+    void Unbind() override;
 
   private:
     std::vector<std::string> shader;
     const size_t VERTEX = 0;
     const size_t FRAGMENT = 0;
+
+    unsigned int shaderID;
   };
 };

@@ -17,6 +17,7 @@ namespace banana
   {
     RenderStruct renderInfo;
     renderInfo.shader.LoadShader("src/shader/default.glsl");
+    renderInfo.shader.Compile();
   }
 
   void Renderer::AddRectangle()
