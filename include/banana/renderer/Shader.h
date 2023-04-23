@@ -6,6 +6,12 @@ namespace banana
 
   class Shader 
   {
+  protected:
+    std::vector<float> vertex;
+    std::vector<unsigned int> element;
+
+    int elementValue = 0;
+    
   public:
 
     virtual ~Shader() = default;

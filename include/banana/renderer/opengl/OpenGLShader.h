@@ -15,6 +15,10 @@ namespace banana
     void Bind() override;
     void Unbind() override;
 
+    std::vector<float> vertex;
+    std::vector<unsigned int> element;
+
+    int elementValue = 0;
   private:
     std::vector<std::string> shader;
     const size_t VERTEX = 0;
