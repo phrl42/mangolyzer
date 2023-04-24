@@ -33,7 +33,7 @@ namespace banana
       return 0;
     };
     
-    int Banana::AddRectangle(BananaRectangle& obj)
+    void Banana::AddRectangle(BananaRectangle& obj)
     {
       Renderer::AddRectangle(obj);
     }

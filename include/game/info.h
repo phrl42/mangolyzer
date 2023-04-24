@@ -53,7 +53,7 @@ class Banana {
 public:
   static int InitBananaWindow(BananaWindow* BWindow);
 
-  static int AddRectangle(BananaRectangle& obj);
+  static void AddRectangle(BananaRectangle& obj);
 
 };
 
