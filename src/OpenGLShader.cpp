@@ -2,7 +2,6 @@
 #include "renderer/Shader.h"
 #include <fstream>
 
-
 #ifdef MACRO_SDL2
 #define GL_GLEXT_PROTOTYPES
 
@@ -58,15 +57,6 @@ namespace banana
 
   }
 
-  void OpenGLShader::Configure()
-  {
-    // create vao stuff
-  }
-
-  void OpenGLShader::SendToGPU()
-  {
-    // upload values to gpu
-  }
 
   void OpenGLShader::Compile()
   {

@@ -14,24 +14,18 @@ namespace banana
     void Compile() override;
     void Bind() override;
     void Unbind() override;
-
-    void Configure() override;
-    void SendToGPU() override;
-
-    std::vector<float> vertex;
-    std::vector<unsigned int> element;
-
-    int ElementValue = 0;
     
     ShaderType Type;
     std::string FilePath = "";
 
-    bool full = false;
   private:
     std::vector<std::string> shader;
     const size_t VERTEX = 0;
     const size_t FRAGMENT = 0;
 
     unsigned int shaderID;
+    unsigned int vaoID;
+    unsigned int vboID;
+    unsigned int eboID;
   };
 };

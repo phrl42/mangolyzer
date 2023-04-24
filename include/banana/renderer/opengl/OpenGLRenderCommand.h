@@ -14,5 +14,6 @@ namespace banana
     void Clear() override;
     void SetColor(glm::vec4 color) override;
     void Update(void* window) override;
+    void Draw(unsigned int elementOffset, ShaderType type) override;
   };
 };

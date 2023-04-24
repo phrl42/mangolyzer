@@ -1,6 +1,7 @@
 #include "renderer/opengl/OpenGLRenderCommand.h"
 
 #ifdef MACRO_SDL2
+#define GL_GLEXT_PROTOTYPES 1
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 #endif
@@ -39,5 +40,12 @@ namespace banana
       default:
         break;
     }
+  }
+
+  void OpenGLRenderCommand::Draw(unsigned int elementOffset, ShaderType type)
+  {
+    // check for type
+    // draw triangle
+    glDrawElements(GL_TRIANGLES, elementOffset, GL_UNSIGNED_INT, 0);
   }
 };

@@ -12,6 +12,7 @@ namespace game
     static void Loop(float dt);
   private:
     static banana::BananaWindow win;
+    static banana::BananaRectangle rect;
 
   };
 };

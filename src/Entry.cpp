@@ -51,6 +51,8 @@ namespace banana
 
       framework->Update(Window::GetMostRecentWindow()->GetWindow());
 
+      Renderer::Render();
+
       lastTime = framework->GetTicks();
 
       frameTime = lastTime - beginTime;
