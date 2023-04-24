@@ -18,14 +18,16 @@ namespace banana
 
   }
 
-  void OpenGLShader::LoadShader(std::string filepath)
+  void OpenGLShader::LoadShader(std::string filePath)
   {
+    this->FilePath = filePath;
     // save shader into strings
-    std::fstream fileShader(filepath);
+    std::fstream fileShader(filePath);
 
     if(!fileShader.is_open())
     {
-      LOG_CORE("Could not open" + filepath);
+      LOG_CORE("Could not open" + filePath);
+      return;
     }
 
     std::string line;
@@ -54,6 +56,16 @@ namespace banana
   OpenGLShader::OpenGLShader()
   {
 
+  }
+
+  void OpenGLShader::Configure()
+  {
+    // create vao stuff
+  }
+
+  void OpenGLShader::SendToGPU()
+  {
+    // upload values to gpu
   }
 
   void OpenGLShader::Compile()

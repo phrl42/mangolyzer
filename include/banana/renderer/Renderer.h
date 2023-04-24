@@ -11,7 +11,8 @@ public:
   static void Init();
   static void Render();
 
-  static void AddRectangle(float x, float y, float w, float h, float r, float g, float b, Projection mode);
+  static void AddRectangle(BananaRectangle& bRectangle);
+
 };
 
 };

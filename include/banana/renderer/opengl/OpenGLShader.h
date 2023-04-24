@@ -9,16 +9,24 @@ namespace banana
   {
   public:
     OpenGLShader();
-    void LoadShader(std::string filepath) override;
+    void LoadShader(std::string filePath) override;
     ~OpenGLShader() override;
     void Compile() override;
     void Bind() override;
     void Unbind() override;
 
+    void Configure() override;
+    void SendToGPU() override;
+
     std::vector<float> vertex;
     std::vector<unsigned int> element;
 
-    int elementValue = 0;
+    int ElementValue = 0;
+    
+    ShaderType Type;
+    std::string FilePath = "";
+
+    bool full = false;
   private:
     std::vector<std::string> shader;
     const size_t VERTEX = 0;

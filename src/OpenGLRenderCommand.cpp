@@ -1,7 +1,9 @@
 #include "renderer/opengl/OpenGLRenderCommand.h"
 
+#ifdef MACRO_SDL2
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
+#endif
 
 #include "window/Window.h"
 
