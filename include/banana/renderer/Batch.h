@@ -5,7 +5,7 @@ namespace banana
 {
   enum class ShaderType {TRIANGLE = 0, RECTANGLE, CIRCLE, TEXT};
 
-  class Batch
+  class CBatch
   {
   public:
     static std::shared_ptr<Batch> GetBatch();
@@ -14,17 +14,10 @@ namespace banana
 
     virtual void Bind() = 0;
     virtual void Unbind() = 0;
-    virtual void Upload() = 0;
+    virtual void Upload(Batch batch) = 0;
     
     unsigned int ElementValue = 0;
     unsigned int vaoID;
 
-
-    bool full = false;
-
-    ShaderType type;
-
-    std::vector<float> vertex;
-    std::vector<unsigned int> element;
   };
 };

@@ -6,17 +6,28 @@
 
 namespace banana
 {
+  struct Batch
+  {
+    std::vector<float> vertex;
+    std::vector<unsigned int> element;
+
+    ShaderType type;
+    
+    unsigned int ElementValue = 0;
+    bool full = false;
+  };
 
   struct RenderStruct
   {
-    unsigned int RECTANGLEID = 0;
-    //unsigned int TRIANGLEID = 1;
+    // rendercommand configuration
+    // rendercommand upload and rendercommand draw
+    unsigned int RECTANGLEID = 0;    //unsigned int TRIANGLEID = 1;
     //unsigned int CIRCLEID = 2;
     //unsigned int TEXTID = 3;
 
     std::vector<std::shared_ptr<Shader>> Shaders;
 
-    std::vector<std::shared_ptr<Batch>> Batches;
+    std::vector<Batch> Batches;
 
     std::shared_ptr<RenderCommand> renderCommand = RenderCommand::GetRenderCommand();
     
@@ -35,7 +46,7 @@ namespace banana
         // compile each shader and assign a batch to each one
         shader->Compile();
 
-        std::shared_ptr<Batch> btch = Batch::GetBatch();
+        Batch btch = Batch();
         btch->type = shader->Type;
         Batches.push_back(btch);
       }
@@ -66,13 +77,13 @@ namespace banana
     // manages the numbering of available shaders per batch
     void SortBatches()
     {
-      for(std::shared_ptr<Batch> batch : Batches)
+      for(std::shared_ptr<CBatch> batch : Batches)
       {
         if(batch->vertex.size() >= MAX_BATCH_SIZE)
         {
           batch->full = true;
 
-          std::shared_ptr<Batch> btch = Batch::GetBatch();
+          std::shared_ptr<CBatch> btch = CBatch::GetBatch();
           btch->type = batch->type;
           
           Batches.push_back(btch);
@@ -127,6 +138,7 @@ namespace banana
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.x);
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.y - bRectangle.h);
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(0.0f);
+
 
     // colors
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.r);

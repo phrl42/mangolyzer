@@ -3,7 +3,7 @@
 
 namespace banana
 {
-  class OpenGLBatch : public Batch
+  class OpenGLCBatch : public CBatch
   {
   public:
     ~OpenGLBatch() override;
@@ -12,15 +12,7 @@ namespace banana
     void Upload() override;
     void Bind() override;
     void Unbind() override;
-    unsigned int ElementValue = 0;
     unsigned int vaoID;
-
-    bool full = false;
-
-    ShaderType type;
-
-    std::vector<float> vertex;
-    std::vector<unsigned int> element;
 
   private:
     unsigned int vboID;
