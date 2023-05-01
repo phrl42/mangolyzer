@@ -8,12 +8,11 @@ layout (location = 3) in int aTextureID;
 out vec4 vertexColor;
 out vec2 vertexTexCoords;
 
-
 void main()
 {
-  gl_Position = vec4(aPos, 1.0);
   vertexColor = vec4(aColor, 1.0);
-  vertexTexCoords = aTexCoords;
+  gl_Position = vec4(aPos, 1.0);
+  //vertexTexCoords = aTexCoords;
 }
 
 #version 330 core
@@ -23,7 +22,7 @@ out vec4 FragColor;
 in vec4 vertexColor;
 in vec2 vertexTexCoords;
 
-uniform sampler2D endTexture[8];
+//uniform sampler2D endTexture[8];
 
 void main()
 {

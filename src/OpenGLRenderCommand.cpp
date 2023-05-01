@@ -50,7 +50,6 @@ namespace banana
     // create vao layout based on shader layout
     if(!batch->ids["vaoID"])
     {
-
       glGenVertexArrays(1, &batch->ids["vaoID"]);
       glGenBuffers(1, &batch->ids["vboID"]);
       glGenBuffers(1, &batch->ids["eboID"]);
@@ -58,13 +57,19 @@ namespace banana
       //glUseProgram(shaderID);
     }
 
-    // basically bind vao stuff
+    std::cout << "vaoID: " << batch->ids["vaoID"] << std::endl;
+    std::cout << "vboID: " << batch->ids["vboID"] << std::endl;
+    std::cout << "eboID: " << batch->ids["eboID"] << std::endl;
+    // bind vao
     glBindVertexArray(batch->ids["vaoID"]);
-    glBindBuffer(GL_ARRAY_BUFFER, batch->ids["vboID"]);
 
-    // upload vertices and elements
+    // upload vbo
+    glBindBuffer(GL_ARRAY_BUFFER, batch->ids["vboID"]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(float) * batch->vertex.size(), batch->vertex.data(), GL_DYNAMIC_DRAW);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, batch->ids["eboID"], batch->element.data(), GL_DYNAMIC_DRAW);
+
+    // upload ebo
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, batch->ids["eboID"]);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * batch->element.size(), batch->element.data(), GL_DYNAMIC_DRAW);
 
     // specify order of data (based on the shader)
 
@@ -80,11 +85,19 @@ namespace banana
     glVertexAttribPointer(3, 1, GL_INT, GL_FALSE, 8 * sizeof(float) + sizeof(int), (void*)(sizeof(float) * 8));
     glEnableVertexAttribArray(3);
 
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    //glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    glBindVertexArray(0);
+    //glBindVertexArray(0);
 
+    std::cout << "VERTEX" << std::endl;
     for(float& i : batch->vertex)
+    {
+      std::cout << i << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "ELEMENT" << std::endl;
+    for(unsigned int& i : batch->element)
     {
       std::cout << i << " ";
     }
@@ -95,6 +108,7 @@ namespace banana
   {
     // check for type
     // draw triangle
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glDrawElements(GL_TRIANGLES, elementOffset, GL_UNSIGNED_INT, 0);
   }
 };
