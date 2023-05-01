@@ -1,22 +1,12 @@
 #include "renderer/Renderer.h"
 #include "renderer/Shader.h"
+#include "renderer/Batch.h"
 #include "renderer/RenderCommand.h"
 
 #define MAX_BATCH_SIZE 1000
 
 namespace banana
 {
-  struct Batch
-  {
-    std::vector<float> vertex;
-    std::vector<unsigned int> element;
-
-    ShaderType type;
-    
-    unsigned int ElementValue = 0;
-    bool full = false;
-  };
-
   struct RenderStruct
   {
     // rendercommand configuration
@@ -27,7 +17,7 @@ namespace banana
 
     std::vector<std::shared_ptr<Shader>> Shaders;
 
-    std::vector<Batch> Batches;
+    std::vector<std::shared_ptr<Batch>> Batches;
 
     std::shared_ptr<RenderCommand> renderCommand = RenderCommand::GetRenderCommand();
     
@@ -46,7 +36,7 @@ namespace banana
         // compile each shader and assign a batch to each one
         shader->Compile();
 
-        Batch btch = Batch();
+        std::shared_ptr<Batch> btch = std::make_shared<Batch>();
         btch->type = shader->Type;
         Batches.push_back(btch);
       }
@@ -77,13 +67,13 @@ namespace banana
     // manages the numbering of available shaders per batch
     void SortBatches()
     {
-      for(std::shared_ptr<CBatch> batch : Batches)
+      for(std::shared_ptr<Batch> batch : Batches)
       {
         if(batch->vertex.size() >= MAX_BATCH_SIZE)
         {
           batch->full = true;
 
-          std::shared_ptr<CBatch> btch = CBatch::GetBatch();
+          std::shared_ptr<Batch> btch = std::make_shared<Batch>();
           btch->type = batch->type;
           
           Batches.push_back(btch);
@@ -118,11 +108,12 @@ namespace banana
         if(batch->type == shader->Type)
         {
           // upload
-          batch->Upload();
-          batch->Bind();
+          shader->Bind();
+          renderInfo.renderCommand->Upload(batch);
+
           // draw
           renderInfo.renderCommand->Draw(batch->element.size()-1, shader->Type);
-          batch->Unbind();
+          //batch->Unbind();
         }
       }
     }

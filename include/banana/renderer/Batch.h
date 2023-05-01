@@ -5,19 +5,23 @@ namespace banana
 {
   enum class ShaderType {TRIANGLE = 0, RECTANGLE, CIRCLE, TEXT};
 
-  class CBatch
+  struct Batch
   {
-  public:
-    static std::shared_ptr<Batch> GetBatch();
-    
-    virtual ~Batch() = default;
+    Batch()
+    {
+      this->ids["vaoID"] = 0;
+      this->ids["vboID"] = 0;
+      this->ids["eboID"] = 0;
+    };
+    std::vector<float> vertex;
+    std::vector<unsigned int> element;
 
-    virtual void Bind() = 0;
-    virtual void Unbind() = 0;
-    virtual void Upload(Batch batch) = 0;
+    ShaderType type;
     
     unsigned int ElementValue = 0;
-    unsigned int vaoID;
-
+    bool full = false;
+    
+    std::map<std::string, unsigned int> ids;
   };
+
 };

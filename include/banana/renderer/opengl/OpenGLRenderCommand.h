@@ -15,5 +15,7 @@ namespace banana
     void SetColor(glm::vec4 color) override;
     void Update(void* window) override;
     void Draw(unsigned int elementOffset, ShaderType type) override;
+
+    void Upload(std::shared_ptr<Batch> batch) override;
   };
 };
