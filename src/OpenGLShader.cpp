@@ -2,13 +2,7 @@
 #include "renderer/Shader.h"
 #include <fstream>
 
-#ifdef MACRO_SDL2
-#define GL_GLEXT_PROTOTYPES
-
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_opengl.h>
-
-#endif
+#include "utils/glad.h"
 
 namespace banana
 {
@@ -27,7 +21,7 @@ namespace banana
     {
       LOG_CORE("Could not open" + filePath);
       return;
-    }
+    }    
 
     std::string line;
     size_t linecount = 1;
@@ -49,6 +43,7 @@ namespace banana
       shader[shader.size() - 1] += line;
 
       linecount++;
+      
     }
   }
 
@@ -60,16 +55,17 @@ namespace banana
 
   void OpenGLShader::Compile()
   {
-    unsigned int shaderID;
-    unsigned int vertexID;
-    unsigned int fragmentID;
+    unsigned int shaderID = 0;
+    unsigned int vertexID = 4242;
+    unsigned int fragmentID = 0;
 
-    int success;
+    int success = 0;
 
     char log[200];
     memset(log, '\0', sizeof(char) * 200);
-
-    vertexID = glCreateShader(GL_VERTEX_SHADER);
+    
+    // found ze uebeltaeter
+    vertexID = glad_glCreateShader(GL_VERTEX_SHADER);
 
     // the hell is this casting
     const char* vertexshader = shader[VERTEX].c_str();
@@ -80,6 +76,7 @@ namespace banana
     // error handling
     glGetShaderiv(vertexID, GL_COMPILE_STATUS, &success);
 
+    LOG_CORE("bunker: " + std::to_string(success));
     if(!success)
     {
       glGetShaderInfoLog(vertexID, 200, NULL, log);
@@ -88,7 +85,6 @@ namespace banana
     }
 
     // the same applies for the fragment shader once again
-
     fragmentID = glCreateShader(GL_FRAGMENT_SHADER);
 
     const char* fragmentshader = shader[FRAGMENT].c_str();
@@ -102,6 +98,7 @@ namespace banana
     {
       glGetShaderInfoLog(fragmentID, GL_COMPILE_STATUS, NULL, log);
       LOG_CORE("Compiling fragment shader failed: " + std::string(log));
+      return;
     }
 
     // link shaders altogether

@@ -10,7 +10,6 @@ namespace banana
 
   SDLWindow::~SDLWindow()
   {
-    SDL_GL_DeleteContext(con);
     SDL_DestroyWindow(win);
   }
 
@@ -30,31 +29,9 @@ namespace banana
 
     win = SDL_CreateWindow(title.c_str(), 0, 0, width, height, flags);
 
-    // create context (only for opengl)
-    switch(Management::UsedGL)
-    {
-      case GraphicsLibrary::OpenGL:
-        con = SDL_GL_CreateContext(win);
-        if(!con)
-        {
-          LOG_CORE("Could not create OpenGL Context");
-        }
-        
-        if(SDL_GL_MakeCurrent(win, con) < 0)
-        {
-          LOG_CORE("Failed to make the OpenGL context active");
-        }
-
-        // enable v-sync
-        if (SDL_GL_SetSwapInterval(1) == -1) 
-        {
-          LOG_CORE("Failed to enable v-sync: ");
-        }
-      break;
-      case GraphicsLibrary::Vulkan:
-        break;
-    }
-    
+    // create context
+    con = Context::GetWindowContext();
+    con->SetContext(win);
   }
 
   void* SDLWindow::GetWindow()

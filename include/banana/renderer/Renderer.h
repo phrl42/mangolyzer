@@ -5,6 +5,8 @@
 
 namespace banana
 {
+struct RenderStruct;
+
 class Renderer
 {
 public:
@@ -12,7 +14,8 @@ public:
   static void Render();
 
   static void AddRectangle(BananaRectangle& bRectangle);
-
+  
+  static RenderStruct renderInfo;
 };
 
 };

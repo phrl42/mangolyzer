@@ -23,6 +23,11 @@ namespace banana
     
     RenderStruct()
     {
+      Init();
+    };
+
+    void Init()
+    {
       // create shaders here
       std::shared_ptr<Shader> rectangleShader = Shader::GetShader();
 
@@ -30,17 +35,16 @@ namespace banana
       rectangleShader->LoadShader("src/shader/default.glsl");
 
       Shaders.push_back(rectangleShader);
-
       for(std::shared_ptr<Shader> shader : Shaders)
       {
         // compile each shader and assign a batch to each one
-        shader->Compile();
-
+        //shader->Compile();
         std::shared_ptr<Batch> btch = std::make_shared<Batch>();
         btch->type = shader->Type;
         Batches.push_back(btch);
       }
-    };
+
+    }
 
     void SetID(ShaderType type, unsigned int vpos)
     {
@@ -88,12 +92,15 @@ namespace banana
       }
     }
   };
-  
-  RenderStruct renderInfo = RenderStruct();
 
+  RenderStruct Renderer::renderInfo;
+  
   void Renderer::Init()
   {
-
+    for(std::shared_ptr<Shader> shader : renderInfo.Shaders)
+    {
+      shader->Compile();
+    }
   }
 
   void Renderer::Render()
@@ -137,8 +144,8 @@ namespace banana
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.b);
     
     // texcoords
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(0);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(0);
+    //renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(0);
+    //renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(0);
 
     // bottom right:
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.x + bRectangle.h);
@@ -149,8 +156,8 @@ namespace banana
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.g);
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.b);
 
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(0);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(1);
+    //renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(0);
+    //renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(1);
 
     // top left (actual placement):
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.x);
@@ -161,8 +168,8 @@ namespace banana
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.g);
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.b);
 
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(0);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(1);
+    //renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(0);
+    //renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(1);
 
     // top right:
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.x + bRectangle.w);
@@ -173,8 +180,8 @@ namespace banana
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.g);
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.b);
 
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(1);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(1);
+    //renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(1);
+    //renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(1);
 
     // element buffer
     renderInfo.Batches[renderInfo.RECTANGLEID]->element.push_back(renderInfo.Batches[renderInfo.RECTANGLEID]->ElementValue + 0);

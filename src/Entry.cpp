@@ -14,6 +14,8 @@ namespace banana
 
     framework = Framework::GetFramework();
 
+    renderAPI = RenderAPI::GetRenderAPI();
+
     renderCommand = RenderCommand::GetRenderCommand();
   }
 
@@ -25,8 +27,11 @@ namespace banana
   void Entry::Init()
   {
     framework->Init(0);
+    
     game::Game::Init();
-
+    
+    renderAPI->Init();
+    
     Run();
   }
 
@@ -48,10 +53,11 @@ namespace banana
 
       // we have milliseconds
       game::Game::Loop((float)(frameTime / 1000));
+      
+      Renderer::Render();
 
       framework->Update(Window::GetMostRecentWindow()->GetWindow());
 
-      Renderer::Render();
 
       lastTime = framework->GetTicks();
 

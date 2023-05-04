@@ -12,15 +12,16 @@ namespace game
     win.color = {0.5f, 0.1f, 0.2f, 0.0f};
 
     banana::Banana::InitBananaWindow(&win);
+    
 
     rect.x = 0;
     rect.y = 0;
     rect.w = 1;
     rect.h = 1;
 
-    rect.r = 1;
-    rect.g = 0.4;
-    rect.b = 1;
+    rect.r = 0.0;
+    rect.g = 0.912;
+    rect.b = 0.912;
     
     banana::Banana::AddRectangle(rect);
   }

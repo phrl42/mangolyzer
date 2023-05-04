@@ -2,7 +2,9 @@
 
 #include "utils/incs.h"
 #include "game/info.h"
-#include "Window.h"
+
+#include "window/Window.h"
+#include "window/Context.h"
 
 #include <SDL2/SDL.h>
 
@@ -20,7 +22,7 @@ namespace banana
 
     void SetUseInfo();
   private:
-    SDL_GLContext con;
     SDL_Window* win;
+    std::shared_ptr<Context> con;
   };
 };

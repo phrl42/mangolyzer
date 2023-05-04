@@ -26,8 +26,8 @@ gl = GraphicsLibrary::Vulkan;
 #endif
 
   // set desired options
-  Entry entry = Entry(ws, gl);
 
+  Entry entry = Entry(ws, gl);
   entry.Init();
   
   return 0;

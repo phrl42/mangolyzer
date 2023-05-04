@@ -30,6 +30,11 @@ namespace banana
 
       // save window
       Window::Windows.push_back(BWindow->win);
+
+      // check if renderer was initialized before
+      // this destroys the perfect run because the renderer is static
+      // => it can cause undefined behaviour
+
       return 0;
     };
     

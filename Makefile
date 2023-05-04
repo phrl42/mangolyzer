@@ -7,8 +7,8 @@ SRCS := $(shell ls src/ -R |grep ".cpp")
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.cpp=.o))
 
 CC = clang++
-CFLAGS = -Wall -Wextra -pedantic -g -Iinclude/banana -Iinclude/game -Iinclude
-LFLAGS = -lSDL2 -lm -lGL 
+CFLAGS = -Wall -Wextra -pedantic -g -Iinclude/banana -Iinclude/game -Iinclude/banana/utils -Iinclude
+LFLAGS = -lSDL2 -lGL -lX11 -lpthread -lXrandr -lXi -ldl -lm
 CPPFLAGS = -DMACRO_SDL2 -DMACRO_OPENGL
 
 all: $(NAME)
