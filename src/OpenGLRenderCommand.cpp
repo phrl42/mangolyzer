@@ -51,8 +51,6 @@ namespace banana
       glGenVertexArrays(1, &batch->ids["vaoID"]);
       glGenBuffers(1, &batch->ids["vboID"]);
       glGenBuffers(1, &batch->ids["eboID"]);
-    
-      //glUseProgram(shaderID);
     }
 
     // bind vao
@@ -90,8 +88,6 @@ namespace banana
     // check for type
     // draw triangle
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    //glDrawElements(GL_TRIANGLES, elementOffset-1, GL_UNSIGNED_INT, 0);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    
+    glDrawElements(GL_TRIANGLES, elementOffset, GL_UNSIGNED_INT, 0);    
   }
 };

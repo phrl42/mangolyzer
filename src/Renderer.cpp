@@ -119,7 +119,7 @@ namespace banana
           renderInfo.renderCommand->Upload(batch);
 
           // draw
-          renderInfo.renderCommand->Draw(batch->element.size()-1, shader->Type);
+          renderInfo.renderCommand->Draw(batch->element.size(), shader->Type);
           shader->Unbind();
         }
       }

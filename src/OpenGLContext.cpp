@@ -14,6 +14,12 @@ namespace banana
 
   void OpenGLContext::SetContext(void* win)
   {
+    // set opengl version and
+    // disallow older gl functions
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
+     
     con = SDL_GL_CreateContext((SDL_Window*)win);
     if(!con)
     {
@@ -30,9 +36,6 @@ namespace banana
     {
       LOG_CORE("Failed to enable v-sync: ");
     }
-
-    
-
   }
 
   void* OpenGLContext::GetContext()

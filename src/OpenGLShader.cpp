@@ -64,10 +64,10 @@ namespace banana
     char log[200];
     memset(log, '\0', sizeof(char) * 200);
     
-    // found ze uebeltaeter
-    vertexID = glad_glCreateShader(GL_VERTEX_SHADER);
+    vertexID = glCreateShader(GL_VERTEX_SHADER);
 
     // the hell is this casting
+    std::cout << "vertex shader: " << shader[VERTEX] << std::endl;
     const char* vertexshader = shader[VERTEX].c_str();
     glShaderSource(vertexID, 1, &vertexshader, NULL);
 
@@ -76,7 +76,6 @@ namespace banana
     // error handling
     glGetShaderiv(vertexID, GL_COMPILE_STATUS, &success);
 
-    LOG_CORE("bunker: " + std::to_string(success));
     if(!success)
     {
       glGetShaderInfoLog(vertexID, 200, NULL, log);
@@ -100,8 +99,7 @@ namespace banana
       LOG_CORE("Compiling fragment shader failed: " + std::string(log));
       return;
     }
-
-    // link shaders altogether
+    // link shader
 
     shaderID = glCreateProgram();
 
