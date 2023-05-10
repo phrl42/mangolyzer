@@ -66,11 +66,16 @@ namespace banana
 
     // specify order of data (based on the shader)
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)(sizeof(float) * 3));
-    glEnableVertexAttribArray(1);
+    size_t offset = 0;
+    for(size_t i = 0; i < batch->shaderLayout.Layout.size(); i++)
+    {
+      glVertexAttribPointer(i, batch->shaderLayout.Layout[i], GL_FLOAT, GL_FALSE, batch->shaderLayout.Size, (void*)offset);
+      glEnableVertexAttribArray(i);
+
+      offset += batch->shaderLayout.Layout[i];
+    }
+    //glVertexAttribPointer(1, batch->shaderLayout.Layout[1], GL_FLOAT, GL_FALSE, batch->shaderLayout.Size, (void*)(sizeof(float) * 3));
+    //glEnableVertexAttribArray(1);
 
     //glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float) + sizeof(int), (void*)(sizeof(float) * 6));
     //glEnableVertexAttribArray(2);
