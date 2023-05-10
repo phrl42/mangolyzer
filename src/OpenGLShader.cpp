@@ -67,9 +67,8 @@ namespace banana
     vertexID = glCreateShader(GL_VERTEX_SHADER);
 
     // the hell is this casting
-    std::cout << "vertex shader: " << shader[VERTEX] << std::endl;
     const char* vertexshader = shader[VERTEX].c_str();
-    glShaderSource(vertexID, 1, &vertexshader, NULL);
+    glShaderSource(vertexID, 1, &vertexshader, 0);
 
     glCompileShader(vertexID);
 

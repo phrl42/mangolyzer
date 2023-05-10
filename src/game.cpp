@@ -19,9 +19,10 @@ namespace game
     rect.w = 1;
     rect.h = 1;
 
-    rect.r = 1.0;
-    rect.g = 0.912;
-    rect.b = 0.912;
+    rect.r = 0.0;
+    rect.g = -0.912;
+    rect.b = 0.512;
+    rect.a = 1.0;
     
     banana::Banana::AddRectangle(rect);
   }

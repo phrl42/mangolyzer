@@ -21,7 +21,7 @@ namespace banana
   private:
     std::vector<std::string> shader;
     const size_t VERTEX = 0;
-    const size_t FRAGMENT = 0;
+    const size_t FRAGMENT = 1;
 
     unsigned int shaderID;
     unsigned int vaoID;

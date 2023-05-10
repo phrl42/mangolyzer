@@ -142,6 +142,7 @@ namespace banana
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.r);
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.g);
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.b);
+    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.a);
     
     // texcoords
     //renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(0);
@@ -155,6 +156,7 @@ namespace banana
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.r);
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.g);
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.b);
+    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.a);
 
     //renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(0);
     //renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(1);
@@ -167,6 +169,7 @@ namespace banana
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.r);
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.g);
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.b);
+    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.a);
 
     //renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(0);
     //renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(1);
@@ -179,6 +182,7 @@ namespace banana
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.r);
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.g);
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.b);
+    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.a);
 
     //renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(1);
     //renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(1);
