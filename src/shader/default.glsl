@@ -31,12 +31,12 @@ uniform sampler2D texture[8];
 
 void main()
 {
-  //if(texID <= -1.0f)
-  //{
+  if(texID <= -1.0f)
+  {
     FragColor = vertexColor;
-  //}
-  //else
-  //{
-    //FragColor = texture(texture[texID], texCoords) * vertexColor;
-  //}
+  }
+  else
+  {
+    FragColor = texture(texture[texID], texCoords) * vertexColor;
+  }
 }
