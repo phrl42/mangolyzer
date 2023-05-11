@@ -2,6 +2,7 @@
 
 #ifdef MACRO_SDL2
 #include <SDL2/SDL.h>
+#define PROCADDRESS SDL_GL_GetProcAddress
 #endif
 
 #include "utils/glad.h"
@@ -39,7 +40,7 @@ namespace banana
 
   void OpenGLRenderAPI::Init()
   {
-    if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress))
+    if (!gladLoadGLLoader((GLADloadproc)PROCADDRESS))
     {
       LOG_CORE("Failed to initialize GLAD");
       return;

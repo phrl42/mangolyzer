@@ -6,17 +6,17 @@
 
 namespace banana {
 
-enum class Projection { NONE = 0, ORTHOGRAPHIC, PERSPECTIVE };
+  enum class Projection { NONE = 0, ORTHOGRAPHIC, PERSPECTIVE };
 
-struct BananaWindow 
-{
-public:
-  int w;
-  int h;
-  glm::vec4 color;
-  std::string title;
-  std::shared_ptr<Window> win;
-};
+  struct BananaWindow 
+  {
+    int w;
+    int h;
+    glm::vec4 color;
+    std::string title;
+    std::shared_ptr<Window> win;
+  };
+
   struct BananaRectangle 
   {
     float x;
@@ -30,32 +30,17 @@ public:
     float b;
     float a;
 
+    //std::shared_ptr<Texture> tex;
+
     enum Projection proj;
   };
 
-  struct BananaTexture 
+  class Banana
   {
-    float x;
-    float y;
+  public:
+    static int InitBananaWindow(BananaWindow& BWindow);
+    static void AddRectangle(BananaRectangle& obj);
 
-    int w;
-    int h;
-
-    enum Projection proj;
-
-    const char *path;
-    unsigned char *data;
-
-    int channels;
-    unsigned int textureID;
   };
-class Banana {
-
-public:
-  static int InitBananaWindow(BananaWindow* BWindow);
-
-  static void AddRectangle(BananaRectangle& obj);
-
-};
 
 }; // namespace banana

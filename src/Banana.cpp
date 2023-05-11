@@ -3,7 +3,7 @@
 
 namespace banana
 {
-    int Banana::InitBananaWindow(BananaWindow* BWindow) 
+    int Banana::InitBananaWindow(BananaWindow& BWindow) 
     {
       // use 0 for an OpenGL Context (recommended)
       // the standard sdl renderer is not supported anymore..
@@ -24,12 +24,12 @@ namespace banana
       supported
       --------------------------------------------------------------------------------
       */
-      BWindow->win = Window::GetWindowWS();
-      BWindow->win->BackgroundColor = BWindow->color;
-      BWindow->win->Init(BWindow->title, BWindow->w, BWindow->h);
+      BWindow.win = Window::GetWindowWS();
+      BWindow.win->BackgroundColor = BWindow.color;
+      BWindow.win->Init(BWindow.title, BWindow.w, BWindow.h);
 
       // save window
-      Window::Windows.push_back(BWindow->win);
+      Window::Windows.push_back(BWindow.win);
 
       // check if renderer was initialized before
       // this destroys the perfect run because the renderer is static

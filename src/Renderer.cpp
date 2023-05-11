@@ -146,7 +146,7 @@ namespace banana
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(0);
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(0);
 
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(1);
+    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(-1);
 
     // bottom right:
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.x + bRectangle.h);
@@ -161,7 +161,7 @@ namespace banana
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(0);
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(1);
 
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(1);
+    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(-1);
 
     // top left (actual placement):
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.x);
@@ -176,7 +176,7 @@ namespace banana
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(0);
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(1);
 
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(1);
+    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(-1);
 
     // top right:
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.x + bRectangle.w);
@@ -191,7 +191,7 @@ namespace banana
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(1);
     renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(1);
 
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(1);
+    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(-1);
 
     // element buffer
     renderInfo.Batches[renderInfo.RECTANGLEID]->element.push_back(renderInfo.Batches[renderInfo.RECTANGLEID]->ElementValue + 0);

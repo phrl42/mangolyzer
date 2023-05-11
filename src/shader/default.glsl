@@ -27,7 +27,7 @@ flat in int texID;
 
 out vec4 FragColor;
 
-uniform sampler2D texture[8];
+uniform sampler2D fTexture[8];
 
 void main()
 {
@@ -37,6 +37,6 @@ void main()
   }
   else
   {
-    FragColor = texture(texture[texID], texCoords) * vertexColor;
+    FragColor = texture(fTexture[texID], texCoords) * vertexColor;
   }
 }
