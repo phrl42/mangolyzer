@@ -122,6 +122,7 @@ namespace banana
         }
       }
     }
+    renderInfo.Batches.clear();
   }
 
   // todo: get a better idea on how to do this
