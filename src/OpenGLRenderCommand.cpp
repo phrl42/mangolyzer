@@ -67,13 +67,15 @@ namespace banana
     // specify order of data (based on the shader)
 
     size_t offset = 0;
+
     for(size_t i = 0; i < batch->shaderLayout.Element.Count; i++)
     {
-      glVertexAttribPointer(i, batch->shaderLayout.Element.Types[i].Count, GL_FLOAT, GL_FALSE, batch->shaderLayout.Element.Size, (void*)offset);
+      glVertexAttribPointer(i, batch->shaderLayout.Element.Types[i].Count, batch->shaderLayout.Element.Types[i].TypeID, GL_FALSE, batch->shaderLayout.Element.Size, (void*)offset);
       glEnableVertexAttribArray(i);
 
       offset += batch->shaderLayout.Element.Types[i].Size;
     }
+    
   }
 
   void OpenGLRenderCommand::Draw(unsigned int elementOffset, ShaderType type)

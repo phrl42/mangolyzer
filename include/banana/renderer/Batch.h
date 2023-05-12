@@ -1,16 +1,19 @@
 #pragma once 
 #include "utils/incs.h"
 
+#include "renderer/Type.h"
+
 namespace banana
 {
   enum class ShaderType {TRIANGLE = 0, RECTANGLE, CIRCLE, TEXT};
-
-  enum BufferTypeIdent {FLOAT = 0, FLOAT2, FLOAT3, FLOAT4, INT, INT2, INT3, INT4};
 
   struct BufferType
   {
     BufferType(BufferTypeIdent buftid)
     {
+      std::unique_ptr<Type>type = Type::GetType();
+      TypeID = type->GetTypeVal(buftid);
+
       switch(buftid)
       {
         case FLOAT:
@@ -61,6 +64,8 @@ namespace banana
     size_t Size = 0;
 
     unsigned int Count = 0;
+
+    int TypeID;
   };
 
   struct BufferElement

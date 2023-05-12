@@ -13,6 +13,7 @@ namespace game
   private:
     static banana::BananaWindow win;
     static banana::BananaRectangle rect;
+    static banana::BananaRectangle rect2;
 
   };
 };
