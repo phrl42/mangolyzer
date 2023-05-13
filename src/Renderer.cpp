@@ -11,21 +11,12 @@ namespace banana
 {
   struct RenderStruct
   {
-    // rendercommand configuration
-    // rendercommand upload and rendercommand draw
-    unsigned int RECTANGLEID = 0;    //unsigned int TRIANGLEID = 1;
-    //unsigned int CIRCLEID = 2;
-    //unsigned int TEXTID = 3;
-
     std::vector<std::shared_ptr<Shader>> Shaders;
-
     std::vector<std::shared_ptr<Batch>> Batches;
-
     unsigned int ElementValue = 0;
 
     std::shared_ptr<RenderCommand> renderCommand = RenderCommand::GetRenderCommand();
 
-    
     RenderStruct()
     {
       Init();
@@ -50,28 +41,6 @@ namespace banana
 
     }
 
-    /*void SetID(ShaderType type, unsigned int vpos)
-    {
-      switch(type)
-      {
-        case ShaderType::RECTANGLE:
-          RECTANGLEID = vpos;
-          break;
-
-        case ShaderType::TRIANGLE:
-          break;
-
-        case ShaderType::CIRCLE:
-          break;
-
-        case ShaderType::TEXT:
-          break;
-        
-        default:
-        break;
-      }
-    }*/
-    
     // manages the numbering of available shaders per batch
     void SortBatches()
     {
@@ -87,7 +56,7 @@ namespace banana
 
               Batches.push_back(btch);
             }
-            
+
             if(batch->Entities.size() < MAX_ENTITY_SIZE)
             {
               batch->Entities.push_back(ent);
@@ -100,7 +69,7 @@ namespace banana
   };
 
   RenderStruct Renderer::renderInfo;
-  
+
   void Renderer::Init()
   {
     for(std::shared_ptr<Shader> shader : renderInfo.Shaders)
@@ -143,6 +112,7 @@ namespace banana
       }
       btch->Entities.clear();
       renderInfo.ElementValue = 0;
+      btch->ElementSize = 0;
     }
   }
 
@@ -159,104 +129,67 @@ namespace banana
       {
         if(btch->type == ShaderType::RECTANGLE)
         {
-        /*for(size_t i = 0; i < 4; i++)
-        {
-          switch(i)
+          size_t y_offset = 0;
+          size_t x_offset = 0;
+
+          for(size_t i = 0; i < 4; i++)
           {
-            case 0:
-              break;
+            switch(i)
+            {
+              case 0:
+                // bottom left
+                x_offset = 0;
+                y_offset = 0;
+                break;
 
-            case 1:
-              break;
-            
-            case 2:
-              break;
-            
-            case 3:
-              break;
+              case 1:
+                // bottom right
+                x_offset = ent->w;
+                y_offset = 0;
+                break;
+
+              case 2:
+                // top left
+                x_offset = 0;
+                y_offset = ent->h;
+                break;
+
+              case 3:
+                // top right
+                x_offset = ent->w;
+                y_offset = ent->h;
+                break;
+
+              default:
+                break;
+            }
+            ent->vertex.push_back(ent->x + x_offset);
+            ent->vertex.push_back(ent->y + y_offset);
+            ent->vertex.push_back(0.0f);
+
+            ent->vertex.push_back(ent->r);
+            ent->vertex.push_back(ent->g);
+            ent->vertex.push_back(ent->b);
+            ent->vertex.push_back(ent->a);
+
+            ent->vertex.push_back(0);
+            ent->vertex.push_back(0);
+
+            ent->vertex.push_back(-1);
           }
-        }*/
+          // element buffer
+          ent->element.push_back(renderInfo.ElementValue + 0);
+          ent->element.push_back(renderInfo.ElementValue + 1);
+          ent->element.push_back(renderInfo.ElementValue + 2);
 
-        // do adding shit
-    ent->vertex.push_back(ent->x);
-    ent->vertex.push_back(ent->y - ent->h);
-    ent->vertex.push_back(0.0f);
+          ent->element.push_back(renderInfo.ElementValue + 1);
+          ent->element.push_back(renderInfo.ElementValue + 2);
+          ent->element.push_back(renderInfo.ElementValue + 3);
 
-
-    // colors
-    ent->vertex.push_back(ent->r);
-    ent->vertex.push_back(ent->g);
-    ent->vertex.push_back(ent->b);
-    ent->vertex.push_back(ent->a);
-    
-    // texcoords
-    ent->vertex.push_back(0);
-    ent->vertex.push_back(0);
-
-    ent->vertex.push_back(-1);
-
-    // bottom right:
-    ent->vertex.push_back(ent->x + ent->h);
-    ent->vertex.push_back(ent->y - ent->h);
-    ent->vertex.push_back(0.0f);
-
-    ent->vertex.push_back(ent->r);
-    ent->vertex.push_back(ent->g);
-    ent->vertex.push_back(ent->b);
-    ent->vertex.push_back(ent->a);
-
-    ent->vertex.push_back(0);
-    ent->vertex.push_back(1);
-
-    ent->vertex.push_back(-1);
-
-    // top left (actual placement):
-    ent->vertex.push_back(ent->x);
-    ent->vertex.push_back(ent->y);
-    ent->vertex.push_back(0.0f);
-
-    ent->vertex.push_back(ent->r);
-    ent->vertex.push_back(ent->g);
-    ent->vertex.push_back(ent->b);
-    ent->vertex.push_back(ent->a);
-
-    ent->vertex.push_back(0);
-    ent->vertex.push_back(1);
-
-    ent->vertex.push_back(-1);
-
-    // top right:
-    ent->vertex.push_back(ent->x + ent->w);
-    ent->vertex.push_back(ent->y);
-    ent->vertex.push_back(0.0f);
-
-    ent->vertex.push_back(ent->r);
-    ent->vertex.push_back(ent->g);
-    ent->vertex.push_back(ent->b);
-    ent->vertex.push_back(ent->a);
-
-    ent->vertex.push_back(1);
-    ent->vertex.push_back(1);
-
-    ent->vertex.push_back(-1);
-
-    // element buffer
-    ent->element.push_back(renderInfo.ElementValue + 0);
-    ent->element.push_back(renderInfo.ElementValue + 1);
-    ent->element.push_back(renderInfo.ElementValue + 2);
-
-    ent->element.push_back(renderInfo.ElementValue + 1);
-    ent->element.push_back(renderInfo.ElementValue + 2);
-    ent->element.push_back(renderInfo.ElementValue + 3);
-    
-    renderInfo.ElementValue += 4;
-    btch->ElementSize += 4;
+          renderInfo.ElementValue += 4;
+          btch->ElementSize += 6;
         }
       }
     }
-    // bottom left:
-    // coords
-    /*
-    */
   }
 };
