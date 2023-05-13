@@ -13,7 +13,7 @@ public:
   static void Init();
   static void Render();
 
-  static void AddRectangle(BananaRectangle& bRectangle);
+  static void AddEntity();
   
   static RenderStruct renderInfo;
 };

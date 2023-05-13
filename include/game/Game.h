@@ -8,12 +8,12 @@ namespace game
   class Game
   {
   public:
-    static void Init();
-    static void Loop(float dt);
+    void Init();
+    void Loop(float dt);
   private:
-    static banana::BananaWindow win;
-    static banana::BananaRectangle rect;
-    static banana::BananaRectangle rect2;
+    BananaWindow win;
+    BananaRectangle rect;
+    BananaRectangle rect2;
 
   };
 };

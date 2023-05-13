@@ -15,7 +15,7 @@ namespace banana
 
   void SDLWindow::Init(std::string title, int width, int height)
   {
-    Uint32 flags;
+    Uint32 flags = 0;
 
     switch(Management::UsedGL)
     {
@@ -24,6 +24,9 @@ namespace banana
         break;
       case GraphicsLibrary::Vulkan:
         flags = SDL_WINDOW_VULKAN;
+        break;
+      
+      default:
         break;
     }
 

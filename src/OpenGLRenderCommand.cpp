@@ -58,11 +58,30 @@ namespace banana
 
     // upload vbo
     glBindBuffer(GL_ARRAY_BUFFER, batch->ids["vboID"]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * batch->vertex.size(), batch->vertex.data(), GL_DYNAMIC_DRAW);
 
+    // please rework the renderer; this is is awful bullshit
+    std::vector<float> vertices;
+    for(std::shared_ptr<game::Entity> ent : batch->Entities)
+    {
+      for(auto vt : ent->vertex)
+      {
+        vertices.push_back(vt);
+      }
+    }
+    std::vector<unsigned int> elements;
+    for(std::shared_ptr<game::Entity> ent : batch->Entities)
+    {
+      for(auto el : ent->element)
+      {
+        elements.push_back(el);
+      }
+    }
+
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices.size(), vertices.data(), GL_DYNAMIC_DRAW);
+    
     // upload ebo
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, batch->ids["eboID"]);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * batch->element.size(), batch->element.data(), GL_DYNAMIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * elements.size(), elements.data(), GL_DYNAMIC_DRAW);
 
     // specify order of data (based on the shader)
 

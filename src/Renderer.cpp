@@ -3,7 +3,9 @@
 #include "renderer/Batch.h"
 #include "renderer/RenderCommand.h"
 
-#define MAX_BATCH_SIZE 1000
+#include "game/Entity.h"
+
+#define MAX_ENTITY_SIZE 100
 
 namespace banana
 {
@@ -19,7 +21,10 @@ namespace banana
 
     std::vector<std::shared_ptr<Batch>> Batches;
 
+    unsigned int ElementValue = 0;
+
     std::shared_ptr<RenderCommand> renderCommand = RenderCommand::GetRenderCommand();
+
     
     RenderStruct()
     {
@@ -45,7 +50,7 @@ namespace banana
 
     }
 
-    void SetID(ShaderType type, unsigned int vpos)
+    /*void SetID(ShaderType type, unsigned int vpos)
     {
       switch(type)
       {
@@ -65,27 +70,30 @@ namespace banana
         default:
         break;
       }
-    }
+    }*/
     
     // manages the numbering of available shaders per batch
     void SortBatches()
     {
       for(std::shared_ptr<Batch> batch : Batches)
       {
-        if(batch->vertex.size() >= MAX_BATCH_SIZE)
+        for(std::shared_ptr<game::Entity> ent : game::Entity::EntityVector)
         {
-          batch->full = true;
+          if(batch->type == ent->type)
+          {
+            if(batch->Entities.size() >= MAX_ENTITY_SIZE)
+            {
+              std::shared_ptr<Batch> btch = std::make_shared<Batch>(batch->type);
 
-          std::shared_ptr<Batch> btch = std::make_shared<Batch>(batch->type);
-          
-          Batches.push_back(btch);
-          // set shader use id
-          SetID(batch->type, (unsigned int)(Batches.size() - 1));
-        }
+              Batches.push_back(btch);
+            }
+            
+            if(batch->Entities.size() < MAX_ENTITY_SIZE)
+            {
+              batch->Entities.push_back(ent);
+            }
 
-        if(batch->vertex.size() < MAX_BATCH_SIZE)
-        {
-          batch->full = false;
+          }
         }
       }
     }
@@ -103,13 +111,16 @@ namespace banana
 
   void Renderer::Render()
   {
+    // fill renderer with data
+    AddEntity();
+
     // every shader has it's own batch draw call
     for(std::shared_ptr<Batch> batch : renderInfo.Batches)
     {
-      // load configuration, then send buffer to gpu
-      // then draw
       for(std::shared_ptr<Shader> shader : renderInfo.Shaders)
       {
+        // load configuration, then send buffer to gpu
+        // then draw
         if(batch->type == shader->Type)
         {
           // upload
@@ -117,92 +128,135 @@ namespace banana
           renderInfo.renderCommand->Upload(batch);
 
           // draw
-          renderInfo.renderCommand->Draw(batch->element.size(), shader->Type);
+          renderInfo.renderCommand->Draw(batch->ElementSize, shader->Type);
           shader->Unbind();
         }
       }
     }
-    renderInfo.Batches.clear();
+    // clear everything from renderer
+    for(auto btch : renderInfo.Batches)
+    {
+      for(auto ent : btch->Entities)
+      {
+        ent->vertex.clear();
+        ent->element.clear();
+      }
+      btch->Entities.clear();
+      renderInfo.ElementValue = 0;
+    }
   }
 
   // todo: get a better idea on how to do this
-  void Renderer::AddRectangle(BananaRectangle& bRectangle)
+  void Renderer::AddEntity()
   {
+    // first put entities to their belonging batches
+
     renderInfo.SortBatches();
-    
-    // bottom left:
-    // coords
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.x);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.y - bRectangle.h);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(0.0f);
+
+    for(auto btch : renderInfo.Batches)
+    {
+      for(auto ent : btch->Entities)
+      {
+        if(btch->type == ShaderType::RECTANGLE)
+        {
+        /*for(size_t i = 0; i < 4; i++)
+        {
+          switch(i)
+          {
+            case 0:
+              break;
+
+            case 1:
+              break;
+            
+            case 2:
+              break;
+            
+            case 3:
+              break;
+          }
+        }*/
+
+        // do adding shit
+    ent->vertex.push_back(ent->x);
+    ent->vertex.push_back(ent->y - ent->h);
+    ent->vertex.push_back(0.0f);
 
 
     // colors
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.r);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.g);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.b);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.a);
+    ent->vertex.push_back(ent->r);
+    ent->vertex.push_back(ent->g);
+    ent->vertex.push_back(ent->b);
+    ent->vertex.push_back(ent->a);
     
     // texcoords
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(0);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(0);
+    ent->vertex.push_back(0);
+    ent->vertex.push_back(0);
 
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(-1);
+    ent->vertex.push_back(-1);
 
     // bottom right:
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.x + bRectangle.h);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.y - bRectangle.h);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(0.0f);
+    ent->vertex.push_back(ent->x + ent->h);
+    ent->vertex.push_back(ent->y - ent->h);
+    ent->vertex.push_back(0.0f);
 
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.r);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.g);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.b);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.a);
+    ent->vertex.push_back(ent->r);
+    ent->vertex.push_back(ent->g);
+    ent->vertex.push_back(ent->b);
+    ent->vertex.push_back(ent->a);
 
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(0);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(1);
+    ent->vertex.push_back(0);
+    ent->vertex.push_back(1);
 
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(-1);
+    ent->vertex.push_back(-1);
 
     // top left (actual placement):
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.x);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.y);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(0.0f);
+    ent->vertex.push_back(ent->x);
+    ent->vertex.push_back(ent->y);
+    ent->vertex.push_back(0.0f);
 
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.r);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.g);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.b);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.a);
+    ent->vertex.push_back(ent->r);
+    ent->vertex.push_back(ent->g);
+    ent->vertex.push_back(ent->b);
+    ent->vertex.push_back(ent->a);
 
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(0);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(1);
+    ent->vertex.push_back(0);
+    ent->vertex.push_back(1);
 
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(-1);
+    ent->vertex.push_back(-1);
 
     // top right:
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.x + bRectangle.w);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.y);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(0.0f);
+    ent->vertex.push_back(ent->x + ent->w);
+    ent->vertex.push_back(ent->y);
+    ent->vertex.push_back(0.0f);
 
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.r);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.g);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.b);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(bRectangle.a);
+    ent->vertex.push_back(ent->r);
+    ent->vertex.push_back(ent->g);
+    ent->vertex.push_back(ent->b);
+    ent->vertex.push_back(ent->a);
 
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(1);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(1);
+    ent->vertex.push_back(1);
+    ent->vertex.push_back(1);
 
-    renderInfo.Batches[renderInfo.RECTANGLEID]->vertex.push_back(-1);
+    ent->vertex.push_back(-1);
 
     // element buffer
-    renderInfo.Batches[renderInfo.RECTANGLEID]->element.push_back(renderInfo.Batches[renderInfo.RECTANGLEID]->ElementValue + 0);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->element.push_back(renderInfo.Batches[renderInfo.RECTANGLEID]->ElementValue + 1);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->element.push_back(renderInfo.Batches[renderInfo.RECTANGLEID]->ElementValue + 2);
+    ent->element.push_back(renderInfo.ElementValue + 0);
+    ent->element.push_back(renderInfo.ElementValue + 1);
+    ent->element.push_back(renderInfo.ElementValue + 2);
 
-    renderInfo.Batches[renderInfo.RECTANGLEID]->element.push_back(renderInfo.Batches[renderInfo.RECTANGLEID]->ElementValue + 1);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->element.push_back(renderInfo.Batches[renderInfo.RECTANGLEID]->ElementValue + 2);
-    renderInfo.Batches[renderInfo.RECTANGLEID]->element.push_back(renderInfo.Batches[renderInfo.RECTANGLEID]->ElementValue + 3);
+    ent->element.push_back(renderInfo.ElementValue + 1);
+    ent->element.push_back(renderInfo.ElementValue + 2);
+    ent->element.push_back(renderInfo.ElementValue + 3);
     
-    renderInfo.Batches[renderInfo.RECTANGLEID]->ElementValue += 4;
+    renderInfo.ElementValue += 4;
+    btch->ElementSize += 4;
+        }
+      }
+    }
+    // bottom left:
+    // coords
+    /*
+    */
   }
 };

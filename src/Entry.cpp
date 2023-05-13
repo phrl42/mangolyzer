@@ -1,5 +1,4 @@
 #include "utils/Entry.h"
-#include "game/Game.h"
 
 #include "events/Input.h"
 
@@ -28,7 +27,9 @@ namespace banana
   {
     framework->Init(0);
     
-    game::Game::Init();
+    GameScene = std::make_shared<game::Game>();
+
+    GameScene->Init();
     
     renderAPI->Init();
     
@@ -52,7 +53,7 @@ namespace banana
       framework->Clear();
 
       // we have milliseconds
-      game::Game::Loop((float)(frameTime / 1000));
+      GameScene->Loop((float)(frameTime / 1000));
       
       Renderer::Render();
 

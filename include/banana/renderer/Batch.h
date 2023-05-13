@@ -3,9 +3,10 @@
 
 #include "renderer/Type.h"
 
+#include "game/Entity.h"
+
 namespace banana
 {
-  enum class ShaderType {TRIANGLE = 0, RECTANGLE, CIRCLE, TEXT};
 
   struct BufferType
   {
@@ -118,7 +119,6 @@ namespace banana
     BufferElement Element;
   };
 
-
   struct Batch
   {
     Batch(ShaderType shadertype)
@@ -130,17 +130,16 @@ namespace banana
 
       this->type = shadertype;
     };
-    std::vector<float> vertex;
-    std::vector<unsigned int> element;
+
+    std::vector<std::shared_ptr<game::Entity>> Entities;
 
     ShaderType type;
-    
-    unsigned int ElementValue = 0;
-    bool full = false;
-    
+    ShaderLayout shaderLayout;
+
     std::map<std::string, unsigned int> ids;
 
-    ShaderLayout shaderLayout;
+    int ElementSize = 0;
+
   };
 
 };

@@ -4,9 +4,9 @@
 #include "window/Window.h"
 #include "utils/Management.h"
 
-namespace banana {
+#include "game/Entity.h"
 
-  enum class Projection { NONE = 0, ORTHOGRAPHIC, PERSPECTIVE };
+namespace game {
 
   struct BananaWindow 
   {
@@ -14,25 +14,7 @@ namespace banana {
     int h;
     glm::vec4 color;
     std::string title;
-    std::shared_ptr<Window> win;
-  };
-
-  struct BananaRectangle 
-  {
-    float x;
-    float y;
-
-    float w;
-    float h;
-
-    float r;
-    float g;
-    float b;
-    float a;
-
-    //std::shared_ptr<Texture> tex;
-
-    enum Projection proj;
+    std::shared_ptr<banana::Window> win;
   };
 
   class Banana
@@ -40,7 +22,6 @@ namespace banana {
   public:
     static int InitBananaWindow(BananaWindow& BWindow);
     static void AddRectangle(BananaRectangle& obj);
-
   };
 
 }; // namespace banana
