@@ -139,7 +139,7 @@ namespace banana
     std::map<std::string, unsigned int> ids;
 
     int ElementSize = 0;
-
+    unsigned int TextureSize = 0;
   };
 
 };

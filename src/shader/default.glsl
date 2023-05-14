@@ -31,7 +31,7 @@ uniform sampler2D fTexture[8];
 
 void main()
 {
-  if(texID <= -1.0f)
+  if(texID <= 0.0f)
   {
     FragColor = vertexColor;
   }

@@ -6,6 +6,10 @@
 #include "game/Entity.h"
 
 #define MAX_ENTITY_SIZE 100
+#define MAX_TEXTURE_SIZE 8
+
+#include <algorithm>
+#include <vector>
 
 namespace banana
 {
@@ -31,6 +35,12 @@ namespace banana
       rectangleShader->LoadShader("src/shader/default.glsl");
 
       Shaders.push_back(rectangleShader);
+      
+      CreateDefaultBatch();
+    }
+
+    void CreateDefaultBatch()
+    {
       for(std::shared_ptr<Shader> shader : Shaders)
       {
         // compile each shader and assign a batch to each one
@@ -38,30 +48,51 @@ namespace banana
         std::shared_ptr<Batch> btch = std::make_shared<Batch>(shader->Type);
         Batches.push_back(btch);
       }
-
     }
 
     // manages the numbering of available shaders per batch
     void SortBatches()
-    {
+    { 
+      CreateDefaultBatch();
+      
       for(std::shared_ptr<Batch> batch : Batches)
       {
+        // remove unneeded entities
+        game::Entity::EntityVector.erase(
+          std::remove_if(game::Entity::EntityVector.begin(), 
+          game::Entity::EntityVector.end(), 
+          [](auto ent){return ent->type == ShaderType::NONE;}), 
+          game::Entity::EntityVector.end());
+        
         for(std::shared_ptr<game::Entity> ent : game::Entity::EntityVector)
         {
           if(batch->type == ent->type)
           {
-            if(batch->Entities.size() >= MAX_ENTITY_SIZE)
+            // save normal entities
+            if(batch->Entities.size() >= MAX_ENTITY_SIZE && !ent->tex->textureID)
             {
               std::shared_ptr<Batch> btch = std::make_shared<Batch>(batch->type);
-
               Batches.push_back(btch);
             }
 
-            if(batch->Entities.size() < MAX_ENTITY_SIZE)
+            if(batch->Entities.size() < MAX_ENTITY_SIZE && !ent->tex->textureID)
             {
               batch->Entities.push_back(ent);
+              ent->type = ShaderType::NONE;
             }
 
+            // save texture entities
+            if(batch->TextureSize >= MAX_TEXTURE_SIZE && ent->tex->textureID)
+            {
+              std::shared_ptr<Batch> btch = std::make_shared<Batch>(batch->type);
+              Batches.push_back(btch);
+            }
+
+            if(batch->TextureSize < MAX_TEXTURE_SIZE && ent->tex->textureID)
+            {
+              batch->Entities.push_back(ent);
+              ent->type = ShaderType::NONE;
+            }
           }
         }
       }
@@ -92,11 +123,16 @@ namespace banana
         // then draw
         if(batch->type == shader->Type)
         {
-          // upload
           shader->Bind();
+
+          // texture binding
+          for(size_t i = 0; i < MAX_TEXTURE_SIZE; i++)
+          {
+            
+          }
+
           renderInfo.renderCommand->Upload(batch);
 
-          // draw
           renderInfo.renderCommand->Draw(batch->ElementSize, shader->Type);
           shader->Unbind();
         }
@@ -114,7 +150,7 @@ namespace banana
       renderInfo.ElementValue = 0;
       btch->ElementSize = 0;
     }
-
+    renderInfo.Batches.clear();
     game::Entity::EntityVector.clear();
   }
 
@@ -133,6 +169,7 @@ namespace banana
         {
           float y_offset = 0;
           float x_offset = 0;
+          glm::ivec2 texCoords = {0,0};
 
           for(size_t i = 0; i < 4; i++)
           {
@@ -142,24 +179,28 @@ namespace banana
                 // bottom left
                 x_offset = 0;
                 y_offset = 0;
+                texCoords = {0, 0};
                 break;
 
               case 1:
                 // bottom right
                 x_offset = ent->w;
                 y_offset = 0;
+                texCoords = {1, 0};
                 break;
 
               case 2:
                 // top left
                 x_offset = 0;
                 y_offset = ent->h;
+                texCoords = {0, 1};
                 break;
 
               case 3:
                 // top right
                 x_offset = ent->w;
                 y_offset = ent->h;
+                texCoords = {1, 1};
                 break;
 
               default:
@@ -174,10 +215,10 @@ namespace banana
             ent->vertex.push_back(ent->b);
             ent->vertex.push_back(ent->a);
 
-            ent->vertex.push_back(0);
-            ent->vertex.push_back(0);
+            ent->vertex.push_back(texCoords.x);
+            ent->vertex.push_back(texCoords.y);
 
-            ent->vertex.push_back(-1);
+            ent->vertex.push_back(ent->tex->textureID);
           }
           // element buffer
           ent->element.push_back(renderInfo.ElementValue + 0);

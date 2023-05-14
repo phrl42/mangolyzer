@@ -5,7 +5,7 @@
 
 namespace banana
 {
-  enum class ShaderType {TRIANGLE = 0, RECTANGLE, CIRCLE, TEXT};
+  enum class ShaderType {TRIANGLE = 0, RECTANGLE, CIRCLE, TEXT, NONE};
 };
 
 namespace game
@@ -31,12 +31,10 @@ namespace game
 
     enum banana::ShaderType type = banana::ShaderType::RECTANGLE;
 
-    std::shared_ptr<banana::Texture> tex;
+    std::shared_ptr<banana::Texture> tex = banana::Texture::GetTexture();
 
     void LoadTexture(std::string path)
     {
-      tex = banana::Texture::GetTexture();
-
       tex->LoadTexture(path);
     }
 

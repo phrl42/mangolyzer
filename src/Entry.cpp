@@ -48,7 +48,8 @@ namespace banana
     //Input::Check();
     
     while(!Input::IsKeyDown(SDL_SCANCODE_ESCAPE))
-    {      
+    {
+      Input::Check();
       beginTime = framework->GetTicks();
 
       framework->Clear();

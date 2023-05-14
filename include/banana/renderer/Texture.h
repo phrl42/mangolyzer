@@ -15,6 +15,6 @@ namespace banana
     virtual void BindTexture() = 0;
     virtual void UnbindTexture() = 0;
 
-    unsigned int textureID = 0;
+    unsigned textureID = 0;
   };
 };
