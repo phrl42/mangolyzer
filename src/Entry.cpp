@@ -26,9 +26,9 @@ namespace banana
   void Entry::Init()
   {
     framework->Init(0);
-    
-    GameScene = std::make_shared<game::Game>();
 
+    GameScene = std::make_shared<game::Game>();
+    
     GameScene->Init();
     
     renderAPI->Init();

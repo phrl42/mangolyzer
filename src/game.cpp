@@ -44,7 +44,7 @@ namespace game
     rect3.b = 0.512;
     rect3.a = 1.0;
     
-    //rect.LoadTexture("src/img/banana.png");
+    rect.LoadTexture("src/img/banana.png");
 
     Banana::RenderEntity(rect);
     Banana::RenderEntity(rect2);

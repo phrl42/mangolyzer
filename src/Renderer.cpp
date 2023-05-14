@@ -128,13 +128,24 @@ namespace banana
           // texture binding
           for(size_t i = 0; i < MAX_TEXTURE_SIZE; i++)
           {
-            
+            for(auto ent : batch->Entities)
+            {
+              ent->tex->BindTexture(i);
+            }
           }
 
           renderInfo.renderCommand->Upload(batch);
 
           renderInfo.renderCommand->Draw(batch->ElementSize, shader->Type);
           shader->Unbind();
+
+          for(size_t i = 0; i < MAX_TEXTURE_SIZE; i++)
+          {
+            for(auto ent : batch->Entities)
+            {
+              ent->tex->UnbindTexture();
+            }
+          }
         }
       }
     }

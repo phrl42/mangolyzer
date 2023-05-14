@@ -12,7 +12,7 @@ namespace banana
     static std::shared_ptr<Texture> GetTexture();
 
     virtual void LoadTexture(std::string path) = 0;
-    virtual void BindTexture() = 0;
+    virtual void BindTexture(size_t textureSlot) = 0;
     virtual void UnbindTexture() = 0;
 
     unsigned textureID = 0;

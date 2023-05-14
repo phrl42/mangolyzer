@@ -57,9 +57,9 @@ namespace banana
     glBindTexture(GL_TEXTURE_2D, 0);
   }
 
-  void OpenGLTexture::BindTexture()
+  void OpenGLTexture::BindTexture(size_t textureSlot)
   {
-    glBindTexture(GL_TEXTURE_2D, textureID);
+    glBindTextureUnit(textureSlot, textureID);
   }
 
   void OpenGLTexture::UnbindTexture()

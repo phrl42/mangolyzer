@@ -11,7 +11,7 @@ namespace banana
     OpenGLTexture() = default;
 
     void LoadTexture(std::string path) override;
-    void BindTexture() override;
+    void BindTexture(size_t textureSlot) override;
     void UnbindTexture() override;
   };
 };
