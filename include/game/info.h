@@ -21,7 +21,7 @@ namespace game {
   {
   public:
     static int InitBananaWindow(BananaWindow& BWindow);
-    static void AddRectangle(BananaRectangle& obj);
+    static void RenderEntity(Entity& obj);
   };
 
 }; // namespace banana

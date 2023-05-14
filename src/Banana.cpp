@@ -34,8 +34,8 @@ supported
     return 0;
   };
 
-  void Banana::AddRectangle(BananaRectangle& obj)
+  void Banana::RenderEntity(Entity& obj)
   {
-    Entity::EntityVector.push_back(std::make_shared<BananaRectangle>(obj));
+    Entity::EntityVector.push_back(std::make_shared<Entity>(obj));
   }
 };

@@ -114,6 +114,8 @@ namespace banana
       renderInfo.ElementValue = 0;
       btch->ElementSize = 0;
     }
+
+    game::Entity::EntityVector.clear();
   }
 
   // todo: get a better idea on how to do this
