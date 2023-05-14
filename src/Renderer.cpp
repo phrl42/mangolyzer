@@ -131,8 +131,8 @@ namespace banana
       {
         if(btch->type == ShaderType::RECTANGLE)
         {
-          size_t y_offset = 0;
-          size_t x_offset = 0;
+          float y_offset = 0;
+          float x_offset = 0;
 
           for(size_t i = 0; i < 4; i++)
           {
