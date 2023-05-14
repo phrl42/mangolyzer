@@ -1,6 +1,8 @@
 #pragma once
 #include "utils/incs.h"
 
+#include "renderer/Texture.h"
+
 namespace banana
 {
   enum class ShaderType {TRIANGLE = 0, RECTANGLE, CIRCLE, TEXT};
@@ -29,7 +31,14 @@ namespace game
 
     enum banana::ShaderType type = banana::ShaderType::RECTANGLE;
 
-    //std::shared_ptr<Texture> tex;
+    std::shared_ptr<banana::Texture> tex;
+
+    void LoadTexture(std::string path)
+    {
+      tex = banana::Texture::GetTexture();
+
+      tex->LoadTexture(path);
+    }
 
     Projection proj;
 

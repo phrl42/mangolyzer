@@ -45,7 +45,8 @@ namespace banana
     framework->SetColor(Window::GetMostRecentWindow()->BackgroundColor);
 
     Renderer::Init();
-
+    //Input::Check();
+    
     while(!Input::IsKeyDown(SDL_SCANCODE_ESCAPE))
     {      
       beginTime = framework->GetTicks();
@@ -66,6 +67,7 @@ namespace banana
       
       // useful for debugging
       framework->SetWindowTitle(Window::GetMostRecentWindow()->GetWindow(), std::to_string(1 / (frameTime / 1000)));
+
     }
   }
 };

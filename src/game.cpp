@@ -23,12 +23,18 @@ namespace game
     rect.g = -0.912;
     rect.b = 0.512;
     rect.a = 1.0;
+    
+    //rect.LoadTexture("src/img/banana.png");
 
     Banana::RenderEntity(rect);
   }
 
   void Game::Loop(float dt)
   {
-    Banana::RenderEntity(rect);
+    if(!banana::Input::IsKeyDown(SDL_SCANCODE_H))
+    {
+      Banana::RenderEntity(rect);
+    }
+    
   }
 };

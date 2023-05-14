@@ -1,24 +1,28 @@
 #include "events/Input.h"
 #include "utils/Log.h"
 
-#include <SDL2/SDL.h>
-
 namespace banana
 {
+  SDL_Event Input::ev;
   bool Input::IsKeyDown(SDL_Scancode scancode)
   {
-    SDL_Event ev;
+    Check();
     const Uint8 *keys = SDL_GetKeyboardState(NULL);
 
-    while(SDL_PollEvent(&ev))
-    {
+    //while(SDL_PollEvent(&ev))
+    //{
       if(keys[scancode])
       {
         return true;
       }
-    }
+    //}
     
     return false;
+  }
+
+  void Input::Check()
+  {
+    SDL_PollEvent(&ev);
   }
 
 }

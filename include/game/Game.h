@@ -14,6 +14,5 @@ namespace game
     BananaWindow win;
     BananaRectangle rect;
     BananaRectangle rect2;
-
   };
 };
