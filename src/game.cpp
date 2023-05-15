@@ -58,8 +58,8 @@ namespace game
       
     }
     Banana::RenderEntity(rect);
-    Banana::RenderEntity(rect2);
-    Banana::RenderEntity(rect3);
+    //Banana::RenderEntity(rect2);
+    //Banana::RenderEntity(rect3);
 
     
   }

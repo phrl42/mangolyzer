@@ -107,6 +107,14 @@ namespace banana
     {
       shader->Compile();
     }
+
+    for(auto btch : renderInfo.Batches)
+    {
+      for(auto ent : btch->Entities)
+      {
+        ent->Init();
+      }
+    }
   }
 
   void Renderer::Render()
@@ -126,12 +134,9 @@ namespace banana
           shader->Bind();
 
           // texture binding
-          for(size_t i = 0; i < MAX_TEXTURE_SIZE; i++)
+          for(size_t i = 0; i < batch->TextureSize; i++)
           {
-            for(auto ent : batch->Entities)
-            {
-              ent->tex->BindTexture(i);
-            }
+            batch->Entities[i]->tex->BindTexture(i);
           }
 
           renderInfo.renderCommand->Upload(batch);

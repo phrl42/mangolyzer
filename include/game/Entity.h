@@ -33,12 +33,22 @@ namespace game
 
     std::shared_ptr<banana::Texture> tex = banana::Texture::GetTexture();
 
-    void LoadTexture(std::string path)
+    void Init()
     {
-      tex->LoadTexture(path);
+      if(isTex) tex->LoadTexture(path);
     }
 
+    void LoadTexture(std::string path)
+    {
+      this->path = path;
+      this->isTex = true;
+    }
+
+    bool isTex = false;
+    std::string path;
+
     Projection proj;
+    
 
     // maybe use std::variant in Entity::EntityVectors because not every Entity needs an element std::vector
     std::vector<float> vertex;
