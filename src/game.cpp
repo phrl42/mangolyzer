@@ -19,9 +19,9 @@ namespace game
     rect.w = 1.8;
     rect.h = 1;
 
-    rect.r = 0.0;
-    rect.g = -0.912;
-    rect.b = 0.512;
+    rect.r = 1.0;
+    rect.g = 1.0;
+    rect.b = 1.0;
     rect.a = 1.0;
     
     rect2.x = -1.0;
@@ -44,7 +44,7 @@ namespace game
     rect3.b = 0.512;
     rect3.a = 1.0;
     
-    rect.LoadTexture("src/img/banana.png");
+    rect.LoadTexture("src/img/bunker.png");
 
     Banana::RenderEntity(rect);
     Banana::RenderEntity(rect2);
@@ -53,14 +53,12 @@ namespace game
 
   void Game::Loop(float dt)
   {
-    if(!banana::Input::IsKeyDown(SDL_SCANCODE_H))
+    if(banana::Input::IsKeyDown(SDL_SCANCODE_D))
     {
-      
+      rect.x += 0.001;
     }
     Banana::RenderEntity(rect);
-    //Banana::RenderEntity(rect2);
-    //Banana::RenderEntity(rect3);
-
-    
+    Banana::RenderEntity(rect2);
+    Banana::RenderEntity(rect3);
   }
 };

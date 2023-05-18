@@ -35,7 +35,10 @@ namespace game
 
     void Init()
     {
-      if(isTex) tex->LoadTexture(path);
+      if(isTex)
+      {
+        tex->LoadTexture(path);
+      } 
     }
 
     void LoadTexture(std::string path)

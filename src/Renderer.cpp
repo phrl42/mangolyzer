@@ -91,6 +91,7 @@ namespace banana
             if(batch->TextureSize < MAX_TEXTURE_SIZE && ent->tex->textureID)
             {
               batch->Entities.push_back(ent);
+              batch->TextureSize += 1;
               ent->type = ShaderType::NONE;
             }
           }
@@ -108,6 +109,7 @@ namespace banana
       shader->Compile();
     }
 
+    AddEntity();
     for(auto btch : renderInfo.Batches)
     {
       for(auto ent : btch->Entities)
@@ -132,7 +134,7 @@ namespace banana
         if(batch->type == shader->Type)
         {
           shader->Bind();
-
+          
           // texture binding
           for(size_t i = 0; i < batch->TextureSize; i++)
           {
@@ -165,6 +167,7 @@ namespace banana
       btch->Entities.clear();
       renderInfo.ElementValue = 0;
       btch->ElementSize = 0;
+      btch->TextureSize = 0;
     }
     renderInfo.Batches.clear();
     game::Entity::EntityVector.clear();
