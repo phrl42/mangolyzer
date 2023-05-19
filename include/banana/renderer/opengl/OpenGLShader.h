@@ -15,6 +15,8 @@ namespace banana
     void Bind() override;
     void Unbind() override;
     
+    virtual void SetTexUni(int val) override;
+    
     ShaderType Type;
     std::string FilePath = "";
 

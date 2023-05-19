@@ -13,5 +13,8 @@ namespace banana
     void LoadTexture(std::string path) override;
     void BindTexture(size_t textureSlot) override;
     void UnbindTexture() override;
+  
+  private:
+    unsigned int textureID = 0;
   };
 };

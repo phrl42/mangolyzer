@@ -69,26 +69,26 @@ namespace banana
           if(batch->type == ent->type)
           {
             // save normal entities
-            if(batch->Entities.size() >= MAX_ENTITY_SIZE && !ent->tex->textureID)
+            if(batch->Entities.size() >= MAX_ENTITY_SIZE && ent->tex->texID == -1)
             {
               std::shared_ptr<Batch> btch = std::make_shared<Batch>(batch->type);
               Batches.push_back(btch);
             }
 
-            if(batch->Entities.size() < MAX_ENTITY_SIZE && !ent->tex->textureID)
+            if(batch->Entities.size() < MAX_ENTITY_SIZE && ent->tex->texID == -1)
             {
               batch->Entities.push_back(ent);
               ent->type = ShaderType::NONE;
             }
 
             // save texture entities
-            if(batch->TextureSize >= MAX_TEXTURE_SIZE && ent->tex->textureID)
+            if(batch->TextureSize >= MAX_TEXTURE_SIZE && ent->tex->texID != -1)
             {
               std::shared_ptr<Batch> btch = std::make_shared<Batch>(batch->type);
               Batches.push_back(btch);
             }
 
-            if(batch->TextureSize < MAX_TEXTURE_SIZE && ent->tex->textureID)
+            if(batch->TextureSize < MAX_TEXTURE_SIZE && ent->tex->texID != -1)
             {
               batch->Entities.push_back(ent);
               batch->TextureSize += 1;
@@ -109,12 +109,13 @@ namespace banana
       shader->Compile();
     }
 
+    size_t textureCount = 0;
     AddEntity();
     for(auto btch : renderInfo.Batches)
     {
       for(auto ent : btch->Entities)
       {
-        ent->Init();
+        ent->Init(textureCount);
       }
     }
   }
@@ -134,6 +135,7 @@ namespace banana
         if(batch->type == shader->Type)
         {
           shader->Bind();
+          shader->SetTexUni(MAX_TEXTURE_SIZE);
           
           // texture binding
           for(size_t i = 0; i < batch->TextureSize; i++)
@@ -237,7 +239,7 @@ namespace banana
             ent->vertex.push_back(texCoords.x);
             ent->vertex.push_back(texCoords.y);
 
-            ent->vertex.push_back(ent->tex->textureID);
+            ent->vertex.push_back(ent->tex->texID);
           }
           // element buffer
           ent->element.push_back(renderInfo.ElementValue + 0);

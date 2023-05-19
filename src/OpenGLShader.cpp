@@ -114,6 +114,15 @@ namespace banana
     this->shaderID = shaderID;
   }
 
+  void OpenGLShader::SetTexUni(int val)
+  {
+    Bind();
+    for(int i = 0; i < val; i++)
+    {
+      glUniform1i(glGetUniformLocation(this->shaderID, ("fTexture[" + std::to_string(i) + "]").c_str()), i);
+    }
+  }
+
   void OpenGLShader::Bind()
   {
     glUseProgram(this->shaderID);

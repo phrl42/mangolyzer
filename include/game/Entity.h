@@ -33,11 +33,13 @@ namespace game
 
     std::shared_ptr<banana::Texture> tex = banana::Texture::GetTexture();
 
-    void Init()
+    void Init(size_t& texCount)
     {
       if(!path.empty())
       {
         tex->LoadTexture(path);
+        tex->texID = texCount;
+        texCount += 1;
       } 
     }
 
