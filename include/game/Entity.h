@@ -35,7 +35,7 @@ namespace game
 
     void Init()
     {
-      if(isTex)
+      if(!path.empty())
       {
         tex->LoadTexture(path);
       } 
@@ -44,14 +44,11 @@ namespace game
     void LoadTexture(std::string path)
     {
       this->path = path;
-      this->isTex = true;
     }
 
-    bool isTex = false;
     std::string path;
 
     Projection proj;
-    
 
     // maybe use std::variant in Entity::EntityVectors because not every Entity needs an element std::vector
     std::vector<float> vertex;

@@ -37,6 +37,6 @@ void main()
   }
   else
   {
-    FragColor = texture(fTexture[0], texCoords) * vertexColor;
+    FragColor = texture(fTexture[texID], texCoords) * vertexColor;
   }
 }

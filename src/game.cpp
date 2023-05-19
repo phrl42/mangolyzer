@@ -46,8 +46,10 @@ namespace game
     
     rect.LoadTexture("src/img/bunker.png");
 
+    // render entity instantly when texture gets loaded
     Banana::RenderEntity(rect);
-    Banana::RenderEntity(rect2);
+
+    // these don't matter
     Banana::RenderEntity(rect3);
   }
 
@@ -55,9 +57,29 @@ namespace game
   {
     if(banana::Input::IsKeyDown(SDL_SCANCODE_D))
     {
-      rect.x += 0.001;
+      rect.x += 0.01;
     }
-    Banana::RenderEntity(rect);
+
+    if(banana::Input::IsKeyDown(SDL_SCANCODE_A))
+    {
+      rect.x -= 0.01;
+    }
+
+    if(banana::Input::IsKeyDown(SDL_SCANCODE_W))
+    {
+      rect.y += 0.01;
+    }
+
+    if(banana::Input::IsKeyDown(SDL_SCANCODE_S))
+    {
+      rect.y -= 0.01;
+    }
+
+    if(!banana::Input::IsKeyDown(SDL_SCANCODE_N))
+    {
+      Banana::RenderEntity(rect);
+    }
+    
     Banana::RenderEntity(rect2);
     Banana::RenderEntity(rect3);
   }
