@@ -239,6 +239,7 @@ namespace banana
             ent->vertex.push_back(texCoords.x);
             ent->vertex.push_back(texCoords.y);
 
+            LOG_CORE("textureID: " + std::to_string(ent->tex->texID));
             ent->vertex.push_back(ent->tex->texID);
           }
           // element buffer

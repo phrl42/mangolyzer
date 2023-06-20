@@ -6,16 +6,10 @@
 
 namespace banana
 {
-  Entry::Entry(WindowingSystem ws, GraphicsLibrary gl)
+  Entry::Entry()
   {
-    banana::Management::UsedWS = ws;
-    banana::Management::UsedGL = gl;
 
-    framework = Framework::GetFramework();
 
-    renderAPI = RenderAPI::GetRenderAPI();
-
-    renderCommand = RenderCommand::GetRenderCommand();
   }
 
   Entry::~Entry()
@@ -25,14 +19,36 @@ namespace banana
   
   void Entry::Init()
   {
+    #ifdef MACRO_SDL2
+    banana::Management::UsedWS = WindowingSystem::SDL2;
+    #endif
+
+    #ifdef MACRO_GLFW
+    banana::Management::UsedWS = WindowingSystem::GLFW;
+    #endif
+
+    #ifdef MACRO_OPENGL
+    banana::Management::UsedGL = GraphicsLibrary::OpenGL;
+    #endif
+
+    #ifdef MACRO_VULKAN
+    banana::Management::UsedGL = GraphicsLibrary::Vulkan;
+    #endif
+
+    framework = Framework::GetFramework();
+
+    renderAPI = RenderAPI::GetRenderAPI();
+
+    renderCommand = RenderCommand::GetRenderCommand();
+
     framework->Init(0);
 
     GameScene = std::make_shared<game::Game>();
-    
+      
     GameScene->Init();
-    
+      
     renderAPI->Init();
-    
+      
     Run();
   }
 

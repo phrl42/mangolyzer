@@ -29,7 +29,7 @@ namespace game
     rect2.w = 1.8;
     rect2.h = 1;
 
-    rect2.r = 1.0;
+    rect2.r = 0.0;
     rect2.g = 1;
     rect2.b = 1;
     rect2.a = 1.0;
@@ -39,7 +39,7 @@ namespace game
     rect3.w = 1.8;
     rect3.h = 1;
 
-    rect3.r = -0.5;
+    rect3.r = 1.0;
     rect3.g = 0.912;
     rect3.b = 0.512;
     rect3.a = 1.0;
@@ -48,9 +48,9 @@ namespace game
     rect2.LoadTexture("src/img/box.png");
 
     // render entity instantly when texture gets loaded
-    Banana::RenderEntity(rect);
+    
     Banana::RenderEntity(rect2);
-
+    Banana::RenderEntity(rect);
     // this does not matter
     Banana::RenderEntity(rect3);
     
@@ -80,10 +80,11 @@ namespace game
 
     //if(banana::Input::IsKeyDown(SDL_SCANCODE_N))
     {
-      Banana::RenderEntity(rect);
+      
     }
     
     Banana::RenderEntity(rect2);
+    Banana::RenderEntity(rect);
     Banana::RenderEntity(rect3);
   }
 };

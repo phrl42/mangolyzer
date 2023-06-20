@@ -15,7 +15,7 @@ namespace banana
   class Entry 
   {
   public:
-    Entry(WindowingSystem ws, GraphicsLibrary gl);
+    Entry();
     ~Entry();
     
     void Run();

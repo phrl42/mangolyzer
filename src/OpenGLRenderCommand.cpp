@@ -61,6 +61,7 @@ namespace banana
 
     // please rework the renderer; this is is awful bullshit
     std::vector<float> vertices;
+
     for(std::shared_ptr<game::Entity> ent : batch->Entities)
     {
       for(auto vt : ent->vertex)
@@ -68,6 +69,7 @@ namespace banana
         vertices.push_back(vt);
       }
     }
+
     std::vector<unsigned int> elements;
     for(std::shared_ptr<game::Entity> ent : batch->Entities)
     {
@@ -76,7 +78,7 @@ namespace banana
         elements.push_back(el);
       }
     }
-
+    
     glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices.size(), vertices.data(), GL_DYNAMIC_DRAW);
     
     // upload ebo

@@ -4,7 +4,7 @@
 
 namespace banana
 {
-  std::unique_ptr<Type > Type::GetType()
+  std::unique_ptr<Type> Type::GetType()
   {
       switch(Management::UsedGL)
       {
