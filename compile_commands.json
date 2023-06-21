@@ -10,12 +10,12 @@
       "-g",
       "-c",
       "-o",
-      "../bin/obj/Debug//Debug/Banana/Application.o",
+      "../bin/obj/Debug/Banana/Application.o",
       "src/banana/Application.cpp"
     ],
-    "directory": "/home/phrl/projects/banana/Banana",
-    "file": "/home/phrl/projects/banana/Banana/src/banana/Application.cpp",
-    "output": "/home/phrl/projects/banana/bin/obj/Debug/Debug/Banana/Application.o"
+    "directory": "/home/pherel/Tools/Projects/banana/Banana",
+    "file": "/home/pherel/Tools/Projects/banana/Banana/src/banana/Application.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/Banana/Application.o"
   },
   {
     "arguments": [
@@ -28,11 +28,11 @@
       "-g",
       "-c",
       "-o",
-      "../bin/obj/Debug//Debug/Sandbox/Sandbox.o",
+      "../bin/obj/Debug/Sandbox/Sandbox.o",
       "src/Sandbox.cpp"
     ],
-    "directory": "/home/phrl/projects/banana/Sandbox",
-    "file": "/home/phrl/projects/banana/Sandbox/src/Sandbox.cpp",
-    "output": "/home/phrl/projects/banana/bin/obj/Debug/Debug/Sandbox/Sandbox.o"
+    "directory": "/home/pherel/Tools/Projects/banana/Sandbox",
+    "file": "/home/pherel/Tools/Projects/banana/Sandbox/src/Sandbox.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/Sandbox/Sandbox.o"
   }
 ]

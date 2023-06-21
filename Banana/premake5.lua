@@ -4,7 +4,11 @@ project "Banana"
 
     targetdir "%{wks.location}/bin/target/%{cfg.buildcfg}/%{prj.name}"
     objdir "%{wks.location}/bin/obj/%{cfg.buildcfg}/%{prj.name}"
-  
+
+    pchheader "include/incs.h"
+    pchsource "src/incs.cpp"
+    toolset ("clang")
+
     files {
       "%{wks.location}/Banana/src/**.cpp",
       "%{wks.location}/Banana/include/**.h"

@@ -8,7 +8,7 @@ namespace SANDBOX
 {
   Sandbox::Sandbox()
   {
-    LOG("nigg");
+    LOG("test");
   }
 
   Sandbox::~Sandbox()

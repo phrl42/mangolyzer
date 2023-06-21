@@ -4,9 +4,7 @@ project "Sandbox"
 
   targetdir "%{wks.location}/bin/target/%{cfg.buildcfg}/%{prj.name}"
   objdir "%{wks.location}/bin/obj/%{cfg.buildcfg}/%{prj.name}"
-  
-  rules { "run" }
-  
+    
   files {
     "src/**.cpp",
     "include/**.h"
