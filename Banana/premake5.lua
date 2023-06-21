@@ -1,13 +1,12 @@
 project "Banana"
     kind "StaticLib"
     language "C++"
+    toolset ("clang")
 
     targetdir "%{wks.location}/bin/target/%{cfg.buildcfg}/%{prj.name}"
     objdir "%{wks.location}/bin/obj/%{cfg.buildcfg}/%{prj.name}"
 
-    pchheader "include/incs.h"
-    pchsource "src/incs.cpp"
-    toolset ("clang")
+    pchheader "include/incs.h"    
 
     files {
       "%{wks.location}/Banana/src/**.cpp",

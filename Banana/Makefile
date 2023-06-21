@@ -74,9 +74,7 @@ GENERATED :=
 OBJECTS :=
 
 GENERATED += $(OBJDIR)/Application.o
-GENERATED += $(OBJDIR)/incs.o
 OBJECTS += $(OBJDIR)/Application.o
-OBJECTS += $(OBJDIR)/incs.o
 
 # Rules
 # #############################################
@@ -141,9 +139,6 @@ endif
 # #############################################
 
 $(OBJDIR)/Application.o: src/banana/Application.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/incs.o: src/incs.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 
