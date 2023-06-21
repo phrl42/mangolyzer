@@ -4,41 +4,35 @@
       "/usr/bin/g++",
       "-DMACRO_SDL2",
       "-DMACRO_OPENGL",
-      "-Ibanana",
-      "-Ibanana/include",
-      "-Isandbox",
-      "-Isandbox/include",
+      "-DBUILD_DEBUG",
+      "-Iinclude/engine",
+      "-Iinclude",
       "-g",
-      "-Wall",
-      "-Wextra",
       "-c",
       "-o",
-      "obj/Debug/Application.o",
-      "banana/src/banana/Application.cpp"
+      "../bin/obj/Debug//Debug/Banana/Application.o",
+      "src/banana/Application.cpp"
     ],
-    "directory": "/home/pherel/Tools/Projects/bananav2",
-    "file": "/home/pherel/Tools/Projects/bananav2/banana/src/banana/Application.cpp",
-    "output": "/home/pherel/Tools/Projects/bananav2/obj/Debug/Application.o"
+    "directory": "/home/phrl/projects/banana/Banana",
+    "file": "/home/phrl/projects/banana/Banana/src/banana/Application.cpp",
+    "output": "/home/phrl/projects/banana/bin/obj/Debug/Debug/Banana/Application.o"
   },
   {
     "arguments": [
       "/usr/bin/g++",
-      "-DMACRO_SDL2",
-      "-DMACRO_OPENGL",
-      "-Ibanana",
-      "-Ibanana/include",
-      "-Isandbox",
-      "-Isandbox/include",
+      "-DBUILD_DEBUG",
+      "-I../Banana/include/engine",
+      "-I../Banana/include",
+      "-I.",
+      "-Iinclude",
       "-g",
-      "-Wall",
-      "-Wextra",
       "-c",
       "-o",
-      "obj/Debug/Sandbox.o",
-      "sandbox/src/Sandbox.cpp"
+      "../bin/obj/Debug//Debug/Sandbox/Sandbox.o",
+      "src/Sandbox.cpp"
     ],
-    "directory": "/home/pherel/Tools/Projects/bananav2",
-    "file": "/home/pherel/Tools/Projects/bananav2/sandbox/src/Sandbox.cpp",
-    "output": "/home/pherel/Tools/Projects/bananav2/obj/Debug/Sandbox.o"
+    "directory": "/home/phrl/projects/banana/Sandbox",
+    "file": "/home/phrl/projects/banana/Sandbox/src/Sandbox.cpp",
+    "output": "/home/phrl/projects/banana/bin/obj/Debug/Debug/Sandbox/Sandbox.o"
   }
 ]

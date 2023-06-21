@@ -1,47 +1,15 @@
 -- premake5.lua
 
-workspace "MyGame"
+workspace "Banana"
     configurations { "Debug", "Release" }
+    staticruntime "off"
 
-project "game"
-    kind "ConsoleApp"
-    language "C++"
-    targetdir "bin/%{cfg.buildcfg}"
+IncludeDir = {}
 
-    files {
-      "banana/src/**.cpp",
-      "sandbox/src/**.cpp",
-      "banana/include/**.h",
-      "sandbox/include/**.h"
-    }
+group "engine"
+include "Banana/"
+group ""
 
-    includedirs {
-        "banana/",
-        "banana/include/",
-        "sandbox/",
-        "sandbox/include/"
-    }
-
-    links {
-        "SDL2",
-        "GL",
-        "X11",
-        "pthread",
-        "Xrandr",
-        "Xi",
-        "dl",
-        "m"
-    }
-
-    defines {
-        "MACRO_SDL2",
-        "MACRO_OPENGL"
-    }
-
-    filter "configurations:Debug"
-        symbols "On"
-        warnings "Extra"
-
-    filter "configurations:Release"
-        optimize "On"
-        warnings "Extra"
+group "game"
+include "Sandbox/"
+group ""

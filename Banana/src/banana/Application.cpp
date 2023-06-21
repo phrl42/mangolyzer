@@ -1,4 +1,4 @@
-#include "banana/Application.h"
+#include "Application.h"
 
 namespace Banana
 {

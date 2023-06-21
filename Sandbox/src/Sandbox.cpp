@@ -1,10 +1,13 @@
 #include "Sandbox.h"
 
+//-----EntryPoint.h-----
+#include "EntryPoint.h"
+
 namespace SANDBOX
 {
   Sandbox::Sandbox()
   {
-
+    LOG("nigg");
   }
 
   Sandbox::~Sandbox()

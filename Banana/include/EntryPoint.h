@@ -1,7 +1,8 @@
 #pragma once
 
 // fixes clangd issue
-#include "include/banana/Application.h"
+
+#include "Application.h"
 
 extern Banana::Application* Banana::CreateApplication();
 

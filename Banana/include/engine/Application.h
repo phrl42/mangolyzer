@@ -1,5 +1,4 @@
 #pragma once
-#include "banana/Application.h"
 
 namespace Banana
 {

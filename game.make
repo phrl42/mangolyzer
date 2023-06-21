@@ -16,7 +16,7 @@ ifeq ($(config),debug)
   TARGET = $(TARGETDIR)/game
   OBJDIR = obj/Debug
   DEFINES += -DMACRO_SDL2 -DMACRO_OPENGL
-  INCLUDES += -Ibanana -Ibanana/include -Isandbox -Isandbox/include
+  INCLUDES += -Ibanana -Ibanana/include -Ibanana/include/banana -Isandbox -Isandbox/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g -Wall -Wextra
@@ -43,7 +43,7 @@ ifeq ($(config),release)
   TARGET = $(TARGETDIR)/game
   OBJDIR = obj/Release
   DEFINES += -DMACRO_SDL2 -DMACRO_OPENGL
-  INCLUDES += -Ibanana -Ibanana/include -Isandbox -Isandbox/include
+  INCLUDES += -Ibanana -Ibanana/include -Ibanana/include/banana -Isandbox -Isandbox/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2 -Wall -Wextra
