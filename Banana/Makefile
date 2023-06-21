@@ -30,13 +30,13 @@ endif
 PCH = include/incs.h
 PCH_PLACEHOLDER = $(OBJDIR)/$(notdir $(PCH))
 GCH = $(PCH_PLACEHOLDER).gch
-INCLUDES += -Iinclude/engine -Iinclude
+INCLUDES += -Ivendor/GLFW/include -Iinclude/engine -Iinclude
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-LIBS += -lSDL2 -lGL -lX11 -lpthread -lXrandr -lXi -ldl -lm
+LIBS += -lglfw3 -ldl -lm -lGL -lX11 -lXi
 LDDEPS +=
-ALL_LDFLAGS += $(LDFLAGS)
+ALL_LDFLAGS += $(LDFLAGS) -Lvendor/GLFW/lib
 LINKCMD = $(AR) -rcs "$@" $(OBJECTS)
 define PREBUILDCMDS
 endef

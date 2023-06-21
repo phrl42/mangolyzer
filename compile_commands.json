@@ -1,10 +1,34 @@
 [
   {
     "arguments": [
-      "/usr/bin/g++",
+      "/usr/bin/clang++",
+      "-x",
+      "c++-header",
       "-DMACRO_SDL2",
       "-DMACRO_OPENGL",
       "-DBUILD_DEBUG",
+      "-Ivendor/GLFW/include",
+      "-Iinclude/engine",
+      "-Iinclude",
+      "-g",
+      "-c",
+      "-o",
+      "../bin/obj/Debug/Banana/incs.h.gch",
+      "include/incs.h"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana/Banana",
+    "file": "/home/pherel/Tools/Projects/banana/Banana/include/incs.h",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/Banana/incs.h.gch"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-include",
+      "../bin/obj/Debug/Banana/incs.h",
+      "-DMACRO_SDL2",
+      "-DMACRO_OPENGL",
+      "-DBUILD_DEBUG",
+      "-Ivendor/GLFW/include",
       "-Iinclude/engine",
       "-Iinclude",
       "-g",
@@ -21,6 +45,7 @@
     "arguments": [
       "/usr/bin/g++",
       "-DBUILD_DEBUG",
+      "-I../Banana/vendor/GLFW/include",
       "-I../Banana/include/engine",
       "-I../Banana/include",
       "-I.",
