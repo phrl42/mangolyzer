@@ -11,6 +11,14 @@ namespace Banana
     prop.width = 720;
 
     window = Window::Create(prop);
+
+    window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
+  }
+
+  void Application::OnEvent(Event& e)
+  {
+    LOG("{Event}");
+    LOG(e);
   }
 
   void Application::Run()

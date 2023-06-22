@@ -66,7 +66,13 @@ namespace Banana
     glfwSetWindowUserPointer(glfwWindow, &windowData);
 
     SetVSync(true);
-  }
+
+    // set glfw callbacks
+
+    glfwSetWindowSizeCallback(glfwWindow, [](GLFWWindow* window, int width, int height)
+    {
+      
+    } );
 
   unsigned int GLFWWindow::GetHeight()
   {
