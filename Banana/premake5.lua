@@ -1,7 +1,7 @@
 project "Banana"
     kind "StaticLib"
     language "C++"
-    toolset ("clang")
+    staticruntime "off"
 
     targetdir "%{wks.location}/bin/target/%{cfg.buildcfg}/%{prj.name}"
     objdir "%{wks.location}/bin/obj/%{cfg.buildcfg}/%{prj.name}"
@@ -12,6 +12,11 @@ project "Banana"
       "%{wks.location}/Banana/src/**.cpp",
       "%{wks.location}/Banana/include/**.h"
     }
+
+    links {
+      "GLFW",
+    }
+    
 
     includedirs {
         "%{wks.location}/Banana/include/engine/",

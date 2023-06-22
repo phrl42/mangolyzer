@@ -1,5 +1,7 @@
 #pragma once
 
+#include "glfw3.h"
+
 namespace Banana
 {
   class Application

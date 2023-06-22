@@ -9,10 +9,12 @@ ifndef verbose
 endif
 
 ifeq ($(config),debug)
+  GLFW_config = debug
   Banana_config = debug
   Sandbox_config = debug
 
 else ifeq ($(config),release)
+  GLFW_config = release
   Banana_config = release
   Sandbox_config = release
 
@@ -20,29 +22,38 @@ else
   $(error "invalid configuration $(config)")
 endif
 
-PROJECTS := Banana Sandbox
+PROJECTS := GLFW Banana Sandbox
 
-.PHONY: all clean help $(PROJECTS) engine game
+.PHONY: all clean help $(PROJECTS) dependencies engine game
 
 all: $(PROJECTS)
+
+dependencies: GLFW
 
 engine: Banana
 
 game: Sandbox
 
-Banana:
+GLFW:
+ifneq (,$(GLFW_config))
+	@echo "==== Building GLFW ($(GLFW_config)) ===="
+	@${MAKE} --no-print-directory -C Banana/vendor/GLFW -f Makefile config=$(GLFW_config)
+endif
+
+Banana: GLFW
 ifneq (,$(Banana_config))
 	@echo "==== Building Banana ($(Banana_config)) ===="
 	@${MAKE} --no-print-directory -C Banana -f Makefile config=$(Banana_config)
 endif
 
-Sandbox: Banana
+Sandbox: Banana GLFW
 ifneq (,$(Sandbox_config))
 	@echo "==== Building Sandbox ($(Sandbox_config)) ===="
 	@${MAKE} --no-print-directory -C Sandbox -f Makefile config=$(Sandbox_config)
 endif
 
 clean:
+	@${MAKE} --no-print-directory -C Banana/vendor/GLFW -f Makefile clean
 	@${MAKE} --no-print-directory -C Banana -f Makefile clean
 	@${MAKE} --no-print-directory -C Sandbox -f Makefile clean
 
@@ -56,6 +67,7 @@ help:
 	@echo "TARGETS:"
 	@echo "   all (default)"
 	@echo "   clean"
+	@echo "   GLFW"
 	@echo "   Banana"
 	@echo "   Sandbox"
 	@echo ""

@@ -1,6 +1,7 @@
 project "Sandbox"
   kind  "ConsoleApp"
   language "C++"
+  staticruntime "off"
 
   targetdir "%{wks.location}/bin/target/%{cfg.buildcfg}/%{prj.name}"
   objdir "%{wks.location}/bin/obj/%{cfg.buildcfg}/%{prj.name}"
@@ -11,6 +12,7 @@ project "Sandbox"
   }
 
   includedirs {
+      "%{IncludeDir.GLFW}",
       "%{wks.location}/Banana/include/engine/",
       "%{wks.location}/Banana/include/",
       "%{wks.location}/Sandbox/",
@@ -18,7 +20,7 @@ project "Sandbox"
   }
 
   links {
-    "Banana"
+    "Banana",
   }
 
   filter "configurations:Debug"

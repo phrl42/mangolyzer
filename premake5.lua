@@ -5,27 +5,15 @@ workspace "Banana"
     staticruntime "off"
 
 IncludeDir = {}
-IncludeDir["GLFW"] = "%{wks.location}/Banana/vendor/GLFW/include"
+IncludeDir["GLFW"] = "%{wks.location}/Banana/vendor/GLFW/include/GLFW"
 
-LibDir = {}
-LibDir["GLFW"] = "%{wks.location}/Banana/vendor/GLFW/lib"
- 
 includedirs{
   "%{IncludeDir.GLFW}"
 }
 
-libdirs {
-  "%{LibDir.GLFW}"
-}
-
-links {
-  "glfw3",
-  "dl",
-  "m",
-  "GL",
-  "X11",
-  "Xi"
-}
+group "dependencies"
+include "Banana/vendor/GLFW"
+group ""
 
 group "engine"
 include "Banana/"

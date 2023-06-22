@@ -18,25 +18,14 @@ endif
 # Configurations
 # #############################################
 
-ifeq ($(origin CC), default)
-  CC = clang
-endif
-ifeq ($(origin CXX), default)
-  CXX = clang++
-endif
-ifeq ($(origin AR), default)
-  AR = ar
-endif
+RESCOMP = windres
 PCH = include/incs.h
 PCH_PLACEHOLDER = $(OBJDIR)/$(notdir $(PCH))
 GCH = $(PCH_PLACEHOLDER).gch
-INCLUDES += -Ivendor/GLFW/include -Iinclude/engine -Iinclude
+INCLUDES += -Ivendor/GLFW/include/GLFW -Iinclude/engine -Iinclude
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-LIBS += -lglfw3 -ldl -lm -lGL -lX11 -lXi
-LDDEPS +=
-ALL_LDFLAGS += $(LDFLAGS) -Lvendor/GLFW/lib
 LINKCMD = $(AR) -rcs "$@" $(OBJECTS)
 define PREBUILDCMDS
 endef
@@ -52,6 +41,9 @@ OBJDIR = ../bin/obj/Debug/Banana
 DEFINES += -DMACRO_SDL2 -DMACRO_OPENGL -DBUILD_DEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g
+LIBS += ../bin/target/Debug/GLFW/libGLFW.a
+LDDEPS += ../bin/target/Debug/GLFW/libGLFW.a
+ALL_LDFLAGS += $(LDFLAGS)
 
 else ifeq ($(config),release)
 TARGETDIR = ../bin/target/Release/Banana
@@ -60,6 +52,9 @@ OBJDIR = ../bin/obj/Release/Banana
 DEFINES += -DMACRO_SDL2 -DMACRO_OPENGL -DBUILD_RELEASE
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O2
+LIBS += ../bin/target/Release/GLFW/libGLFW.a
+LDDEPS += ../bin/target/Release/GLFW/libGLFW.a
+ALL_LDFLAGS += $(LDFLAGS) -s
 
 endif
 
