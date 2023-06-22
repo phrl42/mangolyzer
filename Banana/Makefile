@@ -38,10 +38,10 @@ ifeq ($(config),debug)
 TARGETDIR = ../bin/target/Debug/Banana
 TARGET = $(TARGETDIR)/libBanana.a
 OBJDIR = ../bin/obj/Debug/Banana
-DEFINES += -DMACRO_SDL2 -DMACRO_OPENGL -DBUILD_DEBUG
+DEFINES += -DMACRO_GLFW -DMACRO_OPENGL -DBUILD_DEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g
-LIBS += ../bin/target/Debug/GLFW/libGLFW.a
+LIBS += ../bin/target/Debug/GLFW/libGLFW.a -lGL
 LDDEPS += ../bin/target/Debug/GLFW/libGLFW.a
 ALL_LDFLAGS += $(LDFLAGS)
 
@@ -49,10 +49,10 @@ else ifeq ($(config),release)
 TARGETDIR = ../bin/target/Release/Banana
 TARGET = $(TARGETDIR)/libBanana.a
 OBJDIR = ../bin/obj/Release/Banana
-DEFINES += -DMACRO_SDL2 -DMACRO_OPENGL -DBUILD_RELEASE
+DEFINES += -DMACRO_GLFW -DMACRO_OPENGL -DBUILD_RELEASE
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O2
-LIBS += ../bin/target/Release/GLFW/libGLFW.a
+LIBS += ../bin/target/Release/GLFW/libGLFW.a -lGL
 LDDEPS += ../bin/target/Release/GLFW/libGLFW.a
 ALL_LDFLAGS += $(LDFLAGS) -s
 
@@ -69,7 +69,11 @@ GENERATED :=
 OBJECTS :=
 
 GENERATED += $(OBJDIR)/Application.o
+GENERATED += $(OBJDIR)/GLFWWindow.o
+GENERATED += $(OBJDIR)/Window.o
 OBJECTS += $(OBJDIR)/Application.o
+OBJECTS += $(OBJDIR)/GLFWWindow.o
+OBJECTS += $(OBJDIR)/Window.o
 
 # Rules
 # #############################################
@@ -134,6 +138,12 @@ endif
 # #############################################
 
 $(OBJDIR)/Application.o: src/generic/Application.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Window.o: src/generic/Window.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/GLFWWindow.o: src/platform/GLFW/GLFWWindow.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 

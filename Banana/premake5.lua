@@ -15,7 +15,8 @@ project "Banana"
     }
 
     links {
-      "GLFW",
+      "GL",
+      "GLFW"
     }
     
     includedirs {

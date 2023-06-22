@@ -20,7 +20,27 @@ namespace Banana
 
   void GLFWWindow::SwapBuffers()
   {
-    
+    glfwSwapBuffers(glfwWindow);
+  }
+
+  void GLFWWindow::Resize(unsigned int width, unsigned int height)
+  {
+
+  }
+
+  void GLFWWindow::SetEventCallback(const EventCallbackFunction& callback_function)
+  {
+
+  }
+
+  void* GLFWWindow::GetNativeWindow() const
+  {
+    return (void*)glfwWindow;
+  }
+
+  void GLFWWindow::EnableFullscreen(bool enabled)
+  {
+
   }
 
 
@@ -65,7 +85,7 @@ namespace Banana
 
   void GLFWWindow::PollEvents()
   {
-
+    glfwPollEvents();
   }
 
   bool GLFWWindow::IsVSync() const

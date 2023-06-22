@@ -1,4 +1,4 @@
-#include "Application.h"
+#include "Application.hpp"
 
 namespace Banana
 {
@@ -18,6 +18,9 @@ namespace Banana
     while(running)
     {
       window->PollEvents();
+      //glClearColor(1, 0, 1, 1);
+
+      //glClear(GL_COLOR_BUFFER_BIT);
 
 
       window->SwapBuffers();

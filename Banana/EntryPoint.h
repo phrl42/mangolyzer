@@ -2,7 +2,7 @@
 
 // fixes clangd issue
 
-#include "Application.h"
+#include "Application.hpp"
 
 extern Banana::Application* Banana::CreateApplication();
 
