@@ -41,11 +41,12 @@ namespace Banana
 		virtual bool IsVSync() const = 0;
 		virtual void EnableFullscreen(bool enabled) = 0;
 		virtual void* GetNativeWindow() const = 0;
-		static FRAMEWORK GetFramework() { return framework; }
-		static Shr<Window> Create(const WindowProps& windowProps = WindowProps());
 
-    private:
-      static FRAMEWORK framework;  
+		static FRAMEWORK GetFramework() { return framework; }
+		static std::unique_ptr<Window> Create(const WindowProps& windowProps = WindowProps());
+
+  private:
+    static FRAMEWORK framework;  
   };
 
 };

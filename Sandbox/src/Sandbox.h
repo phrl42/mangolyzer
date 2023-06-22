@@ -8,9 +8,6 @@ namespace SANDBOX
   {
   public:
     Sandbox();
-
-    void Run() override;
-
     ~Sandbox() override;
   };
 };

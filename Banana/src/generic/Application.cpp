@@ -1,13 +1,27 @@
 #include "Application.h"
 
-#include "glfw3.h"
-
 namespace Banana
 {
 
   Application::Application()
   {
-    glfwInit();
+    WindowProps prop;
+    prop.Title = "Banana Engine";
+    prop.height = 1280;
+    prop.width = 720;
+
+    window = Window::Create(prop);
+  }
+
+  void Application::Run()
+  {
+    while(running)
+    {
+      window->PollEvents();
+
+
+      window->SwapBuffers();
+    }
   }
 
   Application::~Application()

@@ -1,5 +1,8 @@
 #pragma once
 
+#include "_Banana.h"
+#include "Window.hpp"
+
 #include "glfw3.h"
 
 namespace Banana
@@ -10,7 +13,11 @@ namespace Banana
     Application();
     virtual ~Application();
 
-    virtual void Run() = 0;
+    void Run();
+  
+  private:
+    std::unique_ptr<Window> window;
+    bool running = true;
   };
 
   // definition is in client

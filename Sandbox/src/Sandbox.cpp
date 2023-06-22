@@ -16,11 +16,6 @@ namespace SANDBOX
 
   }
 
-  void Sandbox::Run()
-  {
-
-  }
-
 };
 
 Banana::Application* Banana::CreateApplication()

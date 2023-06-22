@@ -74,7 +74,9 @@ namespace Banana
       if(event.GetEventType() == T::GetStaticEventType)
       {
         event.handled = func(*static_cast<T*>(&event));
+        return true;
       }
+      return false;
     }
 
   };

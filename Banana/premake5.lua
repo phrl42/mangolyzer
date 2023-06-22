@@ -27,7 +27,7 @@ project "Banana"
 
 
     defines {
-        "MACRO_SDL2",
+        "MACRO_GLFW",
         "MACRO_OPENGL"
     }
 
