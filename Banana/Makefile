@@ -19,10 +19,10 @@ endif
 # #############################################
 
 RESCOMP = windres
-PCH = include/incs.h
+PCH = incs.h
 PCH_PLACEHOLDER = $(OBJDIR)/$(notdir $(PCH))
 GCH = $(PCH_PLACEHOLDER).gch
-INCLUDES += -Ivendor/GLFW/include/GLFW -Iinclude/engine -Iinclude
+INCLUDES += -Ivendor/GLFW/include/GLFW -I. -Isrc -Isrc/banana
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)

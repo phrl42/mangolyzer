@@ -7,10 +7,6 @@ workspace "Banana"
 IncludeDir = {}
 IncludeDir["GLFW"] = "%{wks.location}/Banana/vendor/GLFW/include/GLFW"
 
-includedirs{
-  "%{IncludeDir.GLFW}"
-}
-
 group "dependencies"
 include "Banana/vendor/GLFW"
 group ""

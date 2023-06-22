@@ -6,22 +6,25 @@ project "Banana"
     targetdir "%{wks.location}/bin/target/%{cfg.buildcfg}/%{prj.name}"
     objdir "%{wks.location}/bin/obj/%{cfg.buildcfg}/%{prj.name}"
 
-    pchheader "include/incs.h"
+    pchheader "incs.h"
   
     files {
-      "%{wks.location}/Banana/src/**.cpp",
-      "%{wks.location}/Banana/include/**.h"
+      "src/**.cpp",
+      "src/**.h",
+      "src/**.hpp"
     }
 
     links {
       "GLFW",
     }
     
-
     includedirs {
-        "%{wks.location}/Banana/include/engine/",
-        "%{wks.location}/Banana/include/"
+      "%{IncludeDir.GLFW}",
+      "%{wks.location}/Banana",
+      "%{wks.location}/Banana/src",
+      "%{wks.location}/Banana/src/banana"
     }
+
 
     defines {
         "MACRO_SDL2",

@@ -8,19 +8,23 @@ project "Sandbox"
     
   files {
     "src/**.cpp",
-    "include/**.h"
+    "src/**.h",
+    "src/**.hpp"
   }
 
   includedirs {
       "%{IncludeDir.GLFW}",
-      "%{wks.location}/Banana/include/engine/",
-      "%{wks.location}/Banana/include/",
-      "%{wks.location}/Sandbox/",
-      "%{wks.location}/Sandbox/include"
+      "%{wks.location}/Banana",
+      "%{wks.location}/Banana/src",
+      "%{wks.location}/Banana/src/banana",
+
+      "%{wks.location}/Sandbox",
+      "%{wks.location}/Sandbox/src"
   }
 
   links {
     "Banana",
+    "GLFW"
   }
 
   filter "configurations:Debug"

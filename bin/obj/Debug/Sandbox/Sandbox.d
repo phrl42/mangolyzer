@@ -1,12 +1,11 @@
-../bin/obj/Debug/Sandbox/Sandbox.o: src/Sandbox.cpp include/Sandbox.h \
- ../Banana/include/Banana.h ../Banana/include/engine/Application.h \
- ../Banana/vendor/GLFW/include/GLFW/glfw3.h \
- ../Banana/include/engine/Log.h include/_Sandbox.h \
- ../Banana/include/EntryPoint.h
-include/Sandbox.h:
-../Banana/include/Banana.h:
-../Banana/include/engine/Application.h:
+../bin/obj/Debug/Sandbox/Sandbox.o: src/Sandbox.cpp src/Sandbox.h \
+ ../Banana/Banana.h ../Banana/src/banana/Application.h \
+ ../Banana/vendor/GLFW/include/GLFW/glfw3.h ../Banana/src/banana/Log.h \
+ _Sandbox.h ../Banana/EntryPoint.h
+src/Sandbox.h:
+../Banana/Banana.h:
+../Banana/src/banana/Application.h:
 ../Banana/vendor/GLFW/include/GLFW/glfw3.h:
-../Banana/include/engine/Log.h:
-include/_Sandbox.h:
-../Banana/include/EntryPoint.h:
+../Banana/src/banana/Log.h:
+_Sandbox.h:
+../Banana/EntryPoint.h:

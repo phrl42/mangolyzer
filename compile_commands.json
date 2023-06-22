@@ -3,7 +3,6 @@
     "arguments": [
       "/usr/bin/cc",
       "-D_GLFW_X11",
-      "-Iinclude/GLFW",
       "-fPIC",
       "-g",
       "-c",
@@ -19,7 +18,6 @@
     "arguments": [
       "/usr/bin/cc",
       "-D_GLFW_X11",
-      "-Iinclude/GLFW",
       "-fPIC",
       "-g",
       "-c",
@@ -35,7 +33,6 @@
     "arguments": [
       "/usr/bin/cc",
       "-D_GLFW_X11",
-      "-Iinclude/GLFW",
       "-fPIC",
       "-g",
       "-c",
@@ -51,7 +48,6 @@
     "arguments": [
       "/usr/bin/cc",
       "-D_GLFW_X11",
-      "-Iinclude/GLFW",
       "-fPIC",
       "-g",
       "-c",
@@ -67,7 +63,6 @@
     "arguments": [
       "/usr/bin/cc",
       "-D_GLFW_X11",
-      "-Iinclude/GLFW",
       "-fPIC",
       "-g",
       "-c",
@@ -83,7 +78,6 @@
     "arguments": [
       "/usr/bin/cc",
       "-D_GLFW_X11",
-      "-Iinclude/GLFW",
       "-fPIC",
       "-g",
       "-c",
@@ -99,7 +93,6 @@
     "arguments": [
       "/usr/bin/cc",
       "-D_GLFW_X11",
-      "-Iinclude/GLFW",
       "-fPIC",
       "-g",
       "-c",
@@ -115,7 +108,6 @@
     "arguments": [
       "/usr/bin/cc",
       "-D_GLFW_X11",
-      "-Iinclude/GLFW",
       "-fPIC",
       "-g",
       "-c",
@@ -131,7 +123,6 @@
     "arguments": [
       "/usr/bin/cc",
       "-D_GLFW_X11",
-      "-Iinclude/GLFW",
       "-fPIC",
       "-g",
       "-c",
@@ -147,7 +138,6 @@
     "arguments": [
       "/usr/bin/cc",
       "-D_GLFW_X11",
-      "-Iinclude/GLFW",
       "-fPIC",
       "-g",
       "-c",
@@ -163,7 +153,6 @@
     "arguments": [
       "/usr/bin/cc",
       "-D_GLFW_X11",
-      "-Iinclude/GLFW",
       "-fPIC",
       "-g",
       "-c",
@@ -179,7 +168,6 @@
     "arguments": [
       "/usr/bin/cc",
       "-D_GLFW_X11",
-      "-Iinclude/GLFW",
       "-fPIC",
       "-g",
       "-c",
@@ -195,7 +183,6 @@
     "arguments": [
       "/usr/bin/cc",
       "-D_GLFW_X11",
-      "-Iinclude/GLFW",
       "-fPIC",
       "-g",
       "-c",
@@ -211,7 +198,6 @@
     "arguments": [
       "/usr/bin/cc",
       "-D_GLFW_X11",
-      "-Iinclude/GLFW",
       "-fPIC",
       "-g",
       "-c",
@@ -227,7 +213,6 @@
     "arguments": [
       "/usr/bin/cc",
       "-D_GLFW_X11",
-      "-Iinclude/GLFW",
       "-fPIC",
       "-g",
       "-c",
@@ -243,7 +228,6 @@
     "arguments": [
       "/usr/bin/cc",
       "-D_GLFW_X11",
-      "-Iinclude/GLFW",
       "-fPIC",
       "-g",
       "-c",
@@ -259,7 +243,6 @@
     "arguments": [
       "/usr/bin/cc",
       "-D_GLFW_X11",
-      "-Iinclude/GLFW",
       "-fPIC",
       "-g",
       "-c",
@@ -275,7 +258,6 @@
     "arguments": [
       "/usr/bin/cc",
       "-D_GLFW_X11",
-      "-Iinclude/GLFW",
       "-fPIC",
       "-g",
       "-c",
@@ -291,7 +273,6 @@
     "arguments": [
       "/usr/bin/cc",
       "-D_GLFW_X11",
-      "-Iinclude/GLFW",
       "-fPIC",
       "-g",
       "-c",
@@ -307,7 +288,6 @@
     "arguments": [
       "/usr/bin/cc",
       "-D_GLFW_X11",
-      "-Iinclude/GLFW",
       "-fPIC",
       "-g",
       "-c",
@@ -323,7 +303,6 @@
     "arguments": [
       "/usr/bin/cc",
       "-D_GLFW_X11",
-      "-Iinclude/GLFW",
       "-fPIC",
       "-g",
       "-c",
@@ -339,7 +318,6 @@
     "arguments": [
       "/usr/bin/cc",
       "-D_GLFW_X11",
-      "-Iinclude/GLFW",
       "-fPIC",
       "-g",
       "-c",
@@ -353,36 +331,38 @@
   },
   {
     "arguments": [
-      "/usr/bin/clang++",
+      "/usr/bin/g++",
       "-x",
       "c++-header",
       "-DMACRO_SDL2",
       "-DMACRO_OPENGL",
       "-DBUILD_DEBUG",
       "-Ivendor/GLFW/include/GLFW",
-      "-Iinclude/engine",
-      "-Iinclude",
+      "-I.",
+      "-Isrc",
+      "-Isrc/banana",
       "-g",
       "-c",
       "-o",
       "../bin/obj/Debug/Banana/incs.h.gch",
-      "include/incs.h"
+      "incs.h"
     ],
     "directory": "/home/phrl/projects/banana/Banana",
-    "file": "/home/phrl/projects/banana/Banana/include/incs.h",
+    "file": "/home/phrl/projects/banana/Banana/incs.h",
     "output": "/home/phrl/projects/banana/bin/obj/Debug/Banana/incs.h.gch"
   },
   {
     "arguments": [
-      "/usr/bin/clang++",
+      "/usr/bin/g++",
       "-include",
       "../bin/obj/Debug/Banana/incs.h",
       "-DMACRO_SDL2",
       "-DMACRO_OPENGL",
       "-DBUILD_DEBUG",
       "-Ivendor/GLFW/include/GLFW",
-      "-Iinclude/engine",
-      "-Iinclude",
+      "-I.",
+      "-Isrc",
+      "-Isrc/banana",
       "-g",
       "-c",
       "-o",
@@ -398,10 +378,11 @@
       "/usr/bin/g++",
       "-DBUILD_DEBUG",
       "-I../Banana/vendor/GLFW/include/GLFW",
-      "-I../Banana/include/engine",
-      "-I../Banana/include",
+      "-I../Banana",
+      "-I../Banana/src",
+      "-I../Banana/src/banana",
       "-I.",
-      "-Iinclude",
+      "-Isrc",
       "-g",
       "-c",
       "-o",
