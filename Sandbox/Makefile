@@ -19,7 +19,7 @@ endif
 # #############################################
 
 RESCOMP = windres
-INCLUDES += -I../Banana/vendor/GLFW/include/GLFW -I../Banana -I../Banana/src -I../Banana/src/banana -I. -Isrc
+INCLUDES += -I../Banana/vendor/GLFW/include/GLFW -I../Banana -I../Banana/src -I../Banana/src/generic -I. -Isrc
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)

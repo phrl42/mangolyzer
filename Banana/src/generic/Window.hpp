@@ -1,0 +1,51 @@
+#pragma once
+#include "utility.h"
+#include "_Banana.h"
+
+namespace Banana
+{
+  struct WindowProps
+  {
+    std::string Title;
+    unsigned int width;
+    unsigned int height;
+  
+    WindowProps(const std::string& title = "Banana Engine", unsigned int width = 1280, unsigned int height = 720)
+    : Title(title), width(width), height(height)
+    {
+
+    }
+  };
+
+  class Window
+  {
+  public:
+    enum FRAMEWORK
+		{
+			NONE = 0,
+			GLFW
+		};
+    virtual ~Window() = default;
+
+    virtual void PollEvents() = 0;
+    virtual void SwapBuffers() = 0;
+
+    virtual unsigned int GetWidth() = 0;
+    virtual unsigned int GetHeight() = 0;
+    
+    virtual float GetTime() = 0;
+
+		virtual void Resize(unsigned int width, unsigned int height) = 0;
+		virtual void SetEventCallback(const EventCallbackFunction& callback_function) = 0;
+		virtual void SetVSync(bool enabled) = 0;
+		virtual bool IsVSync() const = 0;
+		virtual void EnableFullscreen(bool enabled) = 0;
+		virtual void* GetNativeWindow() const = 0;
+		static FRAMEWORK GetFramework() { return framework; }
+		static Shr<Window> Create(const WindowProps& windowProps = WindowProps());
+
+    private:
+      static FRAMEWORK framework;  
+  };
+
+};

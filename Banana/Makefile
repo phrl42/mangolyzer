@@ -22,7 +22,7 @@ RESCOMP = windres
 PCH = incs.h
 PCH_PLACEHOLDER = $(OBJDIR)/$(notdir $(PCH))
 GCH = $(PCH_PLACEHOLDER).gch
-INCLUDES += -Ivendor/GLFW/include/GLFW -I. -Isrc -Isrc/banana
+INCLUDES += -Ivendor/GLFW/include/GLFW -I. -Isrc -Isrc/generic
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
@@ -133,7 +133,7 @@ endif
 # File Rules
 # #############################################
 
-$(OBJDIR)/Application.o: src/banana/Application.cpp
+$(OBJDIR)/Application.o: src/generic/Application.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 

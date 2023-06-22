@@ -16,7 +16,7 @@ project "Sandbox"
       "%{IncludeDir.GLFW}",
       "%{wks.location}/Banana",
       "%{wks.location}/Banana/src",
-      "%{wks.location}/Banana/src/banana",
+      "%{wks.location}/Banana/src/generic",
 
       "%{wks.location}/Sandbox",
       "%{wks.location}/Sandbox/src"

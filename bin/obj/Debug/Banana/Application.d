@@ -1,4 +1,4 @@
-../bin/obj/Debug/Banana/Application.o: src/banana/Application.cpp \
- src/banana/Application.h vendor/GLFW/include/GLFW/glfw3.h
-src/banana/Application.h:
+../bin/obj/Debug/Banana/Application.o: src/generic/Application.cpp \
+ src/generic/Application.h vendor/GLFW/include/GLFW/glfw3.h
+src/generic/Application.h:
 vendor/GLFW/include/GLFW/glfw3.h:
