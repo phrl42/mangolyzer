@@ -1,5 +1,10 @@
 #include "GLFWWindow.h"
 
+#include "event/Event.h"
+#include "event/KeyEvent.h"
+#include "event/MouseEvent.h"
+#include "event/ApplicationEvent.h"
+
 namespace Banana
 {
   static bool glfw_init = false;
@@ -69,10 +74,28 @@ namespace Banana
 
     // set glfw callbacks
 
-    glfwSetWindowSizeCallback(glfwWindow, [](GLFWWindow* window, int width, int height)
+    glfwSetWindowSizeCallback(glfwWindow, [](GLFWwindow* window, int width, int height)
     {
+      WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+      data.width = width;
+      data.height = height;
       
-    } );
+      WindowResizeEvent event = WindowResizeEvent(width, height);
+
+      data.callback(event);
+    });
+
+    glfwSetWindowCloseCallback(glfwWindow, [](GLFWwindow* window)
+    {
+        WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+        
+        WindowCloseEvent event = WindowCloseEvent();
+
+        data.callback(event);
+    });
+
+    //glfwSetKeyCallback();
+  }
 
   unsigned int GLFWWindow::GetHeight()
   {
