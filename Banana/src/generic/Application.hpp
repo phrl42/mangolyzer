@@ -2,8 +2,10 @@
 
 #include "_Banana.h"
 #include "Window.hpp"
+#include "layer/LayerStack.h"
 
 #include "glfw3.h"
+
 
 namespace Banana
 {
@@ -15,8 +17,12 @@ namespace Banana
 
     void OnEvent(Event& e);
     void Run();
+
+    void PushLayer(Layer* layer);
+    void PopLayer(Layer* layer);
   
   private:
+    LayerStack layer_stack;
     std::unique_ptr<Window> window;
     bool running = true;
   };
