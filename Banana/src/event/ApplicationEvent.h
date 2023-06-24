@@ -8,6 +8,7 @@ namespace Banana
 	{
 	public:
 		WindowCloseEvent() = default;
+    ~WindowCloseEvent() override = default;
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 		EVENT_CLASS_TYPE(WindowClose)
 	};
@@ -18,6 +19,7 @@ namespace Banana
 		unsigned int width, height;
 	public:
 		WindowResizeEvent() = default;
+    ~WindowResizeEvent() override = default;
 		WindowResizeEvent(const unsigned int width, const unsigned int height)
 			: width(width), height(height) { }
 
@@ -39,6 +41,7 @@ namespace Banana
 	{
 	public:
 		AppTickEvent() = default;
+    ~AppTickEvent() override = default;
 		EVENT_CLASS_TYPE(AppTick)
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
@@ -47,6 +50,7 @@ namespace Banana
 	{
 	public:
 		AppUpdateEvent() = default;
+    ~AppUpdateEvent() override = default;
 		EVENT_CLASS_TYPE(AppUpdate)
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};

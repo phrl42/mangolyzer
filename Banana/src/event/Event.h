@@ -41,7 +41,8 @@ namespace Banana
   {
     friend class EventDispatcher;
   public:
-    virtual ~Event();
+    Event() = default;
+    virtual ~Event() = default;
 
     virtual EventType GetEventType() const = 0;
     
@@ -68,16 +69,17 @@ namespace Banana
     EventDispatcher(Event& event)
     : event(event){}
 
-    template<typename T>
-    bool dispatch(std::function<bool(T&)>)
-    {
-      if(event.GetEventType() == T::GetStaticEventType)
-      {
-        event.handled = func(*static_cast<T*>(&event));
-        return true;
-      }
-      return false;
-    }
+		// F will be deduced by the compiler
+		template<typename T, typename F>
+		bool Dispatch(const F& func)
+		{
+			if (event.GetEventType() == T::GetStaticType())
+			{
+				event.handled |= func(static_cast<T&>(event));
+				return true;
+			}
+			return false;
+		}
 
   };
 
@@ -86,6 +88,5 @@ namespace Banana
   {
     return os << event.ToString();
   }
-  using EventCallbackFunction = std::function<void(Event&)>;
 
 };

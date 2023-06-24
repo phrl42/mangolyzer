@@ -20,6 +20,7 @@ namespace Banana
   class Window
   {
   public:
+    using EventCallbackFunction = std::function<void(Event&)>;
     enum FRAMEWORK
 		{
 			NONE = 0,

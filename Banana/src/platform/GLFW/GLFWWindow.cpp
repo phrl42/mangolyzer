@@ -64,6 +64,8 @@ namespace Banana
       }
     }
 
+    glfwSetErrorCallback(ErrorCallback);
+
     glfwWindow = glfwCreateWindow((int)window_props.width, 
       (int)window_props.height, windowData.title.c_str(), nullptr, nullptr);
 
@@ -76,11 +78,11 @@ namespace Banana
 
     glfwSetWindowSizeCallback(glfwWindow, [](GLFWwindow* window, int width, int height)
     {
-      WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+      WindowData& data = *(WindowData*)(glfwGetWindowUserPointer(window));
       data.width = width;
       data.height = height;
       
-      WindowResizeEvent event = WindowResizeEvent(width, height);
+      WindowResizeEvent event(width, height);
 
       data.callback(event);
     });
@@ -94,7 +96,72 @@ namespace Banana
         data.callback(event);
     });
 
-    //glfwSetKeyCallback();
+    glfwSetKeyCallback(glfwWindow, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+    {
+      WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+      switch(action)
+      {
+        case GLFW_PRESS:
+        {
+          KeyPressedEvent event(key, 1, mods);
+          data.callback(event);
+          break;
+        }
+        case GLFW_RELEASE:
+        {
+          KeyPressedEvent event(key, 0, mods);
+          data.callback(event);
+          break;
+        }
+
+        case GLFW_REPEAT:
+        {
+          KeyPressedEvent event(key, 1, mods);
+          data.callback(event);
+          break;
+        }
+
+        default:
+          break;
+      }
+    });
+
+    glfwSetMouseButtonCallback(glfwWindow, [](GLFWwindow* window, int button, int action, int mods)
+    {
+      WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+      switch(action)
+      {
+        case GLFW_PRESS:
+        {
+          MouseButtonPressedEvent event(button, mods);
+          break;
+        }
+
+        case GLFW_RELEASE:
+        {
+          MouseButtonReleasedEvent event(button, mods);
+          break;
+        }
+      }
+    });
+
+    glfwSetScrollCallback(glfwWindow, [](GLFWwindow* window, double xOffset, double yOffset)
+    {
+      WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+      MouseScrolledEvent event((float)xOffset, (float)yOffset);
+    });
+
+    glfwSetCursorPosCallback(glfwWindow, [](GLFWwindow* window, double x, double y)
+    {
+      WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+      MouseMovedEvent event((float)x, (float)y);
+    });
+
+
   }
 
   unsigned int GLFWWindow::GetHeight()
