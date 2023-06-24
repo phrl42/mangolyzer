@@ -14,6 +14,7 @@ project "Sandbox"
 
   includedirs {
       "%{IncludeDir.GLFW}",
+      "%{IncludeDir.GLAD}",
       "%{wks.location}/Banana",
       "%{wks.location}/Banana/src",
       "%{wks.location}/Banana/src/generic",
@@ -24,6 +25,7 @@ project "Sandbox"
 
   links {
     "Banana",
+    "GLAD",
     "GLFW"
   }
 

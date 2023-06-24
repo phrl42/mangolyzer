@@ -47,10 +47,9 @@ namespace Banana
       {
         layer->OnUpdate();
       }
-      //glClearColor(1, 0, 1, 1);
+      glClearColor(1, 0, 1, 1);
 
-      //glClear(GL_COLOR_BUFFER_BIT);
-
+      glClear(GL_COLOR_BUFFER_BIT);
 
       window->SwapBuffers();
     }

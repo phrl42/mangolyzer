@@ -7,87 +7,26 @@
       "-g",
       "-c",
       "-o",
-      "../../../bin/obj/Debug/GLFW/input.o",
-      "src/input.c"
-    ],
-    "directory": "/home/phrl/projects/banana/Banana/vendor/GLFW",
-    "file": "/home/phrl/projects/banana/Banana/vendor/GLFW/src/input.c",
-    "output": "/home/phrl/projects/banana/bin/obj/Debug/GLFW/input.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/cc",
-      "-D_GLFW_X11",
-      "-fPIC",
-      "-g",
-      "-c",
-      "-o",
-      "../../../bin/obj/Debug/GLFW/egl_context.o",
-      "src/egl_context.c"
-    ],
-    "directory": "/home/phrl/projects/banana/Banana/vendor/GLFW",
-    "file": "/home/phrl/projects/banana/Banana/vendor/GLFW/src/egl_context.c",
-    "output": "/home/phrl/projects/banana/bin/obj/Debug/GLFW/egl_context.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/cc",
-      "-D_GLFW_X11",
-      "-fPIC",
-      "-g",
-      "-c",
-      "-o",
-      "../../../bin/obj/Debug/GLFW/linux_joystick.o",
-      "src/linux_joystick.c"
-    ],
-    "directory": "/home/phrl/projects/banana/Banana/vendor/GLFW",
-    "file": "/home/phrl/projects/banana/Banana/vendor/GLFW/src/linux_joystick.c",
-    "output": "/home/phrl/projects/banana/bin/obj/Debug/GLFW/linux_joystick.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/cc",
-      "-D_GLFW_X11",
-      "-fPIC",
-      "-g",
-      "-c",
-      "-o",
-      "../../../bin/obj/Debug/GLFW/context.o",
-      "src/context.c"
-    ],
-    "directory": "/home/phrl/projects/banana/Banana/vendor/GLFW",
-    "file": "/home/phrl/projects/banana/Banana/vendor/GLFW/src/context.c",
-    "output": "/home/phrl/projects/banana/bin/obj/Debug/GLFW/context.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/cc",
-      "-D_GLFW_X11",
-      "-fPIC",
-      "-g",
-      "-c",
-      "-o",
-      "../../../bin/obj/Debug/GLFW/null_joystick.o",
-      "src/null_joystick.c"
-    ],
-    "directory": "/home/phrl/projects/banana/Banana/vendor/GLFW",
-    "file": "/home/phrl/projects/banana/Banana/vendor/GLFW/src/null_joystick.c",
-    "output": "/home/phrl/projects/banana/bin/obj/Debug/GLFW/null_joystick.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/cc",
-      "-D_GLFW_X11",
-      "-fPIC",
-      "-g",
-      "-c",
-      "-o",
       "../../../bin/obj/Debug/GLFW/init.o",
       "src/init.c"
     ],
     "directory": "/home/phrl/projects/banana/Banana/vendor/GLFW",
     "file": "/home/phrl/projects/banana/Banana/vendor/GLFW/src/init.c",
     "output": "/home/phrl/projects/banana/bin/obj/Debug/GLFW/init.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Iinclude",
+      "-g",
+      "-c",
+      "-o",
+      "../../../bin/obj/Debug/GLAD/glad.o",
+      "src/glad.c"
+    ],
+    "directory": "/home/phrl/projects/banana/Banana/vendor/GLAD",
+    "file": "/home/phrl/projects/banana/Banana/vendor/GLAD/src/glad.c",
+    "output": "/home/phrl/projects/banana/bin/obj/Debug/GLAD/glad.o"
   },
   {
     "arguments": [
@@ -127,6 +66,81 @@
       "-g",
       "-c",
       "-o",
+      "../../../bin/obj/Debug/GLFW/input.o",
+      "src/input.c"
+    ],
+    "directory": "/home/phrl/projects/banana/Banana/vendor/GLFW",
+    "file": "/home/phrl/projects/banana/Banana/vendor/GLFW/src/input.c",
+    "output": "/home/phrl/projects/banana/bin/obj/Debug/GLFW/input.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-D_GLFW_X11",
+      "-fPIC",
+      "-g",
+      "-c",
+      "-o",
+      "../../../bin/obj/Debug/GLFW/null_monitor.o",
+      "src/null_monitor.c"
+    ],
+    "directory": "/home/phrl/projects/banana/Banana/vendor/GLFW",
+    "file": "/home/phrl/projects/banana/Banana/vendor/GLFW/src/null_monitor.c",
+    "output": "/home/phrl/projects/banana/bin/obj/Debug/GLFW/null_monitor.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-D_GLFW_X11",
+      "-fPIC",
+      "-g",
+      "-c",
+      "-o",
+      "../../../bin/obj/Debug/GLFW/context.o",
+      "src/context.c"
+    ],
+    "directory": "/home/phrl/projects/banana/Banana/vendor/GLFW",
+    "file": "/home/phrl/projects/banana/Banana/vendor/GLFW/src/context.c",
+    "output": "/home/phrl/projects/banana/bin/obj/Debug/GLFW/context.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-D_GLFW_X11",
+      "-fPIC",
+      "-g",
+      "-c",
+      "-o",
+      "../../../bin/obj/Debug/GLFW/linux_joystick.o",
+      "src/linux_joystick.c"
+    ],
+    "directory": "/home/phrl/projects/banana/Banana/vendor/GLFW",
+    "file": "/home/phrl/projects/banana/Banana/vendor/GLFW/src/linux_joystick.c",
+    "output": "/home/phrl/projects/banana/bin/obj/Debug/GLFW/linux_joystick.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-D_GLFW_X11",
+      "-fPIC",
+      "-g",
+      "-c",
+      "-o",
+      "../../../bin/obj/Debug/GLFW/egl_context.o",
+      "src/egl_context.c"
+    ],
+    "directory": "/home/phrl/projects/banana/Banana/vendor/GLFW",
+    "file": "/home/phrl/projects/banana/Banana/vendor/GLFW/src/egl_context.c",
+    "output": "/home/phrl/projects/banana/bin/obj/Debug/GLFW/egl_context.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-D_GLFW_X11",
+      "-fPIC",
+      "-g",
+      "-c",
+      "-o",
       "../../../bin/obj/Debug/GLFW/null_window.o",
       "src/null_window.c"
     ],
@@ -142,12 +156,12 @@
       "-g",
       "-c",
       "-o",
-      "../../../bin/obj/Debug/GLFW/osmesa_context.o",
-      "src/osmesa_context.c"
+      "../../../bin/obj/Debug/GLFW/null_joystick.o",
+      "src/null_joystick.c"
     ],
     "directory": "/home/phrl/projects/banana/Banana/vendor/GLFW",
-    "file": "/home/phrl/projects/banana/Banana/vendor/GLFW/src/osmesa_context.c",
-    "output": "/home/phrl/projects/banana/bin/obj/Debug/GLFW/osmesa_context.o"
+    "file": "/home/phrl/projects/banana/Banana/vendor/GLFW/src/null_joystick.c",
+    "output": "/home/phrl/projects/banana/bin/obj/Debug/GLFW/null_joystick.o"
   },
   {
     "arguments": [
@@ -172,12 +186,12 @@
       "-g",
       "-c",
       "-o",
-      "../../../bin/obj/Debug/GLFW/null_monitor.o",
-      "src/null_monitor.c"
+      "../../../bin/obj/Debug/GLFW/osmesa_context.o",
+      "src/osmesa_context.c"
     ],
     "directory": "/home/phrl/projects/banana/Banana/vendor/GLFW",
-    "file": "/home/phrl/projects/banana/Banana/vendor/GLFW/src/null_monitor.c",
-    "output": "/home/phrl/projects/banana/bin/obj/Debug/GLFW/null_monitor.o"
+    "file": "/home/phrl/projects/banana/Banana/vendor/GLFW/src/osmesa_context.c",
+    "output": "/home/phrl/projects/banana/bin/obj/Debug/GLFW/osmesa_context.o"
   },
   {
     "arguments": [
@@ -217,21 +231,6 @@
       "-g",
       "-c",
       "-o",
-      "../../../bin/obj/Debug/GLFW/posix_thread.o",
-      "src/posix_thread.c"
-    ],
-    "directory": "/home/phrl/projects/banana/Banana/vendor/GLFW",
-    "file": "/home/phrl/projects/banana/Banana/vendor/GLFW/src/posix_thread.c",
-    "output": "/home/phrl/projects/banana/bin/obj/Debug/GLFW/posix_thread.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/cc",
-      "-D_GLFW_X11",
-      "-fPIC",
-      "-g",
-      "-c",
-      "-o",
       "../../../bin/obj/Debug/GLFW/posix_time.o",
       "src/posix_time.c"
     ],
@@ -247,27 +246,12 @@
       "-g",
       "-c",
       "-o",
-      "../../../bin/obj/Debug/GLFW/window.o",
-      "src/window.c"
+      "../../../bin/obj/Debug/GLFW/posix_thread.o",
+      "src/posix_thread.c"
     ],
     "directory": "/home/phrl/projects/banana/Banana/vendor/GLFW",
-    "file": "/home/phrl/projects/banana/Banana/vendor/GLFW/src/window.c",
-    "output": "/home/phrl/projects/banana/bin/obj/Debug/GLFW/window.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/cc",
-      "-D_GLFW_X11",
-      "-fPIC",
-      "-g",
-      "-c",
-      "-o",
-      "../../../bin/obj/Debug/GLFW/x11_monitor.o",
-      "src/x11_monitor.c"
-    ],
-    "directory": "/home/phrl/projects/banana/Banana/vendor/GLFW",
-    "file": "/home/phrl/projects/banana/Banana/vendor/GLFW/src/x11_monitor.c",
-    "output": "/home/phrl/projects/banana/bin/obj/Debug/GLFW/x11_monitor.o"
+    "file": "/home/phrl/projects/banana/Banana/vendor/GLFW/src/posix_thread.c",
+    "output": "/home/phrl/projects/banana/bin/obj/Debug/GLFW/posix_thread.o"
   },
   {
     "arguments": [
@@ -298,6 +282,36 @@
     "directory": "/home/phrl/projects/banana/Banana/vendor/GLFW",
     "file": "/home/phrl/projects/banana/Banana/vendor/GLFW/src/x11_init.c",
     "output": "/home/phrl/projects/banana/bin/obj/Debug/GLFW/x11_init.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-D_GLFW_X11",
+      "-fPIC",
+      "-g",
+      "-c",
+      "-o",
+      "../../../bin/obj/Debug/GLFW/window.o",
+      "src/window.c"
+    ],
+    "directory": "/home/phrl/projects/banana/Banana/vendor/GLFW",
+    "file": "/home/phrl/projects/banana/Banana/vendor/GLFW/src/window.c",
+    "output": "/home/phrl/projects/banana/bin/obj/Debug/GLFW/window.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-D_GLFW_X11",
+      "-fPIC",
+      "-g",
+      "-c",
+      "-o",
+      "../../../bin/obj/Debug/GLFW/x11_monitor.o",
+      "src/x11_monitor.c"
+    ],
+    "directory": "/home/phrl/projects/banana/Banana/vendor/GLFW",
+    "file": "/home/phrl/projects/banana/Banana/vendor/GLFW/src/x11_monitor.c",
+    "output": "/home/phrl/projects/banana/bin/obj/Debug/GLFW/x11_monitor.o"
   },
   {
     "arguments": [
@@ -338,6 +352,7 @@
       "-DMACRO_OPENGL",
       "-DBUILD_DEBUG",
       "-Ivendor/GLFW/include/GLFW",
+      "-Ivendor/GLAD/include/glad",
       "-I.",
       "-Isrc",
       "-Isrc/generic",
@@ -360,28 +375,7 @@
       "-DMACRO_OPENGL",
       "-DBUILD_DEBUG",
       "-Ivendor/GLFW/include/GLFW",
-      "-I.",
-      "-Isrc",
-      "-Isrc/generic",
-      "-g",
-      "-c",
-      "-o",
-      "../bin/obj/Debug/Banana/LayerStack.o",
-      "src/layer/LayerStack.cpp"
-    ],
-    "directory": "/home/phrl/projects/banana/Banana",
-    "file": "/home/phrl/projects/banana/Banana/src/layer/LayerStack.cpp",
-    "output": "/home/phrl/projects/banana/bin/obj/Debug/Banana/LayerStack.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/g++",
-      "-include",
-      "../bin/obj/Debug/Banana/incs.h",
-      "-DMACRO_GLFW",
-      "-DMACRO_OPENGL",
-      "-DBUILD_DEBUG",
-      "-Ivendor/GLFW/include/GLFW",
+      "-Ivendor/GLAD/include/glad",
       "-I.",
       "-Isrc",
       "-Isrc/generic",
@@ -404,6 +398,7 @@
       "-DMACRO_OPENGL",
       "-DBUILD_DEBUG",
       "-Ivendor/GLFW/include/GLFW",
+      "-Ivendor/GLAD/include/glad",
       "-I.",
       "-Isrc",
       "-Isrc/generic",
@@ -426,6 +421,30 @@
       "-DMACRO_OPENGL",
       "-DBUILD_DEBUG",
       "-Ivendor/GLFW/include/GLFW",
+      "-Ivendor/GLAD/include/glad",
+      "-I.",
+      "-Isrc",
+      "-Isrc/generic",
+      "-g",
+      "-c",
+      "-o",
+      "../bin/obj/Debug/Banana/LayerStack.o",
+      "src/layer/LayerStack.cpp"
+    ],
+    "directory": "/home/phrl/projects/banana/Banana",
+    "file": "/home/phrl/projects/banana/Banana/src/layer/LayerStack.cpp",
+    "output": "/home/phrl/projects/banana/bin/obj/Debug/Banana/LayerStack.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-include",
+      "../bin/obj/Debug/Banana/incs.h",
+      "-DMACRO_GLFW",
+      "-DMACRO_OPENGL",
+      "-DBUILD_DEBUG",
+      "-Ivendor/GLFW/include/GLFW",
+      "-Ivendor/GLAD/include/glad",
       "-I.",
       "-Isrc",
       "-Isrc/generic",
@@ -448,6 +467,7 @@
       "-DMACRO_OPENGL",
       "-DBUILD_DEBUG",
       "-Ivendor/GLFW/include/GLFW",
+      "-Ivendor/GLAD/include/glad",
       "-I.",
       "-Isrc",
       "-Isrc/generic",
@@ -466,6 +486,7 @@
       "/usr/bin/g++",
       "-DBUILD_DEBUG",
       "-I../Banana/vendor/GLFW/include/GLFW",
+      "-I../Banana/vendor/GLAD/include/glad",
       "-I../Banana",
       "-I../Banana/src",
       "-I../Banana/src/generic",
@@ -486,6 +507,7 @@
       "/usr/bin/g++",
       "-DBUILD_DEBUG",
       "-I../Banana/vendor/GLFW/include/GLFW",
+      "-I../Banana/vendor/GLAD/include/glad",
       "-I../Banana",
       "-I../Banana/src",
       "-I../Banana/src/generic",

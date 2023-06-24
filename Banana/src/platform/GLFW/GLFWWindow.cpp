@@ -5,6 +5,7 @@
 #include "event/MouseEvent.h"
 #include "event/ApplicationEvent.h"
 
+
 namespace Banana
 {
   static bool glfw_init = false;
@@ -65,6 +66,13 @@ namespace Banana
       (int)window_props.height, windowData.title.c_str(), nullptr, nullptr);
 
     glfwMakeContextCurrent(glfwWindow);
+    
+    // init glad stuff
+    if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+      LOG("Failed to initialize glad");
+    }
+    
     glfwSetWindowUserPointer(glfwWindow, &windowData);
 
     SetVSync(true);
@@ -160,7 +168,6 @@ namespace Banana
       MouseMovedEvent event((float)x, (float)y);
       data.callback(event);
     });
-
 
   }
 

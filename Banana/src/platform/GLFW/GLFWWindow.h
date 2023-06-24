@@ -1,8 +1,6 @@
 #pragma once
 #include "Window.hpp"
 
-#include "glfw3.h"
-
 namespace Banana
 {
   class GLFWWindow : public Window

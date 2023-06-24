@@ -10,11 +10,13 @@ endif
 
 ifeq ($(config),debug)
   GLFW_config = debug
+  GLAD_config = debug
   Banana_config = debug
   Sandbox_config = debug
 
 else ifeq ($(config),release)
   GLFW_config = release
+  GLAD_config = release
   Banana_config = release
   Sandbox_config = release
 
@@ -22,13 +24,13 @@ else
   $(error "invalid configuration $(config)")
 endif
 
-PROJECTS := GLFW Banana Sandbox
+PROJECTS := GLFW GLAD Banana Sandbox
 
 .PHONY: all clean help $(PROJECTS) dependencies engine game
 
 all: $(PROJECTS)
 
-dependencies: GLFW
+dependencies: GLAD GLFW
 
 engine: Banana
 
@@ -40,13 +42,19 @@ ifneq (,$(GLFW_config))
 	@${MAKE} --no-print-directory -C Banana/vendor/GLFW -f Makefile config=$(GLFW_config)
 endif
 
-Banana: GLFW
+GLAD:
+ifneq (,$(GLAD_config))
+	@echo "==== Building GLAD ($(GLAD_config)) ===="
+	@${MAKE} --no-print-directory -C Banana/vendor/GLAD -f Makefile config=$(GLAD_config)
+endif
+
+Banana: GLAD GLFW
 ifneq (,$(Banana_config))
 	@echo "==== Building Banana ($(Banana_config)) ===="
 	@${MAKE} --no-print-directory -C Banana -f Makefile config=$(Banana_config)
 endif
 
-Sandbox: Banana GLFW
+Sandbox: Banana GLAD GLFW
 ifneq (,$(Sandbox_config))
 	@echo "==== Building Sandbox ($(Sandbox_config)) ===="
 	@${MAKE} --no-print-directory -C Sandbox -f Makefile config=$(Sandbox_config)
@@ -54,6 +62,7 @@ endif
 
 clean:
 	@${MAKE} --no-print-directory -C Banana/vendor/GLFW -f Makefile clean
+	@${MAKE} --no-print-directory -C Banana/vendor/GLAD -f Makefile clean
 	@${MAKE} --no-print-directory -C Banana -f Makefile clean
 	@${MAKE} --no-print-directory -C Sandbox -f Makefile clean
 
@@ -68,6 +77,7 @@ help:
 	@echo "   all (default)"
 	@echo "   clean"
 	@echo "   GLFW"
+	@echo "   GLAD"
 	@echo "   Banana"
 	@echo "   Sandbox"
 	@echo ""
