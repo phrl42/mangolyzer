@@ -22,6 +22,8 @@ namespace Banana
     void PopLayer(Layer* layer);
   
   private:
+    bool OnWindowClose(WindowCloseEvent& e);
+
     LayerStack layer_stack;
     std::unique_ptr<Window> window;
     bool running = true;

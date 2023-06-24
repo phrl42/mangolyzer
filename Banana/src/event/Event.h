@@ -1,5 +1,5 @@
 #pragma once
-#include "_Banana.h"
+#include "utility.h"
 
 #define BIT(x) (1 << x)
 
@@ -73,7 +73,7 @@ namespace Banana
 		template<typename T, typename F>
 		bool Dispatch(const F& func)
 		{
-			if (event.GetEventType() == T::GetStaticType())
+			if (event.GetEventType() == T::GetStaticEventType())
 			{
 				event.handled |= func(static_cast<T&>(event));
 				return true;

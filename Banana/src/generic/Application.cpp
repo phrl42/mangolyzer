@@ -17,17 +17,24 @@ namespace Banana
 
   void Application::OnEvent(Event& e)
   {
-    LOG(e.ToString());
+    EventDispatcher dispatcher(e);
+    dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
 
     for(auto it = layer_stack.end(); it != layer_stack.begin();)
     {
-      (*--it)->OnUpdate();
-      
+      (*--it)->OnEvent(e);
+
       if(e.handled)
       {
         break;
       }
     }
+  }
+
+  bool Application::OnWindowClose(WindowCloseEvent& e)
+  {
+    running = false;
+    return true;
   }
 
   void Application::Run()

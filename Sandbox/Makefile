@@ -66,7 +66,9 @@ GENERATED :=
 OBJECTS :=
 
 GENERATED += $(OBJDIR)/Sandbox.o
+GENERATED += $(OBJDIR)/TestLayer.o
 OBJECTS += $(OBJDIR)/Sandbox.o
+OBJECTS += $(OBJDIR)/TestLayer.o
 
 # Rules
 # #############################################
@@ -131,6 +133,9 @@ endif
 # #############################################
 
 $(OBJDIR)/Sandbox.o: src/Sandbox.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/TestLayer.o: src/layer/TestLayer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 

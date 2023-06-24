@@ -10,11 +10,11 @@ namespace Banana
 
     virtual ~Layer() = default;
 
-    virtual void OnAttach();
-    virtual void OnDetach();
+    virtual void OnAttach() = 0;
+    virtual void OnDetach() = 0;
 
-    virtual void OnUpdate();
-    virtual void OnEvent(Event& event);
+    virtual void OnUpdate() = 0;
+    virtual void OnEvent(Event& event) = 0;
 
     inline const std::string& GetName() { return name; }
   
