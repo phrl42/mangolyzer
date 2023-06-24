@@ -3,3 +3,5 @@
 
 #include "event/Event.h"
 #include "Log.h"
+
+#include <sstream>

@@ -29,7 +29,7 @@ namespace Banana
     std::string ToString() const override
 		{
 			std::string ss = "";
-			ss + "WindowResizeEvent width: " + std::to_string(width) + " height: " + std::to_string(height);
+			ss = "WindowResizeEvent width: " + std::to_string(width) + " height: " + std::to_string(height);
       return ss;
     }
 		

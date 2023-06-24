@@ -22,10 +22,10 @@ namespace Banana
     inline bool getRepeated() const { return repeated; }
     inline bool IsModPressed(const int mod) const { return mods & mod; }
 
-    std::string ToString() const override
+    inline std::string ToString() const override
     {
       std::string ss = "";
-      ss + "KeyPressedEvent" + std::to_string(keyCode) + " | Repeated: " += std::to_string(repeated) + "\n";
+      ss = "KeyPressedEvent: " + std::to_string(keyCode) + " | Repeated: " += std::to_string(repeated) + "\n";
       return ss;
     }
 
@@ -53,7 +53,7 @@ namespace Banana
     std::string ToString() const override
     {
       std::string ss = "";
-      ss + "KeyPressedEvent" + std::to_string(keyCode) + "\n";
+      ss = "KeyPressedEvent :" + std::to_string(keyCode) + "\n";
       return ss;
     }
 

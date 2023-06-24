@@ -24,7 +24,7 @@ namespace Banana
     std::string ToString() const override
     {
       std::string ss = "";
-      ss + "MouseButtonPressedEvent: " + std::to_string(button) + "\n"; 
+      ss = "MouseButtonPressedEvent: " + std::to_string(button) + "\n"; 
       return ss;
     }
 
@@ -53,7 +53,7 @@ namespace Banana
     std::string ToString() const override
     {
       std::string ss = "";
-      ss + "MouseButtonReleasedEvent: " + std::to_string(button) + "\n"; 
+      ss = "MouseButtonReleasedEvent: " + std::to_string(button) + "\n"; 
       return ss;
     }
 
@@ -82,7 +82,7 @@ namespace Banana
     std::string ToString() const override
     {
       std::string ss = "";
-      ss + "MouseScrolledEvent X-Offset: " + std::to_string(xOff) + "Y-Offset: " + std::to_string(yOff) + "\n";
+      ss = "MouseScrolledEvent X-Offset: " + std::to_string(xOff) + "Y-Offset: " + std::to_string(yOff) + "\n";
       return ss; 
     }
 
@@ -111,7 +111,7 @@ namespace Banana
     std::string ToString() const override
     {
       std::string ss = "";
-      ss + "MouseScrolledEvent X-Offset: " + std::to_string(xOff) + "Y-Offset: " + std::to_string(yOff) + "\n";
+      ss = "MouseScrolledEvent X-Offset: " + std::to_string(xOff) + "Y-Offset: " + std::to_string(yOff) + "\n";
       return ss; 
     }
 
