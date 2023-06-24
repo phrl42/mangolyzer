@@ -33,11 +33,6 @@ namespace Banana
 
   }
 
-  void GLFWWindow::SetEventCallback(const EventCallbackFunction& callback_function)
-  {
-
-  }
-
   void* GLFWWindow::GetNativeWindow() const
   {
     return (void*)glfwWindow;
@@ -104,7 +99,7 @@ namespace Banana
       {
         case GLFW_PRESS:
         {
-          KeyPressedEvent event(key, 1, mods);
+          KeyPressedEvent event(key, 0, mods);
           data.callback(event);
           break;
         }
@@ -136,15 +131,18 @@ namespace Banana
         case GLFW_PRESS:
         {
           MouseButtonPressedEvent event(button, mods);
+          data.callback(event);
           break;
         }
 
         case GLFW_RELEASE:
         {
           MouseButtonReleasedEvent event(button, mods);
+          data.callback(event);
           break;
         }
       }
+
     });
 
     glfwSetScrollCallback(glfwWindow, [](GLFWwindow* window, double xOffset, double yOffset)
@@ -152,6 +150,7 @@ namespace Banana
       WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
       MouseScrolledEvent event((float)xOffset, (float)yOffset);
+      data.callback(event);
     });
 
     glfwSetCursorPosCallback(glfwWindow, [](GLFWwindow* window, double x, double y)
@@ -159,6 +158,7 @@ namespace Banana
       WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
       MouseMovedEvent event((float)x, (float)y);
+      data.callback(event);
     });
 
 

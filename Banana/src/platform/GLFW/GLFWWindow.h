@@ -20,7 +20,7 @@ namespace Banana
     virtual float GetTime() override;
 
     virtual void Resize(unsigned int width, unsigned int height) override;
-    virtual void SetEventCallback(const EventCallbackFunction& callback_function) override;
+    virtual void SetEventCallback(const EventCallbackFunction& callback) override { windowData.callback = callback; }
     
     virtual void SetVSync(bool enabled) override;
 		virtual bool IsVSync() const override;

@@ -17,8 +17,7 @@ namespace Banana
 
   void Application::OnEvent(Event& e)
   {
-    LOG("{Event}");
-    LOG(e);
+    LOG("{Event}: " + std::string(e.GetName()));
   }
 
   void Application::Run()
