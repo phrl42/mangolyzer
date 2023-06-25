@@ -22,7 +22,7 @@ RESCOMP = windres
 PCH = incs.h
 PCH_PLACEHOLDER = $(OBJDIR)/$(notdir $(PCH))
 GCH = $(PCH_PLACEHOLDER).gch
-INCLUDES += -Ivendor/GLFW/include/GLFW -Ivendor/GLAD/include/glad -I. -Isrc -Isrc/generic
+INCLUDES += -Ivendor/GLFW/include/GLFW -Ivendor/GLAD/include/glad -Ivendor/IMGUI -I. -Isrc -Isrc/generic
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
@@ -41,8 +41,8 @@ OBJDIR = ../bin/obj/Debug/Banana
 DEFINES += -DMACRO_GLFW -DMACRO_OPENGL -DBUILD_DEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g
-LIBS += ../bin/target/Debug/GLAD/libGLAD.a ../bin/target/Debug/GLFW/libGLFW.a
-LDDEPS += ../bin/target/Debug/GLAD/libGLAD.a ../bin/target/Debug/GLFW/libGLFW.a
+LIBS += ../bin/target/Debug/GLAD/libGLAD.a ../bin/target/Debug/GLFW/libGLFW.a ../bin/target/Debug/IMGUI/libIMGUI.a
+LDDEPS += ../bin/target/Debug/GLAD/libGLAD.a ../bin/target/Debug/GLFW/libGLFW.a ../bin/target/Debug/IMGUI/libIMGUI.a
 ALL_LDFLAGS += $(LDFLAGS)
 
 else ifeq ($(config),release)
@@ -52,8 +52,8 @@ OBJDIR = ../bin/obj/Release/Banana
 DEFINES += -DMACRO_GLFW -DMACRO_OPENGL -DBUILD_RELEASE
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O2
-LIBS += ../bin/target/Release/GLAD/libGLAD.a ../bin/target/Release/GLFW/libGLFW.a
-LDDEPS += ../bin/target/Release/GLAD/libGLAD.a ../bin/target/Release/GLFW/libGLFW.a
+LIBS += ../bin/target/Release/GLAD/libGLAD.a ../bin/target/Release/GLFW/libGLFW.a ../bin/target/Release/IMGUI/libIMGUI.a
+LDDEPS += ../bin/target/Release/GLAD/libGLAD.a ../bin/target/Release/GLFW/libGLFW.a ../bin/target/Release/IMGUI/libIMGUI.a
 ALL_LDFLAGS += $(LDFLAGS) -s
 
 endif
@@ -70,11 +70,13 @@ OBJECTS :=
 
 GENERATED += $(OBJDIR)/Application.o
 GENERATED += $(OBJDIR)/GLFWWindow.o
+GENERATED += $(OBJDIR)/IMGUILayer.o
 GENERATED += $(OBJDIR)/Layer.o
 GENERATED += $(OBJDIR)/LayerStack.o
 GENERATED += $(OBJDIR)/Window.o
 OBJECTS += $(OBJDIR)/Application.o
 OBJECTS += $(OBJDIR)/GLFWWindow.o
+OBJECTS += $(OBJDIR)/IMGUILayer.o
 OBJECTS += $(OBJDIR)/Layer.o
 OBJECTS += $(OBJDIR)/LayerStack.o
 OBJECTS += $(OBJDIR)/Window.o
@@ -145,6 +147,9 @@ $(OBJDIR)/Application.o: src/generic/Application.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Window.o: src/generic/Window.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/IMGUILayer.o: src/imgui/IMGUILayer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Layer.o: src/layer/Layer.cpp

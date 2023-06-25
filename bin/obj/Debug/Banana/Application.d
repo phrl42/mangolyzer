@@ -2,7 +2,7 @@
  src/generic/Application.hpp _Banana.h src/event/Event.h utility.h \
  src/event/ApplicationEvent.h src/generic/Log.h src/generic/Window.hpp \
  src/layer/LayerStack.h src/layer/Layer.h \
- vendor/GLFW/include/GLFW/glfw3.h
+ vendor/GLFW/include/GLFW/glfw3.h src/imgui/IMGUILayer.h
 src/generic/Application.hpp:
 _Banana.h:
 src/event/Event.h:
@@ -13,3 +13,4 @@ src/generic/Window.hpp:
 src/layer/LayerStack.h:
 src/layer/Layer.h:
 vendor/GLFW/include/GLFW/glfw3.h:
+src/imgui/IMGUILayer.h:

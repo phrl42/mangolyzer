@@ -16,12 +16,14 @@ project "Banana"
 
     links {
       "GLAD",
-      "GLFW"
+      "GLFW",
+      "IMGUI"
     }
     
     includedirs {
       "%{IncludeDir.GLFW}",
       "%{IncludeDir.GLAD}",
+      "%{IncludeDir.IMGUI}",
       "%{wks.location}/Banana",
       "%{wks.location}/Banana/src",
       "%{wks.location}/Banana/src/generic"

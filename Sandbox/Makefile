@@ -19,7 +19,7 @@ endif
 # #############################################
 
 RESCOMP = windres
-INCLUDES += -I../Banana/vendor/GLFW/include/GLFW -I../Banana/vendor/GLAD/include/glad -I../Banana -I../Banana/src -I../Banana/src/generic -I. -Isrc
+INCLUDES += -I../Banana/vendor/GLFW/include/GLFW -I../Banana/vendor/GLAD/include/glad -I../Banana/vendor/IMGUI -I../Banana -I../Banana/src -I../Banana/src/generic -I. -Isrc
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
@@ -38,8 +38,8 @@ OBJDIR = ../bin/obj/Debug/Sandbox
 DEFINES += -DBUILD_DEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g
-LIBS += ../bin/target/Debug/Banana/libBanana.a ../bin/target/Debug/GLAD/libGLAD.a ../bin/target/Debug/GLFW/libGLFW.a
-LDDEPS += ../bin/target/Debug/Banana/libBanana.a ../bin/target/Debug/GLAD/libGLAD.a ../bin/target/Debug/GLFW/libGLFW.a
+LIBS += ../bin/target/Debug/Banana/libBanana.a ../bin/target/Debug/GLAD/libGLAD.a ../bin/target/Debug/GLFW/libGLFW.a ../bin/target/Debug/IMGUI/libIMGUI.a
+LDDEPS += ../bin/target/Debug/Banana/libBanana.a ../bin/target/Debug/GLAD/libGLAD.a ../bin/target/Debug/GLFW/libGLFW.a ../bin/target/Debug/IMGUI/libIMGUI.a
 ALL_LDFLAGS += $(LDFLAGS)
 
 else ifeq ($(config),release)
@@ -49,8 +49,8 @@ OBJDIR = ../bin/obj/Release/Sandbox
 DEFINES += -DBUILD_RELEASE
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O2
-LIBS += ../bin/target/Release/Banana/libBanana.a ../bin/target/Release/GLAD/libGLAD.a ../bin/target/Release/GLFW/libGLFW.a
-LDDEPS += ../bin/target/Release/Banana/libBanana.a ../bin/target/Release/GLAD/libGLAD.a ../bin/target/Release/GLFW/libGLFW.a
+LIBS += ../bin/target/Release/Banana/libBanana.a ../bin/target/Release/GLAD/libGLAD.a ../bin/target/Release/GLFW/libGLFW.a ../bin/target/Release/IMGUI/libIMGUI.a
+LDDEPS += ../bin/target/Release/Banana/libBanana.a ../bin/target/Release/GLAD/libGLAD.a ../bin/target/Release/GLFW/libGLFW.a ../bin/target/Release/IMGUI/libIMGUI.a
 ALL_LDFLAGS += $(LDFLAGS) -s
 
 endif

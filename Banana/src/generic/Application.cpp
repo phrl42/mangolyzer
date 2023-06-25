@@ -1,4 +1,5 @@
 #include "Application.hpp"
+#include "imgui/IMGUILayer.h"
 
 namespace Banana
 {
@@ -63,6 +64,17 @@ namespace Banana
   void Application::PushLayer(Layer* layer)
   {
     layer_stack.PushLayer(layer);
+  }
+
+
+  void Application::PopOverlay(Layer* layer)
+  {
+    layer_stack.PopOverlay(layer);
+  }
+
+  void Application::PushOverlay(Layer* layer)
+  {
+    layer_stack.PushOverlay(layer);
   }
 
   Application::~Application()
