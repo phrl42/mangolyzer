@@ -24,12 +24,19 @@ namespace Banana
     void PopOverlay(Layer* layer);
 
     void PopLayer(Layer* layer);
+
+    inline Window& GetWindow() { return *window; }
+
+    inline static Application& GetInstance() { return *Instance; }
   
   private:
     bool OnWindowClose(WindowCloseEvent& e);
 
     LayerStack layer_stack;
     std::unique_ptr<Window> window;
+
+    static Application* Instance;
+
     bool running = true;
   };
 

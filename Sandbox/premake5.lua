@@ -28,7 +28,7 @@ project "Sandbox"
     "Banana",
     "GLAD",
     "GLFW",
-    "IMGUI"
+    "IMGUI",
   }
 
   filter "configurations:Debug"

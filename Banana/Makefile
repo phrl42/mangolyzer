@@ -41,8 +41,8 @@ OBJDIR = ../bin/obj/Debug/Banana
 DEFINES += -DMACRO_GLFW -DMACRO_OPENGL -DBUILD_DEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g
-LIBS += ../bin/target/Debug/GLAD/libGLAD.a ../bin/target/Debug/GLFW/libGLFW.a ../bin/target/Debug/IMGUI/libIMGUI.a
-LDDEPS += ../bin/target/Debug/GLAD/libGLAD.a ../bin/target/Debug/GLFW/libGLFW.a ../bin/target/Debug/IMGUI/libIMGUI.a
+LIBS += ../bin/target/Debug/GLAD/libGLAD.a ../bin/target/Debug/IMGUI/libIMGUI.a ../bin/target/Debug/GLFW/libGLFW.a
+LDDEPS += ../bin/target/Debug/GLAD/libGLAD.a ../bin/target/Debug/IMGUI/libIMGUI.a ../bin/target/Debug/GLFW/libGLFW.a
 ALL_LDFLAGS += $(LDFLAGS)
 
 else ifeq ($(config),release)
@@ -52,8 +52,8 @@ OBJDIR = ../bin/obj/Release/Banana
 DEFINES += -DMACRO_GLFW -DMACRO_OPENGL -DBUILD_RELEASE
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O2
-LIBS += ../bin/target/Release/GLAD/libGLAD.a ../bin/target/Release/GLFW/libGLFW.a ../bin/target/Release/IMGUI/libIMGUI.a
-LDDEPS += ../bin/target/Release/GLAD/libGLAD.a ../bin/target/Release/GLFW/libGLFW.a ../bin/target/Release/IMGUI/libIMGUI.a
+LIBS += ../bin/target/Release/GLAD/libGLAD.a ../bin/target/Release/IMGUI/libIMGUI.a ../bin/target/Release/GLFW/libGLFW.a
+LDDEPS += ../bin/target/Release/GLAD/libGLAD.a ../bin/target/Release/IMGUI/libIMGUI.a ../bin/target/Release/GLFW/libGLFW.a
 ALL_LDFLAGS += $(LDFLAGS) -s
 
 endif

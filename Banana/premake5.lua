@@ -16,8 +16,8 @@ project "Banana"
 
     links {
       "GLAD",
+      "IMGUI",
       "GLFW",
-      "IMGUI"
     }
     
     includedirs {

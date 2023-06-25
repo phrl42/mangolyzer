@@ -262,13 +262,12 @@ struct ImGui_ImplOpenGL3_VtxAttribState
     }
 };
 #endif
-
 // Functions
 bool    ImGui_ImplOpenGL3_Init(const char* glsl_version)
 {
     ImGuiIO& io = ImGui::GetIO();
     IM_ASSERT(io.BackendRendererUserData == nullptr && "Already initialized a renderer backend!");
-
+        
     // Initialize our loader
 #if !defined(IMGUI_IMPL_OPENGL_ES2) && !defined(IMGUI_IMPL_OPENGL_ES3) && !defined(IMGUI_IMPL_OPENGL_LOADER_CUSTOM)
     if (imgl3wInit() != 0)
@@ -292,6 +291,7 @@ bool    ImGui_ImplOpenGL3_Init(const char* glsl_version)
     // Desktop or GLES 3
     GLint major = 0;
     GLint minor = 0;
+  
     glGetIntegerv(GL_MAJOR_VERSION, &major);
     glGetIntegerv(GL_MINOR_VERSION, &minor);
     if (major == 0 && minor == 0)

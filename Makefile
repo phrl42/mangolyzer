@@ -56,7 +56,7 @@ ifneq (,$(IMGUI_config))
 	@${MAKE} --no-print-directory -C Banana/vendor/IMGUI -f Makefile config=$(IMGUI_config)
 endif
 
-Banana: GLAD GLFW IMGUI
+Banana: GLAD IMGUI GLFW
 ifneq (,$(Banana_config))
 	@echo "==== Building Banana ($(Banana_config)) ===="
 	@${MAKE} --no-print-directory -C Banana -f Makefile config=$(Banana_config)

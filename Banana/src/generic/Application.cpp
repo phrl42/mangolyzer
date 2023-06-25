@@ -4,8 +4,17 @@
 namespace Banana
 {
 
+  Application* Application::Instance = nullptr;
+
   Application::Application()
   {
+    if(Instance)
+    {
+      LOG("Application already exists!");
+    }
+
+    Instance = this;
+
     WindowProps prop;
     prop.Title = "Banana Engine";
     prop.height = 1280;
@@ -40,6 +49,10 @@ namespace Banana
 
   void Application::Run()
   {
+    for(Layer* layer : layer_stack)
+    {
+      layer->OnAttach();
+    }
     while(running)
     {
       window->PollEvents();

@@ -17,8 +17,9 @@ namespace Banana
 
     virtual void OnUpdate();
     virtual void OnEvent(Event& event);
-    
+
   private:
     std::string name;
+    float l_time;
   };
 };
