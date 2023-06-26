@@ -88,7 +88,7 @@ namespace Banana
     {
       initialized = true;
 	    ImGui::DockBuilderRemoveNode(dockspaceID);
-	    ImGui::DockBuilderAddNode(dockspaceID, ImGuiDockNodeFlags_None);
+	    ImGui::DockBuilderAddNode(dockspaceID, ImGuiDockNodeFlags_DockSpace);
 			ImGui::DockBuilderSetNodeSize(dockspaceID, ImVec2(Application::GetInstance().GetWindow().GetWidth() + 500, Application::GetInstance().GetWindow().GetHeight() + 500));
 
       ImGuiID dock_main_id = dockspaceID;
@@ -100,8 +100,8 @@ namespace Banana
       
       ImGui::DockBuilderFinish(dockspaceID);
 
-		  ImGui::DockBuilderDockWindow("Debug", dock_up_id);
-		  ImGui::DockBuilderDockWindow("Scene", dock_down_id);
+		  ImGui::DockBuilderDockWindow("Debug", dock_right_id);
+		  ImGui::DockBuilderDockWindow("Scene", dock_main_id);
     }
     ImGui::DockSpace(dockspaceID, ImVec2(0.0f, 0.0f), dockflags);
     ImGui::End();
@@ -113,6 +113,7 @@ namespace Banana
     ImGui::Begin("Scene", nullptr, 0);
     ImGui::Text("scene text");
     ImGui::End();
+
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
