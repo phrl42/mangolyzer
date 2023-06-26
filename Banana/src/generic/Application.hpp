@@ -4,8 +4,6 @@
 #include "Window.hpp"
 #include "layer/LayerStack.h"
 
-#include "glfw3.h"
-
 
 namespace Banana
 {

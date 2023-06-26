@@ -5,7 +5,7 @@ workspace "Banana"
     staticruntime "off"
 
 IncludeDir = {}
-IncludeDir["GLFW"] = "%{wks.location}/Banana/vendor/GLFW/include/GLFW"
+IncludeDir["GLFW"] = "%{wks.location}/Banana/vendor/GLFW/include"
 IncludeDir["GLAD"] = "%{wks.location}/Banana/vendor/GLAD/include/glad"
 IncludeDir["IMGUI"] = "%{wks.location}/Banana/vendor/IMGUI"
 

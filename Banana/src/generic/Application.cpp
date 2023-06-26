@@ -66,8 +66,15 @@ namespace Banana
       }
 
       window->SwapBuffers();
+
       glClear(GL_COLOR_BUFFER_BIT);
     }
+
+    for(Layer* layer : layer_stack)
+    {
+      layer->OnDetach();
+    }
+  
   }
 
   void Application::PopLayer(Layer* layer)
