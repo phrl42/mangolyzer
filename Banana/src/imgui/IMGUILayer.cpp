@@ -25,23 +25,23 @@ namespace Banana
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
-		io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
-		io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
-		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
-		io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;        // Enable Gamepad Controls
-		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
+    io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
+    io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;        // Enable Gamepad Controls
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
     //ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_DockingEnable;  // Enable docking
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
 
     //fonts
-		ImFontAtlas* fontAtlas = io.Fonts;
-		ImFontConfig fontConfig = ImFontConfig();
-		//set default range (uft-8)
-		fontConfig.GlyphRanges = fontAtlas->GetGlyphRangesDefault();
-		fontAtlas->AddFontFromFileTTF("assets/fonts/mononoki.ttf", 20, &fontConfig);
+    ImFontAtlas* fontAtlas = io.Fonts;
+    ImFontConfig fontConfig = ImFontConfig();
+    //set default range (uft-8)
+    fontConfig.GlyphRanges = fontAtlas->GetGlyphRangesDefault();
+    fontAtlas->AddFontFromFileTTF("assets/fonts/mononoki.ttf", 20, &fontConfig);
     //any new fonts were added to the font pool
-		fontConfig.MergeMode = true;
+    fontConfig.MergeMode = true;
 
     // Setup Platform/Renderer backends
     ImGui_ImplGlfw_InitForOpenGL((GLFWwindow*)Application::GetInstance().GetWindow().GetNativeWindow(), true);
@@ -59,22 +59,60 @@ namespace Banana
   void IMGUILayer::OnUpdate()
   {
     static bool show = true;
+    static bool p_open = true;
 
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
     // dockspace stuff
-    ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
-    ImGuiID dockspaceID = ImGui::GetID("MyViewportDockSpace");
-    
-    // debug window
-    ImGui::Begin("Debug", nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_DockNodeHost);
-    ImGui::Text("TEST TEST");
+    ImGuiWindowFlags window_flags = ImGuiWindowFlags_None;
+    ImGuiDockNodeFlags dockflags = ImGuiDockNodeFlags_PassthruCentralNode;//ImGuiDockNodeFlags_None;
+    window_flags |= ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoBackground;// | ImGuiWindowFlags_MenuBar;
+		window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
+		window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+		ImGuiViewport& viewport = *ImGui::GetMainViewport();
+		ImGui::SetNextWindowPos(viewport.Pos);
+		ImGui::SetNextWindowSize(viewport.Size);
+		ImGui::SetNextWindowViewport(viewport.ID);
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+		ImGui::Begin("docking", &p_open, window_flags);
+		ImGui::PopStyleVar(3);
+		ImGuiID dockspaceID = ImGui::GetID("dockspace");
+
+		static bool initialized = false;
+
+    if (!initialized)
+    {
+      initialized = true;
+	    ImGui::DockBuilderRemoveNode(dockspaceID);
+	    ImGui::DockBuilderAddNode(dockspaceID, ImGuiDockNodeFlags_None);
+			ImGui::DockBuilderSetNodeSize(dockspaceID, ImVec2(Application::GetInstance().GetWindow().GetWidth() + 500, Application::GetInstance().GetWindow().GetHeight() + 500));
+
+      ImGuiID dock_main_id = dockspaceID;
+      ImGuiID dock_up_id = ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Up, 0.05f, nullptr, &dock_main_id);
+      ImGuiID dock_right_id = ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Right, 0.2f, nullptr, &dock_main_id);
+      ImGuiID dock_left_id = ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Left, 0.2f, nullptr, &dock_main_id);
+      ImGuiID dock_down_id = ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Down, 0.2f, nullptr, &dock_main_id);
+      ImGuiID dock_down_right_id = ImGui::DockBuilderSplitNode(dock_down_id, ImGuiDir_Right, 0.6f, nullptr, &dock_down_id);
+      
+      ImGui::DockBuilderFinish(dockspaceID);
+
+		  ImGui::DockBuilderDockWindow("Debug", dock_up_id);
+		  ImGui::DockBuilderDockWindow("Scene", dock_down_id);
+    }
+    ImGui::DockSpace(dockspaceID, ImVec2(0.0f, 0.0f), dockflags);
     ImGui::End();
 
-    // attach debug window
-    ImGui::DockBuilderDockWindow("Debug", ImGui::DockBuilderSplitNode(dockspaceID, ImGuiDir_Right, 0.2f, nullptr, &dockspaceID));
+    ImGui::Begin("Debug", nullptr, 0);
+    ImGui::Text("debug text");
+    ImGui::End();
+
+    ImGui::Begin("Scene", nullptr, 0);
+    ImGui::Text("scene text");
+    ImGui::End();
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
