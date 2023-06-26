@@ -17,12 +17,18 @@ namespace Banana
 
   void IMGUILayer::OnAttach()
   {
+    // Setup Dear ImGui context
+    IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGui::StyleColorsDark();
-    
-    ImGuiIO& io = ImGui::GetIO();
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable some options
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
+    // Setup Dear ImGui style
+    ImGui::StyleColorsDark();
+
+    // Setup Platform/Renderer backends
+    ImGui_ImplGlfw_InitForOpenGL((GLFWwindow*)Application::GetInstance().GetWindow().GetNativeWindow(), true);
     ImGui_ImplOpenGL3_Init("#version 460");
   }
 
@@ -33,27 +39,22 @@ namespace Banana
 
   void IMGUILayer::OnUpdate()
   {
+    static bool show = false;
+    static bool show_another_window = true;
+    
     ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    ImGuiIO& io = ImGui::GetIO();
-
-    float time = (float)glfwGetTime();
-    
-    Application& app = Application::GetInstance();
-
-
-    io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
-
-    io.DeltaTime = l_time > 0.0 ? (time - l_time) : (1.0f / 60.0f);
-    l_time = time;
-
-    static bool show = true;
     ImGui::ShowDemoWindow(&show);
 
+    // Rendering
     ImGui::Render();
-    ImGui::EndFrame();
-
+    
+    int display_w, display_h;
+    glfwGetFramebufferSize((GLFWwindow*)Application::GetInstance().GetWindow().GetNativeWindow(), &display_w, &display_h);
+    glViewport(0, 0, display_w, display_h);
+    
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
   }
 
