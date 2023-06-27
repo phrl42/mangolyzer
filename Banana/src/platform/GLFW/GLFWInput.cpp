@@ -8,7 +8,13 @@ namespace Banana
   bool GLFWInput::IsKeyPressedImpl(int key)
   {
     auto state = glfwGetKey((GLFWwindow*)Application::GetInstance().GetWindow().GetNativeWindow(), key);
-    return state == GLFW_PRESS || state == GLFW_REPEAT;
+    return state == GLFW_PRESS;
+  }
+
+  bool GLFWInput::IsKeyRepeatImpl(int key)
+  {
+    auto state = glfwGetKey((GLFWwindow*)Application::GetInstance().GetWindow().GetNativeWindow(), key);
+    return state == GLFW_REPEAT;
   }
 
   bool GLFWInput::IsMouseButtonPressedImpl(int button)

@@ -12,8 +12,7 @@ namespace SANDBOX
 
   Sandbox::Sandbox()
   {
-    PushLayer(new TestLayer());
-    PushOverlay(new Banana::IMGUILayer());
+    PushLayer(new TestLayer("Test"));
   }
 
   Sandbox::~Sandbox()

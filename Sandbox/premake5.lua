@@ -16,6 +16,7 @@ project "Sandbox"
       "%{IncludeDir.GLFW}",
       "%{IncludeDir.GLAD}",
       "%{IncludeDir.IMGUI}",
+      "%{IncludeDir.GLM}",
       "%{wks.location}/Banana",
       "%{wks.location}/Banana/src",
       "%{wks.location}/Banana/src/generic",

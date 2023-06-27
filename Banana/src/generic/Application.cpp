@@ -26,6 +26,7 @@ namespace Banana
     window = Window::Create(prop);
 
     window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
+    
   }
 
   void Application::OnEvent(Event& e)
@@ -52,20 +53,43 @@ namespace Banana
 
   void Application::Run()
   {
+    PushLayer(new Banana::IMGUILayer("IMGUILAYER"));
+
     for(Layer* layer : layer_stack)
     {
       layer->OnAttach();
     }
+    
 
-    while(!Input::IsKeyPressed(KEY_ESCAPE))
+    while(running && !Input::IsKeyPressed(KEY_ESCAPE))
     {
       window->PollEvents();
 
       glClearColor(1, 0, 1, 1);
 
+      // toggling
+      static bool press = false;
+      static bool debug = true;
+
+      if(Input::IsKeyPressed(KEY_U) && !press)
+      {
+        press = true;
+        debug = !debug;
+      }
+
+      if(!Input::IsKeyPressed(KEY_U))
+      {
+        press = false;
+      }
+
       for(Layer* layer : layer_stack)
       {
+        if(layer->GetName() == "IMGUILAYER" && !debug)
+        {
+          continue;
+        }
         layer->OnUpdate();
+
       }
 
       window->SwapBuffers();

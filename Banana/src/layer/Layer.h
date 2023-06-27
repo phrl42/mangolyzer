@@ -16,8 +16,8 @@ namespace Banana
     virtual void OnUpdate() = 0;
     virtual void OnEvent(Event& event) = 0;
 
-    inline const std::string& GetName() { return name; }
-  
+    virtual std::string& GetName() = 0;
+
   private:
     std::string name;
   };

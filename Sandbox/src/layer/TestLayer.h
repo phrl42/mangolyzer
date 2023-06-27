@@ -17,6 +17,8 @@ namespace SANDBOX
 
     virtual void OnUpdate() override;
     virtual void OnEvent(Banana::Event& event) override;
+
+    virtual inline std::string& GetName() override { return name; }
   
   private:
     std::string name;

@@ -12,11 +12,13 @@ namespace Banana
 
     virtual ~IMGUILayer() = default;
 
-    virtual void OnAttach();
-    virtual void OnDetach();
+    virtual void OnAttach() override;
+    virtual void OnDetach() override;
 
-    virtual void OnUpdate();
-    virtual void OnEvent(Event& event);
+    virtual void OnUpdate() override;
+    virtual void OnEvent(Event& event) override;
+
+    virtual inline std::string& GetName() override { return name; }
 
   private:
     std::string name;
