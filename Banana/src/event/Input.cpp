@@ -1,6 +1,4 @@
-#include "platform/GLFW/GLFWInput.h"
-
-namespace Banana
-{
-  Input *Input::Instance = new GLFWInput();
-};
+#ifdef MACRO_GLFW
+  #include "platform/GLFW/GLFWInput.h"
+  Banana::Input *Banana::Input::Instance = new Banana::GLFWInput();
+#endif
