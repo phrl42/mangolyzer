@@ -1,5 +1,8 @@
 #include "Application.hpp"
+
 #include "imgui/IMGUILayer.h"
+#include "event/Input.hpp"
+#include "event/KeyCode.h"
 
 namespace Banana
 {
@@ -54,7 +57,7 @@ namespace Banana
       layer->OnAttach();
     }
 
-    while(running)
+    while(!Input::IsKeyPressed(KEY_ESCAPE))
     {
       window->PollEvents();
 

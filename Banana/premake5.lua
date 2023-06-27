@@ -30,11 +30,6 @@ project "Banana"
     }
 
 
-    defines {
-        "MACRO_GLFW",
-        "MACRO_OPENGL"
-    }
-
   filter "configurations:Debug"
     defines "BUILD_DEBUG"
     symbols "On"

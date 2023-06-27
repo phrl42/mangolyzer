@@ -69,14 +69,18 @@ GENERATED :=
 OBJECTS :=
 
 GENERATED += $(OBJDIR)/Application.o
+GENERATED += $(OBJDIR)/GLFWInput.o
 GENERATED += $(OBJDIR)/GLFWWindow.o
 GENERATED += $(OBJDIR)/IMGUILayer.o
+GENERATED += $(OBJDIR)/Input.o
 GENERATED += $(OBJDIR)/Layer.o
 GENERATED += $(OBJDIR)/LayerStack.o
 GENERATED += $(OBJDIR)/Window.o
 OBJECTS += $(OBJDIR)/Application.o
+OBJECTS += $(OBJDIR)/GLFWInput.o
 OBJECTS += $(OBJDIR)/GLFWWindow.o
 OBJECTS += $(OBJDIR)/IMGUILayer.o
+OBJECTS += $(OBJDIR)/Input.o
 OBJECTS += $(OBJDIR)/Layer.o
 OBJECTS += $(OBJDIR)/LayerStack.o
 OBJECTS += $(OBJDIR)/Window.o
@@ -143,6 +147,9 @@ endif
 # File Rules
 # #############################################
 
+$(OBJDIR)/Input.o: src/event/Input.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Application.o: src/generic/Application.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
@@ -156,6 +163,9 @@ $(OBJDIR)/Layer.o: src/layer/Layer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/LayerStack.o: src/layer/LayerStack.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/GLFWInput.o: src/platform/GLFW/GLFWInput.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/GLFWWindow.o: src/platform/GLFW/GLFWWindow.cpp

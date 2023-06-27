@@ -35,7 +35,7 @@ ifeq ($(config),debug)
 TARGETDIR = ../bin/target/Debug/Sandbox
 TARGET = $(TARGETDIR)/Sandbox
 OBJDIR = ../bin/obj/Debug/Sandbox
-DEFINES += -DBUILD_DEBUG
+DEFINES += -DMACRO_GLFW -DMACRO_OPENGL -DBUILD_DEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g
 LIBS += ../bin/target/Debug/Banana/libBanana.a ../bin/target/Debug/GLAD/libGLAD.a ../bin/target/Debug/GLFW/libGLFW.a ../bin/target/Debug/IMGUI/libIMGUI.a
@@ -46,7 +46,7 @@ else ifeq ($(config),release)
 TARGETDIR = ../bin/target/Release/Sandbox
 TARGET = $(TARGETDIR)/Sandbox
 OBJDIR = ../bin/obj/Release/Sandbox
-DEFINES += -DBUILD_RELEASE
+DEFINES += -DMACRO_GLFW -DMACRO_OPENGL -DBUILD_RELEASE
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O2
 LIBS += ../bin/target/Release/Banana/libBanana.a ../bin/target/Release/GLAD/libGLAD.a ../bin/target/Release/GLFW/libGLFW.a ../bin/target/Release/IMGUI/libIMGUI.a

@@ -101,8 +101,9 @@ namespace Banana
       ImGui::DockBuilderFinish(dockspaceID);
 
 		  ImGui::DockBuilderDockWindow("Debug", dock_right_id);
-		  ImGui::DockBuilderDockWindow("Scene", dock_main_id);
+		  ImGui::DockBuilderDockWindow("Scene", dock_down_id);
     }
+
     ImGui::DockSpace(dockspaceID, ImVec2(0.0f, 0.0f), dockflags);
     ImGui::End();
 
