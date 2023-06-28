@@ -1,6 +1,6 @@
 ../bin/obj/Debug/Banana/IMGUILayer.o: src/imgui/IMGUILayer.cpp \
  src/imgui/IMGUILayer.h _Banana.h src/event/Event.h utility.h \
- src/event/ApplicationEvent.h src/generic/Log.h src/layer/Layer.h \
+ src/generic/Log.h src/event/ApplicationEvent.h src/layer/Layer.h \
  vendor/IMGUI/imgui.h vendor/IMGUI/imconfig.h \
  vendor/IMGUI/backends/imgui_impl_glfw.h \
  vendor/IMGUI/backends/imgui_impl_opengl3.h vendor/IMGUI/imgui_internal.h \
@@ -10,8 +10,8 @@ src/imgui/IMGUILayer.h:
 _Banana.h:
 src/event/Event.h:
 utility.h:
-src/event/ApplicationEvent.h:
 src/generic/Log.h:
+src/event/ApplicationEvent.h:
 src/layer/Layer.h:
 vendor/IMGUI/imgui.h:
 vendor/IMGUI/imconfig.h:

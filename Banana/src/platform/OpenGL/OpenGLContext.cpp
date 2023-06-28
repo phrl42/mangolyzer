@@ -1,15 +1,25 @@
 #include "platform/OpenGL/OpenGLContext.h"
 
+#include "GLFW/glfw3.h"
+
 namespace Banana
 {
-  OpenGLContext::OpenGLContext()
+  OpenGLContext::OpenGLContext(void* window)
+  : window(window)
   {
 
   }
 
+  // todo: check for platform stuff
 
   void OpenGLContext::Init()
   {
+    glfwMakeContextCurrent((GLFWwindow*)window);
+    // init glad stuff
+    if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+      LOG("Failed to initialize glad");
+    }
 
   }
 
@@ -20,7 +30,7 @@ namespace Banana
 
   void OpenGLContext::SwapBuffer()
   {
-    
+    glfwSwapBuffers((GLFWwindow*)window);
   }
 
 };

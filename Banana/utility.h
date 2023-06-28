@@ -1,5 +1,6 @@
 #pragma once
 #include "incs.h"
+#include "Log.h"
 
 namespace Banana
 {

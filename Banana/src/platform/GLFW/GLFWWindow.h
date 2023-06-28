@@ -1,5 +1,6 @@
 #pragma once
 #include "Window.hpp"
+#include "renderer/Context.hpp"
 
 namespace Banana
 {
@@ -26,6 +27,7 @@ namespace Banana
 		virtual void* GetNativeWindow() const override;
 
   private:
+    Context* context;
   	GLFWwindow* glfwWindow;
 
 		bool fullscreenEnabled = false;

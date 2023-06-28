@@ -26,7 +26,7 @@ namespace Banana
 
   void GLFWWindow::SwapBuffers()
   {
-    glfwSwapBuffers(glfwWindow);
+    context->SwapBuffer();
   }
 
   void GLFWWindow::Resize(unsigned int width, unsigned int height)
@@ -65,14 +65,10 @@ namespace Banana
     glfwWindow = glfwCreateWindow((int)window_props.width, 
       (int)window_props.height, windowData.title.c_str(), nullptr, nullptr);
 
-    glfwMakeContextCurrent(glfwWindow);
-    
-    // init glad stuff
-    if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-      LOG("Failed to initialize glad");
-    }
-    
+    // context
+    context = Context::CreateContext((void*)glfwWindow);
+    context->Init();
+
     glfwSetWindowUserPointer(glfwWindow, &windowData);
 
     SetVSync(true);
@@ -204,6 +200,9 @@ namespace Banana
 
   void GLFWWindow::Quit() const
   {
+    context->Shutdown();
+    delete context;
+
     glfwDestroyWindow(this->glfwWindow);
   }
 
