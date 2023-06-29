@@ -4,6 +4,8 @@
 #include "event/Input.hpp"
 #include "event/KeyCode.h"
 
+#include "renderer/RenderCommand.hpp"
+
 namespace Banana
 {
 
@@ -65,7 +67,7 @@ namespace Banana
     {
       window->PollEvents();
 
-      glClearColor(1, 0, 1, 1);
+      RenderCommand::SetClearColor(glm::vec4(1, 0, 1, 1));
 
       // toggling
       static bool press = false;
@@ -94,7 +96,7 @@ namespace Banana
 
       window->SwapBuffers();
 
-      glClear(GL_COLOR_BUFFER_BIT);
+      RenderCommand::Clear();
     }
 
     for(Layer* layer : layer_stack)

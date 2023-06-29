@@ -13,9 +13,7 @@ namespace Banana
     {
       NONE = 0, OpenGL
     };
-
     virtual ~RendererAPI() = default;
-    RendererAPI();
 
     virtual void Clear() = 0;
     virtual void SetClearColor(const glm::vec4& color) = 0;

@@ -7,11 +7,11 @@ namespace Banana
   {
   public:
     OpenGLRendererAPI() = default;
-    ~OpenGLRendererAPI();
+    ~OpenGLRendererAPI() override = default;
 
     virtual void Clear() override;
     virtual void SetClearColor(const glm::vec4& color) override;
 
     virtual void DrawIndexed(const Shr<VertexArray>& vertex_array) override;
   };
-}
+};
