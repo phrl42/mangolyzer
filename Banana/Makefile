@@ -80,10 +80,12 @@ GENERATED += $(OBJDIR)/LayerStack.o
 GENERATED += $(OBJDIR)/OpenGLBuffer.o
 GENERATED += $(OBJDIR)/OpenGLContext.o
 GENERATED += $(OBJDIR)/OpenGLRendererAPI.o
+GENERATED += $(OBJDIR)/OpenGLShader.o
 GENERATED += $(OBJDIR)/OpenGLVertexArray.o
 GENERATED += $(OBJDIR)/RenderCommand.o
 GENERATED += $(OBJDIR)/Renderer.o
 GENERATED += $(OBJDIR)/RendererAPI.o
+GENERATED += $(OBJDIR)/Shader.o
 GENERATED += $(OBJDIR)/VertexArray.o
 GENERATED += $(OBJDIR)/Window.o
 OBJECTS += $(OBJDIR)/Application.o
@@ -98,10 +100,12 @@ OBJECTS += $(OBJDIR)/LayerStack.o
 OBJECTS += $(OBJDIR)/OpenGLBuffer.o
 OBJECTS += $(OBJDIR)/OpenGLContext.o
 OBJECTS += $(OBJDIR)/OpenGLRendererAPI.o
+OBJECTS += $(OBJDIR)/OpenGLShader.o
 OBJECTS += $(OBJDIR)/OpenGLVertexArray.o
 OBJECTS += $(OBJDIR)/RenderCommand.o
 OBJECTS += $(OBJDIR)/Renderer.o
 OBJECTS += $(OBJDIR)/RendererAPI.o
+OBJECTS += $(OBJDIR)/Shader.o
 OBJECTS += $(OBJDIR)/VertexArray.o
 OBJECTS += $(OBJDIR)/Window.o
 
@@ -200,6 +204,9 @@ $(OBJDIR)/OpenGLContext.o: src/platform/OpenGL/OpenGLContext.cpp
 $(OBJDIR)/OpenGLRendererAPI.o: src/platform/OpenGL/OpenGLRendererAPI.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/OpenGLShader.o: src/platform/OpenGL/OpenGLShader.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/OpenGLVertexArray.o: src/platform/OpenGL/OpenGLVertexArray.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
@@ -216,6 +223,9 @@ $(OBJDIR)/Renderer.o: src/renderer/Renderer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/RendererAPI.o: src/renderer/RendererAPI.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Shader.o: src/renderer/Shader.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/VertexArray.o: src/renderer/VertexArray.cpp
