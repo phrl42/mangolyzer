@@ -1,20 +1,19 @@
 #pragma once
 #include "_Banana.h"
+#include "renderer/RendererAPI.h"
 
 namespace Banana
 {
-  enum class RendererAPI
-  {
-    NONE = 0,
-    OpenGL
-  };
-
   class Renderer 
   {
   public:
-    inline static RendererAPI GetAPI() { return api; }
+    static void BeginScene();
+    static void EndScene();
+
+    static void Submit(const Shr<VertexArray>& vertex_array);
+
+    inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 
   private:
-    static RendererAPI api;
   };
 };

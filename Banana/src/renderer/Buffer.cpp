@@ -10,13 +10,13 @@ namespace Banana
     switch(Renderer::GetAPI())
     {
     
-    case RendererAPI::NONE:
+    case RendererAPI::API::NONE:
     {
       LOG("RendererAPI is NONE!!! what the fuck are you doing??!");
       break;
     }
     
-    case RendererAPI::OpenGL:
+    case RendererAPI::API::OpenGL:
     {
       return MakeShr<OpenGLVertexBuffer>(vertices, size);
       break;
@@ -36,13 +36,13 @@ namespace Banana
     switch(Renderer::GetAPI())
     {
 
-    case RendererAPI::NONE:
+    case RendererAPI::API::NONE:
     {
       LOG("RendererAPI is NONE!!! what the fuck are you doing??!");
       break;
     }
 
-    case RendererAPI::OpenGL:
+    case RendererAPI::API::OpenGL:
     {
       return MakeShr<OpenGLIndexBuffer>(indices, size);
       break;

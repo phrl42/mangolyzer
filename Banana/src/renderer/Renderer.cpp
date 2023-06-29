@@ -1,11 +1,21 @@
 #include "renderer/Renderer.h"
+#include "renderer/RenderCommand.hpp"
 
 namespace Banana
 {
-  #ifdef MACRO_OPENGL
-  RendererAPI Renderer::api = RendererAPI::OpenGL;
-  #else
-  RendererAPI Renderer::api = RendererAPI::NONE;
-  #endif
-  
+  void Renderer::BeginScene()
+  {
+
+  }
+
+  void Renderer::EndScene()
+  {
+
+  }
+
+  void Renderer::Submit(const Shr<VertexArray>& vertex_array)
+  {
+    RenderCommand::DrawIndexed(vertex_array);
+  }
+
 };

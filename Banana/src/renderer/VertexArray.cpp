@@ -8,7 +8,7 @@ namespace Banana
   {
     switch(Renderer::GetAPI())
     {
-      case RendererAPI::OpenGL: return MakeShr<OpenGLVertexArray>();
+      case RendererAPI::API::OpenGL: return MakeShr<OpenGLVertexArray>();
     }
 
     LOG("Could not return a vertex array! What the hell did you do??");
