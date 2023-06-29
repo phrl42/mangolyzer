@@ -1,8 +1,6 @@
 #pragma once
 
 // this header file gets precompiled
-#include "glad.h"
-#include "GLFW/glfw3.h"
 
 #include <iostream>
 #include <functional>

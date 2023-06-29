@@ -3,6 +3,8 @@
 
 #include "renderer/RendererAPI.h"
 
+// the rendercommand only dispatches
+
 namespace Banana
 {
   class RenderCommand

@@ -133,7 +133,8 @@
  vendor/GLM/glm/detail/func_trigonometric.inl vendor/GLM/glm/packing.hpp \
  vendor/GLM/glm/detail/func_packing.inl \
  vendor/GLM/glm/detail/type_half.hpp vendor/GLM/glm/detail/type_half.inl \
- vendor/GLM/glm/integer.hpp vendor/GLM/glm/detail/func_integer.inl
+ vendor/GLM/glm/integer.hpp vendor/GLM/glm/detail/func_integer.inl \
+ vendor/GLAD/include/glad/glad.h vendor/GLFW/include/GLFW/glfw3.h
 src/platform/OpenGL/OpenGLRendererAPI.h:
 src/renderer/RendererAPI.h:
 _Banana.h:
@@ -284,3 +285,5 @@ vendor/GLM/glm/detail/type_half.hpp:
 vendor/GLM/glm/detail/type_half.inl:
 vendor/GLM/glm/integer.hpp:
 vendor/GLM/glm/detail/func_integer.inl:
+vendor/GLAD/include/glad/glad.h:
+vendor/GLFW/include/GLFW/glfw3.h:

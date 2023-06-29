@@ -2,6 +2,8 @@
 #include "Window.hpp"
 #include "renderer/Context.hpp"
 
+struct GLFWwindow;
+
 namespace Banana
 {
   class GLFWWindow : public Window

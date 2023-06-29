@@ -1,5 +1,7 @@
 #include "platform/OpenGL/OpenGLVertexArray.h"
 
+#include "glad.h"
+#include "GLFW/glfw3.h"
 namespace Banana
 {
   static GLenum ShaderDataTypeToOpenGLType(ShaderDataType type)

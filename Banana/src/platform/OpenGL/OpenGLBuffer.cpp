@@ -1,6 +1,9 @@
 #include "_Banana.h"
 #include "platform/OpenGL/OpenGLBuffer.h"
 
+#include "glad.h"
+#include "GLFW/glfw3.h"
+
 namespace Banana
 {
   OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)

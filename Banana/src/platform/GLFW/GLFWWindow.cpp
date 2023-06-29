@@ -5,6 +5,8 @@
 #include "event/MouseEvent.h"
 #include "event/ApplicationEvent.h"
 
+#include "glad.h"
+#include "GLFW/glfw3.h"
 
 namespace Banana
 {
