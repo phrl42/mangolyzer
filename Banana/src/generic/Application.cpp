@@ -61,42 +61,26 @@ namespace Banana
     {
       layer->OnAttach();
     }
-    
 
-    while(running && !Input::IsKeyPressed(KEY_ESCAPE))
+    double begin_time = 0.0f;
+    double dt = 0.1f;
+    while(running)
     {
+      begin_time = window->GetTime();
       window->PollEvents();
 
       RenderCommand::SetClearColor(glm::vec4(1, 0, 1, 1));
 
-      // toggling
-      static bool press = false;
-      static bool debug = true;
-
-      if(Input::IsKeyPressed(KEY_U) && !press)
-      {
-        press = true;
-        debug = !debug;
-      }
-
-      if(!Input::IsKeyPressed(KEY_U))
-      {
-        press = false;
-      }
-
       for(Layer* layer : layer_stack)
       {
-        if(layer->GetName() == "IMGUILAYER" && !debug)
-        {
-          continue;
-        }
-        layer->OnUpdate();
-
+        layer->OnUpdate(dt);
       }
 
       window->SwapBuffers();
 
       RenderCommand::Clear();
+
+      dt = window->GetTime() - begin_time;
     }
 
     for(Layer* layer : layer_stack)

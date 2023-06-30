@@ -34,7 +34,7 @@ namespace Banana
     virtual unsigned int GetWidth() = 0;
     virtual unsigned int GetHeight() = 0;
     
-    virtual float GetTime() = 0;
+    virtual double GetTime() = 0;
 
 		virtual void Resize(unsigned int width, unsigned int height) = 0;
 		virtual void SetEventCallback(const EventCallbackFunction& callback_function) = 0;

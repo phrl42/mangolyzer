@@ -179,9 +179,9 @@ namespace Banana
     return windowData.width;
   }
 
-  float GLFWWindow::GetTime()
+  double GLFWWindow::GetTime()
   {
-    return 1.0f;
+    return glfwGetTime();
   }
 
   void GLFWWindow::PollEvents()

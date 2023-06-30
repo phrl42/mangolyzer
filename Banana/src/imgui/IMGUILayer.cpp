@@ -6,6 +6,8 @@
 #include "imgui_internal.h"
 
 #include "Application.hpp"
+#include "event/Input.hpp"
+#include "event/KeyCode.h"
 
 namespace Banana
 {
@@ -56,8 +58,28 @@ namespace Banana
     ImGui::DestroyContext();
   }
 
-  void IMGUILayer::OnUpdate()
-  {
+  void IMGUILayer::OnUpdate(float dt)
+  {      
+    // toggling
+    static bool press = false;
+    static bool debug = true;
+
+    if(Input::IsKeyPressed(KEY_U) && !press)
+    {
+      press = true;
+      debug = !debug;
+    }
+
+    if(!Input::IsKeyPressed(KEY_U))
+    {
+      press = false;
+    }
+
+    if(!debug)
+    {
+      return;
+    }
+
     static bool show = true;
     static bool p_open = true;
 
@@ -108,7 +130,9 @@ namespace Banana
     ImGui::End();
 
     ImGui::Begin("Debug", nullptr, 0);
-    ImGui::Text("debug text");
+    std::string msg = "FPS: 60";
+    if(1 / dt < 59) msg = "FPS: " + std::to_string(1 / dt);
+    ImGui::Text(msg.c_str());
     ImGui::End();
 
     ImGui::Begin("Scene", nullptr, 0);

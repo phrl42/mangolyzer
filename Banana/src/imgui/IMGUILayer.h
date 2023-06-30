@@ -15,7 +15,7 @@ namespace Banana
     virtual void OnAttach() override;
     virtual void OnDetach() override;
 
-    virtual void OnUpdate() override;
+    virtual void OnUpdate(float dt) override;
     virtual void OnEvent(Event& event) override;
 
     virtual inline std::string& GetName() override { return name; }

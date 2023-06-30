@@ -1,9 +1,7 @@
 ../bin/obj/Debug/Banana/Shader.o: src/renderer/Shader.cpp \
  src/platform/OpenGL/OpenGLShader.h src/renderer/Shader.h _Banana.h \
  src/event/Event.h utility.h src/generic/Log.h \
- src/event/ApplicationEvent.h src/renderer/Renderer.h \
- src/renderer/RendererAPI.h src/renderer/VertexArray.h \
- src/renderer/Buffer.h vendor/GLM/glm/glm.hpp \
+ src/event/ApplicationEvent.h vendor/GLM/glm/glm.hpp \
  vendor/GLM/glm/detail/_fixes.hpp vendor/GLM/glm/detail/setup.hpp \
  vendor/GLM/glm/detail/../simd/platform.h vendor/GLM/glm/fwd.hpp \
  vendor/GLM/glm/detail/qualifier.hpp vendor/GLM/glm/detail/setup.hpp \
@@ -133,7 +131,9 @@
  vendor/GLM/glm/detail/func_trigonometric.inl vendor/GLM/glm/packing.hpp \
  vendor/GLM/glm/detail/func_packing.inl \
  vendor/GLM/glm/detail/type_half.hpp vendor/GLM/glm/detail/type_half.inl \
- vendor/GLM/glm/integer.hpp vendor/GLM/glm/detail/func_integer.inl
+ vendor/GLM/glm/integer.hpp vendor/GLM/glm/detail/func_integer.inl \
+ src/renderer/Renderer.h src/renderer/RendererAPI.h \
+ src/renderer/VertexArray.h src/renderer/Buffer.h
 src/platform/OpenGL/OpenGLShader.h:
 src/renderer/Shader.h:
 _Banana.h:
@@ -141,10 +141,6 @@ src/event/Event.h:
 utility.h:
 src/generic/Log.h:
 src/event/ApplicationEvent.h:
-src/renderer/Renderer.h:
-src/renderer/RendererAPI.h:
-src/renderer/VertexArray.h:
-src/renderer/Buffer.h:
 vendor/GLM/glm/glm.hpp:
 vendor/GLM/glm/detail/_fixes.hpp:
 vendor/GLM/glm/detail/setup.hpp:
@@ -286,3 +282,7 @@ vendor/GLM/glm/detail/type_half.hpp:
 vendor/GLM/glm/detail/type_half.inl:
 vendor/GLM/glm/integer.hpp:
 vendor/GLM/glm/detail/func_integer.inl:
+src/renderer/Renderer.h:
+src/renderer/RendererAPI.h:
+src/renderer/VertexArray.h:
+src/renderer/Buffer.h:

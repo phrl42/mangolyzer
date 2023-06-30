@@ -1,8 +1,7 @@
 ../bin/obj/Debug/Banana/Buffer.o: src/renderer/Buffer.cpp \
  src/renderer/Buffer.h utility.h src/generic/Log.h \
  src/renderer/Renderer.h _Banana.h src/event/Event.h \
- src/event/ApplicationEvent.h src/renderer/RendererAPI.h \
- src/renderer/VertexArray.h vendor/GLM/glm/glm.hpp \
+ src/event/ApplicationEvent.h vendor/GLM/glm/glm.hpp \
  vendor/GLM/glm/detail/_fixes.hpp vendor/GLM/glm/detail/setup.hpp \
  vendor/GLM/glm/detail/../simd/platform.h vendor/GLM/glm/fwd.hpp \
  vendor/GLM/glm/detail/qualifier.hpp vendor/GLM/glm/detail/setup.hpp \
@@ -133,6 +132,7 @@
  vendor/GLM/glm/detail/func_packing.inl \
  vendor/GLM/glm/detail/type_half.hpp vendor/GLM/glm/detail/type_half.inl \
  vendor/GLM/glm/integer.hpp vendor/GLM/glm/detail/func_integer.inl \
+ src/renderer/RendererAPI.h src/renderer/VertexArray.h \
  src/platform/OpenGL/OpenGLBuffer.h
 src/renderer/Buffer.h:
 utility.h:
@@ -141,8 +141,6 @@ src/renderer/Renderer.h:
 _Banana.h:
 src/event/Event.h:
 src/event/ApplicationEvent.h:
-src/renderer/RendererAPI.h:
-src/renderer/VertexArray.h:
 vendor/GLM/glm/glm.hpp:
 vendor/GLM/glm/detail/_fixes.hpp:
 vendor/GLM/glm/detail/setup.hpp:
@@ -284,4 +282,6 @@ vendor/GLM/glm/detail/type_half.hpp:
 vendor/GLM/glm/detail/type_half.inl:
 vendor/GLM/glm/integer.hpp:
 vendor/GLM/glm/detail/func_integer.inl:
+src/renderer/RendererAPI.h:
+src/renderer/VertexArray.h:
 src/platform/OpenGL/OpenGLBuffer.h:

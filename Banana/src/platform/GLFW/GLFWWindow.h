@@ -18,7 +18,7 @@ namespace Banana
     virtual unsigned int GetHeight() override;
     virtual unsigned int GetWidth() override;
 
-    virtual float GetTime() override;
+    virtual double GetTime() override;
 
     virtual void Resize(unsigned int width, unsigned int height) override;
     virtual void SetEventCallback(const EventCallbackFunction& callback) override { windowData.callback = callback; }
