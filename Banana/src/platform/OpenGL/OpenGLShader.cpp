@@ -7,7 +7,9 @@
 
 #include "glad.h"
 #include "GLFW/glfw3.h"
- 
+
+#include "gtc/type_ptr.hpp"
+
 namespace Banana
 {
   OpenGLShader::OpenGLShader(const std::string& file_path)
@@ -104,6 +106,68 @@ namespace Banana
     glDeleteShader(fragmentID);
 
     this->id = shaderID;
+  }
+
+  void OpenGLShader::UploadMat4f(const char* varName, glm::mat4 mat4) 
+  {
+    int varLocation = glGetUniformLocation(id, varName);
+    Bind();
+    glUniformMatrix4fv(varLocation, 1, GL_FALSE, glm::value_ptr(mat4));
+  }
+
+  void OpenGLShader::UploadMat3f(const char* varName, glm::mat3 mat3)
+  {
+    int varLocation = glGetUniformLocation(id, varName);
+    Bind();
+    glUniformMatrix3fv(varLocation, 1, GL_FALSE, glm::value_ptr(mat3));
+  }
+
+  void OpenGLShader::UploadVec4f(const char* varName, glm::vec4 vec4) 
+  {
+    int varLocation = glGetUniformLocation(id, varName);
+    Bind();
+    glUniform4f(varLocation, vec4.x, vec4.y, vec4.z, vec4.w);
+  }
+  void OpenGLShader::UploadVec3f(const char* varName, glm::vec3 vec3) 
+  {
+    int varLocation = glGetUniformLocation(id, varName);
+    Bind();
+    glUniform3f(varLocation, vec3.x, vec3.y, vec3.z);
+  }
+
+  void OpenGLShader::UploadVec2f(const char* varName, glm::vec2 vec2) 
+  {
+    int varLocation = glGetUniformLocation(id, varName);
+    Bind();
+    glUniform2f(varLocation, vec2.x, vec2.y);
+  }
+
+  void OpenGLShader::UploadFloat(const char* varName, float value) 
+  {
+    int varLocation = glGetUniformLocation(id, varName);
+    Bind();
+    glUniform1f(varLocation, value);
+  }
+
+  void OpenGLShader::UploadInt(const char* varName, int value) 
+  {
+    int varLocation = glGetUniformLocation(id, varName);
+    Bind();
+    glUniform1i(varLocation, value);
+  }
+  
+  void OpenGLShader::UploadIntArray(const char* varName, int arrayLength, int array[]) 
+  {
+    int varLocation = glGetUniformLocation(id, varName);
+    Bind();
+    glUniform1iv(varLocation, arrayLength, array);
+  }
+
+  void OpenGLShader::UploadTexture(const char* varName, int slot) 
+  {
+    int varLocation = glGetUniformLocation(id, varName);
+    Bind();
+    glUniform1i(varLocation, slot);
   }
 
 };
