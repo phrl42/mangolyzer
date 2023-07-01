@@ -20,6 +20,8 @@ namespace Banana
 
     virtual void DrawIndexed(const Shr<VertexArray>& vertex_array) = 0;
 
+    virtual void Init() = 0;
+
     inline static API GetAPI() { return api; }
 
   private:

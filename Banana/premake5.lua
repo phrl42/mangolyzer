@@ -25,6 +25,7 @@ project "Banana"
       "%{IncludeDir.GLAD}",
       "%{IncludeDir.IMGUI}",
       "%{IncludeDir.GLM}",
+      "%{IncludeDir.STB}",
       "%{wks.location}/Banana",
       "%{wks.location}/Banana/src",
       "%{wks.location}/Banana/src/generic"

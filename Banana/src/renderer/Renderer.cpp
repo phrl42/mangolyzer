@@ -3,6 +3,12 @@
 
 namespace Banana
 {
+
+  void Renderer::Init()
+  {
+    RenderCommand::Init();
+  }
+
   void Renderer::BeginScene()
   {
 

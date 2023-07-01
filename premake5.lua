@@ -9,6 +9,7 @@ IncludeDir["GLFW"] = "%{wks.location}/Banana/vendor/GLFW/include"
 IncludeDir["GLAD"] = "%{wks.location}/Banana/vendor/GLAD/include/glad"
 IncludeDir["IMGUI"] = "%{wks.location}/Banana/vendor/IMGUI"
 IncludeDir["GLM"] = "%{wks.location}/Banana/vendor/GLM/glm"
+IncludeDir["STB"] = "%{wks.location}/Banana/vendor/STB"
 
 defines {
   "MACRO_GLFW",

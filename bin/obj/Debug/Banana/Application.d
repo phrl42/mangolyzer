@@ -133,8 +133,9 @@
  vendor/GLM/glm/integer.hpp vendor/GLM/glm/detail/func_integer.inl \
  src/generic/Window.hpp src/layer/LayerStack.h src/layer/Layer.h \
  src/imgui/IMGUILayer.h src/event/Input.hpp src/event/KeyCode.h \
- src/renderer/RenderCommand.hpp src/renderer/RendererAPI.h \
- src/renderer/VertexArray.h src/renderer/Buffer.h
+ src/renderer/Renderer.h src/renderer/RendererAPI.h \
+ src/renderer/VertexArray.h src/renderer/Buffer.h \
+ src/renderer/RenderCommand.hpp
 src/generic/Application.hpp:
 _Banana.h:
 src/event/Event.h:
@@ -288,7 +289,8 @@ src/layer/Layer.h:
 src/imgui/IMGUILayer.h:
 src/event/Input.hpp:
 src/event/KeyCode.h:
-src/renderer/RenderCommand.hpp:
+src/renderer/Renderer.h:
 src/renderer/RendererAPI.h:
 src/renderer/VertexArray.h:
 src/renderer/Buffer.h:
+src/renderer/RenderCommand.hpp:

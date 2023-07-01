@@ -4,6 +4,7 @@
 #include "event/Input.hpp"
 #include "event/KeyCode.h"
 
+#include "renderer/Renderer.h"
 #include "renderer/RenderCommand.hpp"
 
 namespace Banana
@@ -28,6 +29,8 @@ namespace Banana
     window = Window::Create(prop);
 
     window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
+
+    Renderer::Init();
     
   }
 
