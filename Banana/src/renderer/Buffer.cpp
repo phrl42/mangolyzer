@@ -5,7 +5,7 @@
 
 namespace Banana
 {
-  Shr<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
+  Shr<VertexBuffer> VertexBuffer::Create(const BufferLayout& layout, uint32_t size)
   {
     switch(Renderer::GetAPI())
     {
@@ -18,7 +18,7 @@ namespace Banana
     
     case RendererAPI::API::OpenGL:
     {
-      return MakeShr<OpenGLVertexBuffer>(vertices, size);
+      return MakeShr<OpenGLVertexBuffer>(layout, size);
       break;
     }
 

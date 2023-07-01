@@ -8,18 +8,19 @@ namespace Banana
 
   struct Renderer2DStorage
   {
+    const uint32_t MAX_QUADS = 10000;
+    const uint32_t MAX_VERTICES = MAX_QUADS * 4;
+    const uint32_t MAX_INDICES = MAX_QUADS * 6;
+    
     Shr<VertexArray> vertex_array;
     Shr<Shader> shader;
-    
   };
 
-  static Renderer2DStorage* data;
+  static Renderer2DStorage data;
 
   void Renderer2D::Init()
   {
-    data = new Renderer2DStorage();
-
-    data->vertex_array = VertexArray::Create();
+    data.vertex_array = VertexArray::Create();
 
     float squareVertices[5 * 4] =
     {
@@ -28,26 +29,25 @@ namespace Banana
       0.5f, 0.5f, 0.0f,
       -0.5f, 0.5f, 0.0f
     };
-    Shr<VertexBuffer> vertex_buffer;
+    /*Shr<VertexBuffer> vertex_buffer;
     vertex_buffer = VertexBuffer::Create(squareVertices, sizeof(squareVertices));
 
     vertex_buffer->SetLayout({{ShaderDataType::Float3, "aPos"}});
 
-    data->vertex_array->AddVertexBuffer(vertex_buffer);
+    data.vertex_array->AddVertexBuffer(vertex_buffer);
 
     uint32_t squareIndices[6] = {0, 1, 2, 2, 3, 0};
 
     Shr<IndexBuffer> index_buffer = IndexBuffer::Create(squareIndices, sizeof(squareIndices));
 
-    data->vertex_array->SetIndexBuffer(index_buffer);
+    data.vertex_array->SetIndexBuffer(index_buffer);
 
-    data->shader = Shader::Create("assets/shaders/default.glsl");
-
+    data.shader = Shader::Create("assets/shaders/default.glsl");*/
   }
 
   void Renderer2D::Shutdown()
   {
-    delete data;
+
   }
 
   void Renderer2D::BeginScene()

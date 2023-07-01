@@ -6,11 +6,12 @@
 
 namespace Banana
 {
-  OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
+  OpenGLVertexBuffer::OpenGLVertexBuffer(const BufferLayout& layout, uint32_t size)
+  : layout(layout)
   {
     glCreateBuffers(1, &id);
 
-    glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
 
   }
 

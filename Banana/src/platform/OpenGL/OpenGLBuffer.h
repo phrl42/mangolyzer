@@ -5,13 +5,12 @@ namespace Banana
   class OpenGLVertexBuffer : public VertexBuffer
   {
   public:
-    OpenGLVertexBuffer(float* vertices, uint32_t size);
+    OpenGLVertexBuffer(const BufferLayout& layout, uint32_t size);
     virtual ~OpenGLVertexBuffer();
 
     virtual void Bind() override;
     virtual void Unbind() override;
 
-    virtual void SetLayout(const BufferLayout& layout) override { this->layout = layout; }
     virtual const BufferLayout& GetLayout() override { return layout; }
 
   private:

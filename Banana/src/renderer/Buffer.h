@@ -115,10 +115,9 @@ namespace Banana
     virtual void Bind() = 0;
     virtual void Unbind() = 0;
 
-    virtual void SetLayout(const BufferLayout& layout) = 0;
     virtual const BufferLayout& GetLayout() = 0;
 
-    static Shr<VertexBuffer> Create(float* vertices, uint32_t size);
+    static Shr<VertexBuffer> Create(const BufferLayout& layout, uint32_t size);
   };
 
   class IndexBuffer
