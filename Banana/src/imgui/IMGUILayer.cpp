@@ -58,6 +58,11 @@ namespace Banana
     ImGui::DestroyContext();
   }
 
+  void IMGUILayer::ImguiRender()
+  {
+    
+  }
+
   void IMGUILayer::OnUpdate(float dt)
   {      
     // toggling

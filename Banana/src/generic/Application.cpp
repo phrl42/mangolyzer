@@ -5,6 +5,7 @@
 #include "event/KeyCode.h"
 
 #include "renderer/Renderer.h"
+
 #include "renderer/RenderCommand.hpp"
 
 namespace Banana
@@ -38,6 +39,7 @@ namespace Banana
   {
     EventDispatcher dispatcher(e);
     dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
+    dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(Application::OnWindowResize));
 
     for(auto it = layer_stack.end(); it != layer_stack.begin();)
     {
@@ -55,6 +57,21 @@ namespace Banana
     running = false;
     return true;
   }
+  
+  bool Application::OnWindowResize(WindowResizeEvent& e)
+  {
+    if(!e.getWidth() || !e.getHeight()) 
+    {
+      minimized = true;
+      return false;
+    }
+    // tell opengl to resize framebuffer
+    Renderer::OnWindowResize(e.getWidth(), e.getHeight());
+
+    minimized = false;
+    return false;
+  }
+
 
   void Application::Run()
   {
@@ -74,13 +91,16 @@ namespace Banana
 
       RenderCommand::SetClearColor(glm::vec4(1, 0, 1, 1));
 
-      for(Layer* layer : layer_stack)
+      if(!minimized)
       {
-        layer->OnUpdate(dt);
+        for(Layer* layer : layer_stack)
+        {
+          layer->OnUpdate(dt);
+        }
       }
 
       window->SwapBuffers();
-
+      
       RenderCommand::Clear();
 
       dt = window->GetTime() - begin_time;

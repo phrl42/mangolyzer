@@ -15,8 +15,6 @@ namespace Banana
 
     virtual void AddVertexBuffer(const Shr<VertexBuffer>& vertex_buffer) override;
     virtual void SetIndexBuffer(const Shr<IndexBuffer>& index_buffer) override;
-    virtual void SetLayout(const BufferLayout& layout) override;
-
 
 		virtual Shr<VertexBuffer>& GetVertexBuffer() override { return vertex_buffer; }
 		virtual Shr<IndexBuffer>& GetElementBuffer() override { return index_buffer; }

@@ -15,6 +15,8 @@ namespace Banana
     inline static void SetClearColor(const glm::vec4& color) { api->SetClearColor(color); }
     inline static void Init() {api->Init();}
 
+    inline static void SetViewPort(uint32_t x, uint32_t y, uint32_t width, uint32_t height) { api->SetViewPort(x, y, width, height); }
+
   private:
     static RendererAPI* api;
   };

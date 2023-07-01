@@ -18,6 +18,8 @@ namespace SANDBOX
     virtual void OnUpdate(float dt) override;
     virtual void OnEvent(Banana::Event& event) override;
 
+    virtual void ImguiRender() override;
+
     virtual inline std::string& GetName() override { return name; }
   
   private:

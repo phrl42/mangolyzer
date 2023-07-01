@@ -29,6 +29,7 @@ namespace Banana
   
   private:
     bool OnWindowClose(WindowCloseEvent& e);
+    bool OnWindowResize(WindowResizeEvent& e);
 
     LayerStack layer_stack;
     std::unique_ptr<Window> window;
@@ -36,6 +37,7 @@ namespace Banana
     static Application* Instance;
 
     bool running = true;
+    bool minimized = false;
   };
 
   // definition is in client
