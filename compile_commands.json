@@ -9,63 +9,12 @@
       "-g",
       "-c",
       "-o",
-      "../../../bin/obj/Debug/GLFW/glx_context.o",
-      "src/glx_context.c"
-    ],
-    "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW",
-    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW/src/glx_context.c",
-    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/GLFW/glx_context.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/cc",
-      "-DMACRO_GLFW",
-      "-DMACRO_OPENGL",
-      "-D_GLFW_X11",
-      "-fPIC",
-      "-g",
-      "-c",
-      "-o",
       "../../../bin/obj/Debug/GLFW/context.o",
       "src/context.c"
     ],
     "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW",
     "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW/src/context.c",
     "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/GLFW/context.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/cc",
-      "-DMACRO_GLFW",
-      "-DMACRO_OPENGL",
-      "-D_GLFW_X11",
-      "-fPIC",
-      "-g",
-      "-c",
-      "-o",
-      "../../../bin/obj/Debug/GLFW/input.o",
-      "src/input.c"
-    ],
-    "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW",
-    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW/src/input.c",
-    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/GLFW/input.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/cc",
-      "-DMACRO_GLFW",
-      "-DMACRO_OPENGL",
-      "-D_GLFW_X11",
-      "-fPIC",
-      "-g",
-      "-c",
-      "-o",
-      "../../../bin/obj/Debug/GLFW/egl_context.o",
-      "src/egl_context.c"
-    ],
-    "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW",
-    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW/src/egl_context.c",
-    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/GLFW/egl_context.o"
   },
   {
     "arguments": [
@@ -111,6 +60,40 @@
       "-g",
       "-c",
       "-o",
+      "../../../bin/obj/Debug/GLFW/glx_context.o",
+      "src/glx_context.c"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW",
+    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW/src/glx_context.c",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/GLFW/glx_context.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-DMACRO_GLFW",
+      "-DMACRO_OPENGL",
+      "-D_GLFW_X11",
+      "-fPIC",
+      "-g",
+      "-c",
+      "-o",
+      "../../../bin/obj/Debug/GLFW/osmesa_context.o",
+      "src/osmesa_context.c"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW",
+    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW/src/osmesa_context.c",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/GLFW/osmesa_context.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-DMACRO_GLFW",
+      "-DMACRO_OPENGL",
+      "-D_GLFW_X11",
+      "-fPIC",
+      "-g",
+      "-c",
+      "-o",
       "../../../bin/obj/Debug/GLFW/null_monitor.o",
       "src/null_monitor.c"
     ],
@@ -128,12 +111,12 @@
       "-g",
       "-c",
       "-o",
-      "../../../bin/obj/Debug/GLFW/monitor.o",
-      "src/monitor.c"
+      "../../../bin/obj/Debug/GLFW/egl_context.o",
+      "src/egl_context.c"
     ],
     "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW",
-    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW/src/monitor.c",
-    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/GLFW/monitor.o"
+    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW/src/egl_context.c",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/GLFW/egl_context.o"
   },
   {
     "arguments": [
@@ -174,35 +157,34 @@
       "/usr/bin/cc",
       "-DMACRO_GLFW",
       "-DMACRO_OPENGL",
-      "-Iinclude",
+      "-D_GLFW_X11",
+      "-fPIC",
       "-g",
       "-c",
       "-o",
-      "../../../bin/obj/Debug/GLAD/glad.o",
-      "src/glad.c"
+      "../../../bin/obj/Debug/GLFW/monitor.o",
+      "src/monitor.c"
     ],
-    "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLAD",
-    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLAD/src/glad.c",
-    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/GLAD/glad.o"
+    "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW",
+    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW/src/monitor.c",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/GLFW/monitor.o"
   },
   {
     "arguments": [
-      "/usr/bin/g++",
+      "/usr/bin/cc",
       "-DMACRO_GLFW",
       "-DMACRO_OPENGL",
-      "-I.",
-      "-I../GLFW/include",
+      "-D_GLFW_X11",
       "-fPIC",
       "-g",
-      "-std=c++17",
       "-c",
       "-o",
-      "../../../bin/obj/Debug/IMGUI/imgui.o",
-      "imgui.cpp"
+      "../../../bin/obj/Debug/GLFW/input.o",
+      "src/input.c"
     ],
-    "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/IMGUI",
-    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/IMGUI/imgui.cpp",
-    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/IMGUI/imgui.o"
+    "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW",
+    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW/src/input.c",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/GLFW/input.o"
   },
   {
     "arguments": [
@@ -231,12 +213,12 @@
       "-g",
       "-c",
       "-o",
-      "../../../bin/obj/Debug/GLFW/osmesa_context.o",
-      "src/osmesa_context.c"
+      "../../../bin/obj/Debug/GLFW/platform.o",
+      "src/platform.c"
     ],
     "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW",
-    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW/src/osmesa_context.c",
-    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/GLFW/osmesa_context.o"
+    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW/src/platform.c",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/GLFW/platform.o"
   },
   {
     "arguments": [
@@ -248,12 +230,12 @@
       "-g",
       "-c",
       "-o",
-      "../../../bin/obj/Debug/GLFW/platform.o",
-      "src/platform.c"
+      "../../../bin/obj/Debug/GLFW/posix_thread.o",
+      "src/posix_thread.c"
     ],
     "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW",
-    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW/src/platform.c",
-    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/GLFW/platform.o"
+    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW/src/posix_thread.c",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/GLFW/posix_thread.o"
   },
   {
     "arguments": [
@@ -299,12 +281,29 @@
       "-g",
       "-c",
       "-o",
-      "../../../bin/obj/Debug/GLFW/posix_thread.o",
-      "src/posix_thread.c"
+      "../../../bin/obj/Debug/GLFW/vulkan.o",
+      "src/vulkan.c"
     ],
     "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW",
-    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW/src/posix_thread.c",
-    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/GLFW/posix_thread.o"
+    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW/src/vulkan.c",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/GLFW/vulkan.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-DMACRO_GLFW",
+      "-DMACRO_OPENGL",
+      "-D_GLFW_X11",
+      "-fPIC",
+      "-g",
+      "-c",
+      "-o",
+      "../../../bin/obj/Debug/GLFW/x11_monitor.o",
+      "src/x11_monitor.c"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW",
+    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW/src/x11_monitor.c",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/GLFW/x11_monitor.o"
   },
   {
     "arguments": [
@@ -333,46 +332,12 @@
       "-g",
       "-c",
       "-o",
-      "../../../bin/obj/Debug/GLFW/vulkan.o",
-      "src/vulkan.c"
-    ],
-    "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW",
-    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW/src/vulkan.c",
-    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/GLFW/vulkan.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/cc",
-      "-DMACRO_GLFW",
-      "-DMACRO_OPENGL",
-      "-D_GLFW_X11",
-      "-fPIC",
-      "-g",
-      "-c",
-      "-o",
       "../../../bin/obj/Debug/GLFW/x11_init.o",
       "src/x11_init.c"
     ],
     "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW",
     "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW/src/x11_init.c",
     "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/GLFW/x11_init.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/cc",
-      "-DMACRO_GLFW",
-      "-DMACRO_OPENGL",
-      "-D_GLFW_X11",
-      "-fPIC",
-      "-g",
-      "-c",
-      "-o",
-      "../../../bin/obj/Debug/GLFW/x11_monitor.o",
-      "src/x11_monitor.c"
-    ],
-    "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW",
-    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLFW/src/x11_monitor.c",
-    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/GLFW/x11_monitor.o"
   },
   {
     "arguments": [
@@ -410,22 +375,19 @@
   },
   {
     "arguments": [
-      "/usr/bin/g++",
+      "/usr/bin/cc",
       "-DMACRO_GLFW",
       "-DMACRO_OPENGL",
-      "-I.",
-      "-I../GLFW/include",
-      "-fPIC",
+      "-Iinclude",
       "-g",
-      "-std=c++17",
       "-c",
       "-o",
-      "../../../bin/obj/Debug/IMGUI/imgui_demo.o",
-      "imgui_demo.cpp"
+      "../../../bin/obj/Debug/GLAD/glad.o",
+      "src/glad.c"
     ],
-    "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/IMGUI",
-    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/IMGUI/imgui_demo.cpp",
-    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/IMGUI/imgui_demo.o"
+    "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLAD",
+    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/GLAD/src/glad.c",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/GLAD/glad.o"
   },
   {
     "arguments": [
@@ -439,12 +401,12 @@
       "-std=c++17",
       "-c",
       "-o",
-      "../../../bin/obj/Debug/IMGUI/imgui_tables.o",
-      "imgui_tables.cpp"
+      "../../../bin/obj/Debug/IMGUI/imgui.o",
+      "imgui.cpp"
     ],
     "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/IMGUI",
-    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/IMGUI/imgui_tables.cpp",
-    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/IMGUI/imgui_tables.o"
+    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/IMGUI/imgui.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/IMGUI/imgui.o"
   },
   {
     "arguments": [
@@ -496,12 +458,12 @@
       "-std=c++17",
       "-c",
       "-o",
-      "../../../bin/obj/Debug/IMGUI/imgui_draw.o",
-      "imgui_draw.cpp"
+      "../../../bin/obj/Debug/IMGUI/imgui_demo.o",
+      "imgui_demo.cpp"
     ],
     "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/IMGUI",
-    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/IMGUI/imgui_draw.cpp",
-    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/IMGUI/imgui_draw.o"
+    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/IMGUI/imgui_demo.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/IMGUI/imgui_demo.o"
   },
   {
     "arguments": [
@@ -521,6 +483,44 @@
     "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/IMGUI",
     "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/IMGUI/imgui_widgets.cpp",
     "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/IMGUI/imgui_widgets.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DMACRO_GLFW",
+      "-DMACRO_OPENGL",
+      "-I.",
+      "-I../GLFW/include",
+      "-fPIC",
+      "-g",
+      "-std=c++17",
+      "-c",
+      "-o",
+      "../../../bin/obj/Debug/IMGUI/imgui_tables.o",
+      "imgui_tables.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/IMGUI",
+    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/IMGUI/imgui_tables.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/IMGUI/imgui_tables.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DMACRO_GLFW",
+      "-DMACRO_OPENGL",
+      "-I.",
+      "-I../GLFW/include",
+      "-fPIC",
+      "-g",
+      "-std=c++17",
+      "-c",
+      "-o",
+      "../../../bin/obj/Debug/IMGUI/imgui_draw.o",
+      "imgui_draw.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana/Banana/vendor/IMGUI",
+    "file": "/home/pherel/Tools/Projects/banana/Banana/vendor/IMGUI/imgui_draw.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/IMGUI/imgui_draw.o"
   },
   {
     "arguments": [
@@ -551,8 +551,6 @@
   {
     "arguments": [
       "/usr/bin/g++",
-      "-include",
-      "../bin/obj/Debug/Banana/incs.h",
       "-DMACRO_GLFW",
       "-DMACRO_OPENGL",
       "-DBUILD_DEBUG",
@@ -565,6 +563,8 @@
       "-Isrc",
       "-Isrc/generic",
       "-g",
+      "-include",
+      "../bin/obj/Debug/Banana/incs.h",
       "-c",
       "-o",
       "../bin/obj/Debug/Banana/Application.o",
@@ -577,8 +577,6 @@
   {
     "arguments": [
       "/usr/bin/g++",
-      "-include",
-      "../bin/obj/Debug/Banana/incs.h",
       "-DMACRO_GLFW",
       "-DMACRO_OPENGL",
       "-DBUILD_DEBUG",
@@ -591,188 +589,8 @@
       "-Isrc",
       "-Isrc/generic",
       "-g",
-      "-c",
-      "-o",
-      "../bin/obj/Debug/Banana/GLFWInput.o",
-      "src/platform/GLFW/GLFWInput.cpp"
-    ],
-    "directory": "/home/pherel/Tools/Projects/banana/Banana",
-    "file": "/home/pherel/Tools/Projects/banana/Banana/src/platform/GLFW/GLFWInput.cpp",
-    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/Banana/GLFWInput.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/g++",
       "-include",
       "../bin/obj/Debug/Banana/incs.h",
-      "-DMACRO_GLFW",
-      "-DMACRO_OPENGL",
-      "-DBUILD_DEBUG",
-      "-Ivendor/GLFW/include",
-      "-Ivendor/GLAD/include/glad",
-      "-Ivendor/IMGUI",
-      "-Ivendor/GLM/glm",
-      "-Ivendor/STB",
-      "-I.",
-      "-Isrc",
-      "-Isrc/generic",
-      "-g",
-      "-c",
-      "-o",
-      "../bin/obj/Debug/Banana/LayerStack.o",
-      "src/layer/LayerStack.cpp"
-    ],
-    "directory": "/home/pherel/Tools/Projects/banana/Banana",
-    "file": "/home/pherel/Tools/Projects/banana/Banana/src/layer/LayerStack.cpp",
-    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/Banana/LayerStack.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/g++",
-      "-include",
-      "../bin/obj/Debug/Banana/incs.h",
-      "-DMACRO_GLFW",
-      "-DMACRO_OPENGL",
-      "-DBUILD_DEBUG",
-      "-Ivendor/GLFW/include",
-      "-Ivendor/GLAD/include/glad",
-      "-Ivendor/IMGUI",
-      "-Ivendor/GLM/glm",
-      "-Ivendor/STB",
-      "-I.",
-      "-Isrc",
-      "-Isrc/generic",
-      "-g",
-      "-c",
-      "-o",
-      "../bin/obj/Debug/Banana/OpenGLBuffer.o",
-      "src/platform/OpenGL/OpenGLBuffer.cpp"
-    ],
-    "directory": "/home/pherel/Tools/Projects/banana/Banana",
-    "file": "/home/pherel/Tools/Projects/banana/Banana/src/platform/OpenGL/OpenGLBuffer.cpp",
-    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/Banana/OpenGLBuffer.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/g++",
-      "-include",
-      "../bin/obj/Debug/Banana/incs.h",
-      "-DMACRO_GLFW",
-      "-DMACRO_OPENGL",
-      "-DBUILD_DEBUG",
-      "-Ivendor/GLFW/include",
-      "-Ivendor/GLAD/include/glad",
-      "-Ivendor/IMGUI",
-      "-Ivendor/GLM/glm",
-      "-Ivendor/STB",
-      "-I.",
-      "-Isrc",
-      "-Isrc/generic",
-      "-g",
-      "-c",
-      "-o",
-      "../bin/obj/Debug/Banana/Layer.o",
-      "src/layer/Layer.cpp"
-    ],
-    "directory": "/home/pherel/Tools/Projects/banana/Banana",
-    "file": "/home/pherel/Tools/Projects/banana/Banana/src/layer/Layer.cpp",
-    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/Banana/Layer.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/g++",
-      "-include",
-      "../bin/obj/Debug/Banana/incs.h",
-      "-DMACRO_GLFW",
-      "-DMACRO_OPENGL",
-      "-DBUILD_DEBUG",
-      "-Ivendor/GLFW/include",
-      "-Ivendor/GLAD/include/glad",
-      "-Ivendor/IMGUI",
-      "-Ivendor/GLM/glm",
-      "-Ivendor/STB",
-      "-I.",
-      "-Isrc",
-      "-Isrc/generic",
-      "-g",
-      "-c",
-      "-o",
-      "../bin/obj/Debug/Banana/Buffer.o",
-      "src/renderer/Buffer.cpp"
-    ],
-    "directory": "/home/pherel/Tools/Projects/banana/Banana",
-    "file": "/home/pherel/Tools/Projects/banana/Banana/src/renderer/Buffer.cpp",
-    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/Banana/Buffer.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/g++",
-      "-include",
-      "../bin/obj/Debug/Banana/incs.h",
-      "-DMACRO_GLFW",
-      "-DMACRO_OPENGL",
-      "-DBUILD_DEBUG",
-      "-Ivendor/GLFW/include",
-      "-Ivendor/GLAD/include/glad",
-      "-Ivendor/IMGUI",
-      "-Ivendor/GLM/glm",
-      "-Ivendor/STB",
-      "-I.",
-      "-Isrc",
-      "-Isrc/generic",
-      "-g",
-      "-c",
-      "-o",
-      "../bin/obj/Debug/Banana/Input.o",
-      "src/event/Input.cpp"
-    ],
-    "directory": "/home/pherel/Tools/Projects/banana/Banana",
-    "file": "/home/pherel/Tools/Projects/banana/Banana/src/event/Input.cpp",
-    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/Banana/Input.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/g++",
-      "-include",
-      "../bin/obj/Debug/Banana/incs.h",
-      "-DMACRO_GLFW",
-      "-DMACRO_OPENGL",
-      "-DBUILD_DEBUG",
-      "-Ivendor/GLFW/include",
-      "-Ivendor/GLAD/include/glad",
-      "-Ivendor/IMGUI",
-      "-Ivendor/GLM/glm",
-      "-Ivendor/STB",
-      "-I.",
-      "-Isrc",
-      "-Isrc/generic",
-      "-g",
-      "-c",
-      "-o",
-      "../bin/obj/Debug/Banana/Context.o",
-      "src/renderer/Context.cpp"
-    ],
-    "directory": "/home/pherel/Tools/Projects/banana/Banana",
-    "file": "/home/pherel/Tools/Projects/banana/Banana/src/renderer/Context.cpp",
-    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/Banana/Context.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/g++",
-      "-include",
-      "../bin/obj/Debug/Banana/incs.h",
-      "-DMACRO_GLFW",
-      "-DMACRO_OPENGL",
-      "-DBUILD_DEBUG",
-      "-Ivendor/GLFW/include",
-      "-Ivendor/GLAD/include/glad",
-      "-Ivendor/IMGUI",
-      "-Ivendor/GLM/glm",
-      "-Ivendor/STB",
-      "-I.",
-      "-Isrc",
-      "-Isrc/generic",
-      "-g",
       "-c",
       "-o",
       "../bin/obj/Debug/Banana/GLFWWindow.o",
@@ -785,8 +603,6 @@
   {
     "arguments": [
       "/usr/bin/g++",
-      "-include",
-      "../bin/obj/Debug/Banana/incs.h",
       "-DMACRO_GLFW",
       "-DMACRO_OPENGL",
       "-DBUILD_DEBUG",
@@ -799,6 +615,60 @@
       "-Isrc",
       "-Isrc/generic",
       "-g",
+      "-include",
+      "../bin/obj/Debug/Banana/incs.h",
+      "-c",
+      "-o",
+      "../bin/obj/Debug/Banana/LayerStack.o",
+      "src/layer/LayerStack.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana/Banana",
+    "file": "/home/pherel/Tools/Projects/banana/Banana/src/layer/LayerStack.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/Banana/LayerStack.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DMACRO_GLFW",
+      "-DMACRO_OPENGL",
+      "-DBUILD_DEBUG",
+      "-Ivendor/GLFW/include",
+      "-Ivendor/GLAD/include/glad",
+      "-Ivendor/IMGUI",
+      "-Ivendor/GLM/glm",
+      "-Ivendor/STB",
+      "-I.",
+      "-Isrc",
+      "-Isrc/generic",
+      "-g",
+      "-include",
+      "../bin/obj/Debug/Banana/incs.h",
+      "-c",
+      "-o",
+      "../bin/obj/Debug/Banana/Layer.o",
+      "src/layer/Layer.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana/Banana",
+    "file": "/home/pherel/Tools/Projects/banana/Banana/src/layer/Layer.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/Banana/Layer.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DMACRO_GLFW",
+      "-DMACRO_OPENGL",
+      "-DBUILD_DEBUG",
+      "-Ivendor/GLFW/include",
+      "-Ivendor/GLAD/include/glad",
+      "-Ivendor/IMGUI",
+      "-Ivendor/GLM/glm",
+      "-Ivendor/STB",
+      "-I.",
+      "-Isrc",
+      "-Isrc/generic",
+      "-g",
+      "-include",
+      "../bin/obj/Debug/Banana/incs.h",
       "-c",
       "-o",
       "../bin/obj/Debug/Banana/IMGUILayer.o",
@@ -811,8 +681,6 @@
   {
     "arguments": [
       "/usr/bin/g++",
-      "-include",
-      "../bin/obj/Debug/Banana/incs.h",
       "-DMACRO_GLFW",
       "-DMACRO_OPENGL",
       "-DBUILD_DEBUG",
@@ -825,6 +693,8 @@
       "-Isrc",
       "-Isrc/generic",
       "-g",
+      "-include",
+      "../bin/obj/Debug/Banana/incs.h",
       "-c",
       "-o",
       "../bin/obj/Debug/Banana/OpenGLRendererAPI.o",
@@ -837,8 +707,6 @@
   {
     "arguments": [
       "/usr/bin/g++",
-      "-include",
-      "../bin/obj/Debug/Banana/incs.h",
       "-DMACRO_GLFW",
       "-DMACRO_OPENGL",
       "-DBUILD_DEBUG",
@@ -851,6 +719,34 @@
       "-Isrc",
       "-Isrc/generic",
       "-g",
+      "-include",
+      "../bin/obj/Debug/Banana/incs.h",
+      "-c",
+      "-o",
+      "../bin/obj/Debug/Banana/OpenGLBuffer.o",
+      "src/platform/OpenGL/OpenGLBuffer.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana/Banana",
+    "file": "/home/pherel/Tools/Projects/banana/Banana/src/platform/OpenGL/OpenGLBuffer.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/Banana/OpenGLBuffer.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DMACRO_GLFW",
+      "-DMACRO_OPENGL",
+      "-DBUILD_DEBUG",
+      "-Ivendor/GLFW/include",
+      "-Ivendor/GLAD/include/glad",
+      "-Ivendor/IMGUI",
+      "-Ivendor/GLM/glm",
+      "-Ivendor/STB",
+      "-I.",
+      "-Isrc",
+      "-Isrc/generic",
+      "-g",
+      "-include",
+      "../bin/obj/Debug/Banana/incs.h",
       "-c",
       "-o",
       "../bin/obj/Debug/Banana/OpenGLContext.o",
@@ -863,8 +759,6 @@
   {
     "arguments": [
       "/usr/bin/g++",
-      "-include",
-      "../bin/obj/Debug/Banana/incs.h",
       "-DMACRO_GLFW",
       "-DMACRO_OPENGL",
       "-DBUILD_DEBUG",
@@ -877,6 +771,8 @@
       "-Isrc",
       "-Isrc/generic",
       "-g",
+      "-include",
+      "../bin/obj/Debug/Banana/incs.h",
       "-c",
       "-o",
       "../bin/obj/Debug/Banana/OpenGLShader.o",
@@ -889,8 +785,6 @@
   {
     "arguments": [
       "/usr/bin/g++",
-      "-include",
-      "../bin/obj/Debug/Banana/incs.h",
       "-DMACRO_GLFW",
       "-DMACRO_OPENGL",
       "-DBUILD_DEBUG",
@@ -903,6 +797,86 @@
       "-Isrc",
       "-Isrc/generic",
       "-g",
+      "-include",
+      "../bin/obj/Debug/Banana/incs.h",
+      "-c",
+      "-o",
+      "../bin/obj/Debug/Banana/Window.o",
+      "src/generic/Window.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana/Banana",
+    "file": "/home/pherel/Tools/Projects/banana/Banana/src/generic/Window.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/Banana/Window.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DMACRO_GLFW",
+      "-DMACRO_OPENGL",
+      "-DBUILD_DEBUG",
+      "-Ivendor/GLFW/include",
+      "-Ivendor/GLAD/include/glad",
+      "-Ivendor/IMGUI",
+      "-Ivendor/GLM/glm",
+      "-Ivendor/STB",
+      "-I.",
+      "-Isrc",
+      "-Isrc/generic",
+      "-g",
+      "-include",
+      "../bin/obj/Debug/Banana/incs.h",
+      "-c",
+      "-o",
+      "../bin/obj/Debug/Banana/GLFWInput.o",
+      "src/platform/GLFW/GLFWInput.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana/Banana",
+    "file": "/home/pherel/Tools/Projects/banana/Banana/src/platform/GLFW/GLFWInput.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/Banana/GLFWInput.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DMACRO_GLFW",
+      "-DMACRO_OPENGL",
+      "-DBUILD_DEBUG",
+      "-Ivendor/GLFW/include",
+      "-Ivendor/GLAD/include/glad",
+      "-Ivendor/IMGUI",
+      "-Ivendor/GLM/glm",
+      "-Ivendor/STB",
+      "-I.",
+      "-Isrc",
+      "-Isrc/generic",
+      "-g",
+      "-include",
+      "../bin/obj/Debug/Banana/incs.h",
+      "-c",
+      "-o",
+      "../bin/obj/Debug/Banana/Input.o",
+      "src/event/Input.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana/Banana",
+    "file": "/home/pherel/Tools/Projects/banana/Banana/src/event/Input.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/Banana/Input.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DMACRO_GLFW",
+      "-DMACRO_OPENGL",
+      "-DBUILD_DEBUG",
+      "-Ivendor/GLFW/include",
+      "-Ivendor/GLAD/include/glad",
+      "-Ivendor/IMGUI",
+      "-Ivendor/GLM/glm",
+      "-Ivendor/STB",
+      "-I.",
+      "-Isrc",
+      "-Isrc/generic",
+      "-g",
+      "-include",
+      "../bin/obj/Debug/Banana/incs.h",
       "-c",
       "-o",
       "../bin/obj/Debug/Banana/OpenGLTexture.o",
@@ -915,8 +889,6 @@
   {
     "arguments": [
       "/usr/bin/g++",
-      "-include",
-      "../bin/obj/Debug/Banana/incs.h",
       "-DMACRO_GLFW",
       "-DMACRO_OPENGL",
       "-DBUILD_DEBUG",
@@ -929,6 +901,8 @@
       "-Isrc",
       "-Isrc/generic",
       "-g",
+      "-include",
+      "../bin/obj/Debug/Banana/incs.h",
       "-c",
       "-o",
       "../bin/obj/Debug/Banana/OpenGLVertexArray.o",
@@ -941,8 +915,6 @@
   {
     "arguments": [
       "/usr/bin/g++",
-      "-include",
-      "../bin/obj/Debug/Banana/incs.h",
       "-DMACRO_GLFW",
       "-DMACRO_OPENGL",
       "-DBUILD_DEBUG",
@@ -955,6 +927,34 @@
       "-Isrc",
       "-Isrc/generic",
       "-g",
+      "-include",
+      "../bin/obj/Debug/Banana/incs.h",
+      "-c",
+      "-o",
+      "../bin/obj/Debug/Banana/Buffer.o",
+      "src/renderer/Buffer.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana/Banana",
+    "file": "/home/pherel/Tools/Projects/banana/Banana/src/renderer/Buffer.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/Banana/Buffer.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DMACRO_GLFW",
+      "-DMACRO_OPENGL",
+      "-DBUILD_DEBUG",
+      "-Ivendor/GLFW/include",
+      "-Ivendor/GLAD/include/glad",
+      "-Ivendor/IMGUI",
+      "-Ivendor/GLM/glm",
+      "-Ivendor/STB",
+      "-I.",
+      "-Isrc",
+      "-Isrc/generic",
+      "-g",
+      "-include",
+      "../bin/obj/Debug/Banana/incs.h",
       "-c",
       "-o",
       "../bin/obj/Debug/Banana/RenderCommand.o",
@@ -967,8 +967,6 @@
   {
     "arguments": [
       "/usr/bin/g++",
-      "-include",
-      "../bin/obj/Debug/Banana/incs.h",
       "-DMACRO_GLFW",
       "-DMACRO_OPENGL",
       "-DBUILD_DEBUG",
@@ -981,6 +979,8 @@
       "-Isrc",
       "-Isrc/generic",
       "-g",
+      "-include",
+      "../bin/obj/Debug/Banana/incs.h",
       "-c",
       "-o",
       "../bin/obj/Debug/Banana/Renderer.o",
@@ -993,8 +993,6 @@
   {
     "arguments": [
       "/usr/bin/g++",
-      "-include",
-      "../bin/obj/Debug/Banana/incs.h",
       "-DMACRO_GLFW",
       "-DMACRO_OPENGL",
       "-DBUILD_DEBUG",
@@ -1007,6 +1005,60 @@
       "-Isrc",
       "-Isrc/generic",
       "-g",
+      "-include",
+      "../bin/obj/Debug/Banana/incs.h",
+      "-c",
+      "-o",
+      "../bin/obj/Debug/Banana/Context.o",
+      "src/renderer/Context.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana/Banana",
+    "file": "/home/pherel/Tools/Projects/banana/Banana/src/renderer/Context.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/Banana/Context.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DMACRO_GLFW",
+      "-DMACRO_OPENGL",
+      "-DBUILD_DEBUG",
+      "-Ivendor/GLFW/include",
+      "-Ivendor/GLAD/include/glad",
+      "-Ivendor/IMGUI",
+      "-Ivendor/GLM/glm",
+      "-Ivendor/STB",
+      "-I.",
+      "-Isrc",
+      "-Isrc/generic",
+      "-g",
+      "-include",
+      "../bin/obj/Debug/Banana/incs.h",
+      "-c",
+      "-o",
+      "../bin/obj/Debug/Banana/Renderer2D.o",
+      "src/renderer/Renderer2D.cpp"
+    ],
+    "directory": "/home/pherel/Tools/Projects/banana/Banana",
+    "file": "/home/pherel/Tools/Projects/banana/Banana/src/renderer/Renderer2D.cpp",
+    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/Banana/Renderer2D.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DMACRO_GLFW",
+      "-DMACRO_OPENGL",
+      "-DBUILD_DEBUG",
+      "-Ivendor/GLFW/include",
+      "-Ivendor/GLAD/include/glad",
+      "-Ivendor/IMGUI",
+      "-Ivendor/GLM/glm",
+      "-Ivendor/STB",
+      "-I.",
+      "-Isrc",
+      "-Isrc/generic",
+      "-g",
+      "-include",
+      "../bin/obj/Debug/Banana/incs.h",
       "-c",
       "-o",
       "../bin/obj/Debug/Banana/RendererAPI.o",
@@ -1019,8 +1071,6 @@
   {
     "arguments": [
       "/usr/bin/g++",
-      "-include",
-      "../bin/obj/Debug/Banana/incs.h",
       "-DMACRO_GLFW",
       "-DMACRO_OPENGL",
       "-DBUILD_DEBUG",
@@ -1033,6 +1083,8 @@
       "-Isrc",
       "-Isrc/generic",
       "-g",
+      "-include",
+      "../bin/obj/Debug/Banana/incs.h",
       "-c",
       "-o",
       "../bin/obj/Debug/Banana/Shader.o",
@@ -1045,8 +1097,6 @@
   {
     "arguments": [
       "/usr/bin/g++",
-      "-include",
-      "../bin/obj/Debug/Banana/incs.h",
       "-DMACRO_GLFW",
       "-DMACRO_OPENGL",
       "-DBUILD_DEBUG",
@@ -1059,6 +1109,8 @@
       "-Isrc",
       "-Isrc/generic",
       "-g",
+      "-include",
+      "../bin/obj/Debug/Banana/incs.h",
       "-c",
       "-o",
       "../bin/obj/Debug/Banana/Texture.o",
@@ -1071,8 +1123,6 @@
   {
     "arguments": [
       "/usr/bin/g++",
-      "-include",
-      "../bin/obj/Debug/Banana/incs.h",
       "-DMACRO_GLFW",
       "-DMACRO_OPENGL",
       "-DBUILD_DEBUG",
@@ -1085,6 +1135,8 @@
       "-Isrc",
       "-Isrc/generic",
       "-g",
+      "-include",
+      "../bin/obj/Debug/Banana/incs.h",
       "-c",
       "-o",
       "../bin/obj/Debug/Banana/VertexArray.o",
@@ -1093,32 +1145,6 @@
     "directory": "/home/pherel/Tools/Projects/banana/Banana",
     "file": "/home/pherel/Tools/Projects/banana/Banana/src/renderer/VertexArray.cpp",
     "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/Banana/VertexArray.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/g++",
-      "-include",
-      "../bin/obj/Debug/Banana/incs.h",
-      "-DMACRO_GLFW",
-      "-DMACRO_OPENGL",
-      "-DBUILD_DEBUG",
-      "-Ivendor/GLFW/include",
-      "-Ivendor/GLAD/include/glad",
-      "-Ivendor/IMGUI",
-      "-Ivendor/GLM/glm",
-      "-Ivendor/STB",
-      "-I.",
-      "-Isrc",
-      "-Isrc/generic",
-      "-g",
-      "-c",
-      "-o",
-      "../bin/obj/Debug/Banana/Window.o",
-      "src/generic/Window.cpp"
-    ],
-    "directory": "/home/pherel/Tools/Projects/banana/Banana",
-    "file": "/home/pherel/Tools/Projects/banana/Banana/src/generic/Window.cpp",
-    "output": "/home/pherel/Tools/Projects/banana/bin/obj/Debug/Banana/Window.o"
   },
   {
     "arguments": [

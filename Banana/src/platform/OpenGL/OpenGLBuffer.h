@@ -11,10 +11,13 @@ namespace Banana
     virtual void Bind() override;
     virtual void Unbind() override;
 
+    virtual void SetData(const void* data, uint32_t size) override;
+
     virtual const BufferLayout& GetLayout() override { return layout; }
 
   private:
     BufferLayout layout;
+    void* data;
     uint32_t id;
   };
 

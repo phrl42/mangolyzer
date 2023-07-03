@@ -10,7 +10,7 @@ namespace Banana
   class RenderCommand
   {
   public:
-    inline static void DrawIndexed(const Shr<VertexArray>& vertex_array) { api->DrawIndexed(vertex_array); }
+    inline static void DrawIndexed(const Shr<VertexArray>& vertex_array, uint32_t index_count = 0) { api->DrawIndexed(vertex_array, index_count); }
     inline static void Clear() { api->Clear(); }
     inline static void SetClearColor(const glm::vec4& color) { api->SetClearColor(color); }
     inline static void Init() {api->Init();}

@@ -15,10 +15,11 @@ namespace Banana
     glClearColor(color.r, color.g, color.b, color.a);
   }
 
-  void OpenGLRendererAPI::DrawIndexed(const Shr<VertexArray> &vertex_array)
+  void OpenGLRendererAPI::DrawIndexed(const Shr<VertexArray> &vertex_array, uint32_t index_count)
   {
     vertex_array->Bind();
-    glDrawElements(GL_TRIANGLES, vertex_array->GetElementBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+    uint32_t count = index_count ? vertex_array->GetElementBuffer()->GetCount() : index_count;
+    glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
   }
 
   void OpenGLRendererAPI::Init()

@@ -4,7 +4,6 @@
 #include "Window.hpp"
 #include "layer/LayerStack.h"
 
-
 namespace Banana
 {
   class Application

@@ -115,6 +115,8 @@ namespace Banana
     virtual void Bind() = 0;
     virtual void Unbind() = 0;
 
+    virtual void SetData(const void* data, uint32_t size) = 0;
+
     virtual const BufferLayout& GetLayout() = 0;
 
     static Shr<VertexBuffer> Create(const BufferLayout& layout, uint32_t size);

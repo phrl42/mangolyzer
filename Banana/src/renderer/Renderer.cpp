@@ -17,6 +17,11 @@ namespace Banana
     Renderer2D::Init();
   }
 
+  void Renderer::Shutdown()
+  {
+    Renderer2D::Shutdown();
+  }
+
   void Renderer::BeginScene()
   {
 

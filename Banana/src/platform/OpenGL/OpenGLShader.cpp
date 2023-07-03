@@ -20,6 +20,12 @@ namespace Banana
     // save file content into string
     std::string content((std::istreambuf_iterator<char>(ifs)),
             (std::istreambuf_iterator<char>()));
+
+    if(content.empty())
+    {
+      LOG("Could not find shader: " + file_path);
+      return;
+    }
     
     int vpos = content.find("#type vertex");
     int fpos = content.find("#type fragment");
@@ -34,7 +40,6 @@ namespace Banana
       fragment_src += content[i];
     }
   
-    LOG("Saved: " + file_path);
   }
 
   void OpenGLShader::Bind()
@@ -105,6 +110,7 @@ namespace Banana
     glDeleteShader(vertexID);
     glDeleteShader(fragmentID);
 
+    LOG("Compiled shader: " + file_path);
     this->id = shaderID;
   }
 

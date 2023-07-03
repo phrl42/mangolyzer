@@ -12,7 +12,7 @@ namespace Banana
     virtual void Clear() override;
     virtual void SetClearColor(const glm::vec4& color) override;
 
-    virtual void DrawIndexed(const Shr<VertexArray>& vertex_array) override;
+    virtual void DrawIndexed(const Shr<VertexArray>& vertex_array, uint32_t index_count = 0) override;
 
     virtual void Init() override;
 

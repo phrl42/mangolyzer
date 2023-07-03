@@ -110,6 +110,8 @@ namespace Banana
     {
       layer->OnDetach();
     }
+
+    Renderer::Shutdown();
   
   }
 
