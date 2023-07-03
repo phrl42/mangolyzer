@@ -34,7 +34,7 @@ namespace SANDBOX
   void TestLayer::OnUpdate(float dt)
   {
     Banana::Renderer2D::BeginScene();
-    Banana::Renderer2D::DrawQuad({0, 0}, {1, 1}, {1, 1, 1, 1});\
+    Banana::Renderer2D::DrawQuad({0, 0, 0}, {1, 1}, {1, 1, 1, 1});\
     Banana::Renderer2D::EndScene();
   }
 

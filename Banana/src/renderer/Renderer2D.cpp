@@ -9,7 +9,7 @@ namespace Banana
 {
   struct QuadVertex
   {
-    glm::vec2 position;
+    glm::vec3 position;
     glm::vec4 color;
     glm::vec2 tex_coords;
     // texid
@@ -70,7 +70,7 @@ namespace Banana
     delete[] quad_indices;
 
     data.shader = Shader::Create("assets/shaders/default.glsl");
-
+    // maybe merge compile into create
     data.shader->Compile();
     
     data.shader->Bind();
@@ -93,6 +93,9 @@ namespace Banana
   {
     uint32_t data_size = (uint8_t*)data.quad_vertex_ptr - (uint8_t*)data.quad_vertex_base;
 
+    LOG(sizeof(QuadVertex));
+    LOG(data_size);
+
     data.quad_vertex_buffer->SetData(data.quad_vertex_base, data_size);
     Flush();
   }
@@ -102,29 +105,29 @@ namespace Banana
     RenderCommand::DrawIndexed(data.quad_vertex_array, data.QuadIndexCount);
   }
 
-  void Renderer2D::DrawQuad(const glm::vec2& pos, const glm::vec2& size, const glm::vec4& color)
+  void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color)
   {
     // bottom left
     data.quad_vertex_ptr->position = pos;
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {0, 0};
     data.quad_vertex_ptr++;
-
+    
 
     // bottom right
-    data.quad_vertex_ptr->position = {pos.x + size.x, pos.y};
+    data.quad_vertex_ptr->position = {pos.x + size.x, pos.y, pos.z};
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {1, 0};
     data.quad_vertex_ptr++;
 
     // top left
-    data.quad_vertex_ptr->position = {pos.x, pos.y + size.y};
+    data.quad_vertex_ptr->position = {pos.x, pos.y + size.y, pos.z};
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {0, 1};
     data.quad_vertex_ptr++;
 
     // top right
-    data.quad_vertex_ptr->position = {pos.x + size.x, pos.y + size.y};
+    data.quad_vertex_ptr->position = {pos.x + size.x, pos.y + size.y, pos.z};
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {1, 1};
     data.quad_vertex_ptr++;

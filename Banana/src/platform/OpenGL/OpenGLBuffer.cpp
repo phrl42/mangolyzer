@@ -12,7 +12,6 @@ namespace Banana
     glCreateBuffers(1, &id);
 
     glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
-
   }
 
   OpenGLVertexBuffer::~OpenGLVertexBuffer()
