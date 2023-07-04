@@ -93,8 +93,6 @@ namespace Banana
   {
     uint32_t data_size = (uint8_t*)data.quad_vertex_ptr - (uint8_t*)data.quad_vertex_base;
 
-    LOG(sizeof(QuadVertex));
-    LOG(data_size);
 
     data.quad_vertex_buffer->SetData(data.quad_vertex_base, data_size);
     Flush();

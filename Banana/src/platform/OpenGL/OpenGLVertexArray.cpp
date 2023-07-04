@@ -47,7 +47,7 @@ namespace Banana
       glEnableVertexAttribArray(index);
       glVertexAttribPointer(index,
         element.GetTypeCount(), 
-        ShaderDataTypeToOpenGLType(element.Type), 
+        ShaderDataTypeToOpenGLType(element.Type),
         element.Normalized ? GL_TRUE : GL_FALSE, 
         layout.GetStride(), 
         (const void*)element.Offset);
