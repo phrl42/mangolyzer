@@ -10,61 +10,45 @@ namespace Banana
 {
   OpenGLTexture2D::OpenGLTexture2D(const std::string& path)
   {
-    // opengl enables the use of 16 textures simultaneously 
-    // you can have more textures though
-    // generate 1 texture
-    int w = 0;
-    int h = 0;
-    int channels = 0;
-
-    unsigned char* data = 0;
-
-    glGenTextures(1, &id);
-    // use the newly generated texture
-    glBindTexture(GL_TEXTURE_2D, id);
-    // adjust settings of the texture
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
- 
-    // load and save texture
-    // flip the picture on the y-axis
-    stbi_set_flip_vertically_on_load(true);
-
-    data = stbi_load(path.c_str(), &w, &h, &channels, 0);
-    if(!data)
-    {
-      LOG("Could not load texture: " + path);
-      id = 0;
-      return;
+		int width, height, channels;
+		stbi_set_flip_vertically_on_load(1);
+		
+    stbi_uc* data = nullptr;
+		
+		data = stbi_load(path.c_str(), &width, &height, &channels, 0);
+			
+		if (!data)
+		{
+      LOG("Could not load image: " + path);
     }
-    
-    GLenum data_format = 0;
-    GLenum internal_format = 0;
-    if(channels == 4)
-    {
-      data_format = GL_RGBA;
-      internal_format = GL_RGBA8;
       
-    }
-    if(channels == 3)
+    GLenum internalFormat = 0, dataFormat = 0;
+    if (channels == 4)
     {
-      data_format = GL_RGB8;
-      internal_format = GL_RGB8;
+      internalFormat = GL_RGBA8;
+      dataFormat = GL_RGBA;
+    }
+    else if (channels == 3)
+    {
+      internalFormat = GL_RGB8;
+      dataFormat = GL_RGB;
     }
 
-    if(!data_format || !internal_format) LOG("Data format of image is faulty");
+    if(!(internalFormat & dataFormat))
+      LOG("Format not supported!");
 
-    glTexImage2D(GL_TEXTURE_2D, 0, internal_format, w, h, 0, data_format, GL_UNSIGNED_BYTE, data);
-    glGenerateMipmap(GL_TEXTURE_2D);
-  
-  
+    glCreateTextures(GL_TEXTURE_2D, 1, &id);
+    glTextureStorage2D(id, 1, internalFormat, width, height);
+
+    glTextureParameteri(id, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTextureParameteri(id, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    glTextureParameteri(id, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTextureParameteri(id, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    glTextureSubImage2D(id, 0, 0, 0, width, height, dataFormat, GL_UNSIGNED_BYTE, data);
+
     stbi_image_free(data);
- 
-    // unbind the texture
-    glBindTexture(GL_TEXTURE_2D, 0);
-
   }
 
   OpenGLTexture2D::~OpenGLTexture2D()
