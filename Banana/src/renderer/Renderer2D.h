@@ -13,8 +13,12 @@ namespace Banana
     static void Init();
     static void Shutdown();
 
-    static void BeginScene();
+
+    static void BeginScene();    
     static void EndScene();
+
+    static void StartBatch();
+    static void NextBatch();
 
     static void Flush();
 

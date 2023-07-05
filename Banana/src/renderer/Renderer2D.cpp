@@ -77,7 +77,7 @@ namespace Banana
     data.quad_vertex_array->SetIndexBuffer(quad_index_buffer);
     delete[] quad_indices;
 
-    data.shader = Shader::Create("assets/shaders/default.glsl");
+    data.shader = Shader::Create("assets/shaders/quad.glsl");
     // maybe merge compile into create
     data.shader->Compile();
     
@@ -97,10 +97,21 @@ namespace Banana
 
   void Renderer2D::BeginScene()
   {
+    StartBatch();
+  }
+
+  void Renderer2D::StartBatch()
+  {
     data.quad_vertex_ptr = data.quad_vertex_base;
     data.QuadIndexCount = 0;
 
     data.TextureSlotIndex = 0;
+  }
+
+  void Renderer2D::NextBatch()
+  {
+    Flush();
+    StartBatch();
   }
 
   void Renderer2D::EndScene()
@@ -127,6 +138,10 @@ namespace Banana
   void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color, const Shr<Texture2D>& texture)
   {
     
+		if (data.QuadIndexCount >= data.MAX_INDICES)
+			NextBatch();
+
+    
 		float textureIndex = 0.0f;
 		for (uint32_t i = 1; i < data.TextureSlotIndex; i++)
 		{
@@ -139,8 +154,8 @@ namespace Banana
 
 		if (textureIndex == 0.0f)
 		{
-			//if (data.TextureSlotIndex >= data.MAX_TEXTURE_SLOTS)
-			//	NextBatch();
+      if(data.TextureSlotIndex >= data.MAX_TEXTURE_SLOTS)
+        NextBatch();
 			textureIndex = (float)data.TextureSlotIndex;
 			data.TextureSlots[data.TextureSlotIndex] = texture;
 			data.TextureSlotIndex++;
@@ -178,13 +193,13 @@ namespace Banana
     data.QuadIndexCount += 6;
   }
 
-  void DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color)
+  void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color)
   {
     // bottom left
     data.quad_vertex_ptr->position = pos;
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {0, 0};
-    data.quad_vertex_ptr->texID = 0;
+    data.quad_vertex_ptr->texID = -1;
     data.quad_vertex_ptr++;
     
 
@@ -192,21 +207,21 @@ namespace Banana
     data.quad_vertex_ptr->position = {pos.x + size.x, pos.y, pos.z};
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {1, 0};
-    data.quad_vertex_ptr->texID = 0;
+    data.quad_vertex_ptr->texID = -1;
     data.quad_vertex_ptr++;
 
     // top left
     data.quad_vertex_ptr->position = {pos.x, pos.y + size.y, pos.z};
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {0, 1};
-    data.quad_vertex_ptr->texID = 0;
+    data.quad_vertex_ptr->texID = -1;
     data.quad_vertex_ptr++;
 
     // top right
     data.quad_vertex_ptr->position = {pos.x + size.x, pos.y + size.y, pos.z};
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {1, 1};
-    data.quad_vertex_ptr->texID = 0;
+    data.quad_vertex_ptr->texID = -1;
     data.quad_vertex_ptr++;
 
     data.QuadIndexCount += 6;
