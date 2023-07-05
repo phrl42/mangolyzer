@@ -120,6 +120,8 @@ namespace Banana
     virtual const BufferLayout& GetLayout() = 0;
 
     static Shr<VertexBuffer> Create(const BufferLayout& layout, uint32_t size);
+
+    virtual uint32_t GetCount() = 0;
   };
 
   class IndexBuffer

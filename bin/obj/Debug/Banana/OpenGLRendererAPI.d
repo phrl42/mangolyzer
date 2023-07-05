@@ -134,7 +134,8 @@
  vendor/GLM/glm/detail/type_half.hpp vendor/GLM/glm/detail/type_half.inl \
  vendor/GLM/glm/integer.hpp vendor/GLM/glm/detail/func_integer.inl \
  src/renderer/VertexArray.h src/renderer/Buffer.h \
- vendor/GLAD/include/glad/glad.h vendor/GLFW/include/GLFW/glfw3.h
+ vendor/GLAD/include/glad/glad.h vendor/GLFW/include/GLFW/glfw3.h \
+ src/platform/OpenGL/OpenGLBuffer.h
 src/platform/OpenGL/OpenGLRendererAPI.h:
 src/renderer/RendererAPI.h:
 _Banana.h:
@@ -287,3 +288,4 @@ src/renderer/VertexArray.h:
 src/renderer/Buffer.h:
 vendor/GLAD/include/glad/glad.h:
 vendor/GLFW/include/GLFW/glfw3.h:
+src/platform/OpenGL/OpenGLBuffer.h:

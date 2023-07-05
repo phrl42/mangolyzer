@@ -67,12 +67,24 @@ namespace Banana
 
   void OpenGLVertexArray::Bind()
   {
+    if(vertex_buffer)
+      vertex_buffer->Bind();
+
+    if(index_buffer)
+      index_buffer->Bind();
+
     glBindVertexArray(id);
   }
 
   void OpenGLVertexArray::Unbind()
   {
     glBindVertexArray(0);
+
+    if(vertex_buffer)
+      vertex_buffer->Unbind();
+
+    if(index_buffer)
+      index_buffer->Unbind();
   }
 
 };

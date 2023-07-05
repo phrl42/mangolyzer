@@ -19,7 +19,6 @@ namespace Banana
 		virtual Shr<VertexBuffer>& GetVertexBuffer() override { return vertex_buffer; }
 		virtual Shr<IndexBuffer>& GetElementBuffer() override { return index_buffer; }
 
-
   private:
     Shr<VertexBuffer> vertex_buffer;
     Shr<IndexBuffer> index_buffer;

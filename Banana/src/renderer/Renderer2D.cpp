@@ -91,15 +91,20 @@ namespace Banana
 
   void Renderer2D::EndScene()
   {
-    uint32_t data_size = (uint8_t*)data.quad_vertex_ptr - (uint8_t*)data.quad_vertex_base;
-
-
-    data.quad_vertex_buffer->SetData(data.quad_vertex_base, data_size);
     Flush();
   }
 
   void Renderer2D::Flush()
   {
+    uint32_t data_size = (uint32_t)((uint8_t*)data.quad_vertex_ptr - (uint8_t*)data.quad_vertex_base);
+
+    data.quad_vertex_buffer->SetData(data.quad_vertex_base, data_size);
+
+    float* databunker = (float*)data.quad_vertex_base;
+    
+
+    data.shader->Bind();
+
     RenderCommand::DrawIndexed(data.quad_vertex_array, data.QuadIndexCount);
   }
 

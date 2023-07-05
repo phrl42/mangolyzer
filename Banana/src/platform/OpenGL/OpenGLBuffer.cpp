@@ -7,10 +7,10 @@
 namespace Banana
 {
   OpenGLVertexBuffer::OpenGLVertexBuffer(const BufferLayout& layout, uint32_t size)
-  : layout(layout)
+  : layout(layout), size(size)
   {
     glCreateBuffers(1, &id);
-
+    glBindBuffer(GL_ARRAY_BUFFER, id);
     glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
   }
 
@@ -31,15 +31,19 @@ namespace Banana
 
   void OpenGLVertexBuffer::SetData(const void* data, uint32_t size)
   {
+    this->size = size;
+    
     glBindBuffer(GL_ARRAY_BUFFER, id);
 
     glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
   }
 
+
   OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count)
   : count(count)
   {
     glCreateBuffers(1, &id);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id);
 
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), indices, GL_DYNAMIC_DRAW);
   }

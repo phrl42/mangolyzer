@@ -15,9 +15,11 @@ namespace Banana
 
     virtual const BufferLayout& GetLayout() override { return layout; }
 
-  private:
+    virtual uint32_t GetCount() override { return size; }
+
+  public:
     BufferLayout layout;
-    void* data;
+    uint32_t size;
     uint32_t id;
   };
 

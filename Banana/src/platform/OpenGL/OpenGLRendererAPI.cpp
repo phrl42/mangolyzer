@@ -3,6 +3,9 @@
 #include "glad.h"
 #include "GLFW/glfw3.h"
 
+#include "platform/OpenGL/OpenGLBuffer.h"
+#include <cstdint>
+
 namespace Banana
 {
   void OpenGLRendererAPI::Clear()
@@ -18,8 +21,11 @@ namespace Banana
   void OpenGLRendererAPI::DrawIndexed(const Shr<VertexArray> &vertex_array, uint32_t index_count)
   {
     vertex_array->Bind();
-    uint32_t count = index_count ? vertex_array->GetElementBuffer()->GetCount() : index_count;
-    glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
+
+
+
+    uint32_t count = index_count ? index_count : vertex_array->GetElementBuffer()->GetCount();
+    glDrawElements(GL_TRIANGLES, index_count, GL_UNSIGNED_INT, nullptr);
   }
 
   void OpenGLRendererAPI::Init()
