@@ -36,6 +36,7 @@ namespace SANDBOX
   {
     Banana::Renderer2D::BeginScene();
       Banana::Renderer2D::DrawQuad({0, 0, 0}, {1.0f, 1.0f}, {0.5f, -0.5f, 1.0f, 1.0f}, Banana::Texture2D::Create("assets/textures/krauss.png"));
+      Banana::Renderer2D::DrawQuad({-1.0f, -0.5f, 0}, {1.0f, 1.0f}, {0.5f, -0.5f, 1.0f, 1.0f}, Banana::Texture2D::Create("assets/textures/lamp.png"));
       Banana::Renderer2D::DrawQuad({-1.0, -1.0, 0}, {1.0f, 1.0f}, {0.5f, -0.5f, 1.0f, 1.0f});
     Banana::Renderer2D::EndScene();
   }

@@ -4,15 +4,19 @@
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec4 aColor;
 layout (location = 2) in vec2 aTexCoords;
-layout (location = 3) in int aTexID;
+layout (location = 3) in float aTexID;
 
 out vec4 vertexColor;
 out vec2 texCoords;
-flat out int texID;
+out float texID;
+
+uniform mat4 uModel;
+uniform mat4 uView;
+uniform mat4 uProjection;
 
 void main()
 {
-  gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0f);
+  gl_Position = uModel * uView * uProjection * vec4(aPos.x, aPos.y, aPos.z, 1.0f);
 
   vertexColor = aColor;
   texCoords = aTexCoords;
@@ -24,7 +28,7 @@ void main()
 
 in vec2 texCoords;
 in vec4 vertexColor;
-flat in int texID;
+in float texID;
 
 out vec4 FragColor;
 
@@ -32,9 +36,9 @@ uniform sampler2D fTexture[32];
 
 void main()
 {
-  if(texID >= 0)
+  if(int(texID) >= 0)
   {
-    FragColor = texture(fTexture[texID], texCoords) * vertexColor;
+    FragColor = texture(fTexture[int(texID)], texCoords) * vertexColor;
   }
   else
   {

@@ -7,6 +7,9 @@
 
 #include "renderer/Texture.h"
 
+#include "gtc/matrix_transform.hpp"
+#include "gtc/type_ptr.hpp"
+
 namespace Banana
 {
   struct QuadVertex
@@ -14,8 +17,7 @@ namespace Banana
     glm::vec3 position;
     glm::vec4 color;
     glm::vec2 tex_coords;
-    int texID;
-    // texid
+    float texID;
   };
 
   struct Renderer2DStorage
@@ -50,7 +52,7 @@ namespace Banana
       {ShaderDataType::Float3, "aPosition"},
       {ShaderDataType::Float4, "aColor"},
       {ShaderDataType::Float2, "aTexCoords"},
-      {ShaderDataType::Int, "aTexID"}
+      {ShaderDataType::Float, "aTexID"}
     }, sizeof(QuadVertex) * data.MAX_QUADS);
 
     data.quad_vertex_array->AddVertexBuffer(data.quad_vertex_buffer);
@@ -106,6 +108,22 @@ namespace Banana
     data.QuadIndexCount = 0;
 
     data.TextureSlotIndex = 0;
+
+    // upload uniforms here
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f)); 
+
+    glm::mat4 view = glm::mat4(1.0f);
+    // note that we're translating the scene in the reverse direction of where we want to move
+    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); 
+
+
+    glm::mat4 projection;
+    projection = glm::perspective(glm::radians(45.0f), 1920.0f / 1080.0f, 0.1f, 100.0f);
+
+    data.shader->UploadMat4f("uModel", model);
+    data.shader->UploadMat4f("uView", view);
+    data.shader->UploadMat4f("uProjection", projection);
   }
 
   void Renderer2D::NextBatch()
@@ -137,10 +155,8 @@ namespace Banana
 
   void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color, const Shr<Texture2D>& texture)
   {
-    
 		if (data.QuadIndexCount >= data.MAX_INDICES)
 			NextBatch();
-
     
 		float textureIndex = 0.0f;
 		for (uint32_t i = 1; i < data.TextureSlotIndex; i++)
