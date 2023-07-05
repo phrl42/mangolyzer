@@ -146,7 +146,7 @@
  ../Banana/vendor/GLM/glm/detail/func_integer.inl \
  ../Banana/src/generic/Window.hpp ../Banana/src/layer/LayerStack.h \
  ../Banana/src/layer/Layer.h ../Banana/src/imgui/IMGUILayer.h \
- ../Banana/src/renderer/Renderer2D.h
+ ../Banana/src/renderer/Renderer2D.h ../Banana/src/renderer/Texture.h
 src/layer/TestLayer.h:
 ../Banana/Banana.h:
 ../Banana/src/generic/Application.hpp:
@@ -302,3 +302,4 @@ src/layer/TestLayer.h:
 ../Banana/src/layer/Layer.h:
 ../Banana/src/imgui/IMGUILayer.h:
 ../Banana/src/renderer/Renderer2D.h:
+../Banana/src/renderer/Texture.h:

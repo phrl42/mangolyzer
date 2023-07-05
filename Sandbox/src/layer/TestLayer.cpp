@@ -2,6 +2,7 @@
 #include "Banana.h"
 
 #include "renderer/Renderer2D.h"
+#include "renderer/Texture.h"
 
 namespace SANDBOX
 {
@@ -34,7 +35,7 @@ namespace SANDBOX
   void TestLayer::OnUpdate(float dt)
   {
     Banana::Renderer2D::BeginScene();
-    Banana::Renderer2D::DrawQuad({0, 0, 0}, {1, 1}, {1, 1, 1, 1});\
+      Banana::Renderer2D::DrawQuad({0, 0, 0}, {1.0f, 1.0f}, {0.5f, -0.5f, 1.0f, 1.0f}, Banana::Texture2D::Create("assets/textures/krauss.png"));
     Banana::Renderer2D::EndScene();
   }
 

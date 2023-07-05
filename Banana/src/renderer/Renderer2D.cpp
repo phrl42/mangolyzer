@@ -5,6 +5,8 @@
 
 #include "renderer/RenderCommand.hpp"
 
+#include "renderer/Texture.h"
+
 namespace Banana
 {
   struct QuadVertex
@@ -12,15 +14,17 @@ namespace Banana
     glm::vec3 position;
     glm::vec4 color;
     glm::vec2 tex_coords;
+    int texID;
     // texid
   };
 
   struct Renderer2DStorage
   {
-    const uint32_t MAX_QUADS = 10000;
-    const uint32_t MAX_VERTICES = MAX_QUADS * 4;
-    const uint32_t MAX_INDICES = MAX_QUADS * 6;
-    
+    static const uint32_t MAX_QUADS = 10000;
+    static const uint32_t MAX_VERTICES = MAX_QUADS * 4;
+    static const uint32_t MAX_INDICES = MAX_QUADS * 6;
+		static const uint32_t MAX_TEXTURE_SLOTS = 32;
+
     Shr<VertexArray> quad_vertex_array;
     Shr<VertexBuffer> quad_vertex_buffer;
     Shr<Shader> shader;
@@ -29,6 +33,9 @@ namespace Banana
     uint32_t QuadIndexCount = 0;
     QuadVertex* quad_vertex_base = nullptr;
     QuadVertex* quad_vertex_ptr = nullptr;
+
+		std::array<Shr<Texture2D>, MAX_TEXTURE_SLOTS> TextureSlots;
+		uint32_t TextureSlotIndex = 1; // 0 = white texture
   };
 
   static Renderer2DStorage data;
@@ -42,7 +49,8 @@ namespace Banana
     {
       {ShaderDataType::Float3, "aPosition"},
       {ShaderDataType::Float4, "aColor"},
-      {ShaderDataType::Float2, "aTexCoords"}
+      {ShaderDataType::Float2, "aTexCoords"},
+      {ShaderDataType::Int, "aTexID"}
     }, sizeof(QuadVertex) * data.MAX_QUADS);
 
     data.quad_vertex_array->AddVertexBuffer(data.quad_vertex_buffer);
@@ -73,9 +81,13 @@ namespace Banana
     // maybe merge compile into create
     data.shader->Compile();
     
-    data.shader->Bind();
-
     // INSERT OTHER GEOMETRY HERE
+  
+    // uniform stuff
+    int32_t samplers[data.MAX_TEXTURE_SLOTS];
+		for (uint32_t i = 0; i < data.MAX_TEXTURE_SLOTS; i++)
+			samplers[i] = i;
+    data.shader->UploadIntArray("fTexture", data.MAX_TEXTURE_SLOTS, samplers);
   }
 
   void Renderer2D::Shutdown()
@@ -87,6 +99,8 @@ namespace Banana
   {
     data.quad_vertex_ptr = data.quad_vertex_base;
     data.QuadIndexCount = 0;
+
+    data.TextureSlotIndex = 0;
   }
 
   void Renderer2D::EndScene()
@@ -96,24 +110,81 @@ namespace Banana
 
   void Renderer2D::Flush()
   {
-    uint32_t data_size = (uint32_t)((uint8_t*)data.quad_vertex_ptr - (uint8_t*)data.quad_vertex_base);
+    if(data.QuadIndexCount)
+    {
+      uint32_t data_size = (uint32_t)((uint8_t*)data.quad_vertex_ptr - (uint8_t*)data.quad_vertex_base);
+      data.quad_vertex_buffer->SetData(data.quad_vertex_base, data_size);
 
-    data.quad_vertex_buffer->SetData(data.quad_vertex_base, data_size);
+			for (uint32_t i = 0; i < data.TextureSlotIndex; i++)
+				data.TextureSlots[i]->Bind(i);
 
-    float* databunker = (float*)data.quad_vertex_base;
-    
+      data.shader->Bind();
+      RenderCommand::DrawIndexed(data.quad_vertex_array, data.QuadIndexCount);
+    }
 
-    data.shader->Bind();
-
-    RenderCommand::DrawIndexed(data.quad_vertex_array, data.QuadIndexCount);
   }
 
-  void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color)
+  void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color, const Shr<Texture2D>& texture)
+  {
+    
+		float textureIndex = 0.0f;
+		for (uint32_t i = 1; i < data.TextureSlotIndex; i++)
+		{
+			if (*data.TextureSlots[i] == *texture)
+			{
+				textureIndex = (float)i;
+				break;
+			}
+		}
+
+		if (textureIndex == 0.0f)
+		{
+			//if (data.TextureSlotIndex >= data.MAX_TEXTURE_SLOTS)
+			//	NextBatch();
+			textureIndex = (float)data.TextureSlotIndex;
+			data.TextureSlots[data.TextureSlotIndex] = texture;
+			data.TextureSlotIndex++;
+    }
+
+    // bottom left
+    data.quad_vertex_ptr->position = pos;
+    data.quad_vertex_ptr->color = color;
+    data.quad_vertex_ptr->tex_coords = {0, 0};
+    data.quad_vertex_ptr->texID = textureIndex;
+    data.quad_vertex_ptr++;
+    
+
+    // bottom right
+    data.quad_vertex_ptr->position = {pos.x + size.x, pos.y, pos.z};
+    data.quad_vertex_ptr->color = color;
+    data.quad_vertex_ptr->tex_coords = {1.0f, 0.0f};
+    data.quad_vertex_ptr->texID = textureIndex;
+    data.quad_vertex_ptr++;
+
+    // top left
+    data.quad_vertex_ptr->position = {pos.x, pos.y + size.y, pos.z};
+    data.quad_vertex_ptr->color = color;
+    data.quad_vertex_ptr->tex_coords = {0.0f, 1.0f};
+    data.quad_vertex_ptr->texID = textureIndex;
+    data.quad_vertex_ptr++;
+
+    // top right
+    data.quad_vertex_ptr->position = {pos.x + size.x, pos.y + size.y, pos.z};
+    data.quad_vertex_ptr->color = color;
+    data.quad_vertex_ptr->tex_coords = {1.0f, 1.0f};
+    data.quad_vertex_ptr->texID = textureIndex;
+    data.quad_vertex_ptr++;
+
+    data.QuadIndexCount += 6;
+  }
+
+  void DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color)
   {
     // bottom left
     data.quad_vertex_ptr->position = pos;
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {0, 0};
+    data.quad_vertex_ptr->texID = 0;
     data.quad_vertex_ptr++;
     
 
@@ -121,18 +192,21 @@ namespace Banana
     data.quad_vertex_ptr->position = {pos.x + size.x, pos.y, pos.z};
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {1, 0};
+    data.quad_vertex_ptr->texID = 0;
     data.quad_vertex_ptr++;
 
     // top left
     data.quad_vertex_ptr->position = {pos.x, pos.y + size.y, pos.z};
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {0, 1};
+    data.quad_vertex_ptr->texID = 0;
     data.quad_vertex_ptr++;
 
     // top right
     data.quad_vertex_ptr->position = {pos.x + size.x, pos.y + size.y, pos.z};
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {1, 1};
+    data.quad_vertex_ptr->texID = 0;
     data.quad_vertex_ptr++;
 
     data.QuadIndexCount += 6;

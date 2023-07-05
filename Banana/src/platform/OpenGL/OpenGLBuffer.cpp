@@ -32,7 +32,7 @@ namespace Banana
   void OpenGLVertexBuffer::SetData(const void* data, uint32_t size)
   {
     this->size = size;
-    
+
     glBindBuffer(GL_ARRAY_BUFFER, id);
 
     glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
