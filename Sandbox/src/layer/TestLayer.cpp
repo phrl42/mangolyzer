@@ -37,7 +37,7 @@ namespace SANDBOX
   {
     static float x = 0;
     static float y = 0;
-    static float z = 0;
+    static float z = 1;
 
     static float banana_rotation = 0.0f;
 
@@ -72,11 +72,6 @@ namespace SANDBOX
     }
 
     banana_rotation += 90 * dt;  
-
-    if(banana_rotation == 180)
-    {
-      banana_rotation = 0;
-    }
 
     cam.SetPosition({x, y, z});
     // TODO: simplify drawquad functions
