@@ -9,7 +9,8 @@ namespace SANDBOX
   TestLayer::TestLayer(const std::string& name)
   : name(name), cam(Banana::Camera())
   {
-
+    mango_tex = Banana::Texture2D::Create("assets/textures/mango.png");
+    banana_tex = Banana::Texture2D::Create("assets/textures/banana.png");
   }
 
   TestLayer::~TestLayer()
@@ -38,6 +39,8 @@ namespace SANDBOX
     static float y = 0;
     static float z = 0;
 
+    static float banana_rotation = 0.0f;
+
     if(Banana::Input::IsKeyPressed(KEY_W))
     {
       y -= 1 * dt;
@@ -58,11 +61,30 @@ namespace SANDBOX
       x += 1 * dt;
     }
 
-    cam.SetPosition({x, y, 1});
+    if(Banana::Input::IsKeyPressed(KEY_T))
+    {
+      z += 1 * dt;
+    }
+
+    if(Banana::Input::IsKeyPressed(KEY_G))
+    {
+      z -= 1 * dt;
+    }
+
+    banana_rotation += 50 * dt;  
+
+    if(banana_rotation == 180)
+    {
+      banana_rotation = 0;
+    }
+
+    cam.SetPosition({x, y, z});
+    // TODO: simplify drawquad functions
+    // get some logic for it
     Banana::Renderer2D::BeginScene(cam);
-      Banana::Renderer2D::DrawQuad({0, 0, 0}, {1.0f, 1.0f}, {0.5f, -0.5f, 1.0f, 1.0f}, Banana::Texture2D::Create("assets/textures/krauss.png"));
-      Banana::Renderer2D::DrawQuad({-1.0f, -0.5f, 0}, {1.0f, 1.0f}, {0.5f, -0.5f, 1.0f, 1.0f}, Banana::Texture2D::Create("assets/textures/lamp.png"));
-      Banana::Renderer2D::DrawQuad({-1.0, -1.0, 0}, {1.0f, 1.0f}, {0.5f, -0.5f, 1.0f, 1.0f});
+      Banana::Renderer2D::DrawQuad({0, 0, 0}, {1.0f, 1.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, banana_rotation, mango_tex);
+      Banana::Renderer2D::DrawQuad({-1.0f, -0.5f, 0}, {1.0f, 1.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, banana_rotation, banana_tex);
+      //Banana::Renderer2D::DrawQuad({-1.0, -1.0, 0}, {1.0f, 1.0f}, {0.5f, -0.5f, 1.0f, 1.0f}, 0.0f);
     Banana::Renderer2D::EndScene();
   }
 

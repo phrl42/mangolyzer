@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Banana.h"
+#include "renderer/Texture.h"
 
 namespace SANDBOX
 {
@@ -22,6 +23,8 @@ namespace SANDBOX
     virtual inline std::string& GetName() override { return name; }
   
   private:
+    Banana::Shr<Banana::Texture2D> banana_tex;
+    Banana::Shr<Banana::Texture2D> mango_tex;
     std::string name;
     Banana::Camera cam;
   };

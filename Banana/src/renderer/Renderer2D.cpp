@@ -120,7 +120,6 @@ namespace Banana
 
     // upload uniforms here
 
-    //ata.shader->UploadMat4f("uModel", );
     data.shader->UploadMat4f("uViewProjection", data.scene_camera.GetViewProjectionMatrix());
   }
 
@@ -151,7 +150,7 @@ namespace Banana
 
   }
 
-  void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color, const Shr<Texture2D>& texture)
+  void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color, float rotation, const Shr<Texture2D>& texture)
   {
 		if (data.QuadIndexCount >= data.MAX_INDICES)
 			NextBatch();
@@ -174,9 +173,19 @@ namespace Banana
 			data.TextureSlots[data.TextureSlotIndex] = texture;
 			data.TextureSlotIndex++;
     }
+    
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos)
+			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+    
+    if(rotation)
+    {
+      transform = glm::translate(glm::mat4(1.0f), pos)
+        * glm::rotate(glm::mat4(1.0f), glm::radians(rotation), { 0.0f, 0.0f, 1.0f })
+        * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+    }
 
     // bottom left
-    data.quad_vertex_ptr->position = pos;
+    data.quad_vertex_ptr->position = transform * glm::vec4({pos, 1.0f});
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {0, 0};
     data.quad_vertex_ptr->texID = textureIndex;
@@ -184,21 +193,21 @@ namespace Banana
     
 
     // bottom right
-    data.quad_vertex_ptr->position = {pos.x + size.x, pos.y, pos.z};
+    data.quad_vertex_ptr->position = transform * glm::vec4({pos.x + size.x, pos.y, pos.z, 1.0f});
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {1.0f, 0.0f};
     data.quad_vertex_ptr->texID = textureIndex;
     data.quad_vertex_ptr++;
 
     // top left
-    data.quad_vertex_ptr->position = {pos.x, pos.y + size.y, pos.z};
+    data.quad_vertex_ptr->position = transform * glm::vec4({pos.x, pos.y + size.y, pos.z, 1.0f});
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {0.0f, 1.0f};
     data.quad_vertex_ptr->texID = textureIndex;
     data.quad_vertex_ptr++;
 
     // top right
-    data.quad_vertex_ptr->position = {pos.x + size.x, pos.y + size.y, pos.z};
+    data.quad_vertex_ptr->position = transform * glm::vec4({pos.x + size.x, pos.y + size.y, pos.z, 1.0f});
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {1.0f, 1.0f};
     data.quad_vertex_ptr->texID = textureIndex;
@@ -207,10 +216,20 @@ namespace Banana
     data.QuadIndexCount += 6;
   }
 
-  void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color)
+  void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color, float rotation)
   {
+    glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos)
+			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+
+    if(rotation)
+    {
+      transform = glm::translate(glm::mat4(1.0f), pos)
+        * glm::rotate(glm::mat4(1.0f), glm::radians(rotation), { 0.0f, 0.0f, 1.0f })
+        * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+    }
+
     // bottom left
-    data.quad_vertex_ptr->position = pos;
+    data.quad_vertex_ptr->position = transform * glm::vec4({pos, 1.0f});
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {0, 0};
     data.quad_vertex_ptr->texID = -1;
@@ -218,21 +237,21 @@ namespace Banana
     
 
     // bottom right
-    data.quad_vertex_ptr->position = {pos.x + size.x, pos.y, pos.z};
+    data.quad_vertex_ptr->position = transform * glm::vec4({pos.x + size.x, pos.y, pos.z, 1.0f});
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {1, 0};
     data.quad_vertex_ptr->texID = -1;
     data.quad_vertex_ptr++;
 
     // top left
-    data.quad_vertex_ptr->position = {pos.x, pos.y + size.y, pos.z};
+    data.quad_vertex_ptr->position = transform * glm::vec4({pos.x, pos.y + size.y, pos.z, 1.0f});
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {0, 1};
     data.quad_vertex_ptr->texID = -1;
     data.quad_vertex_ptr++;
 
     // top right
-    data.quad_vertex_ptr->position = {pos.x + size.x, pos.y + size.y, pos.z};
+    data.quad_vertex_ptr->position = transform * glm::vec4({pos.x + size.x, pos.y + size.y, pos.z, 1.0f});
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {1, 1};
     data.quad_vertex_ptr->texID = -1;
