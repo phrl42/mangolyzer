@@ -70,6 +70,7 @@ OBJECTS :=
 
 GENERATED += $(OBJDIR)/Application.o
 GENERATED += $(OBJDIR)/Buffer.o
+GENERATED += $(OBJDIR)/Camera.o
 GENERATED += $(OBJDIR)/Context.o
 GENERATED += $(OBJDIR)/GLFWInput.o
 GENERATED += $(OBJDIR)/GLFWWindow.o
@@ -93,6 +94,7 @@ GENERATED += $(OBJDIR)/VertexArray.o
 GENERATED += $(OBJDIR)/Window.o
 OBJECTS += $(OBJDIR)/Application.o
 OBJECTS += $(OBJDIR)/Buffer.o
+OBJECTS += $(OBJDIR)/Camera.o
 OBJECTS += $(OBJDIR)/Context.o
 OBJECTS += $(OBJDIR)/GLFWInput.o
 OBJECTS += $(OBJDIR)/GLFWWindow.o
@@ -181,6 +183,9 @@ $(OBJDIR)/Input.o: src/event/Input.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Application.o: src/generic/Application.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Camera.o: src/generic/Camera.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Window.o: src/generic/Window.cpp

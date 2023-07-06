@@ -1,5 +1,6 @@
 ../bin/obj/Debug/Sandbox/Sandbox.o: src/Sandbox.cpp src/Sandbox.h \
- ../Banana/Banana.h ../Banana/src/generic/Application.hpp \
+ ../Banana/Banana.h ../Banana/src/event/Input.hpp \
+ ../Banana/src/event/KeyCode.h ../Banana/src/generic/Application.hpp \
  ../Banana/_Banana.h ../Banana/incs.h ../Banana/src/event/Event.h \
  ../Banana/utility.h ../Banana/src/generic/Log.h \
  ../Banana/src/event/ApplicationEvent.h ../Banana/vendor/GLM/glm/glm.hpp \
@@ -144,10 +145,13 @@
  ../Banana/vendor/GLM/glm/integer.hpp \
  ../Banana/vendor/GLM/glm/detail/func_integer.inl \
  ../Banana/src/generic/Window.hpp ../Banana/src/layer/LayerStack.h \
- ../Banana/src/layer/Layer.h ../Banana/src/imgui/IMGUILayer.h _Sandbox.h \
- src/layer/TestLayer.h ../Banana/EntryPoint.h
+ ../Banana/src/layer/Layer.h ../Banana/src/imgui/IMGUILayer.h \
+ ../Banana/src/generic/Camera.h _Sandbox.h src/layer/TestLayer.h \
+ ../Banana/EntryPoint.h
 src/Sandbox.h:
 ../Banana/Banana.h:
+../Banana/src/event/Input.hpp:
+../Banana/src/event/KeyCode.h:
 ../Banana/src/generic/Application.hpp:
 ../Banana/_Banana.h:
 ../Banana/incs.h:
@@ -300,6 +304,7 @@ src/Sandbox.h:
 ../Banana/src/layer/LayerStack.h:
 ../Banana/src/layer/Layer.h:
 ../Banana/src/imgui/IMGUILayer.h:
+../Banana/src/generic/Camera.h:
 _Sandbox.h:
 src/layer/TestLayer.h:
 ../Banana/EntryPoint.h:

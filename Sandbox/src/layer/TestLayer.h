@@ -2,7 +2,6 @@
 
 #include "Banana.h"
 
-
 namespace SANDBOX
 {
   class TestLayer : public Banana::Layer
@@ -24,6 +23,7 @@ namespace SANDBOX
   
   private:
     std::string name;
+    Banana::Camera cam;
   };
 
 };

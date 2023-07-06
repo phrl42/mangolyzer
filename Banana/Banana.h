@@ -1,7 +1,14 @@
 #pragma once
 // this is the client-engine interface
 
+#include "event/Input.hpp"
+#include "event/KeyCode.h"
+
 #include "Application.hpp"
 #include "layer/Layer.h"
 #include "imgui/IMGUILayer.h"
+
+#include "generic/Camera.h"
+
+
 #include "Log.h"

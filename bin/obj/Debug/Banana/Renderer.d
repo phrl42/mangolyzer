@@ -133,7 +133,7 @@
  vendor/GLM/glm/integer.hpp vendor/GLM/glm/detail/func_integer.inl \
  src/renderer/RendererAPI.h src/renderer/VertexArray.h \
  src/renderer/Buffer.h src/renderer/Renderer2D.h src/renderer/Texture.h \
- src/renderer/RenderCommand.hpp
+ src/generic/Camera.h src/renderer/RenderCommand.hpp
 src/renderer/Renderer.h:
 _Banana.h:
 src/event/Event.h:
@@ -286,4 +286,5 @@ src/renderer/VertexArray.h:
 src/renderer/Buffer.h:
 src/renderer/Renderer2D.h:
 src/renderer/Texture.h:
+src/generic/Camera.h:
 src/renderer/RenderCommand.hpp:

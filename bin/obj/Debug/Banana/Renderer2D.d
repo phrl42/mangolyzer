@@ -131,9 +131,10 @@
  vendor/GLM/glm/detail/func_packing.inl \
  vendor/GLM/glm/detail/type_half.hpp vendor/GLM/glm/detail/type_half.inl \
  vendor/GLM/glm/integer.hpp vendor/GLM/glm/detail/func_integer.inl \
- src/renderer/Texture.h src/renderer/VertexArray.h src/renderer/Buffer.h \
- src/renderer/Shader.h src/renderer/RenderCommand.hpp \
- src/renderer/RendererAPI.h vendor/GLM/glm/gtc/matrix_transform.hpp \
+ src/renderer/Texture.h src/generic/Camera.h src/renderer/VertexArray.h \
+ src/renderer/Buffer.h src/renderer/Shader.h \
+ src/renderer/RenderCommand.hpp src/renderer/RendererAPI.h \
+ vendor/GLM/glm/gtc/matrix_transform.hpp \
  vendor/GLM/glm/gtc/../ext/matrix_projection.hpp \
  vendor/GLM/glm/gtc/../ext/../gtc/constants.hpp \
  vendor/GLM/glm/gtc/../ext/../gtc/../ext/scalar_constants.hpp \
@@ -330,6 +331,7 @@ vendor/GLM/glm/detail/type_half.inl:
 vendor/GLM/glm/integer.hpp:
 vendor/GLM/glm/detail/func_integer.inl:
 src/renderer/Texture.h:
+src/generic/Camera.h:
 src/renderer/VertexArray.h:
 src/renderer/Buffer.h:
 src/renderer/Shader.h:

@@ -2,6 +2,9 @@
 #include "_Banana.h"
 #include "renderer/Texture.h"
 #include "utility.h"
+
+#include "generic/Camera.h"
+
 namespace Banana
 {
   struct Texture2D;
@@ -14,6 +17,7 @@ namespace Banana
     static void Shutdown();
 
 
+    static void BeginScene(const Camera& cam);    
     static void BeginScene();    
     static void EndScene();
 

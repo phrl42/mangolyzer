@@ -31,6 +31,8 @@ namespace Banana
     Shr<VertexBuffer> quad_vertex_buffer;
     Shr<Shader> shader;
 
+    Camera scene_camera;
+
     // quad batch
     uint32_t QuadIndexCount = 0;
     QuadVertex* quad_vertex_base = nullptr;
@@ -97,8 +99,15 @@ namespace Banana
     delete[] data.quad_vertex_base;
   }
 
+  void Renderer2D::BeginScene(const Camera& cam)
+  {
+    data.scene_camera = cam;
+    StartBatch();
+  }
+
   void Renderer2D::BeginScene()
   {
+    data.scene_camera = Camera();
     StartBatch();
   }
 
@@ -110,20 +119,9 @@ namespace Banana
     data.TextureSlotIndex = 0;
 
     // upload uniforms here
-    glm::mat4 model = glm::mat4(1.0f);
-    model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f)); 
 
-    glm::mat4 view = glm::mat4(1.0f);
-    // note that we're translating the scene in the reverse direction of where we want to move
-    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); 
-
-
-    glm::mat4 projection;
-    projection = glm::perspective(glm::radians(45.0f), 1920.0f / 1080.0f, 0.1f, 100.0f);
-
-    data.shader->UploadMat4f("uModel", model);
-    data.shader->UploadMat4f("uView", view);
-    data.shader->UploadMat4f("uProjection", projection);
+    //ata.shader->UploadMat4f("uModel", );
+    data.shader->UploadMat4f("uViewProjection", data.scene_camera.GetViewProjectionMatrix());
   }
 
   void Renderer2D::NextBatch()

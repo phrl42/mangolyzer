@@ -1,5 +1,6 @@
 #pragma once
 #include "_Banana.h"
+#include "glm.hpp"
 
 namespace Banana
 {
@@ -9,29 +10,24 @@ namespace Banana
     Camera();
     ~Camera();
 
-    glm::vec3 target;
-    glm::vec3 position;
-    float fov;
+    inline void SetPosition(const glm::vec3& pos) { this->position = pos; CalcMatrix(); }
+    inline void SetRotation(float rotation) { this->rotation = rotation; CalcMatrix(); }
 
-    void CalcCameraVectors();
+    inline const glm::vec3& GetPosition() const { return this->position; }
+    inline float GetRotation() const { return this->rotation; }
 
-    glm::mat4 GetViewMatrix();
-    glm::mat4 GetReverseViewMatrix();
-    glm::mat4 GetProjectionMatrix();
-    glm::mat4 GetOrthographicMatrix();
-    glm::mat4 GetReverseProjectionMatrix();
+    inline const glm::mat4& GetProjectionMatrix() const { return this->projection_matrix; }
+    inline const glm::mat4& GetViewMatrix() const { return this->view_matrix; }
+    inline const glm::mat4& GetViewProjectionMatrix() const { return this->view_projection_matrix; }
+
   private:
-      // Z
-      glm::vec3 cameraDirection;
-      // X
-      glm::vec3 cameraRight;
-      // Y
-      glm::vec3 cameraUp;
-      
-      glm::mat4 cameraViewMatrix;
-      glm::mat4 cameraProjectionMatrix;
-      glm::mat4 model;
-      glm::vec3 worldUp;
-      glm::vec3 front;
+    void CalcMatrix();
+  private:
+    glm::mat4 projection_matrix;
+    glm::mat4 view_matrix;
+    glm::mat4 view_projection_matrix;
+
+    glm::vec3 position;
+    float rotation = 0.0f;
   };
 };
