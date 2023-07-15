@@ -21,6 +21,8 @@ namespace SANDBOX
     virtual void ImguiRender() override;
 
     virtual inline std::string& GetName() override { return name; }
+
+    bool OnWindowResize(Banana::WindowResizeEvent& e);
   
   private:
     Banana::Shr<Banana::Texture2D> banana_tex;

@@ -81,6 +81,7 @@ GENERATED += $(OBJDIR)/Layer.o
 GENERATED += $(OBJDIR)/LayerStack.o
 GENERATED += $(OBJDIR)/OpenGLBuffer.o
 GENERATED += $(OBJDIR)/OpenGLContext.o
+GENERATED += $(OBJDIR)/OpenGLFramebuffer.o
 GENERATED += $(OBJDIR)/OpenGLRendererAPI.o
 GENERATED += $(OBJDIR)/OpenGLShader.o
 GENERATED += $(OBJDIR)/OpenGLTexture.o
@@ -106,6 +107,7 @@ OBJECTS += $(OBJDIR)/Layer.o
 OBJECTS += $(OBJDIR)/LayerStack.o
 OBJECTS += $(OBJDIR)/OpenGLBuffer.o
 OBJECTS += $(OBJDIR)/OpenGLContext.o
+OBJECTS += $(OBJDIR)/OpenGLFramebuffer.o
 OBJECTS += $(OBJDIR)/OpenGLRendererAPI.o
 OBJECTS += $(OBJDIR)/OpenGLShader.o
 OBJECTS += $(OBJDIR)/OpenGLTexture.o
@@ -212,6 +214,9 @@ $(OBJDIR)/OpenGLBuffer.o: src/platform/OpenGL/OpenGLBuffer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/OpenGLContext.o: src/platform/OpenGL/OpenGLContext.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/OpenGLFramebuffer.o: src/platform/OpenGL/OpenGLFramebuffer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/OpenGLRendererAPI.o: src/platform/OpenGL/OpenGLRendererAPI.cpp

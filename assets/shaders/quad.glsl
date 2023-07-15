@@ -4,17 +4,34 @@
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec4 aColor;
 layout (location = 2) in vec2 aTexCoords;
-layout (location = 3) in float aTexID;
+layout (location = 3) in float aProjectionID;
+layout (location = 4) in float aTexID;
 
 out vec4 vertexColor;
 out vec2 texCoords;
 out float texID;
 
-uniform mat4 uViewProjection;
+uniform mat4 uOrthographicViewProjection;
+uniform mat4 uPerspectiveViewProjection;
 
 void main()
 {
-  gl_Position =  uViewProjection * vec4(aPos.x, aPos.y, aPos.z, 1.0f);
+  if(int(aProjectionID) == 0)
+  {
+    gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0f);
+  }
+  else if(int(aProjectionID) == 1)
+  {
+    gl_Position = uOrthographicViewProjection * vec4(aPos.x, aPos.y, aPos.z, 1.0f);
+  }
+  else if(int(aProjectionID) == 2)
+  {
+    gl_Position = uPerspectiveViewProjection * vec4(aPos.x, aPos.y, aPos.z, 1.0f);
+  }
+  else
+  {
+    gl_Position = vec4(0, 0, 0, 0);
+  }
 
   vertexColor = aColor;
   texCoords = aTexCoords;

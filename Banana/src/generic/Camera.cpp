@@ -1,17 +1,30 @@
 #include "generic/Camera.h"
+
+#include "fwd.hpp"
 #include "gtc/matrix_transform.hpp"
 
 #include "Application.hpp"
-#include "matrix.hpp"
 
 namespace Banana
 {
   Camera::Camera()
-  : projection_matrix(glm::perspective(glm::radians(90.0f), 
-        (float)1280/(float)720, 0.1f, 100.0f)),
-    view_matrix(glm::mat4(1.0f))
   {
-    view_projection_matrix = projection_matrix * view_matrix;
+    CalcMatrix();
+  }
+
+  void Camera::SetWindowDimension(unsigned int width, unsigned int height)
+  {
+    this->width = width; 
+    this->height = height;
+    
+    perspective_projection = glm::perspective(glm::radians(90.0f), 
+        (float)width/(float)height, 0.1f, 100.0f);
+    
+    orthographic_projection = glm::ortho(0.0f, (float)width, (float)height, 0.0f, -1.0f, 1.0f);
+    
+    view_matrix = glm::mat4(1.0f);
+
+    CalcMatrix();
   }
 
   Camera::~Camera()
@@ -26,7 +39,8 @@ namespace Banana
 
     view_matrix = glm::inverse(transform);
 
-    view_projection_matrix = projection_matrix * view_matrix;
+    perspective_view_projection = perspective_projection * view_matrix;
+    orthographic_view_projection = orthographic_projection * view_matrix;
   }
 
 };

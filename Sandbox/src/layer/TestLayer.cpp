@@ -28,9 +28,16 @@ namespace SANDBOX
     
   }
 
+  bool TestLayer::OnWindowResize(Banana::WindowResizeEvent& e)
+  {
+    cam.SetWindowDimension(e.getWidth(), e.getWidth());
+    return false;
+  }
+
   void TestLayer::OnEvent(Banana::Event& event)
   {
-    //LOG(event.ToString());
+    Banana::EventDispatcher dispatcher(event);
+    dispatcher.Dispatch<Banana::WindowResizeEvent>(BIND_EVENT_FN(TestLayer::OnWindowResize));
   }
 
   void TestLayer::OnUpdate(float dt)
@@ -77,9 +84,9 @@ namespace SANDBOX
     // TODO: simplify drawquad functions
     // get some logic for it
     Banana::Renderer2D::BeginScene(cam);
-      Banana::Renderer2D::DrawQuad({0, 0, 0}, {1.0f, 1.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, banana_rotation, mango_tex);
-      Banana::Renderer2D::DrawQuad({-1.0f, -0.5f, 0}, {1.0f, 1.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, banana_rotation, banana_tex);
-      Banana::Renderer2D::DrawQuad({-1.0, -1.0, 0}, {1.0f, 1.0f}, {0.5f, -0.5f, 1.0f, 1.0f}, 0.0f);
+      Banana::Renderer2D::DrawQuad({0, 0, 0}, {1.0f, 1.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, banana_rotation, mango_tex, Banana::Projection::PERSPECTIVE);
+      Banana::Renderer2D::DrawQuad({-1.0f, -0.5f, 0}, {1.0f, 1.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, banana_rotation, banana_tex, Banana::Projection::NONE);
+      Banana::Renderer2D::DrawQuad({-1.0, -1.0, 0}, {1.0f, 1.0f}, {0.5f, -0.5f, 1.0f, 1.0f}, 0.0f, Banana::Projection::PERSPECTIVE);
     Banana::Renderer2D::EndScene();
   }
 

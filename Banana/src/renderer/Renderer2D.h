@@ -9,13 +9,14 @@ namespace Banana
 {
   struct Texture2D;
 
+  enum Projection {NONE=0, ORTHOGRAPHIC, PERSPECTIVE};
+
   class Renderer2D
   {
   public:
 
     static void Init();
     static void Shutdown();
-
 
     static void BeginScene(const Camera& cam);    
     static void BeginScene();    
@@ -26,7 +27,7 @@ namespace Banana
 
     static void Flush();
 
-    static void DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color, float rotation);
-    static void DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color, float rotation, const Shr<Texture2D>& texture);
+    static void DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color, float rotation, Projection proj = NONE);
+    static void DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color, float rotation, const Shr<Texture2D>& texture, Projection proj = NONE);
   };
 };
