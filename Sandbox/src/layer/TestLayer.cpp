@@ -11,6 +11,12 @@ namespace SANDBOX
   {
     mango_tex = Banana::Texture2D::Create("assets/textures/bunny_stalin.jpg");
     banana_tex = Banana::Texture2D::Create("assets/textures/finito.png");
+
+    Banana::FramebufferProperties spec;
+    spec.width = 1280;
+    spec.height = 720;
+
+    fb = Banana::Framebuffer::Create(spec);
   }
 
   TestLayer::~TestLayer()
@@ -82,11 +88,15 @@ namespace SANDBOX
 
     cam.SetPosition({x, y, z});
 
+    fb->Bind();
+
     Banana::Renderer2D::BeginScene(cam);
       Banana::Renderer2D::DrawQuad({0, 0, 0}, {1.0f, 1.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, banana_rotation, mango_tex, Banana::Projection::PERSPECTIVE);
       Banana::Renderer2D::DrawQuad({0.0f, -0.5f, 0}, {1.0f, 1.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, banana_rotation, banana_tex, Banana::Projection::NONE);
       Banana::Renderer2D::DrawQuad({-1.0, -1.0, 0}, {1.0f, 1.0f}, {0.5f, -0.5f, 1.0f, 1.0f}, 0.0f, Banana::Projection::PERSPECTIVE);
     Banana::Renderer2D::EndScene();
+
+    fb->Unbind();
   }
 
   void TestLayer::ImguiRender()

@@ -2,6 +2,7 @@
 
 #include "Banana.h"
 #include "renderer/Texture.h"
+#include "platform/OpenGL/OpenGLFramebuffer.h"
 
 namespace SANDBOX
 {
@@ -27,6 +28,7 @@ namespace SANDBOX
   private:
     Banana::Shr<Banana::Texture2D> banana_tex;
     Banana::Shr<Banana::Texture2D> mango_tex;
+    Banana::Shr<Banana::Framebuffer> fb;
     std::string name;
     Banana::Camera cam;
   };

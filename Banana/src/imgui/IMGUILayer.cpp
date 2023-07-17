@@ -138,6 +138,7 @@ namespace Banana
     std::string msg = "FPS: 60";
     if(1 / dt < 59) msg = "FPS: " + std::to_string(1 / dt);
     ImGui::Text(msg.c_str());
+    ImGui::Image((void*)3, ImVec2(256, 256));
     ImGui::End();
 
     ImGui::Begin("Scene", nullptr, 0);

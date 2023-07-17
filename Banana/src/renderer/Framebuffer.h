@@ -18,6 +18,8 @@ namespace Banana
     virtual void Bind() = 0;
     virtual void Unbind() = 0;
 
+    virtual uint32_t GetColorAttachmentID() = 0;
+
     static Shr<Framebuffer> Create(const FramebufferProperties& fb);
   };
 };
