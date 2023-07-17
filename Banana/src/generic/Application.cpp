@@ -32,7 +32,6 @@ namespace Banana
     window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
 
     Renderer::Init();
-    
   }
 
   void Application::OnEvent(Event& e)
@@ -84,13 +83,13 @@ namespace Banana
 
     double begin_time = 0.0f;
     double dt = 0.1f;
+    
     while(running)
     {
       begin_time = window->GetTime();
       window->PollEvents();
 
       RenderCommand::SetClearColor(glm::vec4(1, 0, 1, 1));
-
       if(!minimized)
       {
         for(Layer* layer : layer_stack)
@@ -101,6 +100,7 @@ namespace Banana
 
       window->SwapBuffers();
       
+      // renderer does this
       RenderCommand::Clear();
 
       dt = window->GetTime() - begin_time;
@@ -112,7 +112,8 @@ namespace Banana
     }
 
     Renderer::Shutdown();
-  
+
+    
   }
 
   void Application::PopLayer(Layer* layer)

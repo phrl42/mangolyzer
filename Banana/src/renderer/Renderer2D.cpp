@@ -115,6 +115,7 @@ namespace Banana
 
   void Renderer2D::StartBatch()
   {
+
     data.quad_vertex_ptr = data.quad_vertex_base;
     data.QuadIndexCount = 0;
 

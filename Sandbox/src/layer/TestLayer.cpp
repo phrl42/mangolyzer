@@ -2,7 +2,6 @@
 #include "Banana.h"
 
 #include "renderer/Renderer2D.h"
-#include "renderer/Texture.h"
 
 namespace SANDBOX
 {
@@ -87,15 +86,13 @@ namespace SANDBOX
     banana_rotation += 90 * dt;  
 
     cam.SetPosition({x, y, z});
-
+    
     fb->Bind();
-
     Banana::Renderer2D::BeginScene(cam);
       Banana::Renderer2D::DrawQuad({0, 0, 0}, {1.0f, 1.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, banana_rotation, mango_tex, Banana::Projection::PERSPECTIVE);
       Banana::Renderer2D::DrawQuad({0.0f, -0.5f, 0}, {1.0f, 1.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, banana_rotation, banana_tex, Banana::Projection::NONE);
       Banana::Renderer2D::DrawQuad({-1.0, -1.0, 0}, {1.0f, 1.0f}, {0.5f, -0.5f, 1.0f, 1.0f}, 0.0f, Banana::Projection::PERSPECTIVE);
     Banana::Renderer2D::EndScene();
-
     fb->Unbind();
   }
 

@@ -137,6 +137,7 @@ namespace Banana
     ImGui::Begin("Debug", nullptr, 0);
     std::string msg = "FPS: 60";
     if(1 / dt < 59) msg = "FPS: " + std::to_string(1 / dt);
+
     ImGui::Text(msg.c_str());
     ImGui::Image((void*)3, ImVec2(256, 256));
     ImGui::End();
@@ -148,6 +149,8 @@ namespace Banana
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+    ImGui::EndFrame();
   }
 
   void IMGUILayer::OnEvent(Event& event)
