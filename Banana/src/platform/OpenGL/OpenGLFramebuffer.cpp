@@ -5,19 +5,20 @@
 
 namespace Banana
 {
-  OpenGLFramebuffer::OpenGLFramebuffer()
+  OpenGLFramebuffer::OpenGLFramebuffer(const FramebufferProperties& fb)
+  : specs(fb)
   {
-    glGenFramebuffers(1, &id);
-    Bind();
-
-    if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-    {
-      LOG("Could not create framebuffer");
-      return;      
-    }
-
+    Invalidate();
   }
 
+  void OpenGLFramebuffer::Invalidate()
+  {
+    glCreateFramebuffers(1, &id);
+    Bind();
+
+    glCreateTextures(GL_TEXTURE_2D, 1, &color_id);
+    //glTexImage2D();
+  }
 
   OpenGLFramebuffer::~OpenGLFramebuffer()
   {

@@ -3,6 +3,12 @@
 
 namespace Banana
 {
+  struct FramebufferProperties
+  {
+    uint32_t width;
+    uint32_t height;
+  };
+
   class Framebuffer
   {
   public:
@@ -12,6 +18,6 @@ namespace Banana
     virtual void Bind() = 0;
     virtual void Unbind() = 0;
 
-    static Shr<Framebuffer> Create();
+    static Shr<Framebuffer> Create(const FramebufferProperties& fb);
   };
 };
