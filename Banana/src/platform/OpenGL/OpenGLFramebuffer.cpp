@@ -11,6 +11,15 @@ namespace Banana
     Invalidate();
   }
 
+  void OpenGLFramebuffer::SetWindowDimension(uint32_t width, uint32_t height)
+  {
+    this->specs.width = width;
+    this->specs.height = height;
+    
+    Shutdown();
+    Invalidate();
+  }
+
   void OpenGLFramebuffer::Invalidate()
   {
     glCreateFramebuffers(1, &id);

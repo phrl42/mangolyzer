@@ -4,6 +4,8 @@
 #include "Window.hpp"
 #include "layer/LayerStack.h"
 
+#include "renderer/Framebuffer.h"
+
 namespace Banana
 {
   class Application
@@ -37,6 +39,8 @@ namespace Banana
 
     bool running = true;
     bool minimized = false;
+  public:
+    Banana::Shr<Banana::Framebuffer> fb;
   };
 
   // definition is in client

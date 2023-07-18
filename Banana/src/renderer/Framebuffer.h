@@ -20,6 +20,8 @@ namespace Banana
 
     virtual uint32_t GetColorAttachmentID() = 0;
 
+    virtual void SetWindowDimension(uint32_t width, uint32_t height) = 0;
+
     static Shr<Framebuffer> Create(const FramebufferProperties& fb);
   };
 };

@@ -32,6 +32,13 @@ namespace Banana
     window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
 
     Renderer::Init();
+
+
+    Banana::FramebufferProperties spec;
+    spec.width = prop.height;
+    spec.height = prop.width;
+
+    fb = Banana::Framebuffer::Create(spec);
   }
 
   void Application::OnEvent(Event& e)
@@ -64,8 +71,10 @@ namespace Banana
       minimized = true;
       return false;
     }
+    
     // tell opengl to resize framebuffer
     Renderer::OnWindowResize(e.getWidth(), e.getHeight());
+    fb->SetWindowDimension(e.getWidth(), e.getHeight());
 
     minimized = false;
     return false;
@@ -83,24 +92,31 @@ namespace Banana
 
     double begin_time = 0.0f;
     double dt = 0.1f;
-    
     while(running)
     {
       begin_time = window->GetTime();
       window->PollEvents();
 
-      RenderCommand::SetClearColor(glm::vec4(1, 0, 1, 1));
+      // todo: come up with a better framebuffer implementation ( probably in the scenes )
+      fb->Bind();
+      RenderCommand::SetClearColor(glm::vec4(1, 0, 0.1, 1));
       if(!minimized)
-      {
+      { 
         for(Layer* layer : layer_stack)
         {
+          if(layer->GetName() == "IMGUILAYER") 
+          {
+            fb->Unbind();
+            layer->OnUpdate(dt);
+            fb->Bind();
+            continue;
+          }
           layer->OnUpdate(dt);
         }
       }
-
-      window->SwapBuffers();
+      fb->Unbind();
       
-      // renderer does this
+      window->SwapBuffers();
       RenderCommand::Clear();
 
       dt = window->GetTime() - begin_time;

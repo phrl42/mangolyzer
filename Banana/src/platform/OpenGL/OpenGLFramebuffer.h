@@ -16,6 +16,9 @@ namespace Banana
 
     virtual uint32_t GetColorAttachmentID() override;
 
+    virtual void SetWindowDimension(uint32_t width, uint32_t height) override;
+
+
     void Invalidate();
   private:
     uint32_t id;

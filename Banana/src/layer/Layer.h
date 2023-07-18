@@ -16,8 +16,6 @@ namespace Banana
     virtual void OnUpdate(float dt) = 0;
     virtual void OnEvent(Event& event) = 0;
 
-    virtual void ImguiRender() = 0;
-
     virtual std::string& GetName() = 0;
 
   private:

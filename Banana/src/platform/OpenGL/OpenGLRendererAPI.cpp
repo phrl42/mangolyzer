@@ -10,7 +10,7 @@ namespace Banana
 {
   void OpenGLRendererAPI::Clear()
   {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
   }
 
   void OpenGLRendererAPI::SetClearColor(const glm::vec4& color)
@@ -21,8 +21,6 @@ namespace Banana
   void OpenGLRendererAPI::DrawIndexed(const Shr<VertexArray> &vertex_array, uint32_t index_count)
   {
     vertex_array->Bind();
-
-
 
     uint32_t count = index_count ? index_count : vertex_array->GetElementBuffer()->GetCount();
     glDrawElements(GL_TRIANGLES, index_count, GL_UNSIGNED_INT, nullptr);

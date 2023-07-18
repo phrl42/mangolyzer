@@ -58,11 +58,6 @@ namespace Banana
     ImGui::DestroyContext();
   }
 
-  void IMGUILayer::ImguiRender()
-  {
-    
-  }
-
   void IMGUILayer::OnUpdate(float dt)
   {      
     // toggling
@@ -128,7 +123,8 @@ namespace Banana
       ImGui::DockBuilderFinish(dockspaceID);
 
 		  ImGui::DockBuilderDockWindow("Debug", dock_right_id);
-		  ImGui::DockBuilderDockWindow("Scene", dock_down_id);
+		  ImGui::DockBuilderDockWindow("Scene", dock_main_id);
+		  ImGui::DockBuilderDockWindow("Info", dock_down_id);
     }
 
     ImGui::DockSpace(dockspaceID, ImVec2(0.0f, 0.0f), dockflags);
@@ -139,13 +135,17 @@ namespace Banana
     if(1 / dt < 59) msg = "FPS: " + std::to_string(1 / dt);
 
     ImGui::Text(msg.c_str());
-    ImGui::Image((void*)3, ImVec2(256, 256));
     ImGui::End();
 
-    ImGui::Begin("Scene", nullptr, 0);
-    ImGui::Text("scene text");
+    ImGui::Begin("Info", nullptr, 0);
+    ImGui::Text("Info text");
     ImGui::End();
-
+    
+    ImGui::Begin("Scene", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoDecoration);
+    ImVec2 winsize = ImGui::GetWindowSize();
+    
+    ImGui::Image((void*)Application::GetInstance().fb->GetColorAttachmentID(), {winsize.x, winsize.y - 42});
+    ImGui::End();
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

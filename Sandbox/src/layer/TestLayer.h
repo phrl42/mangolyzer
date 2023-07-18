@@ -3,8 +3,6 @@
 #include "Banana.h"
 #include "renderer/Texture.h"
 
-#include "renderer/Framebuffer.h"
-
 namespace SANDBOX
 {
   class TestLayer : public Banana::Layer
@@ -20,8 +18,6 @@ namespace SANDBOX
     virtual void OnUpdate(float dt) override;
     virtual void OnEvent(Banana::Event& event) override;
 
-    virtual void ImguiRender() override;
-
     virtual inline std::string& GetName() override { return name; }
 
     bool OnWindowResize(Banana::WindowResizeEvent& e);
@@ -31,9 +27,6 @@ namespace SANDBOX
     Banana::Shr<Banana::Texture2D> mango_tex;
     std::string name;
     Banana::Camera cam;
-
-  public:
-    Banana::Shr<Banana::Framebuffer> fb;
   };
 
 };
