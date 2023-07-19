@@ -22,6 +22,7 @@ namespace Banana
     if(it != layers.end())
     {
       layers.erase(it);
+      delete *it;
       layerInsert--;
     }
   }
@@ -38,6 +39,7 @@ namespace Banana
     if(it != layers.end())
     {
       layers.erase(it);
+      delete *it;
       layerInsert--;
     }
   }

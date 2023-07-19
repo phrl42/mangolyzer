@@ -17,8 +17,8 @@ namespace Banana
     virtual void OnEvent(Event& event) = 0;
 
     virtual std::string& GetName() = 0;
-
-  private:
+  
+  protected:
     std::string name;
   };
 };

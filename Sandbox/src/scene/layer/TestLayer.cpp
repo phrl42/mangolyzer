@@ -1,4 +1,4 @@
-#include "layer/TestLayer.h"
+#include "scene/layer/TestLayer.h"
 #include "Banana.h"
 
 #include "renderer/Renderer2D.h"
@@ -87,5 +87,4 @@ namespace SANDBOX
       Banana::Renderer2D::DrawQuad({-1.0, -1.0, 0}, {1.0f, 1.0f}, {0.5f, -0.5f, 1.0f, 1.0f}, 0.0f, Banana::Projection::PERSPECTIVE);
     Banana::Renderer2D::EndScene();
   }
-  
 };

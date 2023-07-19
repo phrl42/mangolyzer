@@ -6,6 +6,7 @@
 
 #include "Application.hpp"
 #include "layer/Layer.h"
+#include "layer/Scene.h"
 #include "imgui/IMGUILayer.h"
 
 #include "generic/Camera.h"

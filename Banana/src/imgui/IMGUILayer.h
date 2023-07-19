@@ -4,7 +4,6 @@
 
 namespace Banana
 {
-
   class IMGUILayer : public Layer
   {
   public:

@@ -39,6 +39,8 @@ namespace Banana
     spec.height = prop.width;
 
     fb = Banana::Framebuffer::Create(spec);
+
+    debug_layer = new Banana::IMGUILayer("IMGUILAYER");
   }
 
   void Application::OnEvent(Event& e)
@@ -47,7 +49,7 @@ namespace Banana
     dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
     dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(Application::OnWindowResize));
 
-    for(auto it = layer_stack.end(); it != layer_stack.begin();)
+    for(auto it = scene_stack.end(); it != scene_stack.begin();)
     {
       (*--it)->OnEvent(e);
 
@@ -56,6 +58,16 @@ namespace Banana
         break;
       }
     }
+  }
+
+  void Application::PopScene(Scene* scene)
+  {
+    scene_stack.PopScene(scene);
+  }
+
+  void Application::PushScene(Scene* scene)
+  {
+    scene_stack.PushScene(scene);
   }
 
   bool Application::OnWindowClose(WindowCloseEvent& e)
@@ -83,12 +95,12 @@ namespace Banana
 
   void Application::Run()
   {
-    PushLayer(new Banana::IMGUILayer("IMGUILAYER"));
-
-    for(Layer* layer : layer_stack)
+    for(Scene* scene : scene_stack)
     {
-      layer->OnAttach();
+      scene->OnAttach();
     }
+
+    debug_layer->OnAttach();
 
     double begin_time = 0.0f;
     double dt = 0.1f;
@@ -100,20 +112,19 @@ namespace Banana
       // todo: come up with a better framebuffer implementation ( probably in the scenes )
       fb->Bind();
       RenderCommand::SetClearColor(glm::vec4(1, 0, 0.1, 1));
+
       if(!minimized)
       { 
-        for(Layer* layer : layer_stack)
+        for(Scene* scene : scene_stack)
         {
-          if(layer->GetName() == "IMGUILAYER") 
-          {
-            fb->Unbind();
-            layer->OnUpdate(dt);
-            fb->Bind();
-            continue;
-          }
-          layer->OnUpdate(dt);
+          scene->OnUpdate(dt);
         }
+
+        fb->Unbind();
+        debug_layer->OnUpdate(dt);
+        fb->Bind();
       }
+      
       fb->Unbind();
       
       window->SwapBuffers();
@@ -121,36 +132,15 @@ namespace Banana
 
       dt = window->GetTime() - begin_time;
     }
-
-    for(Layer* layer : layer_stack)
+    
+    for(Scene* scene : scene_stack)
     {
-      layer->OnDetach();
+      scene->OnDetach();
     }
 
+    debug_layer->OnDetach();
+
     Renderer::Shutdown();
-
-    
-  }
-
-  void Application::PopLayer(Layer* layer)
-  {
-    layer_stack.PopLayer(layer);
-  }
-
-  void Application::PushLayer(Layer* layer)
-  {
-    layer_stack.PushLayer(layer);
-  }
-
-
-  void Application::PopOverlay(Layer* layer)
-  {
-    layer_stack.PopOverlay(layer);
-  }
-
-  void Application::PushOverlay(Layer* layer)
-  {
-    layer_stack.PushOverlay(layer);
   }
 
   Application::~Application()
