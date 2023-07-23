@@ -21,6 +21,7 @@ namespace SANDBOX
     virtual inline std::string& GetName() override { return name; }
   
   private:
+    Banana::Entity2D banana;
     Banana::Shr<Banana::Texture2D> banana_tex;
     Banana::Shr<Banana::Texture2D> mango_tex;
     std::string name;

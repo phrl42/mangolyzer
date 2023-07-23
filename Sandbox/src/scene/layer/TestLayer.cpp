@@ -1,5 +1,4 @@
 #include "scene/layer/TestLayer.h"
-#include "Banana.h"
 
 #include "renderer/Renderer2D.h"
 
@@ -8,8 +7,14 @@ namespace SANDBOX
   TestLayer::TestLayer(const std::string& name)
   : name(name)
   {
-    mango_tex = Banana::Texture2D::Create("assets/textures/bunny_stalin.jpg");
-    banana_tex = Banana::Texture2D::Create("assets/textures/finito.png");
+    banana.pos = {0, 0, 0};
+    banana.size = {1.0f, 1.0f};
+    banana.color = {1.0f, 1.0f, 1.0f, 1.0f};
+    banana.rotation = 0;
+
+    banana.tex = Banana::Texture2D::Create("assets/textures/finito.png");
+
+    banana.proj = Banana::Projection::PERSPECTIVE;
   }
 
   TestLayer::~TestLayer()
@@ -35,12 +40,8 @@ namespace SANDBOX
 
   void TestLayer::OnUpdate(float dt)
   {
-    static float banana_rotation = 0.0f;
+    banana.pos.x += 0.3 * dt;
 
-    banana_rotation += 90 * dt;  
-
-    Banana::Renderer2D::DrawQuad({0, 0, 0}, {1.0f, 1.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, banana_rotation, mango_tex, Banana::Projection::PERSPECTIVE);
-    Banana::Renderer2D::DrawQuad({0.0f, -0.5f, 0}, {1.0f, 1.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, banana_rotation, banana_tex, Banana::Projection::NONE);
-    Banana::Renderer2D::DrawQuad({-1.0, -1.0, 0}, {1.0f, 1.0f}, {0.5f, -0.5f, 1.0f, 1.0f}, 0.0f, Banana::Projection::PERSPECTIVE);
+    RenderEntity2D(banana);
   }
 };

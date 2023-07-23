@@ -10,6 +10,6 @@
 #include "imgui/IMGUILayer.h"
 
 #include "generic/Camera.h"
-
+#include "generic/Entity.h"
 
 #include "Log.h"

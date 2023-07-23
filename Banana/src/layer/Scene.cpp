@@ -4,7 +4,6 @@
 
 namespace Banana
 {
-
   Scene::Scene(const std::string& name)
   : name(name), cam(Camera()) {}
 

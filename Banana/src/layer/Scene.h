@@ -6,6 +6,9 @@
 
 namespace Banana
 {
+  // TODO: in the future:
+  // implement something like a Scene2D / Scene3D system
+  // for inspiration look at the texture class
   class Scene
   {
   public:

@@ -9,7 +9,6 @@ namespace Banana
 {
   struct Texture2D;
 
-  enum Projection {NONE=0, ORTHOGRAPHIC, PERSPECTIVE};
 
   class Renderer2D
   {
