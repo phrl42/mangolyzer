@@ -19,12 +19,20 @@ namespace Banana
     virtual void OnUpdate(float dt) = 0;
     virtual void OnEvent(Event& e);
 
+    bool OnWindowResize(Banana::WindowResizeEvent& e);
+
     void PushLayer(Layer* layer);
     
     void PushOverlay(Layer* layer);
     void PopOverlay(Layer* layer);
 
     void PopLayer(Layer* layer);
+
+    void AttachLayer();
+
+    void RenderLayer(float dt);
+
+    void DetachLayer();
 
   protected:
     std::string name;

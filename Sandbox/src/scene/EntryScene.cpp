@@ -2,6 +2,8 @@
 #include "scene/layer/TestLayer.h"
 #include "layer/Layer.h"
 
+#include "renderer/Renderer2D.h"
+
 namespace SANDBOX
 {
   EntryScene::EntryScene(const std::string& name)
@@ -12,26 +14,53 @@ namespace SANDBOX
 
   void EntryScene::OnAttach()
   {
-    for(auto layer : layer_stack)
-    {
-      layer->OnAttach();
-    }
+    AttachLayer();
   }
 
   void EntryScene::OnUpdate(float dt)
   {
-    for(auto layer : layer_stack)
+    static float x = 0;
+    static float y = 0;
+    static float z = 1;
+
+    if(Banana::Input::IsKeyPressed(KEY_S))
     {
-      layer->OnUpdate(dt);
+      y -= 1 * dt;
     }
+    
+    if(Banana::Input::IsKeyPressed(KEY_W))
+    {
+      y += 1 * dt;
+    }
+    
+    if(Banana::Input::IsKeyPressed(KEY_A))
+    {
+      x -= 1 * dt;
+    }
+
+    if(Banana::Input::IsKeyPressed(KEY_D))
+    {
+      x += 1 * dt;
+    }
+
+    if(Banana::Input::IsKeyPressed(KEY_T))
+    {
+      z += 1 * dt;
+    }
+
+    if(Banana::Input::IsKeyPressed(KEY_G))
+    {
+      z -= 1 * dt;
+    }
+
+    cam.SetPosition({x, y, z});
+
+    RenderLayer(dt);
   }
 
   void EntryScene::OnDetach()
   {
-    for(auto layer : layer_stack)
-    {
-      layer->OnDetach();
-    }
+    DetachLayer();
   }
 
 };

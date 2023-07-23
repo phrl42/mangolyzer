@@ -1,5 +1,6 @@
 #pragma once 
 #include "_Banana.h"
+#include "generic/Camera.h"
 
 namespace Banana
 {

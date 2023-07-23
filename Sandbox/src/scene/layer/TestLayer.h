@@ -19,14 +19,11 @@ namespace SANDBOX
     virtual void OnEvent(Banana::Event& event) override;
 
     virtual inline std::string& GetName() override { return name; }
-
-    bool OnWindowResize(Banana::WindowResizeEvent& e);
   
   private:
     Banana::Shr<Banana::Texture2D> banana_tex;
     Banana::Shr<Banana::Texture2D> mango_tex;
     std::string name;
-    Banana::Camera cam;
   };
 
 };
