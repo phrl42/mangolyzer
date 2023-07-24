@@ -26,6 +26,8 @@ namespace Banana
 
     inline static API GetAPI() { return api; }
 
+    virtual void CopyFramebuffer(uint32_t readID, uint32_t drawID, unsigned int width, unsigned int height) = 0;
+
 
   private:
     static API api;    

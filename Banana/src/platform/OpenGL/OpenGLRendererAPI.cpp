@@ -37,4 +37,9 @@ namespace Banana
     glViewport(x, y, width, height);
   }
 
+  void OpenGLRendererAPI::CopyFramebuffer(uint32_t readID, uint32_t drawID, unsigned int width, unsigned int height)
+  {
+    glBlitNamedFramebuffer(readID, drawID, 0, 0, width, height, 0, 0, width, height, GL_COLOR_BUFFER_BIT, GL_LINEAR);
+  }
+
 };

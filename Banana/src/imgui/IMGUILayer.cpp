@@ -59,27 +59,7 @@ namespace Banana
   }
 
   void IMGUILayer::OnUpdate(float dt)
-  {      
-    // toggling
-    static bool press = false;
-    static bool debug = true;
-
-    if(Input::IsKeyPressed(KEY_U) && !press)
-    {
-      press = true;
-      debug = !debug;
-    }
-
-    if(!Input::IsKeyPressed(KEY_U))
-    {
-      press = false;
-    }
-
-    if(!debug)
-    {
-      return;
-    }
-
+  {
     static bool show = true;
     static bool p_open = true;
 
@@ -144,7 +124,7 @@ namespace Banana
     ImGui::Begin("Scene", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoDecoration);
     ImVec2 winsize = ImGui::GetWindowSize();
     
-    ImGui::Image((void*)Application::GetInstance().fb->GetColorAttachmentID(), {winsize.x, winsize.y - 42});
+    ImGui::Image((void*)Application::GetInstance().fb->GetColorAttachmentID(), {winsize.x, winsize.y - 42}, {0, 1}, {1, 0});
     ImGui::End();
 
     ImGui::Render();

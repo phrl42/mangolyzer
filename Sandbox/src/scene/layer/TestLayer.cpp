@@ -40,7 +40,7 @@ namespace SANDBOX
 
   void TestLayer::OnUpdate(float dt)
   {
-    banana.pos.x += 0.3 * dt;
+    //banana.pos.x += 0.3 * dt;
 
     RenderEntity2D(banana);
   }

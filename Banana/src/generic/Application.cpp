@@ -115,14 +115,42 @@ namespace Banana
 
       if(!minimized)
       { 
+        // toggling
+        static bool press = false;
+        static bool debug = true;
+
+        if(Input::IsKeyPressed(KEY_U) && !press)
+        {
+          press = true;
+          debug = !debug;
+        }
+
+        if(!Input::IsKeyPressed(KEY_U))
+        {
+          press = false;
+        }
+
+        if(debug)
+        {
+          fb->Unbind();
+          debug_layer->OnUpdate(dt);
+          fb->Bind();
+        }
+        else 
+        {
+          RenderCommand::CopyFramebuffer(fb->GetID(), 0, GetWindow().GetWidth(), GetWindow().GetHeight());
+        }
+        
+        if(!debug)
+        {
+
+        }
+
         for(Scene* scene : scene_stack)
         {
           scene->OnUpdate(dt);
         }
 
-        fb->Unbind();
-        debug_layer->OnUpdate(dt);
-        fb->Bind();
       }
       
       fb->Unbind();
