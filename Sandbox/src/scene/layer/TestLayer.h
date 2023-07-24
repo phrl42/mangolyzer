@@ -3,6 +3,8 @@
 #include "Banana.h"
 #include "renderer/Texture.h"
 
+#define ARR_SIZE 900
+
 namespace SANDBOX
 {
   class TestLayer : public Banana::Layer
@@ -21,9 +23,7 @@ namespace SANDBOX
     virtual inline std::string& GetName() override { return name; }
   
   private:
-    Banana::Entity2D banana;
-    Banana::Shr<Banana::Texture2D> banana_tex;
-    Banana::Shr<Banana::Texture2D> mango_tex;
+    Banana::Entity2D bananas[ARR_SIZE];
     std::string name;
   };
 

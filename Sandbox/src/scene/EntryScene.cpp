@@ -25,32 +25,32 @@ namespace SANDBOX
 
     if(Banana::Input::IsKeyPressed(KEY_S))
     {
-      y -= 1 * dt;
+      y -= 10 * dt;
     }
     
     if(Banana::Input::IsKeyPressed(KEY_W))
     {
-      y += 1 * dt;
+      y += 10 * dt;
     }
     
     if(Banana::Input::IsKeyPressed(KEY_A))
     {
-      x -= 1 * dt;
+      x -= 10 * dt;
     }
 
     if(Banana::Input::IsKeyPressed(KEY_D))
     {
-      x += 1 * dt;
+      x += 10 * dt;
     }
 
     if(Banana::Input::IsKeyPressed(KEY_T))
     {
-      z += 1 * dt;
+      z += 10 * dt;
     }
 
     if(Banana::Input::IsKeyPressed(KEY_G))
     {
-      z -= 1 * dt;
+      z -= 10 * dt;
     }
 
     cam.SetPosition({x, y, z});

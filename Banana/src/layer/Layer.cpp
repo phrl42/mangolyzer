@@ -18,6 +18,7 @@ namespace Banana
     }
     else 
     {
+      
       Banana::Renderer2D::DrawQuad(ent.pos, ent.size, ent.color, ent.rotation, ent.tex, ent.proj);
     }
   }
