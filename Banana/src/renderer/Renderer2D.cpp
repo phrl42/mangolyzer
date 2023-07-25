@@ -23,7 +23,7 @@ namespace Banana
 
   struct Renderer2DStorage
   {
-    static const uint32_t MAX_QUADS = 10000;
+    static const uint32_t MAX_QUADS = 20000;
     static const uint32_t MAX_VERTICES = MAX_QUADS * 4;
     static const uint32_t MAX_INDICES = MAX_QUADS * 6;
 		static const uint32_t MAX_TEXTURE_SLOTS = 32;
@@ -104,19 +104,20 @@ namespace Banana
   void Renderer2D::BeginScene(const Camera& cam)
   {
     data.scene_camera = cam;
+    RenderCommand::Clear();
     StartBatch();
   }
 
   void Renderer2D::BeginScene()
   {
+    LOG("Warning! Client did not specify a camera");
     data.scene_camera = Camera();
+    RenderCommand::Clear();
     StartBatch();
   }
 
   void Renderer2D::StartBatch()
   {
-    RenderCommand::Clear();
-    
     data.quad_vertex_ptr = data.quad_vertex_base;
     data.QuadIndexCount = 0;
 
@@ -172,6 +173,7 @@ namespace Banana
 		{
       if(data.TextureSlotIndex >= data.MAX_TEXTURE_SLOTS)
         NextBatch();
+      
 			textureIndex = (float)data.TextureSlotIndex;
 			data.TextureSlots[data.TextureSlotIndex] = texture;
 			data.TextureSlotIndex++;
@@ -224,6 +226,11 @@ namespace Banana
 
   void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color, float rotation, Projection proj)
   {
+    if (data.QuadIndexCount >= data.MAX_INDICES)
+    {
+      LOG(pos.x);
+      NextBatch();
+    }
     glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos)
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
@@ -236,6 +243,9 @@ namespace Banana
 
     // bottom left
     data.quad_vertex_ptr->position = transform * glm::vec4({pos, 1.0f});
+    if(proj != 2)
+      LOG(proj);
+    
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {0, 0};
     data.quad_vertex_ptr->projID = proj;

@@ -30,7 +30,7 @@ void main()
   }
   else
   {
-    gl_Position = vec4(0, 0, 0, 0);
+    gl_Position = vec4(88, 12, 42, 18);
   }
 
   vertexColor = aColor;

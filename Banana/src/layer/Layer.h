@@ -1,6 +1,6 @@
 #pragma once 
 #include "_Banana.h"
-#include "generic/Entity.h"
+#include "ecs/Entity.h"
 
 namespace Banana
 {

@@ -3,7 +3,7 @@
 #include "Banana.h"
 #include "renderer/Texture.h"
 
-#define ARR_SIZE 900
+#define ARR_SIZE 1000
 
 namespace SANDBOX
 {
