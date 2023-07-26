@@ -125,7 +125,7 @@ namespace Banana
 
     // upload uniforms here
     data.shader->UploadMat4f("uPerspectiveViewProjection", data.scene_camera.GetPerspectiveViewProjection());
-    data.shader->UploadMat4f("uOrthograhpicViewProjection", data.scene_camera.GetOrthographicViewProjection());
+    data.shader->UploadMat4f("uOrthographicViewProjection", data.scene_camera.GetOrthographicViewProjection());
   }
 
   void Renderer2D::NextBatch()

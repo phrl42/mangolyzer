@@ -20,7 +20,8 @@ namespace Banana
     perspective_projection = glm::perspective(glm::radians(90.0f), 
         (float)width/(float)height, 0.1f, 1000.0f);
     
-    orthographic_projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height, 0.1f, 100.0f);
+    // I will never understand this
+    orthographic_projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height, 0.1f, 1000.0f);
     
     view_matrix = glm::mat4(1.0f);
 
