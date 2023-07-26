@@ -9,14 +9,13 @@ namespace SANDBOX
   TestLayer::TestLayer(const std::string& name)
   : name(name)
   {
-    ent.transform.pos = {20, 20, 0};
-    ent.transform.size = {10, 10, 0};
+    ent.transform.pos = {20, 20, 1};
+    ent.transform.size = {5, 5, 0};
     //ent.transform.color = {1, 0.5, -1.0f, 1.0f};
     ent.transform.color = {1.0f, 1.0f, 1.0f, 1.0f};
-    ent.transform.proj = Banana::Projection::PERSPECTIVE;
+    ent.transform.proj = Banana::Projection::ORTHOGRAPHIC;
 
     ent.AddComponent(new Banana::QuadComponent("assets/textures/banana.png"));
-    
   }
 
   TestLayer::~TestLayer()
@@ -44,11 +43,11 @@ namespace SANDBOX
   {
     if(Banana::Input::IsKeyPressed(KEY_Y))
     {
-      ent.transform.pos.y += 2 * dt;
+      ent.transform.size.y += 2 * dt;
     }
     if(Banana::Input::IsKeyPressed(KEY_Z))
     {
-      ent.transform.pos.y -= 2 * dt;
+      ent.transform.size.x += 2 * dt;
     }
     //ent.transform.rotation += 90 * dt;
     ent.Render(dt);

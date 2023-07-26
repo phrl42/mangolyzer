@@ -40,7 +40,7 @@ namespace SANDBOX
 
     if(Banana::Input::IsKeyPressed(KEY_D))
     {
-      x += 10 * dt;
+      x += 70 * dt;
     }
 
     if(Banana::Input::IsKeyPressed(KEY_T))
