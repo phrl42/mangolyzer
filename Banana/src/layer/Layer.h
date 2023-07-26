@@ -18,8 +18,6 @@ namespace Banana
     virtual void OnEvent(Event& event) = 0;
 
     virtual std::string& GetName() = 0;
-
-    void RenderEntity2D(Entity2D &ent);
   
   protected:
     std::string name;

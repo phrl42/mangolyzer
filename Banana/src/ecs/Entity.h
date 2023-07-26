@@ -1,4 +1,5 @@
 #pragma once
+#include "Projection.h"
 #include "_Banana.h"
 #include "renderer/Texture.h"
 
@@ -6,28 +7,22 @@
 
 namespace Banana
 {
-  struct Entity2D
-  {
-    glm::vec3 pos;
-    glm::vec2 size;
-    glm::vec4 color;
-    float rotation = 0;
-
-    Shr<Texture2D> tex = nullptr;
-
-    Banana::Projection proj = Banana::Projection::NONE;
-  };
-
   class Entity
   {
   public:
-    virtual ~Entity() = default;
-
-    void AddComponent(Component &component) 
+    inline virtual ~Entity()
     {
-      for(const Component& comp : components)
+      for(Component* comp : components)
       {
-        if(comp.GetName() == component.GetName())
+        delete comp;
+      }
+    }
+
+    void AddComponent(Component* component) 
+    {
+      for(Component* comp : components)
+      {
+        if(comp->GetName() == component->GetName())
         {
           return;
         }
@@ -35,7 +30,48 @@ namespace Banana
       components.push_back(component);
     }
 
+    void RemoveComponent(const std::string& name)
+    {
+      Component* comp_searched;
+      for(Component* comp : components)
+      {
+        if(comp->GetName() == name)
+        {
+          comp_searched = comp;
+          break;
+        }
+        LOG("To-removed component does not exist");
+        return;
+      }
+
+      std::vector<Component*>::iterator it = std::find(components.begin(), components.end(), comp_searched);
+
+      if(it != components.end())
+      {
+        components.erase(it);
+        delete *it;
+      }
+      else 
+      {
+        LOG("Could not find found component");
+        LOG("This should not happen");
+      }
+    }
+
+    Component* GetComponent(const std::string& name)
+    {
+      for(Component* comp : components)
+      {
+        if(comp->GetName() == name)
+        {
+          return comp;
+        }
+      }
+      LOG("Could not find component");
+      return nullptr;
+    }
+
   protected:
-    std::vector<Component> components;
+    std::vector<Component*> components;
   };
 };
