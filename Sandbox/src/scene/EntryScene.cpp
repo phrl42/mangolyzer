@@ -21,7 +21,7 @@ namespace SANDBOX
   {
     static float x = 0;
     static float y = 0;
-    static float z = 1;
+    static float z = 69;
 
     if(Banana::Input::IsKeyPressed(KEY_S))
     {

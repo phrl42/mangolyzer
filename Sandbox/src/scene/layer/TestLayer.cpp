@@ -9,8 +9,8 @@ namespace SANDBOX
   TestLayer::TestLayer(const std::string& name)
   : name(name)
   {
-    ent.transform.pos = {0, 0, 0};
-    ent.transform.size = {1, 1, 0};
+    ent.transform.pos = {-5, -5, 0};
+    ent.transform.size = {10, 10, 0};
     //ent.transform.color = {1, 0.5, -1.0f, 1.0f};
     ent.transform.color = {1.0f, 1.0f, 1.0f, 1.0f};
     ent.transform.proj = Banana::Projection::PERSPECTIVE;
@@ -41,6 +41,7 @@ namespace SANDBOX
 
   void TestLayer::OnUpdate(float dt)
   {
+    ent.transform.rotation += 90 * dt;
     ent.Render(dt);
   }
 };
