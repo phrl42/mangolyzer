@@ -1,5 +1,6 @@
 #pragma once
 #include "_Banana.h"
+#include "ecs/Transform.h"
 
 namespace Banana
 {
@@ -8,7 +9,7 @@ namespace Banana
   public:
     virtual ~Component() = default;
 
-    virtual void OnUpdate(float dt) = 0;
+    virtual void OnUpdate(float dt, const Transform &transform) = 0;
 
     const std::string& GetName() const { return name; }
   protected:

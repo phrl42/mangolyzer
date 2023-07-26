@@ -10,6 +10,18 @@ namespace Banana
   class Entity
   {
   public:
+    Entity()
+    : transform(Transform())
+    {
+
+    }
+
+    Entity(const Transform &transform)
+    :transform(transform)
+    {
+
+    }
+
     inline virtual ~Entity()
     {
       for(Component* comp : components)
@@ -71,7 +83,18 @@ namespace Banana
       return nullptr;
     }
 
-  protected:
+    void Render(float dt)
+    {
+      for(Component* comp : components)
+      {
+        comp->OnUpdate(dt, transform);
+      }
+    }
+
+  public:
+    Transform transform;
+
+  private:
     std::vector<Component*> components;
   };
 };

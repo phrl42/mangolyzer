@@ -12,7 +12,7 @@ namespace Banana
     QuadComponent();
     QuadComponent(const std::string &path);
 
-    virtual void OnUpdate(float dt) override;
+    virtual void OnUpdate(float dt, const Transform &transform) override;
   private:
   Shr<Texture2D> tex = nullptr;
   };

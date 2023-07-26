@@ -23,6 +23,7 @@ namespace SANDBOX
   
   private:
     std::string name;
+    Banana::Entity ent;
   };
 
 };
