@@ -8,6 +8,8 @@
 
 #include "renderer/RenderCommand.hpp"
 
+#include "Text.h"
+
 namespace Banana
 {
 
@@ -41,6 +43,8 @@ namespace Banana
     fb = Banana::Framebuffer::Create(spec);
 
     debug_layer = new Banana::IMGUILayer("IMGUILAYER");
+
+    Text::Init("assets/fonts/mononoki.ttf");
   }
 
   void Application::OnEvent(Event& e)

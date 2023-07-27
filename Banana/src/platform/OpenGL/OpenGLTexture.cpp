@@ -51,6 +51,21 @@ namespace Banana
     stbi_image_free(data);
   }
 
+  OpenGLTexture2D::OpenGLTexture2D(const void* pixels, int texture_width, int texture_height)
+  {
+		if (!pixels)
+		{
+      LOG("Could not load data");
+    }
+    
+    glGenTextures(1, &id);
+    glBindTexture(GL_TEXTURE_2D, id);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texture_width, texture_height, 0, GL_RED, GL_UNSIGNED_BYTE, pixels);
+    glHint(GL_GENERATE_MIPMAP_HINT, GL_NICEST);
+    glGenerateMipmap(GL_TEXTURE_2D);
+  }
+
   OpenGLTexture2D::~OpenGLTexture2D()
   {
     glDeleteTextures(1, &id);

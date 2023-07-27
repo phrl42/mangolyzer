@@ -24,7 +24,7 @@ namespace Banana
       Renderer2D::DrawQuad(transform.pos, {transform.size.x, transform.size.y}, transform.color, transform.rotation, tex, transform.proj);
     }
     else 
-    {
+    {  
       Renderer2D::DrawQuad(transform.pos, {transform.size.x, transform.size.y}, transform.color, transform.rotation, transform.proj);
     }
   }

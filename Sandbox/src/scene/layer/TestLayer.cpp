@@ -9,7 +9,7 @@ namespace SANDBOX
   TestLayer::TestLayer(const std::string& name)
   : name(name)
   {
-    ent.transform.pos = {20, 20, 1};
+    ent.transform.pos = {0, 0, 1};
     ent.transform.size = {5, 5, 0};
     //ent.transform.color = {1, 0.5, -1.0f, 1.0f};
     ent.transform.color = {1.0f, 1.0f, 1.0f, 1.0f};

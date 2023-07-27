@@ -8,6 +8,7 @@ namespace Banana
   public:
       
     OpenGLTexture2D(const std::string& path);
+    OpenGLTexture2D(const void* pixels, int texture_width, int texture_height);
     virtual ~OpenGLTexture2D() override;
     
     virtual uint32_t GetWidth() const override { return width; }

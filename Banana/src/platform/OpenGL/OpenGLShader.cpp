@@ -1,10 +1,5 @@
 #include "platform/OpenGL/OpenGLShader.h"
 
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <cstring>
-
 #include "glad.h"
 #include "GLFW/glfw3.h"
 
