@@ -1,7 +1,15 @@
 #include "Text.h"
 
+#define STB_TRUETYPE_IMPLEMENTATION
+#include "stb_truetype.h"
+
 namespace Banana
 {
+
+  int Text::ascent, Text::descent, Text::lineGap, Text::x;
+  float Text::scale;
+  const stbtt_fontinfo *Text::font_info;
+  
   void Text::Init(const std::string &font_path)
   {
     std::basic_ifstream<char> ifs(font_path);

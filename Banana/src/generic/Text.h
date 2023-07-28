@@ -1,8 +1,7 @@
 #pragma once
 #include "_Banana.h"
 
-#define STB_TRUETYPE_IMPLEMENTATION
-#include "stb_truetype.h"
+struct stbtt_fontinfo;
 
 namespace Banana
 {

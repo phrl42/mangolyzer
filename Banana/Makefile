@@ -94,6 +94,8 @@ GENERATED += $(OBJDIR)/RendererAPI.o
 GENERATED += $(OBJDIR)/Scene.o
 GENERATED += $(OBJDIR)/SceneStack.o
 GENERATED += $(OBJDIR)/Shader.o
+GENERATED += $(OBJDIR)/Text.o
+GENERATED += $(OBJDIR)/TextComponent.o
 GENERATED += $(OBJDIR)/Texture.o
 GENERATED += $(OBJDIR)/Transform.o
 GENERATED += $(OBJDIR)/VertexArray.o
@@ -124,6 +126,8 @@ OBJECTS += $(OBJDIR)/RendererAPI.o
 OBJECTS += $(OBJDIR)/Scene.o
 OBJECTS += $(OBJDIR)/SceneStack.o
 OBJECTS += $(OBJDIR)/Shader.o
+OBJECTS += $(OBJDIR)/Text.o
+OBJECTS += $(OBJDIR)/TextComponent.o
 OBJECTS += $(OBJDIR)/Texture.o
 OBJECTS += $(OBJDIR)/Transform.o
 OBJECTS += $(OBJDIR)/VertexArray.o
@@ -197,6 +201,9 @@ $(OBJDIR)/Transform.o: src/ecs/Transform.cpp
 $(OBJDIR)/QuadComponent.o: src/ecs/components/QuadComponent.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/TextComponent.o: src/ecs/components/TextComponent.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Input.o: src/event/Input.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
@@ -204,6 +211,9 @@ $(OBJDIR)/Application.o: src/generic/Application.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Camera.o: src/generic/Camera.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Text.o: src/generic/Text.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Window.o: src/generic/Window.cpp
