@@ -23,5 +23,7 @@ namespace Banana
   {
   public:
     static Shr<Texture2D> Create(const std::string& file_path);
+    static Shr<Texture2D> Create(const void* pixels, int texture_width, int texture_height);
+
   };
 };

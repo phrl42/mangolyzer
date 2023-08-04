@@ -6,7 +6,7 @@ namespace Banana
 {
   QuadComponent::QuadComponent()
   {
-
+    this->name = "QuadComponent";
   }
 
   QuadComponent::QuadComponent(const std::string &name)
@@ -15,6 +15,7 @@ namespace Banana
     {
       tex = Texture2D::Create(name);
     }
+    QuadComponent();
   }
 
   void QuadComponent::OnUpdate(float dt, const Transform &transform)

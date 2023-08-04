@@ -12,11 +12,13 @@ namespace Banana
 
     static void Init(const std::string &font_path);
 
+    static unsigned char* GetPixels(const std::string& text);
+
   public:
     static int ascent, descent, lineGap, x;
 
     static float scale;
 
-    static const stbtt_fontinfo *font_info;
+    static stbtt_fontinfo* font_info;
   };
 };

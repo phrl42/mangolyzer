@@ -3,6 +3,7 @@
 #include "renderer/Renderer2D.h"
 
 #include "ecs/components/QuadComponent.h"
+#include "ecs/components/TextComponent.h"
 
 namespace SANDBOX
 {
@@ -13,9 +14,10 @@ namespace SANDBOX
     ent.transform.size = {5, 5, 0};
     //ent.transform.color = {1, 0.5, -1.0f, 1.0f};
     ent.transform.color = {1.0f, 1.0f, 1.0f, 1.0f};
-    ent.transform.proj = Banana::Projection::ORTHOGRAPHIC;
+    ent.transform.proj = Banana::Projection::PERSPECTIVE;
 
-    ent.AddComponent(new Banana::QuadComponent("assets/textures/banana.png"));
+    //ent.AddComponent(new Banana::QuadComponent("assets/textures/banana.png"));
+    ent.AddComponent(new Banana::TextComponent("nigga"));
   }
 
   TestLayer::~TestLayer()
@@ -49,6 +51,14 @@ namespace SANDBOX
     {
       ent.transform.size.x += 2 * dt;
     }
+
+    if(Banana::Input::IsKeyPressed(KEY_J))
+    {
+      Banana::TextComponent* texcomp = (Banana::TextComponent*)ent.GetComponent("TextComponent");
+      texcomp->ChangeText("salad bomb");
+    }
+
+    //ent.transform.rotation += 90 * dt;
     //ent.transform.rotation += 90 * dt;
     ent.Render(dt);
   }
