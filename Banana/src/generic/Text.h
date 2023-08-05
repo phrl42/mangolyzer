@@ -19,6 +19,6 @@ namespace Banana
 
     static float scale;
 
-    static stbtt_fontinfo* font_info;
+    static stbtt_fontinfo font_info;
   };
 };

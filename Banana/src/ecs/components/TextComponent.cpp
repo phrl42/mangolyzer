@@ -15,7 +15,7 @@ namespace Banana
 
   void TextComponent::OnUpdate(float dt, const Transform &transform)
   {
-    Renderer2D::DrawQuad(transform.pos, transform.size, transform. color, transform.rotation, font_texture, transform.proj);
+    Renderer2D::DrawQuad(transform.pos, transform.size, transform.color, transform.rotation, font_texture, transform.proj);
   }
 
   void TextComponent::ChangeText(const std::string& text)
