@@ -156,6 +156,12 @@ namespace Banana
 
   void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color, float rotation, const Shr<Texture2D>& texture, Projection proj)
   {
+    if(texture == nullptr)
+    {
+      LOG("Omitted nullptr texture in renderer: Please initialize your texture");
+      return;
+    }
+    
 		if (data.QuadIndexCount >= data.MAX_INDICES)
 			NextBatch();
     

@@ -20,7 +20,7 @@ namespace Banana
 
   void TextComponent::ChangeText(const std::string& text)
   {
-    font_texture = Texture2D::Create(Text::GetPixels(text), font_width, font_height);
+    
   }
 
 };

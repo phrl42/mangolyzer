@@ -18,6 +18,7 @@ project "Banana"
       "GLAD",
       "IMGUI",
       "GLFW",
+      "MSDF-ATLAS-GEN"
     }
     
     includedirs {

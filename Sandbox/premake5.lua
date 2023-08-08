@@ -31,6 +31,7 @@ project "Sandbox"
     "GLAD",
     "GLFW",
     "IMGUI",
+    "MSDF-ATLAS-GEN"
   }
 
   filter "configurations:Debug"
