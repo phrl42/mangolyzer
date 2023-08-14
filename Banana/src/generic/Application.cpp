@@ -8,7 +8,7 @@
 
 #include "renderer/RenderCommand.hpp"
 
-#include "Text.h"
+#include "Font.h"
 
 namespace Banana
 {
@@ -44,7 +44,7 @@ namespace Banana
 
     debug_layer = new Banana::IMGUILayer("IMGUILAYER");
 
-    Text::Init("assets/fonts/mononoki.ttf");
+    //Text::Init("assets/fonts/mononoki.ttf");
   }
 
   void Application::OnEvent(Event& e)

@@ -18,7 +18,9 @@ project "Banana"
       "GLAD",
       "IMGUI",
       "GLFW",
-      "MSDF-ATLAS-GEN"
+      "freetype",
+      "msdfgen",
+      "MSDF-ATLAS-GEN",
     }
     
     includedirs {
@@ -27,6 +29,9 @@ project "Banana"
       "%{IncludeDir.IMGUI}",
       "%{IncludeDir.GLM}",
       "%{IncludeDir.STB}",
+      "%{IncludeDir.MSDFATLASGEN}",
+      "%{IncludeDir.MSDF}",
+      "%{IncludeDir.MSDFINC}",
       "%{wks.location}/Banana",
       "%{wks.location}/Banana/src",
       "%{wks.location}/Banana/src/generic"

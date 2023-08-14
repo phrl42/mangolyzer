@@ -1,7 +1,7 @@
 #pragma once
 #include "_Banana.h"
 #include "ecs/Component.h"
-#include "renderer/Texture.h"
+#include "generic/Font.h"
 
 namespace Banana
 {
@@ -17,7 +17,7 @@ namespace Banana
     void ChangeText(const std::string& text);
     
   private:
-    Shr<Texture2D> font_texture;
+    Shr<Font> font_texture;
     int font_width;
     int font_height;
 
