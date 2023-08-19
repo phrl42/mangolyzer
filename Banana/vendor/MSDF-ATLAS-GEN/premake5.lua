@@ -1,5 +1,3 @@
-include "msdfgen"
-
 project "MSDF-ATLAS-GEN"
 	kind "StaticLib"
 	language "C++"

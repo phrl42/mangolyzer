@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Copyright (C) 2005-2023 by
+# Copyright (C) 2005-2021 by
 # David Turner, Robert Wilhelm, and Werner Lemberg.
 #
 # This file is part of the FreeType project, and may only be used, modified,
@@ -182,19 +182,17 @@ copy_submodule_files ()
   cp $DLG_SRC_DIR/* src/dlg
 }
 
-if test -e ".git"; then
-  DLG_INC_DIR=subprojects/dlg/include/dlg
-  DLG_SRC_DIR=subprojects/dlg/src/dlg
+DLG_INC_DIR=subprojects/dlg/include/dlg
+DLG_SRC_DIR=subprojects/dlg/src/dlg
 
-  if test -d "$DLG_INC_DIR"; then
-    :
-  else
-    echo "Checking out submodule in \`subprojects/dlg':"
-    git submodule init
-    git submodule update
-  fi
-
-  copy_submodule_files
+if test -d "$DLG_INC_DIR"; then
+  :
+else
+  echo "Checking out submodule in \`subprojects/dlg':"
+  git submodule init
+  git submodule update
 fi
+
+copy_submodule_files
 
 # EOF

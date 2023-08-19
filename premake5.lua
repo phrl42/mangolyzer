@@ -24,8 +24,9 @@ group "dependencies"
 include "Banana/vendor/GLFW"
 include "Banana/vendor/GLAD"
 include "Banana/vendor/IMGUI"
+include "Banana/vendor/MSDF-ATLAS-GEN/msdfgen/freetype"
+include "Banana/vendor/MSDF-ATLAS-GEN/msdfgen"
 include "Banana/vendor/MSDF-ATLAS-GEN"
-
 group ""
 
 group "engine"

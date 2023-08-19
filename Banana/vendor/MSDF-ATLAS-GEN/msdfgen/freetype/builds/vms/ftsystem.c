@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    VMS-specific FreeType low-level system interface (body).             */
 /*                                                                         */
-/*  Copyright (C) 1996-2023 by                                             */
+/*  Copyright (C) 1996-2021 by                                             */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -246,7 +246,7 @@
                                           file,
                                           0 );
 
-    if ( stream->base == MAP_FAILED )
+    if ( (long)stream->base == -1 )
     {
       FT_ERROR(( "FT_Stream_Open:" ));
       FT_ERROR(( " could not `mmap' file `%s'\n", filepathname ));

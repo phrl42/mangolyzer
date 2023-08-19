@@ -17,7 +17,7 @@ namespace SANDBOX
     ent.transform.proj = Banana::Projection::PERSPECTIVE;
 
     //ent.AddComponent(new Banana::QuadComponent("assets/textures/banana.png"));
-    //ent.AddComponent(new Banana::TextComponent("nigga"));
+    ent.AddComponent(new Banana::TextComponent("nigga"));
   }
 
   TestLayer::~TestLayer()

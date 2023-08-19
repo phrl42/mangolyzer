@@ -4,7 +4,7 @@
  *
  *   TrueType-specific tables loader (body).
  *
- * Copyright (C) 1996-2023 by
+ * Copyright (C) 1996-2021 by
  * David Turner, Robert Wilhelm, and Werner Lemberg.
  *
  * This file is part of the FreeType project, and may only be used,
@@ -498,14 +498,6 @@
   }
 
 
-  FT_COMPARE_DEF( int )
-  compare_ppem( const void*  a,
-                const void*  b )
-  {
-    return **(FT_Byte**)a - **(FT_Byte**)b;
-  }
-
-
   /**************************************************************************
    *
    * @Function:
@@ -555,6 +547,12 @@
     num_records = FT_NEXT_USHORT( p );
     record_size = FT_NEXT_ULONG( p );
 
+    /* The maximum number of bytes in an hdmx device record is the */
+    /* maximum number of glyphs + 2 + 32-bit padding, or 0x10004,  */
+    /* that is why `record_size' is a long (which we read as       */
+    /* unsigned long for convenience).  In practice, two bytes are */
+    /* sufficient to hold the size value.                          */
+    /*                                                             */
     /* There are at least two fonts, HANNOM-A and HANNOM-B version */
     /* 2.0 (2005), which get this wrong: The upper two bytes of    */
     /* the size value are set to 0xFF instead of 0x00.  We catch   */
@@ -563,45 +561,31 @@
     if ( record_size >= 0xFFFF0000UL )
       record_size &= 0xFFFFU;
 
-    FT_TRACE2(( "Hdmx " ));
-
     /* The limit for `num_records' is a heuristic value. */
-    if ( num_records > 255 || num_records == 0 )
+    if ( num_records > 255               ||
+         ( num_records > 0             &&
+           ( record_size > 0x10004UL ||
+             record_size & 3         ) ) )
     {
-      FT_TRACE2(( "with unreasonable %u records rejected\n", num_records ));
+      error = FT_THROW( Invalid_File_Format );
       goto Fail;
     }
 
-    /* Out-of-spec tables are rejected.  The record size must be */
-    /* equal to the number of glyphs + 2 + 32-bit padding.       */
-    if ( (FT_Long)record_size != ( ( face->root.num_glyphs + 2 + 3 ) & ~3 ) )
-    {
-      FT_TRACE2(( "with record size off by %ld bytes rejected\n",
-                  (FT_Long)record_size -
-                    ( ( face->root.num_glyphs + 2 + 3 ) & ~3 ) ));
-      goto Fail;
-    }
-
-    if ( FT_QNEW_ARRAY( face->hdmx_records, num_records ) )
+    if ( FT_NEW_ARRAY( face->hdmx_record_sizes, num_records ) )
       goto Fail;
 
     for ( nn = 0; nn < num_records; nn++ )
     {
       if ( p + record_size > limit )
         break;
-      face->hdmx_records[nn] = p;
-      p                     += record_size;
-    }
 
-    /* The records must be already sorted by ppem but it does not */
-    /* hurt to make sure so that the binary search works later.   */
-    ft_qsort( face->hdmx_records, nn, sizeof ( FT_Byte* ), compare_ppem );
+      face->hdmx_record_sizes[nn] = p[0];
+      p                          += record_size;
+    }
 
     face->hdmx_record_count = nn;
     face->hdmx_table_size   = table_size;
     face->hdmx_record_size  = record_size;
-
-    FT_TRACE2(( "%ux%lu loaded\n", num_records, record_size ));
 
   Exit:
     return error;
@@ -620,7 +604,7 @@
     FT_Memory  memory = stream->memory;
 
 
-    FT_FREE( face->hdmx_records );
+    FT_FREE( face->hdmx_record_sizes );
     FT_FRAME_RELEASE( face->hdmx_table );
   }
 
@@ -628,34 +612,27 @@
   /**************************************************************************
    *
    * Return the advance width table for a given pixel size if it is found
-   * in the font's `hdmx' table (if any).  The records must be sorted for
-   * the binary search to work properly.
+   * in the font's `hdmx' table (if any).
    */
   FT_LOCAL_DEF( FT_Byte* )
   tt_face_get_device_metrics( TT_Face  face,
                               FT_UInt  ppem,
                               FT_UInt  gindex )
   {
-    FT_UInt   min    = 0;
-    FT_UInt   max    = face->hdmx_record_count;
-    FT_UInt   mid;
-    FT_Byte*  result = NULL;
+    FT_UInt   nn;
+    FT_Byte*  result      = NULL;
+    FT_ULong  record_size = face->hdmx_record_size;
+    FT_Byte*  record      = FT_OFFSET( face->hdmx_table, 8 );
 
 
-    while ( min < max )
-    {
-      mid = ( min + max ) >> 1;
-
-      if ( face->hdmx_records[mid][0] > ppem )
-        max = mid;
-      else if ( face->hdmx_records[mid][0] < ppem )
-        min = mid + 1;
-      else
+    for ( nn = 0; nn < face->hdmx_record_count; nn++ )
+      if ( face->hdmx_record_sizes[nn] == ppem )
       {
-        result = face->hdmx_records[mid] + 2 + gindex;
+        gindex += 2;
+        if ( gindex < record_size )
+          result = record + nn * record_size + gindex;
         break;
       }
-    }
 
     return result;
   }

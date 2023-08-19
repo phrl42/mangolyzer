@@ -15,12 +15,7 @@ project "Banana"
     }
 
     links {
-      "GLAD",
-      "IMGUI",
-      "GLFW",
-      "freetype",
-      "msdfgen",
-      "MSDF-ATLAS-GEN",
+
     }
     
     includedirs {

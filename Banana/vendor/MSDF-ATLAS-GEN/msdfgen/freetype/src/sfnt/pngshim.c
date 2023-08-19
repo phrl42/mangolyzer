@@ -4,7 +4,7 @@
  *
  *   PNG Bitmap glyph support.
  *
- * Copyright (C) 2013-2023 by
+ * Copyright (C) 2013-2021 by
  * Google, Inc.
  * Written by Stuart Gill and Behdad Esfahbod.
  *
@@ -239,7 +239,7 @@
       *e = FT_THROW( Invalid_Stream_Read );
       png_error( png, NULL );
 
-      /* return; (never reached) */
+      return;
     }
 
     ft_memcpy( data, stream->cursor, length );
@@ -367,7 +367,7 @@
     }
 
     /* transform transparency to alpha */
-    if ( png_get_valid( png, info, PNG_INFO_tRNS ) )
+    if ( png_get_valid(png, info, PNG_INFO_tRNS ) )
       png_set_tRNS_to_alpha( png );
 
     if ( bitdepth == 16 )
@@ -387,7 +387,7 @@
     png_set_filler( png, 0xFF, PNG_FILLER_AFTER );
 
     /* recheck header after setting EXPAND options */
-    png_read_update_info( png, info );
+    png_read_update_info(png, info );
     png_get_IHDR( png, info,
                   &imgWidth, &imgHeight,
                   &bitdepth, &color_type, &interlace,
@@ -407,8 +407,7 @@
     switch ( color_type )
     {
     default:
-      /* Shouldn't happen, but ... */
-      FALL_THROUGH;
+      /* Shouldn't happen, but fall through. */
 
     case PNG_COLOR_TYPE_RGB_ALPHA:
       png_set_read_user_transform_fn( png, premultiply_data );
@@ -457,7 +456,7 @@
 #else /* !(TT_CONFIG_OPTION_EMBEDDED_BITMAPS && FT_CONFIG_OPTION_USE_PNG) */
 
   /* ANSI C doesn't like empty source files */
-  typedef int  pngshim_dummy_;
+  typedef int  _pngshim_dummy;
 
 #endif /* !(TT_CONFIG_OPTION_EMBEDDED_BITMAPS && FT_CONFIG_OPTION_USE_PNG) */
 

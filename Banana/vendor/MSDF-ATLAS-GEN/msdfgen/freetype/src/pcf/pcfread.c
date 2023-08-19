@@ -238,7 +238,7 @@ THE SOFTWARE.
       {
         for ( j = 0; j < sizeof ( tableNames ) / sizeof ( tableNames[0] );
               j++ )
-          if ( tables[i].type == 1UL << j )
+          if ( tables[i].type == (FT_UInt)( 1 << j ) )
             name = tableNames[j];
 
         FT_TRACE4(( "  %d: type=%s, format=0x%lX,"
@@ -613,8 +613,7 @@ THE SOFTWARE.
 
     strings[string_size] = '\0';
 
-    /* zero out in case of failure */
-    if ( FT_NEW_ARRAY( properties, nprops ) )
+    if ( FT_QNEW_ARRAY( properties, nprops ) )
       goto Bail;
 
     face->properties = properties;
@@ -1034,6 +1033,16 @@ THE SOFTWARE.
          enc->lastRow  > 0xFF         )
       return FT_THROW( Invalid_Table );
 
+    nencoding = (FT_ULong)( enc->lastCol - enc->firstCol + 1 ) *
+                (FT_ULong)( enc->lastRow - enc->firstRow + 1 );
+
+    if ( FT_NEW_ARRAY( enc->offset, nencoding ) )
+      goto Bail;
+
+    error = FT_Stream_EnterFrame( stream, 2 * nencoding );
+    if ( error )
+      goto Exit;
+
     FT_TRACE5(( "\n" ));
 
     defaultCharRow = enc->defaultChar >> 8;
@@ -1053,13 +1062,6 @@ THE SOFTWARE.
       defaultCharRow = enc->firstRow;
       defaultCharCol = enc->firstCol;
     }
-
-    nencoding = (FT_ULong)( enc->lastCol - enc->firstCol + 1 ) *
-                (FT_ULong)( enc->lastRow - enc->firstRow + 1 );
-
-    error = FT_Stream_EnterFrame( stream, 2 * nencoding );
-    if ( error )
-      goto Bail;
 
     /*
      * FreeType mandates that glyph index 0 is the `undefined glyph', which
@@ -1106,9 +1108,6 @@ THE SOFTWARE.
     /* copy metrics of default character to index 0 */
     face->metrics[0] = face->metrics[defaultCharEncodingOffset];
 
-    if ( FT_QNEW_ARRAY( enc->offset, nencoding ) )
-      goto Bail;
-
     /* now loop over all values */
     offset = enc->offset;
     for ( i = enc->firstRow; i <= enc->lastRow; i++ )
@@ -1130,6 +1129,11 @@ THE SOFTWARE.
       }
     }
     FT_Stream_ExitFrame( stream );
+
+    return error;
+
+  Exit:
+    FT_FREE( enc->offset );
 
   Bail:
     return error;
@@ -1608,7 +1612,7 @@ THE SOFTWARE.
         else
         {
           /* this is a heuristical value */
-          bsize->width = ( bsize->height * 2 + 1 ) / 3;
+          bsize->width = (FT_Short)FT_MulDiv( bsize->height, 2, 3 );
         }
 
         prop = pcf_find_property( face, "POINT_SIZE" );

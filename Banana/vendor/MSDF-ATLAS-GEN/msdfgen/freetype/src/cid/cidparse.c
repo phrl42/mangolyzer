@@ -4,7 +4,7 @@
  *
  *   CID-keyed Type1 parser (body).
  *
- * Copyright (C) 1996-2023 by
+ * Copyright (C) 1996-2021 by
  * David Turner, Robert Wilhelm, and Werner Lemberg.
  *
  * This file is part of the FreeType project, and may only be used,
@@ -73,11 +73,7 @@
 
     /* first of all, check the font format in the header */
     if ( FT_FRAME_ENTER( 31 ) )
-    {
-      FT_TRACE2(( "  not a CID-keyed font\n" ));
-      error = FT_THROW( Unknown_File_Format );
       goto Exit;
-    }
 
     if ( ft_strncmp( (char *)stream->cursor,
                      "%!PS-Adobe-3.0 Resource-CIDFont", 31 ) )
@@ -185,7 +181,7 @@
     parser->root.base      = parser->postscript;
     parser->root.cursor    = parser->postscript;
     parser->root.limit     = parser->root.cursor + ps_len;
-    parser->num_dict       = FT_UINT_MAX;
+    parser->num_dict       = -1;
 
     /* Finally, we check whether `StartData' or `/sfnts' was real --  */
     /* it could be in a comment or string.  We also get the arguments */
@@ -214,24 +210,18 @@
            cur <= limit - STARTDATA_LEN                            &&
            ft_strncmp( (char*)cur, STARTDATA, STARTDATA_LEN ) == 0 )
       {
-        T1_TokenRec  type_token;
-        FT_Long      binary_length;
-
-
-        parser->root.cursor = arg1;
-        cid_parser_to_token( parser, &type_token );
-        if ( type_token.limit - type_token.start == 5              &&
-             ft_memcmp( (char*)type_token.start, "(Hex)", 5 ) == 0 )
+        if ( ft_strncmp( (char*)arg1, "(Hex)", 5 ) == 0 )
         {
-          parser->root.cursor = arg2;
-          binary_length = cid_parser_to_int( parser );
-          if ( binary_length < 0 )
+          FT_Long  tmp = ft_strtol( (const char *)arg2, NULL, 10 );
+
+
+          if ( tmp < 0 )
           {
             FT_ERROR(( "cid_parser_new: invalid length of hex data\n" ));
             error = FT_THROW( Invalid_File_Format );
           }
           else
-            parser->binary_length = (FT_ULong)binary_length;
+            parser->binary_length = (FT_ULong)tmp;
         }
 
         goto Exit;

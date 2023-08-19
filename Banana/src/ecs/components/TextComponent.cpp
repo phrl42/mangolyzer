@@ -12,6 +12,7 @@ namespace Banana
     this->font_height = font_height;
 
     ChangeText(text);
+    
   }
 
   void TextComponent::OnUpdate(float dt, const Transform &transform)

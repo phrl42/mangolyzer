@@ -4,7 +4,7 @@
  *
  *   TrueType Subpixel Hinting.
  *
- * Copyright (C) 2010-2023 by
+ * Copyright (C) 2010-2021 by
  * David Turner, Robert Wilhelm, and Werner Lemberg.
  *
  * This file is part of the FreeType project, and may only be used,
@@ -1004,7 +1004,7 @@
       /*   TT_SUPPORT_SUBPIXEL_HINTING_INFINALITY) */
 
   /* ANSI C doesn't like empty source files */
-  typedef int  tt_subpix_dummy_;
+  typedef int  _tt_subpix_dummy;
 
 #endif /* !(TT_USE_BYTECODE_INTERPRETER &&          */
        /*   TT_SUPPORT_SUBPIXEL_HINTING_INFINALITY) */

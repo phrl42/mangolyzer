@@ -4,7 +4,7 @@
  *
  *   Unix-specific FreeType low-level system interface (body).
  *
- * Copyright (C) 1996-2023 by
+ * Copyright (C) 1996-2021 by
  * David Turner, Robert Wilhelm, and Werner Lemberg.
  *
  * This file is part of the FreeType project, and may only be used,
@@ -233,7 +233,7 @@
   FT_CALLBACK_DEF( void )
   ft_close_stream_by_free( FT_Stream  stream )
   {
-    ft_free( stream->memory, stream->descriptor.pointer );
+    ft_free( NULL, stream->descriptor.pointer );
 
     stream->descriptor.pointer = NULL;
     stream->size               = 0;
@@ -313,7 +313,8 @@
                                           file,
                                           0 );
 
-    if ( stream->base != MAP_FAILED )
+    /* on some RTOS, mmap might return 0 */
+    if ( (long)stream->base != -1 && stream->base != NULL )
       stream->close = ft_close_stream_by_munmap;
     else
     {
@@ -323,7 +324,7 @@
       FT_ERROR(( "FT_Stream_Open:" ));
       FT_ERROR(( " could not `mmap' file `%s'\n", filepathname ));
 
-      stream->base = (unsigned char*)ft_alloc( stream->memory, stream->size );
+      stream->base = (unsigned char*)ft_alloc( NULL, stream->size );
 
       if ( !stream->base )
       {
@@ -373,7 +374,7 @@
     return FT_Err_Ok;
 
   Fail_Read:
-    ft_free( stream->memory, stream->base );
+    ft_free( NULL, stream->base );
 
   Fail_Map:
     close( file );

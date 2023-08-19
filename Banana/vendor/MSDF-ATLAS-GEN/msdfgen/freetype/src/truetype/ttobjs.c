@@ -4,7 +4,7 @@
  *
  *   Objects manager (body).
  *
- * Copyright (C) 1996-2023 by
+ * Copyright (C) 1996-2021 by
  * David Turner, Robert Wilhelm, and Werner Lemberg.
  *
  * This file is part of the FreeType project, and may only be used,
@@ -140,13 +140,14 @@
 
     return error;
   }
+#endif /* TT_USE_BYTECODE_INTERPRETER */
 
 
-  /*
-   * Fonts embedded in PDFs are made unique by prepending randomization
-   * prefixes to their names: as defined in Section 5.5.3, 'Font Subsets',
-   * of the PDF Reference, they consist of 6 uppercase letters followed by
-   * the `+` sign.  For safety, we do not skip prefixes violating this rule.
+  /* The fonts embedded in PDF changes their family names
+   * by the randomization tag. PDF Reference 5.5.3 "Font
+   * Subsets" defines its format as 6 uppercase letters and
+   * '+' sign.  For safety, we do not skip the tag violating
+   * this rule.
    */
 
   static const FT_String*
@@ -165,7 +166,6 @@
     FT_TRACE7(( "name without randomization tag: %s\n", name + 7 ));
     return name + 7;
   }
-
 
   /* Compare the face with a list of well-known `tricky' fonts. */
   /* This list shall be expanded as we find more of them.       */
@@ -196,7 +196,7 @@
       "DFGothic-EB",        /* DynaLab Inc. 1992-1995 */
       "DFGyoSho-Lt",        /* DynaLab Inc. 1992-1995 */
       "DFHei",              /* DynaLab Inc. 1992-1995 [DFHei-Bd-WIN-HK-BF] */
-                            /* covers "DFHei-Md-HK-BF", maybe DynaLab Inc. */
+                            /* covers "DFHei-Md-HK-BF" maybe DynaLab Inc. */
 
       "DFHSGothic-W5",      /* DynaLab Inc. 1992-1995 */
       "DFHSMincho-W3",      /* DynaLab Inc. 1992-1995 */
@@ -553,8 +553,8 @@
     if ( face->family_name                               &&
          tt_check_trickyness_family( face->family_name ) )
     {
-      FT_TRACE3(( "found as a tricky font"
-                  " by its family name: %s\n", face->family_name ));
+      FT_TRACE3(( "found as a tricky font by "
+                  "its family name: %s\n", face->family_name ));
       return TRUE;
     }
 
@@ -563,15 +563,13 @@
     /* sfnt tables (`cvt', `fpgm', and `prep').                     */
     if ( tt_check_trickyness_sfnt_ids( (TT_Face)face ) )
     {
-      FT_TRACE3(( "found as a tricky font"
-                  " by its cvt/fpgm/prep table checksum\n" ));
+      FT_TRACE3(( "found as a tricky font by "
+                  "its cvt/fpgm/prep table checksum\n" ));
       return TRUE;
     }
 
     return FALSE;
   }
-
-#endif /* TT_USE_BYTECODE_INTERPRETER */
 
 
   /* Check whether `.notdef' is the only glyph in the `loca' table. */
@@ -718,17 +716,14 @@
     if ( error )
       goto Exit;
 
-#ifdef TT_USE_BYTECODE_INTERPRETER
     if ( tt_check_trickyness( ttface ) )
       ttface->face_flags |= FT_FACE_FLAG_TRICKY;
-#endif
 
     error = tt_face_load_hdmx( face, stream );
     if ( error )
       goto Exit;
 
-    if ( FT_IS_SCALABLE( ttface ) ||
-         FT_HAS_SBIX( ttface )    )
+    if ( FT_IS_SCALABLE( ttface ) )
     {
 #ifdef FT_CONFIG_OPTION_INCREMENTAL
       if ( !ttface->internal->incremental_interface )
@@ -1004,7 +999,7 @@
     {
       size->cvt[i] = FT_MulFix( face->cvt[i], scale );
       FT_TRACE6(( "  %3d: %f (%f)\n",
-                  i, (double)face->cvt[i] / 64, (double)size->cvt[i] / 64 ));
+                  i, face->cvt[i] / 64.0, size->cvt[i] / 64.0 ));
     }
     FT_TRACE6(( "\n" ));
 
@@ -1245,11 +1240,11 @@
     /* rescale CVT when needed */
     if ( size->cvt_ready < 0 )
     {
-      FT_UShort  i;
+      FT_UInt  i;
 
 
       /* all twilight points are originally zero */
-      for ( i = 0; i < size->twilight.n_points; i++ )
+      for ( i = 0; i < (FT_UInt)size->twilight.n_points; i++ )
       {
         size->twilight.org[i].x = 0;
         size->twilight.org[i].y = 0;
@@ -1258,7 +1253,7 @@
       }
 
       /* clear storage area */
-      for ( i = 0; i < size->storage_size; i++ )
+      for ( i = 0; i < (FT_UInt)size->storage_size; i++ )
         size->storage[i] = 0;
 
       size->GS = tt_default_graphics_state;
@@ -1435,8 +1430,6 @@
                                            size_metrics->y_ppem );
       size->ttmetrics.y_ratio = 0x10000L;
     }
-
-    size->widthp = tt_face_get_device_metrics( face, size_metrics->x_ppem, 0 );
 
     size->metrics = size_metrics;
 

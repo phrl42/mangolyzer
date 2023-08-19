@@ -4,7 +4,7 @@
  *
  *   Windows-specific FreeType low-level system interface (body).
  *
- * Copyright (C) 2021-2023 by
+ * Copyright (C) 2021 by
  * David Turner, Robert Wilhelm, and Werner Lemberg.
  *
  * This file is part of the FreeType project, and may only be used,
@@ -188,130 +188,12 @@
   FT_CALLBACK_DEF( void )
   ft_close_stream_by_free( FT_Stream  stream )
   {
-    ft_free( stream->memory, stream->descriptor.pointer );
+    ft_free( NULL, stream->descriptor.pointer );
 
     stream->descriptor.pointer = NULL;
     stream->size               = 0;
     stream->base               = NULL;
   }
-
-
-  /* non-desktop Universal Windows Platform */
-#if defined( WINAPI_FAMILY ) && WINAPI_FAMILY != WINAPI_FAMILY_DESKTOP_APP
-
-#define PACK_DWORD64( hi, lo )  ( ( (DWORD64)(hi) << 32 ) | (DWORD)(lo) )
-
-#define CreateFileMapping( a, b, c, d, e, f )                          \
-          CreateFileMappingFromApp( a, b, c, PACK_DWORD64( d, e ), f )
-#define MapViewOfFile( a, b, c, d, e )                                 \
-          MapViewOfFileFromApp( a, b, PACK_DWORD64( c, d ), e )
-
-  FT_LOCAL_DEF( HANDLE )
-  CreateFileA( LPCSTR                 lpFileName,
-               DWORD                  dwDesiredAccess,
-               DWORD                  dwShareMode,
-               LPSECURITY_ATTRIBUTES  lpSecurityAttributes,
-               DWORD                  dwCreationDisposition,
-               DWORD                  dwFlagsAndAttributes,
-               HANDLE                 hTemplateFile )
-  {
-    int     len;
-    LPWSTR  lpFileNameW;
-
-    CREATEFILE2_EXTENDED_PARAMETERS  createExParams = {
-      sizeof ( CREATEFILE2_EXTENDED_PARAMETERS ),
-      dwFlagsAndAttributes & 0x0000FFFF,
-      dwFlagsAndAttributes & 0xFFF00000,
-      dwFlagsAndAttributes & 0x000F0000,
-      lpSecurityAttributes,
-      hTemplateFile };
-
-
-    /* allocate memory space for converted path name */
-    len = MultiByteToWideChar( CP_ACP, MB_ERR_INVALID_CHARS,
-                               lpFileName, -1, NULL, 0 );
-
-    lpFileNameW = (LPWSTR)_alloca( len * sizeof ( WCHAR ) );
-
-    if ( !len || !lpFileNameW )
-    {
-      FT_ERROR(( "FT_Stream_Open: cannot convert file name to LPWSTR\n" ));
-      return INVALID_HANDLE_VALUE;
-    }
-
-    /* now it is safe to do the translation */
-    MultiByteToWideChar( CP_ACP, MB_ERR_INVALID_CHARS,
-                         lpFileName, -1, lpFileNameW, len );
-
-    /* open the file */
-    return CreateFile2( lpFileNameW, dwDesiredAccess, dwShareMode,
-                        dwCreationDisposition, &createExParams );
-  }
-
-#endif
-
-
-#if defined( _WIN32_WCE )
-
-  /* malloc.h provides implementation of alloca()/_alloca() */
-  #include <malloc.h>
-
-  FT_LOCAL_DEF( HANDLE )
-  CreateFileA( LPCSTR                 lpFileName,
-               DWORD                  dwDesiredAccess,
-               DWORD                  dwShareMode,
-               LPSECURITY_ATTRIBUTES  lpSecurityAttributes,
-               DWORD                  dwCreationDisposition,
-               DWORD                  dwFlagsAndAttributes,
-               HANDLE                 hTemplateFile )
-  {
-    int     len;
-    LPWSTR  lpFileNameW;
-
-
-    /* allocate memory space for converted path name */
-    len = MultiByteToWideChar( CP_ACP, MB_ERR_INVALID_CHARS,
-                               lpFileName, -1, NULL, 0 );
-
-    lpFileNameW = (LPWSTR)_alloca( len * sizeof ( WCHAR ) );
-
-    if ( !len || !lpFileNameW )
-    {
-      FT_ERROR(( "FT_Stream_Open: cannot convert file name to LPWSTR\n" ));
-      return INVALID_HANDLE_VALUE;
-    }
-
-    /* now it is safe to do the translation */
-    MultiByteToWideChar( CP_ACP, MB_ERR_INVALID_CHARS,
-                         lpFileName, -1, lpFileNameW, len );
-
-    /* open the file */
-    return CreateFileW( lpFileNameW, dwDesiredAccess, dwShareMode,
-                        lpSecurityAttributes, dwCreationDisposition,
-                        dwFlagsAndAttributes, hTemplateFile );
-  }
-
-#endif
-
-
-#if defined( _WIN32_WCE ) || defined ( _WIN32_WINDOWS ) || \
-    !defined( _WIN32_WINNT ) || _WIN32_WINNT <= 0x0400
-
-  FT_LOCAL_DEF( BOOL )
-  GetFileSizeEx( HANDLE          hFile,
-                 PLARGE_INTEGER  lpFileSize )
-  {
-    lpFileSize->u.LowPart = GetFileSize( hFile,
-                                         (DWORD *)&lpFileSize->u.HighPart );
-
-    if ( lpFileSize->u.LowPart == INVALID_FILE_SIZE &&
-         GetLastError() != NO_ERROR                 )
-      return FALSE;
-    else
-      return TRUE;
-  }
-
-#endif
 
 
   /* documentation is in ftobjs.h */
@@ -329,8 +211,8 @@
       return FT_THROW( Invalid_Stream_Handle );
 
     /* open the file */
-    file = CreateFileA( (LPCSTR)filepathname, GENERIC_READ, FILE_SHARE_READ,
-                        NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0 );
+    file = CreateFile( (LPCTSTR)filepathname, GENERIC_READ, FILE_SHARE_READ,
+                       NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0 );
     if ( file == INVALID_HANDLE_VALUE )
     {
       FT_ERROR(( "FT_Stream_Open:" ));
@@ -338,7 +220,15 @@
       return FT_THROW( Cannot_Open_Resource );
     }
 
+#if defined _WIN32_WCE || defined _WIN32_WINDOWS || \
+    (defined _WIN32_WINNT && _WIN32_WINNT <= 0x0400)
+    /* Use GetFileSize() for legacy Windows */
+    size.u.LowPart = GetFileSize( file, (DWORD *)&size.u.HighPart );
+    if ( size.u.LowPart == INVALID_FILE_SIZE && GetLastError() != NO_ERROR )
+#else
+    /* Use GetFileSizeEx() for modern Windows */
     if ( GetFileSizeEx( file, &size ) == FALSE )
+#endif
     {
       FT_ERROR(( "FT_Stream_Open:" ));
       FT_ERROR(( " could not retrieve size of file `%s'\n", filepathname ));
@@ -386,7 +276,7 @@
       FT_ERROR(( "FT_Stream_Open:" ));
       FT_ERROR(( " could not `mmap' file `%s'\n", filepathname ));
 
-      stream->base = (unsigned char*)ft_alloc( stream->memory, stream->size );
+      stream->base = (unsigned char*)ft_alloc( NULL, stream->size );
 
       if ( !stream->base )
       {
@@ -432,7 +322,7 @@
     return FT_Err_Ok;
 
   Fail_Read:
-    ft_free( stream->memory, stream->base );
+    ft_free( NULL, stream->base );
 
   Fail_Open:
     CloseHandle( file );

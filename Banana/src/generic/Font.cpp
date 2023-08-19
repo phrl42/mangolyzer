@@ -142,7 +142,6 @@ namespace Banana
   Shr<Font> Font::GetDefault()
   {
     static Shr<Font> font;
-
     if(!font)
     {
       font = std::make_shared<Font>("assets/fonts/mononoki.ttf");

@@ -4,7 +4,7 @@
  *
  *   Signed Distance Field renderer interface (body).
  *
- * Copyright (C) 2020-2023 by
+ * Copyright (C) 2020-2021 by
  * David Turner, Robert Wilhelm, and Werner Lemberg.
  *
  * Written by Anuj Verma.
@@ -298,9 +298,15 @@
       goto Exit;
     }
 
-    /* nothing to render */
+    /* the rows and pitch must be valid after presetting the */
+    /* bitmap using outline                                  */
     if ( !bitmap->rows || !bitmap->pitch )
-      return FT_Err_Ok;
+    {
+      FT_ERROR(( "ft_sdf_render: failed to preset bitmap\n" ));
+
+      error = FT_THROW( Cannot_Render_Glyph );
+      goto Exit;
+    }
 
     /* the padding will simply be equal to the `spread' */
     x_pad = sdf_module->spread;
@@ -519,9 +525,13 @@
       goto Exit;
     }
 
-    /* nothing to render */
     if ( !bitmap->rows || !bitmap->pitch )
-      return FT_Err_Ok;
+    {
+      FT_ERROR(( "ft_bsdf_render: invalid bitmap size\n" ));
+
+      error = FT_THROW( Invalid_Argument );
+      goto Exit;
+    }
 
     FT_Bitmap_New( &target );
 
