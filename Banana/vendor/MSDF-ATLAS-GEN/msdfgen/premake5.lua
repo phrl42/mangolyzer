@@ -7,8 +7,7 @@ project "freetype"
   targetdir "%{wks.location}/bin/target/%{cfg.buildcfg}/%{prj.name}"
   objdir "%{wks.location}/bin/obj/%{cfg.buildcfg}/%{prj.name}"
 
-	files
-	{
+	files {
 		"freetype/include/ft2build.h",
 		"freetype/include/freetype/*.h",
 		"freetype/include/freetype/config/*.h",
@@ -94,8 +93,7 @@ project "msdfgen"
   targetdir "%{wks.location}/bin/target/%{cfg.buildcfg}/%{prj.name}"
   objdir "%{wks.location}/bin/obj/%{cfg.buildcfg}/%{prj.name}"
 
-	files
-	{
+	files {
 		"core/**.h",
 		"core/**.hpp",
 		"core/**.cpp",
@@ -106,20 +104,17 @@ project "msdfgen"
 		"include/**.h"
 	}
 
-	includedirs
-	{
+	includedirs {
 		"include",
 		"freetype/include"
 	}
 
-	defines
-	{
+	defines {
 		"MSDFGEN_USE_CPP11"
 	}
 
-	links
-	{
-		"freetype"
+	links {
+		"freetype",
 	}
 
 	filter "system:windows"

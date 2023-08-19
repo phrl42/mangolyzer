@@ -38,8 +38,8 @@ OBJDIR = ../bin/obj/Debug/Sandbox
 DEFINES += -DMACRO_GLFW -DMACRO_OPENGL -DBUILD_DEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g
-LIBS += ../bin/target/Debug/Banana/libBanana.a ../bin/target/Debug/GLAD/libGLAD.a ../bin/target/Debug/GLFW/libGLFW.a ../bin/target/Debug/IMGUI/libIMGUI.a ../bin/target/Debug/freetype/libfreetype.a ../bin/target/Debug/msdfgen/libmsdfgen.a ../bin/target/Debug/MSDF-ATLAS-GEN/libMSDF-ATLAS-GEN.a
-LDDEPS += ../bin/target/Debug/Banana/libBanana.a ../bin/target/Debug/GLAD/libGLAD.a ../bin/target/Debug/GLFW/libGLFW.a ../bin/target/Debug/IMGUI/libIMGUI.a ../bin/target/Debug/freetype/libfreetype.a ../bin/target/Debug/msdfgen/libmsdfgen.a ../bin/target/Debug/MSDF-ATLAS-GEN/libMSDF-ATLAS-GEN.a
+LIBS += ../bin/target/Debug/Banana/libBanana.a ../bin/target/Debug/GLAD/libGLAD.a ../bin/target/Debug/IMGUI/libIMGUI.a ../bin/target/Debug/GLFW/libGLFW.a ../bin/target/Debug/freetype/libfreetype.a ../bin/target/Debug/msdfgen/libmsdfgen.a ../bin/target/Debug/MSDF-ATLAS-GEN/libMSDF-ATLAS-GEN.a
+LDDEPS += ../bin/target/Debug/Banana/libBanana.a ../bin/target/Debug/GLAD/libGLAD.a ../bin/target/Debug/IMGUI/libIMGUI.a ../bin/target/Debug/GLFW/libGLFW.a ../bin/target/Debug/freetype/libfreetype.a ../bin/target/Debug/msdfgen/libmsdfgen.a ../bin/target/Debug/MSDF-ATLAS-GEN/libMSDF-ATLAS-GEN.a
 ALL_LDFLAGS += $(LDFLAGS)
 
 else ifeq ($(config),release)
@@ -49,8 +49,8 @@ OBJDIR = ../bin/obj/Release/Sandbox
 DEFINES += -DMACRO_GLFW -DMACRO_OPENGL -DBUILD_RELEASE
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O2
-LIBS += ../bin/target/Release/Banana/libBanana.a ../bin/target/Release/GLAD/libGLAD.a ../bin/target/Release/GLFW/libGLFW.a ../bin/target/Release/IMGUI/libIMGUI.a ../bin/target/Release/freetype/libfreetype.a ../bin/target/Release/msdfgen/libmsdfgen.a ../bin/target/Release/MSDF-ATLAS-GEN/libMSDF-ATLAS-GEN.a
-LDDEPS += ../bin/target/Release/Banana/libBanana.a ../bin/target/Release/GLAD/libGLAD.a ../bin/target/Release/GLFW/libGLFW.a ../bin/target/Release/IMGUI/libIMGUI.a ../bin/target/Release/freetype/libfreetype.a ../bin/target/Release/msdfgen/libmsdfgen.a ../bin/target/Release/MSDF-ATLAS-GEN/libMSDF-ATLAS-GEN.a
+LIBS += ../bin/target/Release/Banana/libBanana.a ../bin/target/Release/GLAD/libGLAD.a ../bin/target/Release/IMGUI/libIMGUI.a ../bin/target/Release/GLFW/libGLFW.a ../bin/target/Release/freetype/libfreetype.a ../bin/target/Release/msdfgen/libmsdfgen.a ../bin/target/Release/MSDF-ATLAS-GEN/libMSDF-ATLAS-GEN.a
+LDDEPS += ../bin/target/Release/Banana/libBanana.a ../bin/target/Release/GLAD/libGLAD.a ../bin/target/Release/IMGUI/libIMGUI.a ../bin/target/Release/GLFW/libGLFW.a ../bin/target/Release/freetype/libfreetype.a ../bin/target/Release/msdfgen/libmsdfgen.a ../bin/target/Release/MSDF-ATLAS-GEN/libMSDF-ATLAS-GEN.a
 ALL_LDFLAGS += $(LDFLAGS) -s
 
 endif

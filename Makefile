@@ -86,7 +86,7 @@ ifneq (,$(Banana_config))
 	@${MAKE} --no-print-directory -C Banana -f Makefile config=$(Banana_config)
 endif
 
-Sandbox: Banana GLAD GLFW IMGUI freetype msdfgen MSDF-ATLAS-GEN
+Sandbox: Banana GLAD IMGUI GLFW freetype msdfgen MSDF-ATLAS-GEN
 ifneq (,$(Sandbox_config))
 	@echo "==== Building Sandbox ($(Sandbox_config)) ===="
 	@${MAKE} --no-print-directory -C Sandbox -f Makefile config=$(Sandbox_config)

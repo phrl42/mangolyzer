@@ -26,11 +26,11 @@ project "Sandbox"
       "%{wks.location}/Sandbox/src"
   }
 
-  links {
+  links { 
     "Banana",
     "GLAD",
-    "GLFW",
     "IMGUI",
+    "GLFW",
     "freetype",
     "msdfgen",
     "MSDF-ATLAS-GEN",
