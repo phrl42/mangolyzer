@@ -19,7 +19,6 @@ namespace Banana
 
     const MSDFData* GetMSDFData() const { return data;}
 
-
   private:
     MSDFData* data;
     Shr<Texture2D> atlas_texture;

@@ -63,7 +63,7 @@ namespace Banana
     double fontScale = 1.0;
 		data->FontGeometry = msdf_atlas::FontGeometry(&data->Glyphs);
 		int glyphsLoaded = data->FontGeometry.loadCharset(font, fontScale, charset);
-	  LOG("Loaded" + std::to_string(glyphsLoaded) + " glyphs from font (out of " + std::to_string(charset.size()) + ") ");
+	  LOG("Loaded " + std::to_string(glyphsLoaded) + " glyphs from font (out of " + std::to_string(charset.size()) + ") ");
 
     double emSize = 40.0;
 
@@ -74,14 +74,13 @@ namespace Banana
 		atlasPacker.setPadding(0);
 		atlasPacker.setScale(emSize);
 		int remaining = atlasPacker.pack(data->Glyphs.data(), (int)data->Glyphs.size());
-
-		if(!remaining)
+    
+		if(remaining)
     {
-      LOG("Could not pack atlas. Remaings are 0");
-      return;
+      LOG("Remainigs are " + std::to_string(remaining));
     }
 
-		int width, height;
+		int width = 0, height = 0;
 		atlasPacker.getDimensions(width, height);
 		emSize = atlasPacker.getScale();
 
@@ -90,8 +89,8 @@ namespace Banana
 #define LCG_INCREMENT 1442695040888963407ull
 #define THREAD_COUNT 8
 		// if MSDF || MTSDF
-
-		uint64_t coloringSeed = 0;
+		
+    uint64_t coloringSeed = 0;
 		bool expensiveColoring = false;
 		if (expensiveColoring)
 		{
