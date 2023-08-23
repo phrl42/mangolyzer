@@ -44,10 +44,10 @@ namespace Banana
   {
     public:
       Sound(const std::string& path_to_sound, bool loop = false);
-      void ChangeSound(const std::string& path_to_sound, bool loop = false);
+      void Change(const std::string& path_to_sound, bool loop = false);
 
-      void StartSound();
-      void StopSound();
+      void Start();
+      void Stop();
 
       void SetVolume(float vol);
       float GetVolume();

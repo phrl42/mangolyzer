@@ -177,7 +177,7 @@ namespace Banana
 
   Application::~Application()
   {
-
+  
   }
 
 };

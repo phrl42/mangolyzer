@@ -8,7 +8,6 @@
 
 namespace Banana
 {
-  // make sound api something like input api
   Sound::Sound(const std::string& path_to_sound, bool loop)
   :sound_path(path_to_sound)
   {
@@ -17,14 +16,16 @@ namespace Banana
 
   Sound::~Sound()
   {
-    StopSound();
+    Stop();
   }
 
-  void Sound::ChangeSound(const std::string& path_to_sound, bool loop)
+  void Sound::Change(const std::string& path_to_sound, bool loop)
   {
+    LOG("Sorry! This is not supported by miniaudio. Create a new Sound object");
+    return;
     if(ma_sound_is_playing(&current_sound))
     {
-      StopSound();
+      Stop();
     }
 
     InitSound(path_to_sound, loop);
@@ -32,7 +33,7 @@ namespace Banana
     
   void Sound::InitSound(const std::string& path_to_sound, bool loop)
   {
-    if(int success = ma_sound_init_from_file(&Application::GetInstance().soundhelper.GetEngine(), path_to_sound.c_str(), 0, NULL, NULL, &current_sound); success != MA_SUCCESS)
+    if(int success = ma_sound_init_from_file(&Application::GetInstance().soundhelper.GetEngine(), path_to_sound.c_str(), MA_SOUND_FLAG_DECODE, NULL, NULL, &current_sound); success != MA_SUCCESS)
     {
       if(success == MA_DOES_NOT_EXIST)
       {
@@ -44,19 +45,23 @@ namespace Banana
     
     if(loop)
     {
-      ma_sound_set_looping(&current_sound, ma_sound_is_looping(&current_sound));
+      ma_sound_set_looping(&current_sound, loop);
     }
   }
 
-  void Sound::StartSound()
+  void Sound::Start()
   {
     ma_sound_start(&current_sound);
   }
 
-  void Sound::StopSound()
+  void Sound::Stop()
   {
-    ma_sound_stop(&current_sound);
-    //ma_sound_uninit(&current_sound);
+    if(ma_sound_is_playing(&current_sound))
+    {
+      ma_sound_stop(&current_sound);
+    }
+
+    ma_sound_uninit(&current_sound);
   }
 
   void Sound::SetVolume(float vol)

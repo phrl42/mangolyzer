@@ -7,6 +7,7 @@ project "Banana"
     objdir "%{wks.location}/bin/obj/%{cfg.buildcfg}/%{prj.name}"
 
     pchheader "incs.h"
+    pchheader "miniaudio.h"
   
     files {
       "src/**.cpp",
