@@ -57,5 +57,6 @@ namespace Banana
     private:
       void InitSound(const std::string& path_to_sound, bool loop);
       ma_sound current_sound;
+      std::string sound_path;
   };
 };

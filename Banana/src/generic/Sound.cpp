@@ -8,7 +8,9 @@
 
 namespace Banana
 {
+  // make sound api something like input api
   Sound::Sound(const std::string& path_to_sound, bool loop)
+  :sound_path(path_to_sound)
   {
     InitSound(path_to_sound, loop);
   }
@@ -32,9 +34,14 @@ namespace Banana
   {
     if(int success = ma_sound_init_from_file(&Application::GetInstance().soundhelper.GetEngine(), path_to_sound.c_str(), 0, NULL, NULL, &current_sound); success != MA_SUCCESS)
     {
-      LOG("Could not play sound error: " + std::to_string(success));
+      if(success == MA_DOES_NOT_EXIST)
+      {
+        LOG("Could not find " + path_to_sound);
+        return;
+      }
+      LOG("Could not init sound with MINIAUDIO error: " + std::to_string(success));
     }
-
+    
     if(loop)
     {
       ma_sound_set_looping(&current_sound, ma_sound_is_looping(&current_sound));
