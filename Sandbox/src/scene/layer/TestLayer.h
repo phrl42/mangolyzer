@@ -2,7 +2,7 @@
 
 #include "Banana.h"
 #include "renderer/Texture.h"
-
+#include "generic/Sound.h"
 
 namespace SANDBOX
 {
@@ -24,6 +24,7 @@ namespace SANDBOX
   private:
     std::string name;
     Banana::Entity ent;
+    Banana::Sound sound;
   };
 
 };

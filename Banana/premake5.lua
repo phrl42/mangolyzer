@@ -27,6 +27,7 @@ project "Banana"
       "%{IncludeDir.MSDFATLASGEN}",
       "%{IncludeDir.MSDF}",
       "%{IncludeDir.MSDFINC}",
+      "%{IncludeDir.MINIAUDIO}",
       "%{wks.location}/Banana",
       "%{wks.location}/Banana/src",
       "%{wks.location}/Banana/src/generic"

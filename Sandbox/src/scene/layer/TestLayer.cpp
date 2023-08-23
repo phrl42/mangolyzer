@@ -8,7 +8,7 @@
 namespace SANDBOX
 {
   TestLayer::TestLayer(const std::string& name)
-  : name(name)
+  : name(name), sound(Banana::Sound("assets/sounds/test.wav"))
   {
     ent.transform.pos = {0, 0, 1};
     ent.transform.size = {5, 5, 0};
@@ -17,7 +17,7 @@ namespace SANDBOX
     ent.transform.proj = Banana::Projection::PERSPECTIVE;
 
     //ent.AddComponent(new Banana::QuadComponent("assets/textures/banana.png"));
-    ent.AddComponent(new Banana::TextComponent("nigga"));
+    ent.AddComponent(new Banana::TextComponent("test"));
   }
 
   TestLayer::~TestLayer()
@@ -32,13 +32,13 @@ namespace SANDBOX
 
   void TestLayer::OnDetach()
   {
-    
+
   }
 
 
   void TestLayer::OnEvent(Banana::Event& event)
   {
-    
+
   }
 
   void TestLayer::OnUpdate(float dt)
@@ -51,9 +51,11 @@ namespace SANDBOX
     {
       ent.transform.size.x += 2 * dt;
     }
-
-    if(Banana::Input::IsKeyPressed(KEY_J))
+    static bool lock = true;
+    if(Banana::Input::IsKeyPressed(KEY_J)) 
     {
+      lock = false;
+      sound.StartSound();
       //Banana::TextComponent* texcomp = (Banana::TextComponent*)ent.GetComponent("TextComponent");
       //texcomp->ChangeText("salad bomb");
     }

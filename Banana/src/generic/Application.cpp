@@ -16,6 +16,7 @@ namespace Banana
   Application* Application::Instance = nullptr;
 
   Application::Application()
+  : soundhelper(SoundHelper())
   {
     if(Instance)
     {
@@ -34,7 +35,6 @@ namespace Banana
     window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
 
     Renderer::Init();
-
 
     Banana::FramebufferProperties spec;
     spec.width = prop.height;

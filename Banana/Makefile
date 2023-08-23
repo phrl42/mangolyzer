@@ -22,7 +22,7 @@ RESCOMP = windres
 PCH = incs.h
 PCH_PLACEHOLDER = $(OBJDIR)/$(notdir $(PCH))
 GCH = $(PCH_PLACEHOLDER).gch
-INCLUDES += -Ivendor/GLFW/include -Ivendor/GLAD/include/glad -Ivendor/IMGUI -Ivendor/GLM/glm -Ivendor/STB -Ivendor/MSDF-ATLAS-GEN/msdf-atlas-gen -Ivendor/MSDF-ATLAS-GEN/msdfgen -Ivendor/MSDF-ATLAS-GEN/msdfgen/include -I. -Isrc -Isrc/generic
+INCLUDES += -Ivendor/GLFW/include -Ivendor/GLAD/include/glad -Ivendor/IMGUI -Ivendor/GLM/glm -Ivendor/STB -Ivendor/MSDF-ATLAS-GEN/msdf-atlas-gen -Ivendor/MSDF-ATLAS-GEN/msdfgen -Ivendor/MSDF-ATLAS-GEN/msdfgen/include -Ivendor/MINIAUDIO -I. -Isrc -Isrc/generic
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
@@ -93,6 +93,7 @@ GENERATED += $(OBJDIR)/RendererAPI.o
 GENERATED += $(OBJDIR)/Scene.o
 GENERATED += $(OBJDIR)/SceneStack.o
 GENERATED += $(OBJDIR)/Shader.o
+GENERATED += $(OBJDIR)/Sound.o
 GENERATED += $(OBJDIR)/TextComponent.o
 GENERATED += $(OBJDIR)/Texture.o
 GENERATED += $(OBJDIR)/Transform.o
@@ -125,6 +126,7 @@ OBJECTS += $(OBJDIR)/RendererAPI.o
 OBJECTS += $(OBJDIR)/Scene.o
 OBJECTS += $(OBJDIR)/SceneStack.o
 OBJECTS += $(OBJDIR)/Shader.o
+OBJECTS += $(OBJDIR)/Sound.o
 OBJECTS += $(OBJDIR)/TextComponent.o
 OBJECTS += $(OBJDIR)/Texture.o
 OBJECTS += $(OBJDIR)/Transform.o
@@ -212,6 +214,9 @@ $(OBJDIR)/Camera.o: src/generic/Camera.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Font.o: src/generic/Font.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Sound.o: src/generic/Sound.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Window.o: src/generic/Window.cpp

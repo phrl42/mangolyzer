@@ -13,7 +13,7 @@ IncludeDir["STB"] = "%{wks.location}/Banana/vendor/STB"
 IncludeDir["MSDFATLASGEN"] =  "%{wks.location}/Banana/vendor/MSDF-ATLAS-GEN/msdf-atlas-gen" 
 IncludeDir["MSDF"] =            "%{wks.location}/Banana/vendor/MSDF-ATLAS-GEN/msdfgen"
 IncludeDir["MSDFINC"] =        "%{wks.location}/Banana/vendor/MSDF-ATLAS-GEN/msdfgen/include"
-
+IncludeDir["MINIAUDIO"] = "%{wks.location}/Banana/vendor/MINIAUDIO/"
 
 defines {
   "MACRO_GLFW",

@@ -18,6 +18,7 @@ project "Sandbox"
       "%{IncludeDir.IMGUI}",
       "%{IncludeDir.GLM}",
       "%{IncludeDir.STB}",
+      "%{IncludeDir.MINIAUDIO}",
       "%{wks.location}/Banana",
       "%{wks.location}/Banana/src",
       "%{wks.location}/Banana/src/generic",
