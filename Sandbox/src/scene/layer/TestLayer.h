@@ -23,7 +23,6 @@ namespace SANDBOX
   
   private:
     std::string name;
-    Banana::Sound b_sound;
     ma_decoder decoder;
     ma_device device;
   };
