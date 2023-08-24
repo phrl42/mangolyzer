@@ -5,19 +5,13 @@
 #include "ecs/components/QuadComponent.h"
 #include "ecs/components/TextComponent.h"
 
+#include <cstring>
+
 namespace SANDBOX
 {
   TestLayer::TestLayer(const std::string& name)
-  : name(name), sound(Banana::Sound("assets/sounds/test.wav")), b_sound(Banana::Sound("assets/sounds/menu.wav", true))
+  : name(name), b_sound(Banana::Sound("assets/sounds/menu.wav", true))
   {
-    ent.transform.pos = {0, 0, 1};
-    ent.transform.size = {5, 5, 0};
-    //ent.transform.color = {1, 0.5, -1.0f, 1.0f};
-    ent.transform.color = {1.0f, 1.0f, 1.0f, 1.0f};
-    ent.transform.proj = Banana::Projection::PERSPECTIVE;
-
-    //ent.AddComponent(new Banana::QuadComponent("assets/textures/banana.png"));
-    ent.AddComponent(new Banana::TextComponent("test"));
     b_sound.Start();
   }
 
@@ -26,16 +20,63 @@ namespace SANDBOX
 
   }
 
+#define MAX_SIZE 5000
+
+  float samples[MAX_SIZE];
+  void data_callback(ma_device* pDevice, void* pOutput, const void* pInput, ma_uint32 frameCount)
+  {
+    ma_decoder* pDecoder = (ma_decoder*)pDevice->pUserData;
+    if (pDecoder == NULL) 
+    {
+      return;
+    }
+    memcpy(samples, pOutput, sizeof(float) * frameCount);
+
+    for(size_t i = 0; i < frameCount; ++i)
+    {
+      LOG(std::to_string(samples[i]));
+    }
+
+    ma_decoder_read_pcm_frames(pDecoder, pOutput, frameCount, NULL);
+
+    (void)pInput;
+  }
+
   void TestLayer::OnAttach()
   {
+    ma_device_config deviceConfig;
 
+    if (ma_result result = ma_decoder_init_file("assets/sounds/menu.wav", NULL, &decoder); result != MA_SUCCESS) 
+    {
+      LOG("Could not load file");
+    }
+
+    deviceConfig = ma_device_config_init(ma_device_type_playback);
+    deviceConfig.playback.format   = decoder.outputFormat;
+    deviceConfig.playback.channels = decoder.outputChannels;
+    deviceConfig.sampleRate        = decoder.outputSampleRate;
+    deviceConfig.dataCallback      = data_callback;
+    deviceConfig.pUserData         = &decoder;
+
+    if (ma_device_init(NULL, &deviceConfig, &device) != MA_SUCCESS) 
+    {
+      LOG("Failed to open playback device.");
+      ma_decoder_uninit(&decoder);
+    }
+
+    if (ma_device_start(&device) != MA_SUCCESS) 
+    {
+      LOG("Failed to start playback device.");
+      ma_device_uninit(&device);
+      ma_decoder_uninit(&decoder);
+    }
   }
 
   void TestLayer::OnDetach()
   {
-
+    ma_device_uninit(&device);
+    ma_decoder_uninit(&decoder);
   }
-
 
   void TestLayer::OnEvent(Banana::Event& event)
   {
@@ -44,29 +85,6 @@ namespace SANDBOX
 
   void TestLayer::OnUpdate(float dt)
   {
-    if(Banana::Input::IsKeyPressed(KEY_Y))
-    {
-      ent.transform.size.y += 2 * dt;
-    }
-    if(Banana::Input::IsKeyPressed(KEY_Z))
-    {
-      ent.transform.size.x += 2 * dt;
-    }
 
-    if(Banana::Input::IsKeyPressed(KEY_N))
-    {
-    
-    }
-    
-    if(Banana::Input::IsKeyPressed(KEY_J))
-    {
-      sound.Start();
-      //Banana::TextComponent* texcomp = (Banana::TextComponent*)ent.GetComponent("TextComponent");
-      //texcomp->ChangeText("salad bomb");
-    }
-
-    //ent.transform.rotation += 90 * dt;
-    //ent.transform.rotation += 90 * dt;
-    ent.Render(dt);
   }
 };
