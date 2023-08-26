@@ -4,6 +4,8 @@
 #include "renderer/Texture.h"
 #include "generic/Sound.h"
 
+#define QUADS 50
+
 namespace SANDBOX
 {
   class TestLayer : public Banana::Layer
@@ -22,6 +24,7 @@ namespace SANDBOX
     virtual inline std::string& GetName() override { return name; }
   
   private:
+    Banana::Entity ent[QUADS];
     std::string name;
     ma_decoder decoder;
     ma_device device;

@@ -23,6 +23,8 @@ namespace SANDBOX
 #define MAX_SIZE 5000
 
   float samples[MAX_SIZE];
+  volatile int sample_count = 0;
+
   void data_callback(ma_device* pDevice, void* pOutput, const void* pInput, ma_uint32 frameCount)
   {
     ma_decoder* pDecoder = (ma_decoder*)pDevice->pUserData;
@@ -30,15 +32,17 @@ namespace SANDBOX
     {
       return;
     }
-    //memcpy(samples, pOutput, sizeof(float) * frameCount);
-    if(((float*)pOutput)[0] > 0)
-    {
-      for(size_t i = 0; i < frameCount; ++i)
-      {
-        LOG(((float*)pOutput)[i]);
-      }
-    }
+
     ma_decoder_read_pcm_frames(pDecoder, pOutput, frameCount, NULL);
+
+    memcpy((void*)samples, pOutput, sizeof(float) * frameCount * 2);
+    sample_count = frameCount;
+
+    // this loops better than the api
+    if(samples[frameCount] == 0)
+    {
+      ma_decoder_init_file("assets/sounds/menu.wav", NULL, pDecoder);
+    }
 
     (void)pInput;
   }
@@ -50,7 +54,10 @@ namespace SANDBOX
       LOG("Could not load sound");
     }
 
-    ma_data_source_set_looping(&decoder, MA_TRUE);
+    if(ma_result result = ma_data_source_set_looping(&decoder, 1); result != MA_SUCCESS)
+    {
+      LOG("Could not loop sound: " + std::to_string(result));
+    }
 
     ma_device_config deviceConfig = ma_device_config_init(ma_device_type_playback);
     deviceConfig.playback.format   = decoder.outputFormat;
@@ -69,6 +76,10 @@ namespace SANDBOX
       ma_device_uninit(&device);
       ma_decoder_uninit(&decoder);
     }
+    for(size_t i = 0; i < QUADS; i++)
+    {
+      ent[i].AddComponent(new Banana::QuadComponent());
+    }
   }
 
   void TestLayer::OnDetach()
@@ -84,6 +95,14 @@ namespace SANDBOX
 
   void TestLayer::OnUpdate(float dt)
   {
-
+    float one_width = 20.0f / QUADS;
+    for(size_t i = 0; i < QUADS; i++)
+    {
+      ent[i].transform.proj = Banana::Projection::PERSPECTIVE;
+      ent[i].transform.pos = {i * one_width, -1, 0};
+      ent[i].transform.size = {one_width, samples[i] * 200, 0};
+      ent[i].transform.color = {(1.0 / (i+100)) - 0.5, (1.0f / i) + 0.5, (-1.0f / i) + 1.0, 1.0f};
+      ent[i].Render(dt);
+    }
   }
 };

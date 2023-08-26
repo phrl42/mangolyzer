@@ -43,7 +43,7 @@ namespace Banana
 
     debug_layer = new Banana::IMGUILayer("IMGUILAYER");
     
-    soundhelper = new SoundHelper();
+    //soundhelper = new SoundHelper();
     //Text::Init("assets/fonts/mononoki.ttf");
   }
 

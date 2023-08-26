@@ -19,9 +19,9 @@ namespace SANDBOX
 
   void EntryScene::OnUpdate(float dt)
   {
-    static float x = 0;
-    static float y = 0;
-    static float z = 10;
+    static float x = 14.3;
+    static float y = 12.8;
+    static float z = 15.1;
 
     if(Banana::Input::IsKeyPressed(KEY_S))
     {
@@ -40,7 +40,7 @@ namespace SANDBOX
 
     if(Banana::Input::IsKeyPressed(KEY_D))
     {
-      x += 70 * dt;
+      x += 10 * dt;
     }
 
     if(Banana::Input::IsKeyPressed(KEY_T))

@@ -248,10 +248,7 @@ namespace Banana
     }
 
     // bottom left
-    data.quad_vertex_ptr->position = transform * glm::vec4({pos, 1.0f});
-    if(proj != 2)
-      LOG(proj);
-    
+    data.quad_vertex_ptr->position = glm::vec4({pos, 1.0f});
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {0, 0};
     data.quad_vertex_ptr->projID = proj;
@@ -260,7 +257,7 @@ namespace Banana
     
 
     // bottom right
-    data.quad_vertex_ptr->position = transform * glm::vec4({pos.x + size.x, pos.y, pos.z, 1.0f});
+    data.quad_vertex_ptr->position = glm::vec4({pos.x + size.x, pos.y, pos.z, 1.0f});
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {1, 0};
     data.quad_vertex_ptr->projID = proj;
@@ -268,7 +265,7 @@ namespace Banana
     data.quad_vertex_ptr++;
 
     // top left
-    data.quad_vertex_ptr->position = transform * glm::vec4({pos.x, pos.y + size.y, pos.z, 1.0f});
+    data.quad_vertex_ptr->position = glm::vec4({pos.x, pos.y + size.y, pos.z, 1.0f});
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {0, 1};
     data.quad_vertex_ptr->projID = proj;
@@ -276,7 +273,7 @@ namespace Banana
     data.quad_vertex_ptr++;
 
     // top right
-    data.quad_vertex_ptr->position = transform * glm::vec4({pos.x + size.x, pos.y + size.y, pos.z, 1.0f});
+    data.quad_vertex_ptr->position = glm::vec4({pos.x + size.x, pos.y + size.y, pos.z, 1.0f});
     data.quad_vertex_ptr->color = color;
     data.quad_vertex_ptr->tex_coords = {1, 1};
     data.quad_vertex_ptr->projID = proj;
