@@ -4,7 +4,7 @@
 #include "renderer/Texture.h"
 #include "generic/Sound.h"
 
-#define QUADS 50
+#define QUADS 500
 
 namespace SANDBOX
 {

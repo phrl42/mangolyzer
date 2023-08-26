@@ -21,6 +21,8 @@ namespace SANDBOX
   }
 
 #define MAX_SIZE 5000
+  
+  std::string path_to_music = "assets/sounds/song.mp3";
 
   float samples[MAX_SIZE];
   volatile int sample_count = 0;
@@ -41,7 +43,7 @@ namespace SANDBOX
     // this loops better than the api
     if(samples[frameCount] == 0)
     {
-      ma_decoder_init_file("assets/sounds/menu.wav", NULL, pDecoder);
+      //ma_decoder_init_file(path_to_music.c_str(), NULL, pDecoder);
     }
 
     (void)pInput;
@@ -49,7 +51,7 @@ namespace SANDBOX
 
   void TestLayer::OnAttach()
   {
-    ma_result result = ma_decoder_init_file("assets/sounds/menu.wav", NULL, &decoder);
+    ma_result result = ma_decoder_init_file(path_to_music.c_str(), NULL, &decoder);
     if (result != MA_SUCCESS) {
       LOG("Could not load sound");
     }
@@ -100,7 +102,7 @@ namespace SANDBOX
     {
       ent[i].transform.proj = Banana::Projection::PERSPECTIVE;
       ent[i].transform.pos = {i * one_width, -1, 0};
-      ent[i].transform.size = {one_width, samples[i] * 200, 0};
+      ent[i].transform.size = {one_width, samples[i] * 20, 0};
       ent[i].transform.color = {(1.0 / (i+100)) - 0.5, (1.0f / i) + 0.5, (-1.0f / i) + 1.0, 1.0f};
       ent[i].Render(dt);
     }
