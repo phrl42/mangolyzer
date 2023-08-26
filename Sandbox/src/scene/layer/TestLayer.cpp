@@ -97,13 +97,13 @@ namespace SANDBOX
 
   void TestLayer::OnUpdate(float dt)
   {
-    float one_width = 20.0f / QUADS;
+    float one_width = 2.0f / QUADS;
     for(size_t i = 0; i < QUADS; i++)
     {
-      ent[i].transform.proj = Banana::Projection::PERSPECTIVE;
-      ent[i].transform.pos = {i * one_width, -1, 0};
-      ent[i].transform.size = {one_width, samples[i] * 20, 0};
-      ent[i].transform.color = {(1.0 / (i+100)) - 0.5, (1.0f / i) + 0.5, (-1.0f / i) + 1.0, 1.0f};
+      ent[i].transform.proj = Banana::Projection::NONE;
+      ent[i].transform.pos = {(i * one_width) - 1, 0, 0};
+      ent[i].transform.size = {one_width, samples[i], 0};
+      ent[i].transform.color = {samples[i] * 2, samples[i] + 0.6, samples[i] * 2, 1.0f};
       ent[i].Render(dt);
     }
   }
