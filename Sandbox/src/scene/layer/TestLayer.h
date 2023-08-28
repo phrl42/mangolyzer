@@ -4,7 +4,7 @@
 #include "renderer/Texture.h"
 #include "generic/Sound.h"
 
-#define QUADS 500
+#define QUADS 900
 
 namespace SANDBOX
 {
@@ -27,6 +27,7 @@ namespace SANDBOX
     Banana::Entity ent[QUADS];
     std::string name;
     ma_decoder decoder;
+    ma_encoder encoder;
     ma_device device;
   };
 

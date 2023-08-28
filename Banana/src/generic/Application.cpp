@@ -32,7 +32,7 @@ namespace Banana
     window = Window::Create(prop);
 
     window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
-
+    
     Renderer::Init();
 
     Banana::FramebufferProperties spec;
@@ -105,6 +105,7 @@ namespace Banana
     }
 
     debug_layer->OnAttach();
+    //window->SetVSync(0);
 
     double begin_time = 0.0f;
     double dt = 0.1f;
