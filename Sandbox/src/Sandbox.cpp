@@ -1,7 +1,6 @@
 #include "Sandbox.h"
 #include "_Sandbox.h"
 
-#include "scene/layer/TestLayer.h"
 #include "scene/EntryScene.h"
 
 //-----EntryPoint.h-----

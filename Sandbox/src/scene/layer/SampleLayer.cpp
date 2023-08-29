@@ -1,4 +1,4 @@
-#include "scene/layer/TestLayer.h"
+#include "scene/layer/SampleLayer.h"
 
 #include "renderer/Renderer2D.h"
 
@@ -9,13 +9,13 @@
 
 namespace SANDBOX
 {
-  TestLayer::TestLayer(const std::string& name)
+  SampleLayer::SampleLayer(const std::string& name)
     : name(name)
   {
 
   }
 
-  TestLayer::~TestLayer()
+  SampleLayer::~SampleLayer()
   {
 
   }
@@ -59,7 +59,7 @@ namespace SANDBOX
     (void)pOutput; 
   }
 
-  void TestLayer::OnAttach()
+  void SampleLayer::OnAttach()
   {
 #if 0
     ma_result result = ma_decoder_init_file(path_to_music.c_str(), NULL, &decoder);
@@ -125,7 +125,7 @@ namespace SANDBOX
     }
   }
 
-  void TestLayer::OnDetach()
+  void SampleLayer::OnDetach()
   {
     ma_device_uninit(&device);
 #if 0
@@ -135,12 +135,12 @@ namespace SANDBOX
 #endif
   }
 
-  void TestLayer::OnEvent(Banana::Event& event)
+  void SampleLayer::OnEvent(Banana::Event& event)
   {
 
   }
 
-  void TestLayer::OnUpdate(float dt)
+  void SampleLayer::OnUpdate(float dt)
   {
     float one_width = 2.0f / QUADS;
     for(size_t i = 0; i < QUADS; i++)
@@ -153,3 +153,4 @@ namespace SANDBOX
     }
   }
 };
+

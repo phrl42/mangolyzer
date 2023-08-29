@@ -111,8 +111,8 @@ namespace Banana
     ImGui::End();
 
     ImGui::Begin("Debug", nullptr, 0);
-    std::string msg = "FPS: 60";
-    if(1 / dt < 59) msg = "FPS: " + std::to_string(1 / dt);
+    std::string msg = "FPS: " + std::to_string(1 / dt);
+    //if(1 / dt < 59) msg = "FPS: " + std::to_string(1 / dt);
 
     ImGui::Text(msg.c_str());
     ImGui::End();

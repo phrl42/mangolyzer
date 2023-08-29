@@ -122,7 +122,7 @@ namespace Banana
       { 
         // toggling
         static bool press = false;
-        static bool debug = true;
+        static bool debug = false;
 
         if(Input::IsKeyPressed(KEY_U) && !press)
         {

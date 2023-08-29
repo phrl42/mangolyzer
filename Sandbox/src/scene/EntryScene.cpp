@@ -1,5 +1,5 @@
 #include "scene/EntryScene.h"
-#include "scene/layer/TestLayer.h"
+#include "scene/layer/SampleLayer.h"
 #include "layer/Layer.h"
 
 #include "renderer/Renderer2D.h"
@@ -9,7 +9,7 @@ namespace SANDBOX
   EntryScene::EntryScene(const std::string& name)
   :name(name)
   {
-    layer_stack.PushLayer(new TestLayer("Layer One"));
+    layer_stack.PushLayer(new SampleLayer("Layer One"));
   }
 
   void EntryScene::OnAttach()
