@@ -68,6 +68,19 @@ namespace Banana
     Banana::Renderer2D::EndScene();
   }
 
+  void Scene::RenderLayer(float dt, const std::string& name)
+  {
+    Banana::Renderer2D::BeginScene(cam);
+    for(auto layer : layer_stack)
+    {
+      if(name == layer->GetName())
+      {
+        layer->OnUpdate(dt);
+      }
+    }
+    Banana::Renderer2D::EndScene();
+  }
+
   void Scene::DetachLayer()
   {
     for(Layer* layer : layer_stack)

@@ -1,15 +1,19 @@
 #include "scene/EntryScene.h"
 #include "scene/layer/SampleLayer.h"
+#include "scene/layer/FreqLayer.h"
 #include "layer/Layer.h"
 
 #include "renderer/Renderer2D.h"
+
+#include "imgui/IMGUILayer.h"
 
 namespace SANDBOX
 {
   EntryScene::EntryScene(const std::string& name)
   :name(name)
   {
-    layer_stack.PushLayer(new SampleLayer("Layer One"));
+    layer_stack.PushLayer(new SampleLayer("SampleLayer"));
+    layer_stack.PushLayer(new FreqLayer("FreqLayer"));
   }
 
   void EntryScene::OnAttach()
@@ -55,12 +59,18 @@ namespace SANDBOX
 
     cam.SetPosition({x, y, z});
 
-    RenderLayer(dt);
+    if(Banana::IMGUILayer::active_layer == 0)
+    {
+      RenderLayer(dt, "SampleLayer");
+    }
+    else if(Banana::IMGUILayer::active_layer == 1)
+    {
+      RenderLayer(dt, "FreqLayer");
+    }
   }
 
   void EntryScene::OnDetach()
   {
     DetachLayer();
   }
-
 };

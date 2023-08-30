@@ -8,12 +8,12 @@
 
 namespace SANDBOX
 {
-  class SampleLayer : public Banana::Layer
+  class FreqLayer : public Banana::Layer
   {
   public:
-    SampleLayer(const std::string& name = "SampleLayer");
+    FreqLayer(const std::string& name = "FreqLayer");
     
-    ~SampleLayer() override;
+    ~FreqLayer() override;
 
     virtual void OnAttach() override;
     virtual void OnDetach() override;

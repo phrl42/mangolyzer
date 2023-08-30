@@ -34,6 +34,7 @@ namespace Banana
     void AttachLayer();
 
     void RenderLayer(float dt);
+    void RenderLayer(float dt, const std::string& name);
 
     void DetachLayer();
 

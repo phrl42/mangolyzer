@@ -11,6 +11,7 @@
 
 namespace Banana
 {
+  int IMGUILayer::active_layer = 0;
 
   IMGUILayer::IMGUILayer(const std::string& name)
   : name(name)
@@ -115,6 +116,10 @@ namespace Banana
     //if(1 / dt < 59) msg = "FPS: " + std::to_string(1 / dt);
 
     ImGui::Text(msg.c_str());
+    static int val = 0;
+    ImGui::RadioButton("Sample", &val, 0);
+
+    ImGui::RadioButton("Frequency", &val, 1); 
     ImGui::End();
 
     ImGui::Begin("Info", nullptr, 0);
@@ -131,6 +136,8 @@ namespace Banana
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
     ImGui::EndFrame();
+
+    IMGUILayer::active_layer = val;
   }
 
   void IMGUILayer::OnEvent(Event& event)

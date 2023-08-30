@@ -22,5 +22,10 @@ namespace Banana
   private:
     std::string name;
     float l_time;
+
+  public:
+    // layer information needed for sandbox
+    static int active_layer;
+    
   };
 };
