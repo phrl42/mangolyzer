@@ -26,9 +26,6 @@ namespace SANDBOX
   private:
     Banana::Entity ent[QUADS];
     std::string name;
-    ma_decoder decoder;
-    ma_encoder encoder;
-    ma_device device;
   };
 
 };

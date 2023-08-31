@@ -13,7 +13,7 @@ inline void fft(float in[], size_t stride, std::complex<float> out[], size_t n)
 
   if(!n)
     return;
-
+  
   if(n == 1)
   {
     out[0] = in[0];
