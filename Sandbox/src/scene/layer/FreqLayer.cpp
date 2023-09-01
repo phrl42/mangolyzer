@@ -24,7 +24,7 @@ namespace SANDBOX
 
   }
 
-  std::complex<float> freqs[MAX_SIZE];
+  std::complex<float> freqs[QUADS];
 
   void FreqLayer::OnAttach()
   {
@@ -33,7 +33,7 @@ namespace SANDBOX
       ent[i].AddComponent(new Banana::QuadComponent());
     }
 
-    memset(freqs, 0, sizeof(float) * MAX_SIZE);
+    memset(freqs, 0, sizeof(float) * QUADS);
   }
 
   void FreqLayer::OnDetach()
@@ -45,28 +45,17 @@ namespace SANDBOX
 
   }
 
-  float goal_array[QUADS] = {0};
-  int step_factor = 0.6f;
   void FreqLayer::OnUpdate(float dt)
   {
     fft(EntryScene::samples, 1, freqs, QUADS);
 
-    for(int i = 0; i < QUADS; i++)
-    {
-      step_factor = (abs(freqs[i]) - goal_array[i]) / 5;
-      if((step_factor > 0 && abs(freqs[i]) =< goal_array[i]) || (step_factor < 0 && abs(freqs[i]) >= goal_array[i]))
-      {
-	memcpy(goal_array, freqs, sizeof(float) * QUADS);
-      }
-      goal_array[i] += step_factor;
-    }
-
     float one_width = 2.0f / QUADS;
+
     for(size_t i = 0; i < QUADS; i++)
     {
       ent[i].transform.proj = Banana::Projection::NONE;
       ent[i].transform.pos = {(i * one_width) - 1, -1, 0};
-      ent[i].transform.size = {one_width, goal_array[i], 0};
+      ent[i].transform.size = {one_width, abs(freqs[i]), 0};
       ent[i].transform.color = {0, 1, 0, 1};
       ent[i].Render(dt);
     }
