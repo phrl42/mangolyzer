@@ -6,6 +6,15 @@
 #include <iomanip>
 using namespace std::complex_literals;
 
+inline float amp(std::complex<float> v)
+{
+  float s = fabsf(v.imag());
+  float c = fabsf(v.real());
+
+  if(s < c) return c;
+  return s;
+}
+
 inline void fft(float in[], size_t stride, std::complex<float> out[], size_t n)
 {
   float pi = atan2f(1, 1) * 4;
@@ -25,13 +34,27 @@ inline void fft(float in[], size_t stride, std::complex<float> out[], size_t n)
   for(size_t k = 0; k < n/2; ++k)
   {
     float t = (float)k/n;
-    std::complex<float> v = std::exp((std::complex<float>)(-2 * pi * t) * std::complex<float>(1i) ) * out[k + n/2];
+    std::complex<float> v = std::exp((float)(-2 * pi * t) * std::complex<float>(1i) ) * out[k + n/2];
     std::complex<float> e = out[k];
     out[k] = e + v;
     out[k + n/2] = e -v;
   }
 }
 
+inline void dft(float in[], std::complex<float> out[], size_t n)
+{
+  float pi = atan2f(1, 1) * 4;
+
+  for(size_t f = 0; f < n; f++)
+  {
+    out[f] = 0;
+    for(size_t i = 0; i < n; i++)
+    {
+      float t = (float)i/n;
+      out[f] += in[i] * std::exp((std::complex<float>)1i * pi * 2.0f * t * (float)f);
+    }
+  }
+}
 /*void dft(float *in, float complex *out, size_t n)
 {
   float pi = atan2f(1, 1) * 4;
