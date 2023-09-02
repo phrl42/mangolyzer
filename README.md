@@ -4,20 +4,20 @@ This is an experimental game engine which I personally use to learn about graphi
 
 I have been inspired by <a href="https://github.com/TheCherno/Hazel">Cherno</a> in terms of abstraction.
 
-# Instructions
+# Running
 
-In order to generate makefiles, run:
+Generate makefiles
 
 ```premake5 gmake2```
 
-Compile as follows:
+Compile
 
 ```make```
 
-Run game binary:
+Run visualizer
 
 ```bin/target/Debug/Sandbox/Sandbox```
 
-
 # Info
-Feel free to contribute
+
+In order to verify the workings of this visualizer you might have to play <a href="https://www.youtube.com/watch?v=QK2rmLE7mFw">this song</a>. This program does not come with any warranty nor liability.
