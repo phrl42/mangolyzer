@@ -20,4 +20,6 @@ Run visualizer
 
 # Info
 
-In order to verify the workings of this visualizer you might have to play <a href="https://www.youtube.com/watch?v=QK2rmLE7mFw">this song</a>. This program does not come with any warranty nor liability.
+You should press the key "u" in order to switch between modes.
+
+In order to verify the workings of this visualizer you might have to play <a href="https://www.youtube.com/watch?v=QK2rmLE7mFw">this song</a> whilst running. This program does not come with any warranty nor liability.
