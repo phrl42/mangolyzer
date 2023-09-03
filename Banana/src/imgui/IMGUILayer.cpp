@@ -123,7 +123,7 @@ namespace Banana
     ImGui::End();
 
     ImGui::Begin("Info", nullptr, 0);
-    ImGui::Text("Info text");
+    ImGui::Text("I don\'t know what to put here");
     ImGui::End();
     
     ImGui::Begin("Scene", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoDecoration);
