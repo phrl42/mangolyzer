@@ -118,45 +118,42 @@ namespace Banana
       fb->Bind();
       RenderCommand::SetClearColor(glm::vec4(0, 0, 0, 0));
 
-      if(!minimized)
-      { 
-        // toggling
-        static bool press = false;
-        static bool debug = false;
+      // toggling
+      static bool press = false;
+      static bool debug = false;
 
-        if(Input::IsKeyPressed(KEY_U) && !press)
-        {
-          press = true;
-          debug = !debug;
-        }
+      if(Input::IsKeyPressed(KEY_U) && !press)
+      {
+	press = true;
+	debug = !debug;
+      }
 
-        if(!Input::IsKeyPressed(KEY_U))
-        {
-          press = false;
-        }
+      if(!Input::IsKeyPressed(KEY_U))
+      {
+	press = false;
+      }
 
-        if(debug)
-        {
-          fb->Unbind();
-          debug_layer->OnUpdate(dt);
-          fb->Bind();
-        }
-        else 
-        {
-          RenderCommand::CopyFramebuffer(fb->GetID(), 0, GetWindow().GetWidth(), GetWindow().GetHeight());
-        }
+      if(debug)
+      {
+	fb->Unbind();
+	debug_layer->OnUpdate(dt);
+	fb->Bind();
+      }
+      else 
+      {
+	RenderCommand::CopyFramebuffer(fb->GetID(), 0, GetWindow().GetWidth(), GetWindow().GetHeight());
+      }
         
-        if(!debug)
-        {
-
-        }
-
-        for(Scene* scene : scene_stack)
-        {
-          scene->OnUpdate(dt);
-        }
+      if(!debug)
+      {
 
       }
+
+      for(Scene* scene : scene_stack)
+      {
+	scene->OnUpdate(dt);
+      }
+
       
       fb->Unbind();
       

@@ -24,7 +24,7 @@ namespace SANDBOX
 
   }
 
-  std::complex<float> freqs[QUADS];
+  std::complex<float> freqs[QUADS] = {0};
 
   void FreqLayer::OnAttach()
   {
@@ -32,7 +32,6 @@ namespace SANDBOX
     {
       ent[i].AddComponent(new Banana::QuadComponent());
     }
-    memset(freqs, 0, sizeof(float) * QUADS);
   }
 
   void FreqLayer::OnDetach()
@@ -49,14 +48,15 @@ namespace SANDBOX
   {
     fft(EntryScene::samples, 1, freqs, QUADS);
     float max_amp = 1;
-    float step = 0;
+    float step = 0.1;
     for(int i = 0; i < QUADS; i++)
     {
-      if(max_amp < abs(freqs[i]))
+      float value = abs(freqs[i]);
+      if(max_amp < value && value != 0)
       {
-	max_amp = abs(freqs[i]);
+	max_amp = value;
       }
-      step = ((abs(freqs[i]) / max_amp) * 2) - goal[i];
+      step = ((value / max_amp) * 2) - goal[i];
 
       goal[i] += step * (dt * 10);
     }
