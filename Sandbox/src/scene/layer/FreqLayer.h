@@ -4,7 +4,7 @@
 #include "renderer/Texture.h"
 #include "generic/Sound.h"
 
-#define QUADS 128
+#include "freq.h"
 
 namespace SANDBOX
 {
@@ -24,7 +24,7 @@ namespace SANDBOX
     virtual inline std::string& GetName() override { return name; }
   
   private:
-    Banana::Entity ent[QUADS];
+    std::array<Banana::Entity, FREQ_QUADS> ent;
     std::string name;
   };
 

@@ -33,6 +33,10 @@ group "engine"
 include "Banana/"
 group ""
 
+group "hotreloading"
+include "HotReloading/"
+group ""
+
 group "game"
 include "Sandbox/"
 group ""
