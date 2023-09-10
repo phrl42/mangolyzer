@@ -8,7 +8,7 @@
 #include "scene/EntryScene.h"
 
 #include <dlfcn.h>
-
+//#include "fft.h"
 
 namespace SANDBOX
 {
@@ -45,6 +45,10 @@ namespace SANDBOX
   }
 
   typedef void (*UpdateEntities) (float*, std::array<Banana::Entity, FREQ_QUADS>&, float);
+
+  //std::complex<float> freqs[FREQ_QUADS] = {0};
+
+  //float goal[FREQ_QUADS] = {0};
   
   void FreqLayer::OnUpdate(float dt)
   {
@@ -58,13 +62,10 @@ namespace SANDBOX
 
     UpdateEntities update_ent = reinterpret_cast<UpdateEntities>(dlsym(libhandle, "update_ent"));
 
-    LOG(dlerror());
     update_ent(EntryScene::samples, ent, dt);
 
-
-
     dlclose(libhandle);
-    
+
     /*fft(EntryScene::samples, 1, freqs, FREQ_QUADS);
     float max_amp = 1;
     float step = 0.1;
@@ -89,8 +90,8 @@ namespace SANDBOX
       ent[i].transform.size = {one_width, goal[i], 0};
       ent[i].transform.color = {goal[i], -0.3 + goal[i], 0.8 + goal[i], 1};
       ent[i].Render(dt);
-      }*/
-    
+      }
+    */
   }
 };
 
