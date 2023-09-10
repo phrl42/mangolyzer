@@ -149,12 +149,14 @@ namespace Banana
 
       }
 
-      for(Scene* scene : scene_stack)
+      if(!minimized)
       {
-	scene->OnUpdate(dt);
+	for(Scene* scene : scene_stack)
+	{
+	  scene->OnUpdate(dt);
+	}
       }
 
-      
       fb->Unbind();
       
       window->SwapBuffers();

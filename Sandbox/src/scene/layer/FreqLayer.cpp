@@ -8,7 +8,7 @@
 #include "scene/EntryScene.h"
 
 #include <dlfcn.h>
-//#include "fft.h"
+#include "fft.h"
 
 namespace SANDBOX
 {
@@ -30,8 +30,6 @@ namespace SANDBOX
     {
       ent[i].AddComponent(new Banana::QuadComponent());
     }
-
-    
   }
 
   void FreqLayer::OnDetach()
@@ -46,35 +44,35 @@ namespace SANDBOX
 
   typedef void (*UpdateEntities) (float*, std::array<Banana::Entity, FREQ_QUADS>&, float);
 
-  //std::complex<float> freqs[FREQ_QUADS] = {0};
+  std::complex<float> freqs[FREQ_QUADS] = {0};
 
-  //float goal[FREQ_QUADS] = {0};
+  float goal[FREQ_QUADS] = {0};
   
   void FreqLayer::OnUpdate(float dt)
   {
-    void *libhandle = dlopen("bin/target/Debug/HotReloading/libHotReloading.so", RTLD_LAZY);
-
-    if(libhandle == NULL)
-    {
-      LOG("Could not find shared library.");
-      return;
-    }
-
-    UpdateEntities update_ent = reinterpret_cast<UpdateEntities>(dlsym(libhandle, "update_ent"));
-
-    update_ent(EntryScene::samples, ent, dt);
-
-    dlclose(libhandle);
-
-    /*fft(EntryScene::samples, 1, freqs, FREQ_QUADS);
+    // performing calculations and stuff
+    fft(EntryScene::samples, 1, freqs, FREQ_QUADS);
     float max_amp = 1;
     float step = 0.1;
+
+    // find maximum amplitude in current sample
     for(int i = 0; i < FREQ_QUADS; i++)
     {
       float value = abs(freqs[i]);
-      if(max_amp < value && value != 0)
+      if(value > max_amp && value != 0)
       {
 	max_amp = value;
+      }
+    }
+    
+    for(int i = 0; i < FREQ_QUADS; i++)
+    {
+      float value = abs(freqs[i]);
+
+      // this prevents idle overflowing
+      if(goal[i] > 2)
+      {
+	goal[i] = 0;
       }
       step = ((value / max_amp) * 2) - goal[i];
 
@@ -90,8 +88,24 @@ namespace SANDBOX
       ent[i].transform.size = {one_width, goal[i], 0};
       ent[i].transform.color = {goal[i], -0.3 + goal[i], 0.8 + goal[i], 1};
       ent[i].Render(dt);
-      }
-    */
+    }
+
+    // hot reloading design
+    
+    void *libhandle = dlopen("bin/target/Debug/HotReloading/libHotReloading.so", RTLD_LAZY);
+
+    if(libhandle == NULL)
+    {
+      LOG("Could not find shared library.");
+      return;
+    }
+
+    UpdateEntities update_ent = reinterpret_cast<UpdateEntities>(dlsym(libhandle, "update_ent"));
+
+    update_ent(goal, ent, dt);
+
+    dlclose(libhandle);
+    
   }
 };
 
