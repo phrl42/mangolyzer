@@ -1,2 +1,2 @@
 #pragma once
-#define FREQ_QUADS 128
+#define FREQ_QUADS 256

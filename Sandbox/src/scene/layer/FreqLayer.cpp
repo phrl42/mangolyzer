@@ -78,17 +78,17 @@ namespace SANDBOX
 
       goal[i] += step * (dt * 10);
     }
-
+/*
     float one_width = 2.0f / FREQ_QUADS;
 
     for(size_t i = 0; i < FREQ_QUADS; i++)
     {
       ent[i].transform.proj = Banana::Projection::NONE;
       ent[i].transform.pos = {(i * one_width) - 1, -1, 0};
-      ent[i].transform.size = {one_width, goal[i], 0};
+      ent[i].transform.size = {2, goal[i], 0};
       ent[i].transform.color = {goal[i], -0.3 + goal[i], 0.8 + goal[i], 1};
       ent[i].Render(dt);
-    }
+      }*/
 
     // hot reloading design
     
